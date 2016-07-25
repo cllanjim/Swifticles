@@ -10,11 +10,30 @@ import UIKit
 
 class ImageImportViewController: UIViewController {
     
-    lazy weak var importScrollView:ImportScrollView? =  {
-        var isv:ImportScrollView? = ImportScrollView(frame: self.view.bounds)
-        self.view.addSubview(isv!)
-        return isv
-    }()
+    
+    var image:UIImage? {
+        didSet {
+            
+        }
+    }
+    
+    @IBOutlet weak var importScrollView: ImportScrollView?
+    {
+        didSet {
+            
+            if image != nil && importScrollView != nil {
+                importScrollView!.image = image
+            }
+            
+            
+        }
+    }
+    
+//    lazy weak var importScrollView:ImportScrollView? =  {
+//        var isv:ImportScrollView? = ImportScrollView(frame: self.view.bounds)
+//        self.view.addSubview(isv!)
+//        return isv
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +46,16 @@ class ImageImportViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setUp(image:UIImage?) {
+    func setUp(image:UIImage?, screenSize:CGSize) {
         
-        importScrollView?.image = image
+        
+        print("SetUp Img[\(image?.size.width)x\(image?.size.height)] Size[\(screenSize.width)x\(screenSize.height)]")
+        
+        
+        //importScrollView?.image = image
+        
+        self.image = image
+        
         
     }
     

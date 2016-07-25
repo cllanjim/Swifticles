@@ -29,14 +29,10 @@ class HomeMenuViewController: UIViewController {
         
         if segue.identifier == "image_import" {
             
-            var testImage = UIImage(named: "test_image.jpg")
+            let testImage = UIImage(named: "test_image.jpg")
             
             if let importer = segue.destinationViewController as? ImageImportViewController {
-                
-                
-                importer.setUp(testImage)
-                
-                
+                importer.setUp(testImage, screenSize: self.view.bounds.size)
             }
         }
     }
