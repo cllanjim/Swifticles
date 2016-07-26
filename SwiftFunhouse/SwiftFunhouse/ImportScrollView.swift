@@ -31,7 +31,7 @@ class ImportScrollView: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     

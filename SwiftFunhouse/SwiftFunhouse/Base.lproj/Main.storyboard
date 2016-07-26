@@ -112,9 +112,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXi-Gw-Y2j" customClass="ImportScrollView" customModule="SwiftFunhouse" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8IL-Lj-2vx">
                                 <rect key="frame" x="20" y="279" width="130" height="42"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -141,17 +138,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="SXi-Gw-Y2j" secondAttribute="trailing" id="0Lb-hb-mia"/>
-                            <constraint firstItem="SXi-Gw-Y2j" firstAttribute="top" secondItem="HB9-oq-FtW" secondAttribute="top" id="DhV-Bt-P8n"/>
                             <constraint firstItem="8IL-Lj-2vx" firstAttribute="centerY" secondItem="HB9-oq-FtW" secondAttribute="centerY" id="QzC-Vu-V7B"/>
-                            <constraint firstItem="SXi-Gw-Y2j" firstAttribute="leading" secondItem="HB9-oq-FtW" secondAttribute="leading" id="p3e-HI-Vr5"/>
-                            <constraint firstItem="SXi-Gw-Y2j" firstAttribute="bottom" secondItem="Eeh-8G-qbv" secondAttribute="top" id="tZ6-UH-Xlp"/>
                             <constraint firstItem="8IL-Lj-2vx" firstAttribute="leading" secondItem="HB9-oq-FtW" secondAttribute="leadingMargin" id="ujI-jF-peq"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="importScrollView" destination="SXi-Gw-Y2j" id="HDu-6m-BVk"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vge-H0-Wtq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
