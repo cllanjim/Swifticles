@@ -8,14 +8,43 @@
 
 import UIKit
 
-class ImageImportViewController: UIViewController {
-    
+class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var imageView:UIImageView!
+    
+    var startTranslation:CGPoint = CGPointZero
+    var startRotation:CGFloat = 0.0
+    var startScale:CGFloat = 0.0
+    
+    var crosshairH:UIView = UIView()
+    var crosshairV:UIView = UIView()
+    
+    
     
     var translation:CGPoint = CGPointZero {didSet {updateTransform()}}
     var rotation:CGFloat = 0.0 {didSet {updateTransform()}}
     var scale:CGFloat = 1.0 {didSet {updateTransform()}}
+    
+    var pivotPoint:CGPoint = CGPointZero {
+    
+        didSet {
+            
+            if imageView != nil {
+                
+                
+                //imageView.layer.anchorPoint = CGPoint(x: pivotPoint.x / imageView.bounds.size.width , y: pivotPoint.y / imageView.bounds.size.height)
+                //print("Anchor = [\(imageView.layer.anchorPoint.x) , \(imageView.layer.anchorPoint.y)] ")
+                
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    var pivot:Bool = false
+    
     
     func updateTransform() {
         
@@ -33,8 +62,15 @@ class ImageImportViewController: UIViewController {
         //imageView.transform.tx = translation.x
         //imageView.transform.ty = translation.y
         
+        let crosshairT = CGAffineTransformMakeTranslation(pivotPoint.x, pivotPoint.y)
+        
+        crosshairH.frame = CGRectMake(pivotPoint.x - crosshairH.frame.size.width / 2.0, pivotPoint.y - crosshairH.frame.size.height / 2.0, crosshairH.frame.size.width, crosshairH.frame.size.height)
+        
+        crosshairV.frame = CGRectMake(pivotPoint.x - crosshairV.frame.size.width / 2.0, pivotPoint.y - crosshairV.frame.size.height / 2.0, crosshairV.frame.size.width, crosshairV.frame.size.height)
         
         
+        //crosshairH.transform = crosshairT
+        //crosshairV.transform = crosshairT
         
     }
     
@@ -71,24 +107,65 @@ class ImageImportViewController: UIViewController {
     
     func didPan(gr:UIPanGestureRecognizer) -> Void {
         
+        var localTranslation = gr.translationInView(self.view)
+        var localPivot = gr.locationInView(imageView)
+        
         switch gr.state {
-        case .Began, .Changed:
+        
+        case .Began:
             
-            self.translation = gr.translationInView(self.view)
+            pivot = true
+            pivotPoint = localPivot //view.convertPoint(localTranslation, fromView: imageView)
             
+            print("Pan-Pivot = [\(pivotPoint.x), \(pivotPoint.y)]")
+            
+            
+            startTranslation = self.translation
+            translation = CGPoint(x: startTranslation.x + localTranslation.x, y: startTranslation.y + localTranslation.y)
+            
+            break
+        case .Changed:
+            
+            pivot = true
+            pivotPoint = localPivot //view.convertPoint(localTranslation, fromView: imageView)
+            
+            translation = CGPoint(x: startTranslation.x + localTranslation.x, y: startTranslation.y + localTranslation.y)
+            break
         default:
             
+            gr.setTranslation(CGPointZero, inView: self.view)
             break
             
         }
-        
     }
     
     func didPinch(gr:UIPanGestureRecognizer) -> Void {
         
+        var localPivot = gr.locationInView(imageView)
+        
+        pivot = true
+        pivotPoint = localPivot //view.convertPoint(localTranslation, fromView: imageView)
+        
+        print("Pinch-Pivot = [\(pivotPoint.x), \(pivotPoint.y)]")
+        
+        
+        
     }
     
-    func didRotate(gr:UIPanGestureRecognizer) -> Void {
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func didRotate(gr:UIRotationGestureRecognizer) -> Void {
+        
+        rotation = gr.rotation
+        
+        var localPivot = gr.locationInView(imageView)
+        
+        pivot = true
+        pivotPoint = localPivot //view.convertPoint(localTranslation, fromView: imageView)
+        
+        print("Rotate-Pivot = [\(pivotPoint.x), \(pivotPoint.y)]")
         
     }
 
@@ -102,8 +179,9 @@ class ImageImportViewController: UIViewController {
         return image
     }
     
+    
+    
     func setUp(image:UIImage?, screenSize:CGSize) {
-        
         
         print("SetUp Img[\(image?.size.width)x\(image?.size.height)] Size[\(screenSize.width)x\(screenSize.height)]")
         
@@ -116,10 +194,14 @@ class ImageImportViewController: UIViewController {
             view.addSubview(imageView)
             
             
+            crosshairH.frame = CGRect(x: -10.0, y: -50.0, width: 20.0, height: 100.0)
+            crosshairV.frame = CGRect(x: -50.0, y: -10.0, width: 100.0, height: 20.0)
             
-            //Constrain image to proper size.
+            crosshairH.backgroundColor = UIColor.cyanColor()
+            crosshairV.backgroundColor = UIColor.cyanColor()
             
-            
+            imageView.addSubview(crosshairH)
+            imageView.addSubview(crosshairV)
         }
         
         
