@@ -18,7 +18,8 @@ class HomeMenuViewController: UIViewController {
     
     override func viewDidLoad() {
 
-        
+        //self.
+        performSegueWithIdentifier("image_import", sender: nil)
     }
     
     @IBAction func testPush(sender: UIButton) {

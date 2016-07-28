@@ -12,18 +12,75 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var imageView:UIImageView!
     
-    var startTranslation:CGPoint = CGPointZero
+    
+    var panRecognizer:UIPanGestureRecognizer!;//(target: self, action: #selector(ImageImportViewController.didPan(_:)))
+    var pinchRecognizer:UIPinchGestureRecognizer!;//(target: self, action: #selector(didPinch(_:)))
+    var rotRecognizer:UIRotationGestureRecognizer!;//(target: self, action: #selector(ImageImportViewController.didRotate(_:)))
+    
+    
+    
+    var starTouchCenter:CGPoint = CGPointZero
+    
+    var startImageTouchCenter:CGPoint = CGPointZero {
+        didSet {
+            
+            let crosshairT = CGAffineTransformMakeTranslation(startImageTouchCenter.x, startImageTouchCenter.y)
+            startCrosshairH.transform = crosshairT
+            startCrosshairV.transform = crosshairT
+        }
+    }
     var startRotation:CGFloat = 0.0
     var startScale:CGFloat = 1.0
+    
+    
     
     var crosshairH:UIView = UIView()
     var crosshairV:UIView = UIView()
     
+    var centerCrosshairH:UIView = UIView()
+    var centerCrosshairV:UIView = UIView()
     
     
-    var translation:CGPoint = CGPointZero {didSet {updateTransform()}}
-    var rotation:CGFloat = 0.0 {didSet {updateTransform()}}
-    var scale:CGFloat = 1.0 {didSet {updateTransform()}}
+    var startCrosshairH:UIView = UIView()
+    var startCrosshairV:UIView = UIView()
+    
+    
+    
+    var touchCenter = CGPointZero {
+        didSet {
+            let crosshairT = CGAffineTransformMakeTranslation(touchCenter.x, touchCenter.y)
+            centerCrosshairH.transform = crosshairT
+            centerCrosshairV.transform = crosshairT
+        }
+    }
+    
+    
+    var localImageCenter:CGPoint = CGPointZero
+    var imageCenter:CGPoint {
+        
+        get {
+            return localImageCenter
+        }
+        
+        set {
+            localImageCenter.x = newValue.x
+            localImageCenter.y = newValue.y
+            
+            
+            let crosshairT = CGAffineTransformMakeTranslation(pivotPoint.x, pivotPoint.y)
+            crosshairH.transform = crosshairT
+            crosshairV.transform = crosshairT
+            
+            
+        }
+        
+    }
+    
+    
+    var translation:CGPoint = CGPointZero
+    var rotation:CGFloat = 0.0
+    var scale:CGFloat = 1.0
+    
     
     var pivotPoint:CGPoint = CGPointZero {
     
@@ -37,9 +94,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 
             }
-            
         }
-        
     }
     
     
@@ -53,70 +108,91 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         
         t = CGAffineTransformScale(t, scale, scale)
         t = CGAffineTransformRotate(t, rotation)
-        
-        t.tx = translation.x
-        t.ty = translation.y
+        //t.tx = translation.x
+        //t.ty = translation.y
         
         imageView.transform = t
         
-        imageView.transform.tx = translation.x
-        imageView.transform.ty = translation.y
         
-        let crosshairT = CGAffineTransformMakeTranslation(pivotPoint.x, pivotPoint.y)
+        let newImageTouchCenter = imageView.convertPoint(touchCenter, fromView: view)
         
-        //crosshairH.frame = CGRectMake(pivotPoint.x - crosshairH.frame.size.width / 2.0, pivotPoint.y - crosshairH.frame.size.height / 2.0, crosshairH.frame.size.width, crosshairH.frame.size.height)
+        let deltaX = newImageTouchCenter.x - startImageTouchCenter.x
+        let deltaY = newImageTouchCenter.y - startImageTouchCenter.y
         
-        //crosshairV.frame = CGRectMake(pivotPoint.x - crosshairV.frame.size.width / 2.0, pivotPoint.y - crosshairV.frame.size.height / 2.0, crosshairV.frame.size.width, crosshairV.frame.size.height)
+        translation.x = deltaX
+        translation.y = deltaY
+        
+        //t.tx = translation.x
+        //t.ty = translation.y
+        
+        t = CGAffineTransformTranslate(t, translation.x, translation.y)
         
         
-        crosshairH.transform = crosshairT
-        crosshairV.transform = crosshairT
+        imageView.transform = t
         
-    }
-    
-    
-    /*
-    @IBOutlet weak var importScrollView: ImportScrollView?
-    {
-        didSet {
-            
-            if image != nil && importScrollView != nil {
-                importScrollView!.image = image
-            }
-            
-            
-        }
-    }
-    */
-    
-//    lazy weak var importScrollView:ImportScrollView? =  {
-//        var isv:ImportScrollView? = ImportScrollView(frame: self.view.bounds)
-//        self.view.addSubview(isv!)
-//        return isv
-//    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        //print("Delta[\(deltaX),\(deltaY)]")
+        
+        
+        
+        //starTouchCenter = pos
+        //startImageTouchCenter = imageView.convertPoint(pos, fromView: view)
+        
+        
+        //imageView.transform.tx = translation.x
+        //imageView.transform.ty = translation.y
+        
 
-        // Do any additional setup after loading the view.
         
         
-        var panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
-        panRecognizer.delegate = self
-        self.view.addGestureRecognizer(panRecognizer)
         
-        var pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:)))
-        pinchRecognizer.delegate = self
-        self.view.addGestureRecognizer(pinchRecognizer)
-        
-        var rotRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(ImageImportViewController.didRotate(_:)))
-        rotRecognizer.delegate = self
-        self.view.addGestureRecognizer(rotRecognizer)
     }
+    
+    func gestureBegan(pos:CGPoint) {
+        
+        starTouchCenter = pos
+        startImageTouchCenter = imageView.convertPoint(pos, fromView: view)
+        
+        pinchRecognizer.scale = 1.0
+        rotRecognizer.rotation = 0.0
+        
+        
+        
+        
+        startScale = scale
+        startRotation = rotation
+        
+    }
+    
     
     func didPan(gr:UIPanGestureRecognizer) -> Void {
         
-        var localTranslation = gr.translationInView(self.view)
+        touchCenter = gr.locationInView(self.view)
+        
+        let localTranslation = gr.translationInView(self.view)
+        
+        
+        switch gr.state {
+            
+        case .Began:
+            
+            gestureBegan(touchCenter)
+            break
+        case .Changed:
+            
+            break
+        default:
+            
+            break
+            
+        }
+        
+        updateTransform()
+        
+        //var touchCenter = CGPointZero
+        //var imageCenter = CGPointZero
+        
+        
+        /*
         var localPivot = gr.locationInView(imageView)
         
         switch gr.state {
@@ -130,7 +206,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             
             
             startTranslation = self.translation
-            translation = CGPoint(x: startTranslation.x + localTranslation.x, y: startTranslation.y + localTranslation.y)
+            translation = CGPoint(x: startTranslation.x + touchCenter.x, y: startTranslation.y + touchCenter.y)
             
             break
         case .Changed:
@@ -138,7 +214,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             pivot = true
             pivotPoint = localPivot //view.convertPoint(localTranslation, fromView: imageView)
             
-            translation = CGPoint(x: startTranslation.x + localTranslation.x, y: startTranslation.y + localTranslation.y)
+            translation = CGPoint(x: startTranslation.x + touchCenter.x, y: startTranslation.y + touchCenter.y)
             break
         default:
             
@@ -146,15 +222,21 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             break
             
         }
+ 
+        */
+        
     }
     
     func didPinch(gr:UIPinchGestureRecognizer) -> Void {
         
+        touchCenter = gr.locationInView(self.view)
+
         
         
         switch gr.state {
             
             case .Began:
+                gestureBegan(touchCenter)
             
                 startScale = scale
                 scale = startScale * gr.scale
@@ -163,6 +245,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             case .Changed:
             
                 scale = startScale * gr.scale
+                
                 
             break
             default:
@@ -176,16 +259,20 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         let localPivot = gr.locationInView(imageView)
         pivot = true
         pivotPoint = localPivot //view.convertPoint(localTranslation, fromView: imageView)
-        print("Pinch-Pivot = [\(pivotPoint.x), \(pivotPoint.y)]")
+        //print("Pinch-Pivot = [\(pivotPoint.x), \(pivotPoint.y)]")
         
         
+        updateTransform()
         
     }
     
     func didRotate(gr:UIRotationGestureRecognizer) -> Void {
         
+        touchCenter = gr.locationInView(self.view)
+        
         switch gr.state {
         case .Began:
+            gestureBegan(touchCenter)
             startRotation = rotation
             break
         default:
@@ -197,21 +284,17 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         var localPivot = gr.locationInView(imageView)
         pivot = true
         pivotPoint = localPivot //view.convertPoint(localTranslation, fromView: imageView)
-        print("Rotate-Pivot = [\(pivotPoint.x), \(pivotPoint.y)]")
+        //print("Rotate-Pivot = [\(pivotPoint.x), \(pivotPoint.y)]")
+        
+        updateTransform()
         
     }
 
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        if gestureRecognizer.isKindOfClass(UIPanGestureRecognizer) && otherGestureRecognizer.isKindOfClass(UIRotationGestureRecognizer) {
-            
-            //return false
-            
-        }
-        
         return true
     }
+    
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -237,19 +320,53 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             
             let importImage:UIImage = constrainImageToImportSize(image!, screenSize: screenSize)
             
+            //imageView = UIImageView(frame: CGRect(x: -(importImage.size.width / 2.0), y: -(importImage.size.height) / 2.0, width: importImage.size.width, height: importImage.size.height))
             imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: importImage.size.width, height: importImage.size.height))
+            
             imageView.image = importImage
+            imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             view.addSubview(imageView)
             
             
             crosshairH.frame = CGRect(x: -10.0, y: -50.0, width: 20.0, height: 100.0)
             crosshairV.frame = CGRect(x: -50.0, y: -10.0, width: 100.0, height: 20.0)
-            
             crosshairH.backgroundColor = UIColor.cyanColor()
             crosshairV.backgroundColor = UIColor.cyanColor()
-            
             imageView.addSubview(crosshairH)
             imageView.addSubview(crosshairV)
+            
+            
+            centerCrosshairH.frame = CGRect(x: -5.0, y: -30.0, width: 10.0, height: 60.0)
+            centerCrosshairV.frame = CGRect(x: -30.0, y: -5.0, width: 60.0, height: 10.0)
+            centerCrosshairH.backgroundColor = UIColor.blueColor()
+            centerCrosshairV.backgroundColor = UIColor.blueColor()
+            view.addSubview(centerCrosshairH)
+            view.addSubview(centerCrosshairV)
+            
+            
+            startCrosshairH.frame = CGRect(x: -3.0, y: -40.0, width: 6.0, height: 80.0)
+            startCrosshairV.frame = CGRect(x: -40.0, y: -3.0, width: 80.0, height: 6.0)
+            startCrosshairH.backgroundColor = UIColor.yellowColor()
+            startCrosshairV.backgroundColor = UIColor.yellowColor()
+            imageView.addSubview(startCrosshairH)
+            imageView.addSubview(startCrosshairV)
+            
+            
+            
+            
+            
+            panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
+            panRecognizer.delegate = self
+            self.view.addGestureRecognizer(panRecognizer)
+            
+            pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:)))
+            pinchRecognizer.delegate = self
+            self.view.addGestureRecognizer(pinchRecognizer)
+            
+            rotRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(ImageImportViewController.didRotate(_:)))
+            rotRecognizer.delegate = self
+            self.view.addGestureRecognizer(rotRecognizer)
+            
         }
         
         
