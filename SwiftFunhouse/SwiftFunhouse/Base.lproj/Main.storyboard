@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RwL-Gy-uiQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RwL-Gy-uiQ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -20,20 +20,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="4.png" translatesAutoresizingMaskIntoConstraints="NO" id="9ke-Cg-3Qi">
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="9ke-Cg-3Qi">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0g-qO-fEs">
                                 <rect key="frame" x="235" y="28" width="130" height="42"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="AvU-Jh-lF4"/>
+                                    <constraint firstAttribute="height" constant="42" id="AvU-Jh-lF4">
+                                        <variation key="heightClass=regular" constant="140"/>
+                                    </constraint>
                                     <constraint firstAttribute="width" constant="130" id="VxY-LW-rId"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="235" y="28" width="130" height="115"/>
+                                </variation>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="showDetail" action="showViewController:sender:" id="fj6-yn-JOU"/>
                                 </connections>
@@ -43,13 +48,18 @@
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="HME-JQ-Q79"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="JSc-E8-DIY"/>
+                                    <constraint firstAttribute="width" constant="130" id="JSc-E8-DIY">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="94"/>
+                                    </constraint>
                                     <constraint firstAttribute="width" constant="130" id="j0X-Yv-4Iv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="20" y="28" width="87" height="42"/>
+                                </variation>
                                 <connections>
                                     <action selector="testPush:" destination="RwL-Gy-uiQ" eventType="touchUpInside" id="Y9G-cI-ylb"/>
                                 </connections>
@@ -59,12 +69,17 @@
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="3KK-7D-jAv"/>
-                                    <constraint firstAttribute="height" constant="42" id="aCc-bI-ZfP"/>
+                                    <constraint firstAttribute="height" constant="42" id="aCc-bI-ZfP">
+                                        <variation key="heightClass=compact-widthClass=regular" constant="110"/>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="22"/>
                                 <state key="normal" title="Import">
                                     <color key="titleColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="650" y="240" width="130" height="140"/>
+                                </variation>
                                 <connections>
                                     <segue destination="ef1-Il-foa" kind="show" identifier="image_import" id="rZT-76-YF7"/>
                                 </connections>
@@ -98,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rIL-s4-1us" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-660" y="220"/>
+            <point key="canvasLocation" x="-660" y="219"/>
         </scene>
         <!--Image Import View Controller-->
         <scene sceneID="XW3-1e-kDI">
@@ -361,7 +376,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="4.png" width="375" height="567"/>
+        <image name="background_modal_ipad.png" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="BMn-bV-qZ4"/>
