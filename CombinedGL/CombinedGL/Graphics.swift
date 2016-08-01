@@ -106,26 +106,24 @@ class Graphics {
         cRectVertexBuffer[6] = x4
         cRectVertexBuffer[7] = y4
         
-        //cRectVertexBuffer.append(10.0)
-        //cRectVertexBuffer.append(16.0)
-        
         bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: cRectVertexBuffer, size: 8)
-        
-        //bufferVertexSetData(gSpriteBlank.mBufferSlotVertex, gSpriteBlank.mBufferVertex, 16);
         
         
         bufferVertexBind(cRectVertexBufferSlot);
         bufferIndexBind(cRectIndexBufferSlot);
         
         positionEnable()
-        positionSetPointer(size: 4, offset: 0, stride: 0)
+        //positionSetPointer(size: 4, offset: 0, stride: 0)
+        
+        gG.positionSetPointer(size: 2, offset: 0, stride: 0)
         
         
-        //drawElementsTriangle(count:6, offset: 0)
         
-        cullFacesDisable()
+        drawElementsTriangle(count:6, offset: 0)
         
-        glDrawArrays(GLenum(GL_TRIANGLES), 0, 6)
+        //cullFacesDisable()
+        
+        //glDrawArrays(GLenum(GL_TRIANGLES), 0, 4)
         
         
         //drawElementsTriangle(6, 0);
@@ -270,22 +268,13 @@ class Graphics {
     
     func bufferGenerate() -> GLuint {
         var result = GLuint()
-        
         glGenBuffers(1, &result);
         return result;
     }
     
     func bufferVertexSetData(bufferIndex bufferIndex:GLuint, data:[GLfloat], size:Int) {
         glBindBuffer(GLenum(GL_ARRAY_BUFFER), bufferIndex)
-        
         glBufferData(GLenum(GL_ARRAY_BUFFER), size * sizeof(GLfloat), data, GLenum(GL_STATIC_DRAW))
-        //glBufferData(GLenum(GL_ARRAY_BUFFER), GLsizeiptr(sizeof(GLfloat) * size), data, GLenum(GL_STATIC_DRAW))
-        
-        //var dataClone:[GLfloat] = data
-        
-        //glBufferData(GLenum(GL_ARRAY_BUFFER), GLsizeiptr(sizeof(GLfloat) * size), &dataClone, GLenum(GL_STATIC_DRAW))
-        
-        
     }
     
     func bufferIndexGenerate(data data:[IndexBufferType], size:Int) -> GLuint {
@@ -315,7 +304,7 @@ class Graphics {
     {
         let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
         //glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLint(stride << 2), ptr);
-        glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLint(stride << 2), nil);
+        glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLint(stride << 2), nil)
         
         
     }

@@ -160,17 +160,29 @@ class GameViewController: GLKViewController {
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
         
         
+        gG.blendEnable()
+        gG.blendSetAlpha()
+        
+        gG.colorSet(r: 0.25, g: 1.0, b: 0.75, a: 0.85)
         
         gG.bufferVertexSetData(bufferIndex: vertexBuffer, data: gCubeVertexData, size: gCubeVertexData.count)
         
         
-        gG.bufferVertexBind(vertexArray)
+        //gG.bufferVertexBind(vertexArray)
         
         
         
         gG.positionEnable()
-        glVertexAttribPointer(GLuint(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, BUFFER_OFFSET(0))
-        //glVertexAttribPointer(indx: GLuint, _ size: GLint, _ type: GLenum, _ normalized: GLboolean, _ stride: GLsizei, _ ptr: UnsafePointer<Void>)
+        //glVertexAttribPointer(GLuint(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, BUFFER_OFFSET(0))
+        
+        
+        //glVertexAttribPointer(GLuint(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, BUFFER_OFFSET(0))
+        
+        //glVertexAttribPointer(GLenum(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, nil)
+        
+        gG.positionSetPointer(size: 3, offset: 0, stride: 6)
+        
+        
         
         
         gG.matrixProjectionSet(modelViewProjectionMatrix)
@@ -180,10 +192,62 @@ class GameViewController: GLKViewController {
         
         glClear(GLbitfield(GL_DEPTH_BUFFER_BIT))
         
+        
+        
+        
+        let width = self.view.frame.size.width
+        let height = self.view.frame.size.height
+        
+        
+        //glViewport(0, 0, GLsizei(width), GLsizei(height))
+        var p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
+        
+        var m2 = GLKMatrix4RotateX(modelViewProjectionMatrix, 0.5)
+        
+        p = GLKMatrix4Translate(p, Float(width / 2.0), Float(height / 2.0), 0.0)
+        
+        p = GLKMatrix4Scale(p, 20.0, 20.0, 20.0)
+        
+        
+        gG.matrixProjectionSet(p)
+        
+        
+        
+        
+        
+        
+        glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
+        
+        
+        p = GLKMatrix4Translate(p, -2.0, -1.5, 0.0)
+        p = GLKMatrix4RotateX(p, 0.6)
+        p = GLKMatrix4RotateY(p, 0.2)
+        p = GLKMatrix4RotateZ(p, 1.3)
+        
+        gG.matrixProjectionSet(p)
+        
+        glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
+        
+        
+        //gG.matrixModelViewReset()
+        
+        //gG.matrixModelViewSet(p)
+        //gG.matrixProjectionReset()
+        
+        
+        p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
+        gG.matrixProjectionSet(p)
+        
+        
+        gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
+        gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 100))
+        
+        gG.colorSet(r: 0.2, g: 0.15, b: 0.8, a: 0.8)
+        gG.rectDraw(x: 170, y: 220, width: 90, height: 380)
+        
+        
         //
         //gG.positionSetPointer(size: <#T##Int#>, offset: <#T##Int#>, stride: <#T##Int#>)
-        
-        
         gG.rectDraw(x: -0.5, y: -0.7, width: 1.25, height: 3.0)
         
         
@@ -201,15 +265,18 @@ class GameViewController: GLKViewController {
         // Create shader program.
         program = glCreateProgram()
         
+        
         // Create and compile vertex shader.
-        vertShaderPathname = NSBundle.mainBundle().pathForResource("Shader", ofType: "vsh")!
+        vertShaderPathname = NSBundle.mainBundle().pathForResource("VertexShader", ofType: "glsl")!
         if self.compileShader(&vertShader, type: GLenum(GL_VERTEX_SHADER), file: vertShaderPathname) == false {
             print("Failed to compile vertex shader")
             return false
         }
         
         // Create and compile fragment shader.
-        fragShaderPathname = NSBundle.mainBundle().pathForResource("Shader", ofType: "fsh")!
+        //fragShaderPathname = NSBundle.mainBundle().pathForResource("Shader", ofType: "fsh")!
+        fragShaderPathname = NSBundle.mainBundle().pathForResource("FragmentShader", ofType: "glsl")!
+        
         if !self.compileShader(&fragShader, type: GLenum(GL_FRAGMENT_SHADER), file: fragShaderPathname) {
             print("Failed to compile fragment shader")
             return false
