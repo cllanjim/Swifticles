@@ -11,14 +11,25 @@ import OpenGLES
 
 //var uniforms = [GLint](count: 2, repeatedValue: 0)
 
-class GameViewController: GLKViewController {
+class GameViewController: UIViewController {
+    
+    
+    var eaglLayer:CAEAGLLayer? //CAEAGLLayer
+    var context:EAGLContext?//EAGLContext* ;
+    
+    var updateTimer:NSTimer?
     
     var program: GLuint = 0
     
     var vertexArray: GLuint = 0
     var vertexBuffer: GLuint = 0
     
-    var context: EAGLContext? = nil
+    //var context: EAGLContext? = nil
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     deinit {
         self.tearDownGL()
@@ -31,6 +42,7 @@ class GameViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         self.context = EAGLContext(API: .OpenGLES2)
         
         if !(self.context != nil) {
@@ -40,8 +52,12 @@ class GameViewController: GLKViewController {
         let view = self.view as! GLKView
         view.context = self.context!
         view.drawableDepthFormat = .Format24
+        */
         
         self.setupGL()
+        
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: #selector(GameViewController.update), userInfo: nil, repeats: true)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,11 +74,28 @@ class GameViewController: GLKViewController {
             self.context = nil
         }
     }
-    
+
     func setupGL() {
         
-        EAGLContext.setCurrentContext(self.context)
+        self.context = EAGLContext(API: .OpenGLES2)
         
+        if !(self.context != nil) {
+            print("Failed to create ES context")
+        }
+        
+        let view = self.view as! GLKView
+        view.context = self.context!
+        view.drawableDepthFormat = .Format24
+        
+        
+        view.drawableDepthFormat = .Format24
+        
+        
+        eaglLayer = self.view.layer as? CAEAGLLayer
+        
+        eaglLayer!.opaque = true;
+        
+        EAGLContext.setCurrentContext(self.context)
         
         
         //todo
@@ -71,6 +104,7 @@ class GameViewController: GLKViewController {
         glBindFramebuffer(GLenum(GL_FRAMEBUFFER), framebuffer);
         glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_RENDERBUFFER), gGLBufferRender);
         glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_ATTACHMENT), GLenum(GL_RENDERBUFFER), gGLBufferDepth);
+        
         
         
         
@@ -110,21 +144,19 @@ class GameViewController: GLKViewController {
         }
     }
     
-    // MARK: - GLKView and GLKViewController delegate methods
+    
+    var f:CGFloat = 0.1
     
     func update() {
-        
-        //let aspect = fabsf(Float(self.view.bounds.size.width / self.view.bounds.size.height))
-        //let projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0), aspect, 0.1, 100.0)
-        
-        
-    }
-    
-    override func glkView(view: GLKView, drawInRect rect: CGRect) {
         //glClearColor(0.65, 0.65, 0.65, 1.0)
         //glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
         
-        gG.clear(r: 0.25, g: 0.25, b: 0.34)
+        f += 0.01
+        if f > 1.0 {
+            f = 0.0
+        }
+        
+        gG.clear(r: Float(f), g: 0.25, b: 0.34)
         gG.clearDepth()
         
         let width = self.view.frame.size.width
@@ -192,10 +224,7 @@ class GameViewController: GLKViewController {
             return false
         }
         
-        // Attach vertex shader to program.
         glAttachShader(program, vertShader)
-        
-        // Attach fragment shader to program.
         glAttachShader(program, fragShader)
         
         // Bind attribute locations.

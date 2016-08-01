@@ -414,17 +414,23 @@ class Graphics {
      glBindTexture(GL_TEXTURE_2D, pIndex);
      }
      
-     
-     
-     
-     
-     
-     
      */
+    
+    
+    class var sharedInstance: Graphics
+    {
+        struct Static {
+            static var cTokenOnce: dispatch_once_t = 0
+            static var cInstance: Graphics? = nil
+        }
+        dispatch_once(&Static.cTokenOnce){Static.cInstance = Graphics()}
+        return Static.cInstance!
+    }
     
 }
 
-let gG:Graphics = Graphics()
+
+let gG:Graphics = Graphics.sharedInstance
 
 
 
