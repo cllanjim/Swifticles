@@ -17,6 +17,9 @@
 		0D5F680D1D4EFC7000FAF47B /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0D5F68091D4EFC7000FAF47B /* Shader.vsh */; };
 		0D5F680E1D4EFC7000FAF47B /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D5F680A1D4EFC7000FAF47B /* VertexShader.glsl */; };
 		0D5F68101D4EFCA700FAF47B /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5F680F1D4EFCA700FAF47B /* Graphics.swift */; };
+		0DA009C21D5050F700BD55BF /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA009C11D5050F700BD55BF /* Texture.swift */; };
+		0DA009C41D50510300BD55BF /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA009C31D50510300BD55BF /* Image.swift */; };
+		0DA009C61D505E2500BD55BF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA009C51D505E2500BD55BF /* Utils.swift */; };
 		C20B14621D4FC7C90026A697 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20B14611D4FC7C90026A697 /* Sprite.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +36,9 @@
 		0D5F68091D4EFC7000FAF47B /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		0D5F680A1D4EFC7000FAF47B /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
 		0D5F680F1D4EFCA700FAF47B /* Graphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
+		0DA009C11D5050F700BD55BF /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
+		0DA009C31D50510300BD55BF /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		0DA009C51D505E2500BD55BF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C20B14611D4FC7C90026A697 /* Sprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +81,9 @@
 				0D5F67FD1D4EFBBF00FAF47B /* LaunchScreen.storyboard */,
 				0D5F68001D4EFBBF00FAF47B /* Info.plist */,
 				0D5F68061D4EFC7000FAF47B /* Shaders */,
+				0DA009C11D5050F700BD55BF /* Texture.swift */,
+				0DA009C31D50510300BD55BF /* Image.swift */,
+				0DA009C51D505E2500BD55BF /* Utils.swift */,
 			);
 			path = CombinedGL;
 			sourceTree = "<group>";
@@ -166,6 +175,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D5F68101D4EFCA700FAF47B /* Graphics.swift in Sources */,
+				0DA009C41D50510300BD55BF /* Image.swift in Sources */,
+				0DA009C21D5050F700BD55BF /* Texture.swift in Sources */,
+				0DA009C61D505E2500BD55BF /* Utils.swift in Sources */,
 				0D5F67F71D4EFBBF00FAF47B /* GameViewController.swift in Sources */,
 				C20B14621D4FC7C90026A697 /* Sprite.swift in Sources */,
 				0D5F67F11D4EFBBF00FAF47B /* AppDelegate.swift in Sources */,

@@ -12,6 +12,7 @@ import QuartzCore
 import CoreData
 
 typealias IndexBufferType = GLushort
+typealias BindIndex = GLint
 
 var gGLBufferDepth:GLuint = 0
 var gGLBufferRender:GLuint = 0
@@ -44,8 +45,8 @@ class Graphics {
     
     private var cRectIndexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
     
-    private var cRectVertexBufferSlot:GLuint = 0
-    private var cRectIndexBufferSlot:GLuint = 0
+    private var cRectVertexBufferSlot:BindIndex = -1
+    private var cRectIndexBufferSlot:BindIndex = -1
     
     init() {
         
@@ -65,39 +66,13 @@ class Graphics {
             1, 1]    //UV
         
         
-        cRectVertexBuffer = [-128, -128, //XY
-                //UV
-            128, -128,  //XY
-                //UV
-            -128, 128,  //XY
-                //UV
-            128, 128,   //XY
-            
-            0, 0,
-            1, 0,
-            0, 1,
-            1, 1]    //UV
-        
-        
-        //mBufferVertex[8 + 0] = 0;
-        //mBufferVertex[8 + 1] = 0;
-        
-        //mBufferVertex[8 + 2] = 1;
-        //mBufferVertex[8 + 3] = 0;
-        
-        //mBufferVertex[8 + 4] = 0;
-        //mBufferVertex[8 + 5] = 1;
-        
-        //mBufferVertex[8 + 6] = 1;
-        //mBufferVertex[8 + 7] = 1;
-        
-        //cRectTextureCoordBuffer
-        
+        cRectVertexBuffer = [-128.0, -128.0, 0.0, 0.0,
+            128.0, -128.0,  1.0, 0.0,
+            -128.0, 128.0,  0.0, 1.0,
+            128.0, 128.0,  1.0, 1.0]
         
         cRectVertexBuffer.forEach() { float in
-            
             print("Float = \(float)")
-            
         }
         
         cRectVertexBuffer.enumerate().forEach { index, value in
@@ -142,8 +117,13 @@ class Graphics {
         
         //bufferVertexBind(cRectVertexBufferSlot)
         
+        
         positionEnable()
         positionSetPointer(size: 2, offset: 0, stride: 4)
+        
+        //texCoordEnable()
+        //textureCoordSetPointer(size: 2, offset: 2, stride: 4)
+        
         
         bufferIndexBind(cRectIndexBufferSlot)
         drawElementsTriangle(count:6, offset: 0)
@@ -182,9 +162,7 @@ class Graphics {
         glClear(GLenum(GL_COLOR_BUFFER_BIT))
     }
     
-    func depthClear() {
-        glClear(GLenum(GL_DEPTH_BUFFER_BIT))
-    }
+    
     
     
     func positionEnable() {
@@ -235,40 +213,40 @@ class Graphics {
         glCullFace(GLenum(GL_BACK))
     }
     
-    func bufferVertexGenerate(data data:[GLfloat], size:Int) -> GLuint {
-        let result:GLuint = bufferGenerate()
+    func bufferVertexGenerate(data data:[GLfloat], size:Int) -> BindIndex {
+        let result:BindIndex = bufferGenerate()
         bufferVertexSetData(bufferIndex:result, data: data, size: size)
         return result;
     }
     
-    func bufferGenerate() -> GLuint {
+    func bufferGenerate() -> BindIndex {
         var result = GLuint()
         glGenBuffers(1, &result);
-        return result;
+        return BindIndex(result);
     }
     
-    func bufferVertexSetData(bufferIndex bufferIndex:GLuint, data:[GLfloat], size:Int) {
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), bufferIndex)
+    func bufferVertexSetData(bufferIndex bufferIndex:BindIndex, data:[GLfloat], size:Int) {
+        glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(bufferIndex))
         glBufferData(GLenum(GL_ARRAY_BUFFER), size * sizeof(GLfloat), data, GLenum(GL_STATIC_DRAW))
     }
     
-    func bufferIndexGenerate(data data:[IndexBufferType], size:Int) -> GLuint {
+    func bufferIndexGenerate(data data:[IndexBufferType], size:Int) -> BindIndex {
         let result = bufferGenerate()
         bufferIndexSetData(bufferIndex:result, data: data, size: size);
         return result;
     }
     
-    func bufferIndexSetData(bufferIndex bufferIndex:GLuint, data:[IndexBufferType], size:Int) {
-        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), bufferIndex)
+    func bufferIndexSetData(bufferIndex bufferIndex:BindIndex, data:[IndexBufferType], size:Int) {
+        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(bufferIndex))
         glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), size * sizeof(UInt32), data, GLenum(GL_STATIC_DRAW))
     }
     
-    func bufferVertexBind(bufferIndex:GLuint) {
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), bufferIndex)
+    func bufferVertexBind(bufferIndex:BindIndex) {
+        glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(bufferIndex))
     }
     
-    func bufferIndexBind(bufferIndex:GLuint) {
-        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), bufferIndex)
+    func bufferIndexBind(bufferIndex:BindIndex) {
+        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(bufferIndex))
     }
     
     func positionSetPointer(size size:Int, offset:Int, stride:Int) {
@@ -330,11 +308,67 @@ class Graphics {
         glDisable(GLenum(GL_DEPTH_TEST))
     }
     
-    func clearDepth() {
+    func depthClear() {
         glClear(GLenum(GL_DEPTH_BUFFER_BIT))
     }
     
     
+    
+    //BindIndex
+    func textureGenerate(width width:Int, height:Int, data:UnsafeMutablePointer<()>) -> BindIndex {
+        
+        /*
+        //UnsafeMutablePointer<()>
+        
+        int aBindIndex=-1;
+        
+        glGenTextures(1, (GLuint*)(&aBindIndex));
+        
+        if(aBindIndex == -1)
+        {
+            printf("Error Binding Texture [%d x %d]\n", pWidth, pHeight);
+        }
+        else
+        {
+            bindTexture(aBindIndex, pData, pWidth, pHeight);
+        }
+        
+        return aBindIndex;
+        */
+        
+        
+        return 0
+    }
+    
+    func textureSetData(index index:BindIndex, width:Int, height:Int, data:UnsafeMutablePointer<()>) {
+        
+        //bindTexture(pIndex);
+        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pWidth, pHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData);
+    }
+    
+    func textureBind(index index:BindIndex) {
+        glBindTexture(GLenum(GL_TEXTURE_2D), GLuint(index));
+    }
+    
+    func textureDelete(index index:BindIndex) {
+        
+        //glDeleteTextures(1, (GLuint*)(&(pIndex)));
+        
+    }
+    
+    func textureEnable() {
+        
+    }
+    
+    func textureDisable() {
+        
+    }
+    
+    //private class func Load(filename: String, inout width: GLsizei, inout height: GLsizei) ->  {
+
+        
+        
     /*
      
      glViewport(0, 0, gDeviceWidth, gDeviceHeight);
@@ -351,40 +385,6 @@ class Graphics {
      
      
      
-     int generateTexture(unsigned int *pData, int pWidth, int pHeight)
-     {
-     int aBindIndex=-1;
-     
-     glGenTextures(1, (GLuint*)(&aBindIndex));
-     
-     if(aBindIndex == -1)
-     {
-     printf("Error Binding Texture [%d x %d]\n", pWidth, pHeight);
-     }
-     else
-     {
-     bindTexture(aBindIndex, pData, pWidth, pHeight);
-     }
-     
-     return aBindIndex;
-     }
-     
-     void deleteTexture(int pIndex)
-     {
-     glDeleteTextures(1, (GLuint*)(&(pIndex)));
-     }
-     
-     void bindTexture(int pIndex, unsigned int *pData, int pWidth, int pHeight)
-     {
-     bindTexture(pIndex);
-     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pWidth, pHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData);
-     }
-     
-     void bindTexture(int pIndex)
-     {
-     glBindTexture(GL_TEXTURE_2D, pIndex);
-     }
      
      */
     

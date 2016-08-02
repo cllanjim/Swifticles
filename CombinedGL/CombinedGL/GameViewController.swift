@@ -22,6 +22,8 @@ class GameViewController: GLKViewController {
     
     var context: EAGLContext? = nil
     
+    var texxx:Texture?
+    
     deinit {
         self.tearDownGL()
         if EAGLContext.currentContext() === self.context {
@@ -76,6 +78,14 @@ class GameViewController: GLKViewController {
         glBindVertexArrayOES(vertexArray)
         glGenBuffers(1, &vertexBuffer)
         
+        
+        
+        //var path = Utils.getBundle()
+        //path = path.
+        
+        //texxx = Texture(filename: "texture.png")
+        
+        
     }
     
     func tearDownGL() {
@@ -126,73 +136,10 @@ class GameViewController: GLKViewController {
         glClearColor(0.65, 0.65, 0.65, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
         
-        
-        /*
-        gG.blendEnable()
-        gG.blendSetAlpha()
-        
-        gG.colorSet(r: 0.25, g: 1.0, b: 0.75, a: 0.85)
-        
-        gG.bufferVertexSetData(bufferIndex: vertexBuffer, data: gCubeVertexData, size: gCubeVertexData.count)
-        gG.positionEnable()
-        gG.positionSetPointer(size: 3, offset: 0, stride: 6)
-        
-        
-        
-        
-        gG.matrixProjectionSet(modelViewProjectionMatrix)
-        
-        glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
-        
-        
-        glClear(GLbitfield(GL_DEPTH_BUFFER_BIT))
-        */
-        
-        
-        
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         
-        
-        /*
-        //glViewport(0, 0, GLsizei(width), GLsizei(height))
-        var p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
-        
-        var m2 = GLKMatrix4RotateX(modelViewProjectionMatrix, 0.5)
-        
-        p = GLKMatrix4Translate(p, Float(width / 2.0), Float(height / 2.0), 0.0)
-        
-        p = GLKMatrix4Scale(p, 20.0, 20.0, 20.0)
-        
-        
-        gG.matrixProjectionSet(p)
-        
-        
-        
-        
-        
-        
-        glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
-        
-        
-        p = GLKMatrix4Translate(p, -2.0, -1.5, 0.0)
-        p = GLKMatrix4RotateX(p, 0.6)
-        p = GLKMatrix4RotateY(p, 0.2)
-        p = GLKMatrix4RotateZ(p, 1.3)
-        
-        gG.matrixProjectionSet(p)
-        
-        glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
-        
-        
-        //gG.matrixModelViewReset()
-        
-        //gG.matrixModelViewSet(p)
-        //gG.matrixProjectionReset()
- 
- 
-        */
-        
+
         
         let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
         gG.matrixProjectionSet(p)
@@ -200,6 +147,12 @@ class GameViewController: GLKViewController {
         
         //gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
         //gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 100))
+        
+        
+        
+        //gG.texCoordEnable()
+        //texxx
+        
         
         gG.colorSet(r: 0.2, g: 0.15, b: 0.8, a: 0.8)
         gG.rectDraw(x: Float(width - (120 + 10)), y: Float(height - (390 + 10)), width: 120, height: 390)
