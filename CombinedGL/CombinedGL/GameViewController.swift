@@ -9,15 +9,6 @@
 import GLKit
 import OpenGLES
 
-func BUFFER_OFFSET(i: Int) -> UnsafePointer<Void> {
-    let p: UnsafePointer<Void> = nil
-    return p.advancedBy(i)
-}
-
-let UNIFORM_MODELVIEWPROJECTION_MATRIX = 0
-let UNIFORM_NORMAL_MATRIX = 1
-var uniforms = [GLint](count: 2, repeatedValue: 0)
-
 class GameViewController: GLKViewController {
     
     var program: GLuint = 0
@@ -30,12 +21,9 @@ class GameViewController: GLKViewController {
     var vertexBuffer: GLuint = 0
     
     var context: EAGLContext? = nil
-    //var effect: GLKBaseEffect? = nil
-    
     
     deinit {
         self.tearDownGL()
-        
         if EAGLContext.currentContext() === self.context {
             EAGLContext.setCurrentContext(nil)
         }
@@ -52,7 +40,9 @@ class GameViewController: GLKViewController {
         
         let view = self.view as! GLKView
         view.context = self.context!
+        
         view.drawableDepthFormat = .Format24
+        
         
         self.setupGL()
     }
@@ -80,34 +70,11 @@ class GameViewController: GLKViewController {
         
         self.loadShaders()
         
-        //self.effect = GLKBaseEffect()
-        //self.effect!.light0.enabled = GLboolean(GL_TRUE)
-        //self.effect!.light0.diffuseColor = GLKVector4Make(1.0, 0.4, 0.4, 1.0)
-        
         glEnable(GLenum(GL_DEPTH_TEST))
         
         glGenVertexArraysOES(1, &vertexArray)
         glBindVertexArrayOES(vertexArray)
-        
         glGenBuffers(1, &vertexBuffer)
-        
-        //glBufferData(GLenum(GL_ARRAY_BUFFER), GLsizeiptr(sizeof(GLfloat) * gCubeVertexData.count), &gCubeVertexData, GLenum(GL_STATIC_DRAW))
-        
-        //glBufferData(GLenum(GL_ARRAY_BUFFER), GLsizeiptr(sizeof(GLfloat) * gCubeVertexData.count), &gCubeVertexData, GLenum(GL_STATIC_DRAW))
-        
-        
-        
-        //glEnableVertexAttribArray(GLuint(GLKVertexAttrib.Position.rawValue))
-        //glVertexAttribPointer(GLuint(GLKVertexAttrib.Position.rawValue), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, BUFFER_OFFSET(0))
-        
-        
-        //glEnableVertexAttribArray(GLuint(gGLSlotPosition))
-        //glVertexAttribPointer(GLuint(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, BUFFER_OFFSET(0))
-        
-        
-        
-        //glBindVertexArrayOES(0)
-        
         
     }
     
@@ -160,26 +127,14 @@ class GameViewController: GLKViewController {
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
         
         
+        /*
         gG.blendEnable()
         gG.blendSetAlpha()
         
         gG.colorSet(r: 0.25, g: 1.0, b: 0.75, a: 0.85)
         
         gG.bufferVertexSetData(bufferIndex: vertexBuffer, data: gCubeVertexData, size: gCubeVertexData.count)
-        
-        
-        //gG.bufferVertexBind(vertexArray)
-        
-        
-        
         gG.positionEnable()
-        //glVertexAttribPointer(GLuint(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, BUFFER_OFFSET(0))
-        
-        
-        //glVertexAttribPointer(GLuint(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, BUFFER_OFFSET(0))
-        
-        //glVertexAttribPointer(GLenum(gGLSlotPosition), 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 24, nil)
-        
         gG.positionSetPointer(size: 3, offset: 0, stride: 6)
         
         
@@ -191,7 +146,7 @@ class GameViewController: GLKViewController {
         
         
         glClear(GLbitfield(GL_DEPTH_BUFFER_BIT))
-        
+        */
         
         
         
@@ -199,6 +154,7 @@ class GameViewController: GLKViewController {
         let height = self.view.frame.size.height
         
         
+        /*
         //glViewport(0, 0, GLsizei(width), GLsizei(height))
         var p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
         
@@ -233,24 +189,20 @@ class GameViewController: GLKViewController {
         
         //gG.matrixModelViewSet(p)
         //gG.matrixProjectionReset()
+ 
+ 
+        */
         
         
-        p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
+        let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
         gG.matrixProjectionSet(p)
         
         
-        gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
-        gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 100))
+        //gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
+        //gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 100))
         
         gG.colorSet(r: 0.2, g: 0.15, b: 0.8, a: 0.8)
-        gG.rectDraw(x: 170, y: 220, width: 90, height: 380)
-        
-        
-        //
-        //gG.positionSetPointer(size: <#T##Int#>, offset: <#T##Int#>, stride: <#T##Int#>)
-        gG.rectDraw(x: -0.5, y: -0.7, width: 1.25, height: 3.0)
-        
-        
+        gG.rectDraw(x: Float(width - (120 + 10)), y: Float(height - (390 + 10)), width: 120, height: 390)
         
     }
     
@@ -322,21 +274,16 @@ class GameViewController: GLKViewController {
         gGLUniformTexture = glGetUniformLocation(program, "Texture")
         gGLUniformColorModulate = glGetUniformLocation(program, "ModulateColor")
         
-        // Get uniform locations.
-        uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(program, "ProjectionMatrix")
-        uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(program, "normalMatrix")
-        
-        /*
         // Release vertex and fragment shaders.
         if vertShader != 0 {
             glDetachShader(program, vertShader)
             glDeleteShader(vertShader)
         }
+        
         if fragShader != 0 {
             glDetachShader(program, fragShader)
             glDeleteShader(fragShader)
         }
-        */
         
         glUseProgram(program)
         
@@ -371,18 +318,6 @@ class GameViewController: GLKViewController {
     func linkProgram(prog: GLuint) -> Bool {
         var status: GLint = 0
         glLinkProgram(prog)
-        
-        //#if defined(DEBUG)
-        //        var logLength: GLint = 0
-        //        glGetShaderiv(shader, GLenum(GL_INFO_LOG_LENGTH), &logLength)
-        //        if logLength > 0 {
-        //            var log = UnsafeMutablePointer<GLchar>(malloc(Int(logLength)))
-        //            glGetShaderInfoLog(shader, logLength, &logLength, log)
-        //            NSLog("Shader compile log: \n%s", log)
-        //            free(log)
-        //        }
-        //#endif
-        
         glGetProgramiv(prog, GLenum(GL_LINK_STATUS), &status)
         if status == 0 {
             return false

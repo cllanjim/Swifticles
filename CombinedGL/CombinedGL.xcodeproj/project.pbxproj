@@ -17,6 +17,7 @@
 		0D5F680D1D4EFC7000FAF47B /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0D5F68091D4EFC7000FAF47B /* Shader.vsh */; };
 		0D5F680E1D4EFC7000FAF47B /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D5F680A1D4EFC7000FAF47B /* VertexShader.glsl */; };
 		0D5F68101D4EFCA700FAF47B /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5F680F1D4EFCA700FAF47B /* Graphics.swift */; };
+		C20B14621D4FC7C90026A697 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20B14611D4FC7C90026A697 /* Sprite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		0D5F68091D4EFC7000FAF47B /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
 		0D5F680A1D4EFC7000FAF47B /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
 		0D5F680F1D4EFCA700FAF47B /* Graphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
+		C20B14611D4FC7C90026A697 /* Sprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		0D5F67EF1D4EFBBF00FAF47B /* CombinedGL */ = {
 			isa = PBXGroup;
 			children = (
+				C20B14611D4FC7C90026A697 /* Sprite.swift */,
 				0D5F67F01D4EFBBF00FAF47B /* AppDelegate.swift */,
 				0D5F67F61D4EFBBF00FAF47B /* GameViewController.swift */,
 				0D5F680F1D4EFCA700FAF47B /* Graphics.swift */,
@@ -164,6 +167,7 @@
 			files = (
 				0D5F68101D4EFCA700FAF47B /* Graphics.swift in Sources */,
 				0D5F67F71D4EFBBF00FAF47B /* GameViewController.swift in Sources */,
+				C20B14621D4FC7C90026A697 /* Sprite.swift in Sources */,
 				0D5F67F11D4EFBBF00FAF47B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +320,7 @@
 				0D5F68051D4EFBBF00FAF47B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

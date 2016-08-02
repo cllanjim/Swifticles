@@ -23,6 +23,7 @@ var gGLUniformColorModulate:GLint = 0
 
 var gGLSlotPosition:GLint = 0
 var gGLSlotTexCoord:GLint = 0
+var gGLSlotColor:GLint = 0
 var gGLSlotNormal:GLint = 0
 
 extension GLKMatrix4 {
@@ -38,7 +39,9 @@ class Graphics {
     private var cProjectionMatrix = GLKMatrix4Identity
     private var cModelViewMatrix = GLKMatrix4Identity
     
-    private var cRectVertexBuffer:[GLfloat] = [GLfloat](count:100, repeatedValue: 0.0)
+    private var cRectVertexBuffer:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
+    //private var cRectTextureCoordBuffer:[GLfloat] = [GLfloat](count:8, repeatedValue: 0.0)
+    
     private var cRectIndexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
     
     private var cRectVertexBufferSlot:GLuint = 0
@@ -50,7 +53,46 @@ class Graphics {
         print("Graphics.init()")
         
         //print("Float Size = \(sizeof(GLfloat))")
-        cRectVertexBuffer = [-128, -128, 128, -128, -128, 128, 128, 128]
+        //cRectVertexBuffer = [-128, -128, 128, -128, -128, 128, 128, 128]
+        
+        cRectVertexBuffer = [-128, -128, //XY
+            0, 0,    //UV
+            128, -128,  //XY
+            1, 0,    //UV
+            -128, 128,  //XY
+            0, 1,    //UV
+            128, 128,   //XY
+            1, 1]    //UV
+        
+        
+        cRectVertexBuffer = [-128, -128, //XY
+                //UV
+            128, -128,  //XY
+                //UV
+            -128, 128,  //XY
+                //UV
+            128, 128,   //XY
+            
+            0, 0,
+            1, 0,
+            0, 1,
+            1, 1]    //UV
+        
+        
+        //mBufferVertex[8 + 0] = 0;
+        //mBufferVertex[8 + 1] = 0;
+        
+        //mBufferVertex[8 + 2] = 1;
+        //mBufferVertex[8 + 3] = 0;
+        
+        //mBufferVertex[8 + 4] = 0;
+        //mBufferVertex[8 + 5] = 1;
+        
+        //mBufferVertex[8 + 6] = 1;
+        //mBufferVertex[8 + 7] = 1;
+        
+        //cRectTextureCoordBuffer
+        
         
         cRectVertexBuffer.forEach() { float in
             
@@ -62,14 +104,6 @@ class Graphics {
             cRectVertexBuffer[index] = value / 10.0
         }
         
-        cRectVertexBuffer.map {
-            
-            
-            $0 * 0.15
-            
-        }
-        
-        
         //cRectVertexBuffer[0] = -128
         //cRectVertexBuffer[1] = -128
         //cRectVertexBuffer[2] = 128
@@ -79,17 +113,11 @@ class Graphics {
         //cRectVertexBuffer[6] = 128
         //cRectVertexBuffer[7] = 128
         
+        cRectIndexBuffer = [0, 2, 1, 1, 2, 3]
         
-        //cRectIndexBuffer = [0, 2, 1, 1, 2, 3]
         
-        cRectIndexBuffer[0] = 0
-        cRectIndexBuffer[1] = 2
-        cRectIndexBuffer[2] = 1
-        cRectIndexBuffer[3] = 1
-        cRectIndexBuffer[4] = 2
-        cRectIndexBuffer[5] = 3
         
-        cRectVertexBufferSlot = bufferVertexGenerate(data: cRectVertexBuffer, size: 8)
+        cRectVertexBufferSlot = bufferVertexGenerate(data: cRectVertexBuffer, size: 16)
         cRectIndexBufferSlot = bufferIndexGenerate(data: cRectIndexBuffer, size: 6)
         
         
@@ -97,81 +125,28 @@ class Graphics {
     
     func quadDraw(x1 x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat, x3:GLfloat, y3:GLfloat, x4:GLfloat, y4:GLfloat) {
         
-        cRectVertexBuffer[0] = x1
-        cRectVertexBuffer[1] = y1
-        cRectVertexBuffer[2] = x2
-        cRectVertexBuffer[3] = y2
-        cRectVertexBuffer[4] = x3
-        cRectVertexBuffer[5] = y3
-        cRectVertexBuffer[6] = x4
-        cRectVertexBuffer[7] = y4
+        cRectVertexBuffer[0 ] = x1
+        cRectVertexBuffer[1 ] = y1
         
-        bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: cRectVertexBuffer, size: 8)
+        cRectVertexBuffer[4 ] = x2
+        cRectVertexBuffer[5 ] = y2
+        
+        cRectVertexBuffer[8 ] = x3
+        cRectVertexBuffer[9 ] = y3
+        
+        cRectVertexBuffer[12] = x4
+        cRectVertexBuffer[13] = y4
         
         
-        bufferVertexBind(cRectVertexBufferSlot);
-        bufferIndexBind(cRectIndexBufferSlot);
+        bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: cRectVertexBuffer, size: 16)
+        
+        //bufferVertexBind(cRectVertexBufferSlot)
         
         positionEnable()
-        //positionSetPointer(size: 4, offset: 0, stride: 0)
+        positionSetPointer(size: 2, offset: 0, stride: 4)
         
-        gG.positionSetPointer(size: 2, offset: 0, stride: 0)
-        
-        
-        
+        bufferIndexBind(cRectIndexBufferSlot)
         drawElementsTriangle(count:6, offset: 0)
-        
-        //cullFacesDisable()
-        
-        //glDrawArrays(GLenum(GL_TRIANGLES), 0, 4)
-        
-        
-        //drawElementsTriangle(6, 0);
-        
-        //drawE
-        
-        //positionSetPointer(2, 0);
-        //quadDrawtexCoordSetPointer(2, 8);
-        
-        //quadDrawbindTexture(mBindIndex);
-        //
-        
-        
-        //cRectQuad
-        
-        
-        /*
-         float aPos[8];
-         aPos[0]=x1;
-         aPos[1]=y1;
-         aPos[2]=x2;
-         aPos[3]=y2;
-         aPos[4]=x3;
-         aPos[5]=y3;
-         aPos[6]=x4;
-         aPos[7]=y4;
-         */
-        
-        
-        /*
-         gSpriteBlank.mBufferVertex[0]=x1;
-         gSpriteBlank.mBufferVertex[1]=y1;
-         gSpriteBlank.mBufferVertex[2]=x2;
-         gSpriteBlank.mBufferVertex[3]=y2;
-         gSpriteBlank.mBufferVertex[4]=x3;
-         gSpriteBlank.mBufferVertex[5]=y3;
-         gSpriteBlank.mBufferVertex[6]=x4;
-         gSpriteBlank.mBufferVertex[7]=y4;
-         
-         //glDisable(GL_TEXTURE_2D);
-         //bufferVertexSetData(gGLBufferQuad, aPos, 8);
-         
-         bufferVertexSetData(gSpriteBlank.mBufferSlotVertex, gSpriteBlank.mBufferVertex, 16);
-         
-         
-         gSpriteBlank.Draw();
-         */
-        
     }
     
     func rectDraw(rect:CGRect) {
@@ -288,9 +263,6 @@ class Graphics {
         glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), size * sizeof(UInt32), data, GLenum(GL_STATIC_DRAW))
     }
     
-
-
-
     func bufferVertexBind(bufferIndex:GLuint) {
         glBindBuffer(GLenum(GL_ARRAY_BUFFER), bufferIndex)
     }
@@ -299,44 +271,26 @@ class Graphics {
         glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), bufferIndex)
     }
     
-    
-    func positionSetPointer(size size:Int, offset:Int, stride:Int)
-    {
+    func positionSetPointer(size size:Int, offset:Int, stride:Int) {
         let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
-        //glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLint(stride << 2), ptr);
-        glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLint(stride << 2), nil)
-        
-        
+        glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
 
-    /*
-    func textureCoordSetPointer(size size:Int, offset:Int, stride:Int)
-    {
-        glVertexAttribPointer(gGLSlotTexCoord, size, GL_FLOAT, GL_FALSE, (pStride << 2), (GLvoid*)(pOffset << 2));
+    func textureCoordSetPointer(size size:Int, offset:Int, stride:Int) {
+        let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
+        glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
 
-    func colorSetPointer(offset:Int, stride:Int)
-    {
-        glVertexAttribPointer(gGLSlotColor, 4, GL_FLOAT, GL_FALSE, (pStride << 2), (GLvoid*)(pOffset << 2));
+    func colorSetPointer(size size:Int, offset:Int, stride:Int) {
+        let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
+        glVertexAttribPointer(GLenum(gGLSlotColor), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
-
-    
-
-     */
-    
     
     func drawElementsTriangle(count count:Int, offset:Int)
     {
-        //IndexBufferType
         let ptr = UnsafePointer<Void>(bitPattern: (offset << 1))
-        //glDrawElements(GLenum(GL_TRIANGLES), GLsizei(count), GLenum(GL_UNSIGNED_SHORT), ptr);
-        glDrawElements(GLenum(GL_TRIANGLES), GLsizei(count), GLenum(GL_UNSIGNED_SHORT), nil);
-        
+        glDrawElements(GLenum(GL_TRIANGLES), GLsizei(count), GLenum(GL_UNSIGNED_SHORT), ptr)
     }
-    
-    
-    //cProjectionMatrix = GLKMatrix4Identity
-    //cModelViewMatrix = GLKMatrix4Identity
     
     func matrixProjectionGet() -> GLKMatrix4 {
         return cProjectionMatrix
@@ -348,34 +302,24 @@ class Graphics {
     
     func matrixProjectionSet(mat:GLKMatrix4) {
         cProjectionMatrix = mat
-        //glUniformMatrix4fv(gGLUniformProjection, 1, 0, mat.array)
-        
-        withUnsafePointer(&cProjectionMatrix, {
+        withUnsafePointer(&cProjectionMatrix) {
             glUniformMatrix4fv(gGLUniformProjection, 1, 0, UnsafePointer($0))
-        })
+        }
     }
     
     func matrixModelViewSet(mat:GLKMatrix4) {
         cModelViewMatrix = mat
-        
-        withUnsafePointer(&cModelViewMatrix, {
+        withUnsafePointer(&cModelViewMatrix) {
             glUniformMatrix4fv(gGLUniformModelView, 1, 0, UnsafePointer($0))
-        })
-        
-        //glUniformMatrix4fv(gGLUniformModelView, 1, 0, cModelViewMatrix.array)
+        }
     }
     
     func matrixProjectionReset() {
         matrixProjectionSet(GLKMatrix4Identity)
-        
-        //glUniformMatrix4fv(gGLUniformProjection, 1, 0, cProjectionMatrix.array);
     }
     
     func matrixModelViewReset() {
-        
         matrixModelViewSet(GLKMatrix4Identity)
-        //cModelViewMatrix = GLKMatrix4Identity
-        //glUniformMatrix4fv(gGLUniformModelView, 1, 0, cModelViewMatrix.array);
     }
     
     func depthEnable() {
@@ -441,12 +385,6 @@ class Graphics {
      {
      glBindTexture(GL_TEXTURE_2D, pIndex);
      }
-     
-     
-     
-     
-     
-     
      
      */
     

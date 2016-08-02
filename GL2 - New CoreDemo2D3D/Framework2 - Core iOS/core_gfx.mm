@@ -82,8 +82,8 @@ void gfx_initialize()
     
     //gfx_shaderAttachFragment(gfx_shaderCompileFragment("FragmentShaderPrimitive.glsl"));
     
-    unsigned int aShaderFragment = gfx_shaderCompileFragment("FragmentShaderTexture.glsl");
-    unsigned int aShaderVertex = gfx_shaderCompileVertex("VertexShaderTexture.glsl");
+    unsigned int aShaderFragment = gfx_shaderCompileFragment("FragmentShader.glsl");
+    unsigned int aShaderVertex = gfx_shaderCompileVertex("VertexShader.glsl");
     
     NSLog(@"Shader Fr[%d] Ve[%d]", aShaderFragment, aShaderVertex);
     
