@@ -3,16 +3,16 @@
 //  Copyright © 2015 Darkswarm LLC. All rights reserved.
 //
 
-//import UIKit
-import Foundation
+import UIKit
+//import Foundation
 
-class Utils// : DSObject
+public class FileUtils// : DSObject
 {
-    required init() {
+    required public init() {
         
     }
     
-    func getBundle() -> String
+    public class func getBundle() -> String
     {
         var result:String! = nil
         result = NSBundle.mainBundle().resourcePath
@@ -20,7 +20,7 @@ class Utils// : DSObject
         return result
     }
     
-    func getDocs() -> String!
+    public class func getDocs() -> String
     {
         var result:String! = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
         result = result.stringByAppendingString("/")

@@ -71,29 +71,17 @@ class Graphics {
             -128.0, 128.0,  0.0, 1.0,
             128.0, 128.0,  1.0, 1.0]
         
-        cRectVertexBuffer.forEach() { float in
-            print("Float = \(float)")
-        }
         
-        cRectVertexBuffer.enumerate().forEach { index, value in
-            cRectVertexBuffer[index] = value / 10.0
-        }
-        
-        //cRectVertexBuffer[0] = -128
-        //cRectVertexBuffer[1] = -128
-        //cRectVertexBuffer[2] = 128
-        //cRectVertexBuffer[3] = -128
-        //cRectVertexBuffer[4] = -128
-        //cRectVertexBuffer[5] = 128
-        //cRectVertexBuffer[6] = 128
-        //cRectVertexBuffer[7] = 128
         
         cRectIndexBuffer = [0, 2, 1, 1, 2, 3]
         
-        
-        
         cRectVertexBufferSlot = bufferVertexGenerate(data: cRectVertexBuffer, size: 16)
         cRectIndexBufferSlot = bufferIndexGenerate(data: cRectIndexBuffer, size: 6)
+        
+        
+        cRectVertexBuffer.forEach() { float in
+            print("Float = \(float)")
+        }
         
         
     }
@@ -112,7 +100,6 @@ class Graphics {
         cRectVertexBuffer[12] = x4
         cRectVertexBuffer[13] = y4
         
-        
         bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: cRectVertexBuffer, size: 16)
         
         //bufferVertexBind(cRectVertexBufferSlot)
@@ -121,11 +108,12 @@ class Graphics {
         positionEnable()
         positionSetPointer(size: 2, offset: 0, stride: 4)
         
-        //texCoordEnable()
-        //textureCoordSetPointer(size: 2, offset: 2, stride: 4)
+        texCoordEnable()
+        textureCoordSetPointer(size: 2, offset: 2, stride: 4)
         
+        //glDrawArrays(GLenum(GL_TRIANGLES), 0, 4)
         
-        bufferIndexBind(cRectIndexBufferSlot)
+        //bufferIndexBind(cRectIndexBufferSlot)
         drawElementsTriangle(count:6, offset: 0)
     }
     
@@ -256,7 +244,7 @@ class Graphics {
 
     func textureCoordSetPointer(size size:Int, offset:Int, stride:Int) {
         let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
-        glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
+        glVertexAttribPointer(GLenum(gGLSlotTexCoord), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
 
     func colorSetPointer(size size:Int, offset:Int, stride:Int) {
