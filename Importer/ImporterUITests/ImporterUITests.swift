@@ -1,14 +1,14 @@
 //
-//  FizzBuzzUITests.swift
-//  FizzBuzzUITests
+//  ImporterUITests.swift
+//  ImporterUITests
 //
-//  Created by Nicholas Raptis on 8/2/16.
+//  Created by Nicholas Raptis on 8/3/16.
 //  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import XCTest
 
-class FizzBuzzUITests: XCTestCase {
+class ImporterUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
@@ -22,25 +22,15 @@ class FizzBuzzUITests: XCTestCase {
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
-
-    func testTapNumberButtonIncrementsScore() {
-        let app = XCUIApplication()
-        let numberButton = app.buttons["numberButton"]
-        
-        numberButton.tap()
-        let newScore = numberButton.label
-        XCTAssertEqual(newScore, "1")
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
     }
     
-    func testTapNumberButtonTwiceIncrementsTo2() {
-        let app = XCUIApplication()
-        let numberButton = app.buttons["numberButton"]
-        
-        numberButton.tap()
-        numberButton.tap()
-        let newScore = numberButton.label
-        XCTAssertEqual(newScore, "2")
+    func testExample() {
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-    
     
 }
