@@ -80,9 +80,10 @@ class GameViewController: GLKViewController {
         
         
         
+        
         var path = ""//FileUtils.getBundle()
         
-        path = path.stringByAppendingString("texture.png")
+        path = path.stringByAppendingString("rock")
         
         texxx = Texture(filename: path)
         

@@ -49,53 +49,32 @@ class Graphics {
     private var cRectIndexBufferSlot:BindIndex = -1
     
     init() {
-        
-        
         print("Graphics.init()")
         
-        //print("Float Size = \(sizeof(GLfloat))")
-        //cRectVertexBuffer = [-128, -128, 128, -128, -128, 128, 128, 128]
-        
-        cRectVertexBuffer = [-128, -128, //XY
-            0, 0,    //UV
-            128, -128,  //XY
-            1, 0,    //UV
-            -128, 128,  //XY
-            0, 1,    //UV
-            128, 128,   //XY
-            1, 1]    //UV
-        
-        
-        cRectVertexBuffer = [-128.0, -128.0, 0.0, 0.0,
-            128.0, -128.0,  1.0, 0.0,
-            -128.0, 128.0,  0.0, 1.0,
-            128.0, 128.0,  1.0, 1.0]
-        
-        
+        //XYUV, XYUV, XYUV, XYUV
+        cRectVertexBuffer = [-128.0, -128.0, 0.0, 0.0, 128.0, -128.0,  1.0, 0.0, -128.0, 128.0,  0.0, 1.0, 128.0, 128.0,  1.0, 1.0]
         
         cRectIndexBuffer = [0, 2, 1, 1, 2, 3]
         
         cRectVertexBufferSlot = bufferVertexGenerate(data: cRectVertexBuffer, size: 16)
         cRectIndexBufferSlot = bufferIndexGenerate(data: cRectIndexBuffer, size: 6)
         
-        
-        cRectVertexBuffer.forEach() { float in
-            print("Float = \(float)")
+        cRectVertexBuffer.forEach() { value in
+            print("Float = \(value)")
         }
-        
         
     }
     
     func quadDraw(x1 x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat, x3:GLfloat, y3:GLfloat, x4:GLfloat, y4:GLfloat) {
         
-        cRectVertexBuffer[0 ] = x1
-        cRectVertexBuffer[1 ] = y1
+        cRectVertexBuffer[0] = x1
+        cRectVertexBuffer[1] = y1
         
-        cRectVertexBuffer[4 ] = x2
-        cRectVertexBuffer[5 ] = y2
+        cRectVertexBuffer[4] = x2
+        cRectVertexBuffer[5] = y2
         
-        cRectVertexBuffer[8 ] = x3
-        cRectVertexBuffer[9 ] = y3
+        cRectVertexBuffer[8] = x3
+        cRectVertexBuffer[9] = y3
         
         cRectVertexBuffer[12] = x4
         cRectVertexBuffer[13] = y4

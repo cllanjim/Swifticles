@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreGraphics
+import UIKit
 
 #if os(OSX)
     import OpenGL
@@ -75,9 +76,49 @@ public class Texture {
     }
     
     private class func Load(filename: String, inout width: GLsizei, inout height: GLsizei) -> UnsafeMutablePointer<()> {
-        let url = CFBundleCopyResourceURL(CFBundleGetMainBundle(), filename as NSString, "", nil)
         
-        let imageSource = CGImageSourceCreateWithURL(url, nil)
+        
+        var img = UIImage(named: "rock")
+        /*
+        
+        
+        
+        
+        CFURLRef fileURL = CFURLCreateFromFSRef(NULL, &whichFile);
+        // Create a data provider for the image source
+        CGDataProviderRef dataProvider =
+            CGDataProviderCreateWithURL(fileURL);
+        CFRelease(fileURL);
+        fileURL = NULL;
+        // Create the image source itself
+        CGImageSourceRef imageSource = CGImageSourceCreateWithDataProvider(
+            dataProvider, NULL);
+        CGDataProviderRelease(dataProvider);
+        dataProvider = NULL;
+        // extract the first image (0 based index) from the image source
+        CGImageRef image = CGImageSourceCreateImageAtIndex(imageSource,
+                                                           0, 0);
+        CFRelease(imageSource);
+        */
+        
+        
+        var path = NSBundle.mainBundle().pathForResource("rock", ofType: "png")
+        
+        
+        //NSString *path = [[NSBundle mainBundle] pathForResource:@"MSB_big_icon" ofType:@"png"];
+        
+        
+        var imageURL:NSURL? = NSURL(string: "rock")
+        
+        
+        //let url = CFBundleCopyResourceURL(CFBundleGetMainBundle(), filename as NSString, "", nil)
+        
+        
+        
+        let imageSource = CGImageSourceCreateWithURL(imageURL!, nil)
+        
+        CGImageSourceCreateWithData(img?.CGImage, <#T##options: CFDictionary?##CFDictionary?#>)
+        
         let image = CGImageSourceCreateImageAtIndex(imageSource!, 0, nil)
         
         width = GLsizei(CGImageGetWidth(image))
