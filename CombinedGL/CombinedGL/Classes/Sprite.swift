@@ -6,7 +6,57 @@
 //  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
+import UIKit
 import Foundation
+
+public class Sprite {
+    
+    var texture:Texture? = nil
+    
+    //"Single Source of Truth" doesn't necessarily apply
+    //because a sprite can be only a slice of a texture...
+    var width:CGFloat = 0.0
+    var height:CGFloat = 0.0
+    
+    
+    /*
+    var width: CGFloat {
+        get {
+            if texture != nil {
+                return CGFloat(texture!.width)
+            }
+            return 0.0
+        }
+        set {
+            
+        }
+    }
+    */
+    
+    public init() {
+        
+    }
+    
+    deinit {
+        clear()
+    }
+    
+    func clear() {
+        
+        width = 0.0
+        height = 0.0
+        
+        texture = nil
+    }
+    
+    public func load(filename: String) {
+        
+        clear()
+        
+    }
+    
+}
+
 
 /*
 float                           mBufferVertex[16];

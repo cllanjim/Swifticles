@@ -1,5 +1,5 @@
 //
-//  DTVGraphics.swift
+//  Graphics.swift
 //  MashupGL
 //
 //  Created by Nicholas Raptis on 7/30/16.
@@ -41,8 +41,6 @@ class Graphics {
     private var cModelViewMatrix = GLKMatrix4Identity
     
     private var cRectVertexBuffer:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
-    //private var cRectTextureCoordBuffer:[GLfloat] = [GLfloat](count:8, repeatedValue: 0.0)
-    
     private var cRectIndexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
     
     private var cRectVertexBufferSlot:BindIndex = -1
@@ -53,7 +51,6 @@ class Graphics {
         
         //XYUV, XYUV, XYUV, XYUV
         cRectVertexBuffer = [-128.0, -128.0, 0.0, 0.0, 128.0, -128.0,  1.0, 0.0, -128.0, 128.0,  0.0, 1.0, 128.0, 128.0,  1.0, 1.0]
-        
         cRectIndexBuffer = [0, 2, 1, 1, 2, 3]
         
         cRectVertexBufferSlot = bufferVertexGenerate(data: cRectVertexBuffer, size: 16)
@@ -62,27 +59,23 @@ class Graphics {
         cRectVertexBuffer.forEach() { value in
             print("Float = \(value)")
         }
-        
     }
     
     func quadDraw(x1 x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat, x3:GLfloat, y3:GLfloat, x4:GLfloat, y4:GLfloat) {
         
         cRectVertexBuffer[0] = x1
         cRectVertexBuffer[1] = y1
-        
         cRectVertexBuffer[4] = x2
         cRectVertexBuffer[5] = y2
-        
         cRectVertexBuffer[8] = x3
         cRectVertexBuffer[9] = y3
-        
         cRectVertexBuffer[12] = x4
         cRectVertexBuffer[13] = y4
         
+        textureDisable()
+        
+        bufferIndexBind(cRectIndexBufferSlot)
         bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: cRectVertexBuffer, size: 16)
-        
-        //bufferVertexBind(cRectVertexBufferSlot)
-        
         
         positionEnable()
         positionSetPointer(size: 2, offset: 0, stride: 4)
@@ -90,9 +83,6 @@ class Graphics {
         texCoordEnable()
         textureCoordSetPointer(size: 2, offset: 2, stride: 4)
         
-        //glDrawArrays(GLenum(GL_TRIANGLES), 0, 4)
-        
-        //bufferIndexBind(cRectIndexBufferSlot)
         drawElementsTriangle(count:6, offset: 0)
     }
     
@@ -128,9 +118,6 @@ class Graphics {
         glClearColor(r, g, b, 1.0);
         glClear(GLenum(GL_COLOR_BUFFER_BIT))
     }
-    
-    
-    
     
     func positionEnable() {
         glEnableVertexAttribArray(GLuint(gGLSlotPosition))
@@ -220,12 +207,12 @@ class Graphics {
         let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
         glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
-
+    
     func textureCoordSetPointer(size size:Int, offset:Int, stride:Int) {
         let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
         glVertexAttribPointer(GLenum(gGLSlotTexCoord), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
-
+    
     func colorSetPointer(size size:Int, offset:Int, stride:Int) {
         let ptr = UnsafePointer<Void>(bitPattern: (offset << 2))
         glVertexAttribPointer(GLenum(gGLSlotColor), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
@@ -279,85 +266,50 @@ class Graphics {
         glClear(GLenum(GL_DEPTH_BUFFER_BIT))
     }
     
+    func textureGenerate() -> BindIndex {
+        var result = GLuint()
+        glGenTextures(1, &result)
+        return BindIndex(result);
+    }
     
-    
-    //BindIndex
     func textureGenerate(width width:Int, height:Int, data:UnsafeMutablePointer<()>) -> BindIndex {
-        
-        /*
-        //UnsafeMutablePointer<()>
-        
-        int aBindIndex=-1;
-        
-        glGenTextures(1, (GLuint*)(&aBindIndex));
-        
-        if(aBindIndex == -1)
-        {
-            printf("Error Binding Texture [%d x %d]\n", pWidth, pHeight);
+        if width > 0 && height > 0 && data != nil {
+            let bindIndex = textureGenerate()
+            textureSetData(bindIndex, width: width, height: height, data: data)
+            return bindIndex
         }
-        else
-        {
-            bindTexture(aBindIndex, pData, pWidth, pHeight);
-        }
-        
-        return aBindIndex;
-        */
-        
-        
-        return 0
+        return -1
     }
     
-    func textureSetData(index index:BindIndex, width:Int, height:Int, data:UnsafeMutablePointer<()>) {
-        
-        //bindTexture(pIndex);
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pWidth, pHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, pData);
+    func textureSetData(index:BindIndex, width:Int, height:Int, data:UnsafeMutablePointer<()>) {
+        if width > 0 && height > 0 && data != nil {
+            textureBind(index)
+            glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_NEAREST)
+            glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_NEAREST)
+            glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE)
+            glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE)
+            glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(width), GLsizei(height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), UnsafePointer(data))
+        }
     }
     
-    func textureBind(index index:BindIndex) {
+    func textureBind(index:BindIndex) {
         glBindTexture(GLenum(GL_TEXTURE_2D), GLuint(index));
     }
     
     func textureDelete(index index:BindIndex) {
-        
-        //glDeleteTextures(1, (GLuint*)(&(pIndex)));
-        
+        if index >= 0 {
+            var uindex = GLuint(index)
+            glDeleteTextures(1, &uindex)
+        }
     }
     
     func textureEnable() {
-        
+        glEnable(GLenum(GL_TEXTURE_2D))
     }
     
     func textureDisable() {
-        
+        glDisable(GLenum(GL_TEXTURE_2D))
     }
-    
-    //private class func Load(filename: String, inout width: GLsizei, inout height: GLsizei) ->  {
-
-        
-        
-    /*
-     
-     glViewport(0, 0, gDeviceWidth, gDeviceHeight);
-     
-     colorSet();
-     
-     gSpriteBlank.Load("empty_white_square");
-     
-     }
-     
-     
-     
-     
-     
-     
-     
-     
-     */
-    
 }
 
 let gG:Graphics = Graphics()
-
-
-

@@ -83,11 +83,18 @@ class GameViewController: GLKViewController {
         
         var path = ""//FileUtils.getBundle()
         
-        path = path.stringByAppendingString("rock")
+        //hero_stego_spike_1.png
+        //old.png
+        
+        path = path.stringByAppendingString("hero_stego_spike_1")
         
         texxx = Texture(filename: path)
         
-        glEnable(GLenum(GL_TEXTURE_2D))
+        texxx?.load("rock")
+        
+        
+        
+        
         
             //Utils.getBundle()
         //path = path.
@@ -142,29 +149,30 @@ class GameViewController: GLKViewController {
     }
     
     override func glkView(view: GLKView, drawInRect rect: CGRect) {
-        glClearColor(0.65, 0.65, 0.65, 1.0)
+        glClearColor(0.05, 0.06, 0.0925, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
         
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         
-
-        
         let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
         gG.matrixProjectionSet(p)
-        
         
         //gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
         //gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 100))
         
-        
+        gG.colorSet()
+        gG.blendEnable()
+        gG.blendSetAlpha()
         
         //gG.texCoordEnable()
         //texxx
         
         
-        gG.colorSet(r: 0.2, g: 0.15, b: 0.8, a: 0.8)
-        gG.rectDraw(x: Float(width - (120 + 10)), y: Float(height - (390 + 10)), width: 120, height: 390)
+        //gG.rectDraw(x: Float(width - (120 + 10)), y: Float(height - (390 + 10)), width: 120, height: 390)
+        
+        gG.rectDraw(x: 10.0, y: 10.0, width: 256.0, height: 256.0)
+        
         
     }
     

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D9D74051D4531A200736B07 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9D74041D4531A200736B07 /* Config.swift */; };
 		0D9D74271D453CFD00736B07 /* background_generic.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D74071D453CFD00736B07 /* background_generic.png */; };
 		0D9D74281D453CFD00736B07 /* background_generic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D74081D453CFD00736B07 /* background_generic@2x.png */; };
 		0D9D74291D453CFD00736B07 /* background_modal_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D74091D453CFD00736B07 /* background_modal_ipad.png */; };
@@ -39,23 +38,31 @@
 		0D9D74431D453CFD00736B07 /* reg_btn_select_any_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D74241D453CFD00736B07 /* reg_btn_select_any_down@2x.png */; };
 		0D9D74441D453CFD00736B07 /* seg_back_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D74251D453CFD00736B07 /* seg_back_highlight@2x.png */; };
 		0D9D74451D453CFD00736B07 /* test_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D74261D453CFD00736B07 /* test_image.jpg */; };
-		0D9D74471D4547C800736B07 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9D74461D4547C800736B07 /* UIImage+Resize.swift */; };
-		C20612991D42D96D00207760 /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20612981D42D96D00207760 /* ImageImportViewController.swift */; };
-		C206129D1D42DA0E00207760 /* ImportScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C206129C1D42DA0E00207760 /* ImportScrollView.swift */; };
-		C26DA4AF1D3D4145005518FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DA4AE1D3D4145005518FB /* AppDelegate.swift */; };
 		C26DA4B41D3D4145005518FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26DA4B21D3D4145005518FB /* Main.storyboard */; };
 		C26DA4B61D3D4145005518FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C26DA4B51D3D4145005518FB /* Assets.xcassets */; };
 		C26DA4B91D3D4145005518FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26DA4B71D3D4145005518FB /* LaunchScreen.storyboard */; };
-		C26DA4C11D3D4333005518FB /* WorldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DA4C01D3D4333005518FB /* WorldViewController.swift */; };
-		C26DA4C31D3D437A005518FB /* TopMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DA4C21D3D437A005518FB /* TopMenuViewController.swift */; };
-		C26DA4C51D3D4475005518FB /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DA4C41D3D4475005518FB /* HomeMenuViewController.swift */; };
-		C26DA6911D3D5D63005518FB /* RRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26DA6901D3D5D63005518FB /* RRButton.swift */; };
-		C27B16021D3D9D9600A7199B /* RRSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B16011D3D9D9600A7199B /* RRSegment.swift */; };
-		C27B16041D3DA2B300A7199B /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B16031D3DA2B300A7199B /* EditAffineViewController.swift */; };
+		C2CC21351D55717300AB23B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21241D55717300AB23B2 /* AppDelegate.swift */; };
+		C2CC21361D55717300AB23B2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21251D55717300AB23B2 /* Config.swift */; };
+		C2CC21371D55717300AB23B2 /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21261D55717300AB23B2 /* EditAffineViewController.swift */; };
+		C2CC21381D55717300AB23B2 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21271D55717300AB23B2 /* FileUtils.swift */; };
+		C2CC21391D55717300AB23B2 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21281D55717300AB23B2 /* GameViewController.swift */; };
+		C2CC213A1D55717300AB23B2 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21291D55717300AB23B2 /* Graphics.swift */; };
+		C2CC213B1D55717300AB23B2 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC212A1D55717300AB23B2 /* HomeMenuViewController.swift */; };
+		C2CC213C1D55717300AB23B2 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC212B1D55717300AB23B2 /* Image.swift */; };
+		C2CC213D1D55717300AB23B2 /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC212C1D55717300AB23B2 /* ImageImportViewController.swift */; };
+		C2CC213E1D55717300AB23B2 /* ImportScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC212D1D55717300AB23B2 /* ImportScrollView.swift */; };
+		C2CC213F1D55717300AB23B2 /* RRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC212E1D55717300AB23B2 /* RRButton.swift */; };
+		C2CC21401D55717300AB23B2 /* RRSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC212F1D55717300AB23B2 /* RRSegment.swift */; };
+		C2CC21411D55717300AB23B2 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21301D55717300AB23B2 /* Sprite.swift */; };
+		C2CC21421D55717300AB23B2 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21311D55717300AB23B2 /* Texture.swift */; };
+		C2CC21431D55717300AB23B2 /* TopMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21321D55717300AB23B2 /* TopMenuViewController.swift */; };
+		C2CC21441D55717300AB23B2 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21331D55717300AB23B2 /* UIImage+Resize.swift */; };
+		C2CC21451D55717300AB23B2 /* WorldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CC21341D55717300AB23B2 /* WorldViewController.swift */; };
+		C2CC21491D557B5B00AB23B2 /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C2CC21471D557B5B00AB23B2 /* FragmentShader.glsl */; };
+		C2CC214A1D557B5B00AB23B2 /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C2CC21481D557B5B00AB23B2 /* VertexShader.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D9D74041D4531A200736B07 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0D9D74071D453CFD00736B07 /* background_generic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_generic.png; sourceTree = "<group>"; };
 		0D9D74081D453CFD00736B07 /* background_generic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_generic@2x.png"; sourceTree = "<group>"; };
 		0D9D74091D453CFD00736B07 /* background_modal_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_modal_ipad.png; sourceTree = "<group>"; };
@@ -87,21 +94,30 @@
 		0D9D74241D453CFD00736B07 /* reg_btn_select_any_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_select_any_down@2x.png"; sourceTree = "<group>"; };
 		0D9D74251D453CFD00736B07 /* seg_back_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seg_back_highlight@2x.png"; sourceTree = "<group>"; };
 		0D9D74261D453CFD00736B07 /* test_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_image.jpg; sourceTree = "<group>"; };
-		0D9D74461D4547C800736B07 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
-		C20612981D42D96D00207760 /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
-		C206129C1D42DA0E00207760 /* ImportScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportScrollView.swift; sourceTree = "<group>"; };
 		C26DA4AB1D3D4145005518FB /* SwiftFunhouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftFunhouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C26DA4AE1D3D4145005518FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C26DA4B31D3D4145005518FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C26DA4B51D3D4145005518FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C26DA4B81D3D4145005518FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C26DA4BA1D3D4145005518FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C26DA4C01D3D4333005518FB /* WorldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldViewController.swift; sourceTree = "<group>"; };
-		C26DA4C21D3D437A005518FB /* TopMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMenuViewController.swift; sourceTree = "<group>"; };
-		C26DA4C41D3D4475005518FB /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
-		C26DA6901D3D5D63005518FB /* RRButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRButton.swift; sourceTree = "<group>"; };
-		C27B16011D3D9D9600A7199B /* RRSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRSegment.swift; sourceTree = "<group>"; };
-		C27B16031D3DA2B300A7199B /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
+		C2CC21241D55717300AB23B2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C2CC21251D55717300AB23B2 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		C2CC21261D55717300AB23B2 /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
+		C2CC21271D55717300AB23B2 /* FileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
+		C2CC21281D55717300AB23B2 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		C2CC21291D55717300AB23B2 /* Graphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
+		C2CC212A1D55717300AB23B2 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
+		C2CC212B1D55717300AB23B2 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		C2CC212C1D55717300AB23B2 /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
+		C2CC212D1D55717300AB23B2 /* ImportScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportScrollView.swift; sourceTree = "<group>"; };
+		C2CC212E1D55717300AB23B2 /* RRButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRButton.swift; sourceTree = "<group>"; };
+		C2CC212F1D55717300AB23B2 /* RRSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRSegment.swift; sourceTree = "<group>"; };
+		C2CC21301D55717300AB23B2 /* Sprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
+		C2CC21311D55717300AB23B2 /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
+		C2CC21321D55717300AB23B2 /* TopMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMenuViewController.swift; sourceTree = "<group>"; };
+		C2CC21331D55717300AB23B2 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		C2CC21341D55717300AB23B2 /* WorldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldViewController.swift; sourceTree = "<group>"; };
+		C2CC21471D557B5B00AB23B2 /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
+		C2CC21481D557B5B00AB23B2 /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +180,7 @@
 		C26DA4A21D3D4145005518FB = {
 			isa = PBXGroup;
 			children = (
+				C2CC21231D55717300AB23B2 /* Classes */,
 				0D9D74061D453CFD00736B07 /* Images */,
 				C26DA4AD1D3D4145005518FB /* SwiftFunhouse */,
 				C26DA4AC1D3D4145005518FB /* Products */,
@@ -181,23 +198,46 @@
 		C26DA4AD1D3D4145005518FB /* SwiftFunhouse */ = {
 			isa = PBXGroup;
 			children = (
-				C26DA4AE1D3D4145005518FB /* AppDelegate.swift */,
+				C2CC21461D557B5B00AB23B2 /* Shaders */,
 				C26DA4B21D3D4145005518FB /* Main.storyboard */,
-				C26DA4C41D3D4475005518FB /* HomeMenuViewController.swift */,
 				C26DA4B51D3D4145005518FB /* Assets.xcassets */,
 				C26DA4B71D3D4145005518FB /* LaunchScreen.storyboard */,
 				C26DA4BA1D3D4145005518FB /* Info.plist */,
-				C26DA4C01D3D4333005518FB /* WorldViewController.swift */,
-				C26DA4C21D3D437A005518FB /* TopMenuViewController.swift */,
-				C26DA6901D3D5D63005518FB /* RRButton.swift */,
-				C27B16011D3D9D9600A7199B /* RRSegment.swift */,
-				C27B16031D3DA2B300A7199B /* EditAffineViewController.swift */,
-				C20612981D42D96D00207760 /* ImageImportViewController.swift */,
-				C206129C1D42DA0E00207760 /* ImportScrollView.swift */,
-				0D9D74041D4531A200736B07 /* Config.swift */,
-				0D9D74461D4547C800736B07 /* UIImage+Resize.swift */,
 			);
 			path = SwiftFunhouse;
+			sourceTree = "<group>";
+		};
+		C2CC21231D55717300AB23B2 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C2CC21241D55717300AB23B2 /* AppDelegate.swift */,
+				C2CC21251D55717300AB23B2 /* Config.swift */,
+				C2CC21261D55717300AB23B2 /* EditAffineViewController.swift */,
+				C2CC21271D55717300AB23B2 /* FileUtils.swift */,
+				C2CC21281D55717300AB23B2 /* GameViewController.swift */,
+				C2CC21291D55717300AB23B2 /* Graphics.swift */,
+				C2CC212A1D55717300AB23B2 /* HomeMenuViewController.swift */,
+				C2CC212B1D55717300AB23B2 /* Image.swift */,
+				C2CC212C1D55717300AB23B2 /* ImageImportViewController.swift */,
+				C2CC212D1D55717300AB23B2 /* ImportScrollView.swift */,
+				C2CC212E1D55717300AB23B2 /* RRButton.swift */,
+				C2CC212F1D55717300AB23B2 /* RRSegment.swift */,
+				C2CC21301D55717300AB23B2 /* Sprite.swift */,
+				C2CC21311D55717300AB23B2 /* Texture.swift */,
+				C2CC21321D55717300AB23B2 /* TopMenuViewController.swift */,
+				C2CC21331D55717300AB23B2 /* UIImage+Resize.swift */,
+				C2CC21341D55717300AB23B2 /* WorldViewController.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C2CC21461D557B5B00AB23B2 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				C2CC21471D557B5B00AB23B2 /* FragmentShader.glsl */,
+				C2CC21481D557B5B00AB23B2 /* VertexShader.glsl */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +301,7 @@
 			files = (
 				0D9D742E1D453CFD00736B07 /* reg_btn_clone_selected@2x.png in Resources */,
 				0D9D74311D453CFD00736B07 /* reg_btn_copy_down@2x.png in Resources */,
+				C2CC214A1D557B5B00AB23B2 /* VertexShader.glsl in Resources */,
 				C26DA4B91D3D4145005518FB /* LaunchScreen.storyboard in Resources */,
 				0D9D743D1D453CFD00736B07 /* reg_btn_reset_zoom_down@2x.png in Resources */,
 				0D9D74271D453CFD00736B07 /* background_generic.png in Resources */,
@@ -278,6 +319,7 @@
 				0D9D74421D453CFD00736B07 /* reg_btn_select_any@2x.png in Resources */,
 				0D9D742D1D453CFD00736B07 /* main_seg_back_highlight@2x.png in Resources */,
 				0D9D743B1D453CFD00736B07 /* reg_btn_reset_center_down@2x.png in Resources */,
+				C2CC21491D557B5B00AB23B2 /* FragmentShader.glsl in Resources */,
 				0D9D74451D453CFD00736B07 /* test_image.jpg in Resources */,
 				0D9D74371D453CFD00736B07 /* reg_btn_load_down@2x.png in Resources */,
 				0D9D743E1D453CFD00736B07 /* reg_btn_save@2x.png in Resources */,
@@ -303,17 +345,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C26DA4C51D3D4475005518FB /* HomeMenuViewController.swift in Sources */,
-				C26DA4C11D3D4333005518FB /* WorldViewController.swift in Sources */,
-				C26DA6911D3D5D63005518FB /* RRButton.swift in Sources */,
-				C27B16041D3DA2B300A7199B /* EditAffineViewController.swift in Sources */,
-				0D9D74471D4547C800736B07 /* UIImage+Resize.swift in Sources */,
-				C27B16021D3D9D9600A7199B /* RRSegment.swift in Sources */,
-				C26DA4C31D3D437A005518FB /* TopMenuViewController.swift in Sources */,
-				C26DA4AF1D3D4145005518FB /* AppDelegate.swift in Sources */,
-				0D9D74051D4531A200736B07 /* Config.swift in Sources */,
-				C206129D1D42DA0E00207760 /* ImportScrollView.swift in Sources */,
-				C20612991D42D96D00207760 /* ImageImportViewController.swift in Sources */,
+				C2CC213D1D55717300AB23B2 /* ImageImportViewController.swift in Sources */,
+				C2CC213A1D55717300AB23B2 /* Graphics.swift in Sources */,
+				C2CC21451D55717300AB23B2 /* WorldViewController.swift in Sources */,
+				C2CC213C1D55717300AB23B2 /* Image.swift in Sources */,
+				C2CC21391D55717300AB23B2 /* GameViewController.swift in Sources */,
+				C2CC21411D55717300AB23B2 /* Sprite.swift in Sources */,
+				C2CC21431D55717300AB23B2 /* TopMenuViewController.swift in Sources */,
+				C2CC21421D55717300AB23B2 /* Texture.swift in Sources */,
+				C2CC21351D55717300AB23B2 /* AppDelegate.swift in Sources */,
+				C2CC21371D55717300AB23B2 /* EditAffineViewController.swift in Sources */,
+				C2CC213B1D55717300AB23B2 /* HomeMenuViewController.swift in Sources */,
+				C2CC21361D55717300AB23B2 /* Config.swift in Sources */,
+				C2CC213E1D55717300AB23B2 /* ImportScrollView.swift in Sources */,
+				C2CC21401D55717300AB23B2 /* RRSegment.swift in Sources */,
+				C2CC21441D55717300AB23B2 /* UIImage+Resize.swift in Sources */,
+				C2CC21381D55717300AB23B2 /* FileUtils.swift in Sources */,
+				C2CC213F1D55717300AB23B2 /* RRButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
