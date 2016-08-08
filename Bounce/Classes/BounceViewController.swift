@@ -1,15 +1,16 @@
 //
-//  WorldViewController.swift
-//  SwiftFunhouse
+//  BounceViewController.swift
+//  Bounce
 //
-//  Created by Raptis, Nicholas on 7/18/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Created by Nicholas Raptis on 8/7/16.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import GLKit
 import OpenGLES
 
-class WorldViewController: GLViewController {
+class BounceViewController : GLViewController {
+    
     
     override func update() {
         
@@ -57,5 +58,6 @@ class WorldViewController: GLViewController {
     deinit {
         print("Deinit \(self)")
     }
+    
     
 }

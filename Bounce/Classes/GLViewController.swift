@@ -9,22 +9,61 @@
 import GLKit
 import OpenGLES
 
-class GameViewController: GLKViewController {
+class GLViewController: GLKViewController {
     
     var program: GLuint = 0
-    
-    var modelViewProjectionMatrix:GLKMatrix4 = GLKMatrix4Identity
-    var normalMatrix: GLKMatrix3 = GLKMatrix3Identity
-    var rotation: Float = 0.0
-    
-    var vertexArray: GLuint = 0
-    var vertexBuffer: GLuint = 0
-    
     var context: EAGLContext? = nil
     
     var texxx:Texture?
     
+    
+    func update() {
+        
+    }
+    
+    
+    func draw() {
+//        
+//        let width = self.view.frame.size.width
+//        let height = self.view.frame.size.height
+//        
+//        let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
+//        gG.matrixProjectionSet(p)
+//        
+//        
+//        var m = GLKMatrix4MakeScale(0.85, 0.85, 0.85)
+//        
+//        //GLKMatrix4Identity
+//        
+//        print("m1 = \(m.m)")
+//        
+//        
+//        //m = GLKMatrix4Scale(m, 0.85, 0.85, 0.85)
+//        
+//        print("m2 = \(m.array)")
+//        
+//        
+//        //m = GLKMatrix4Rotate(m, 0.1, 0.7, 0.1, 0.25)
+//        
+//        gG.matrixModelViewSet(m)
+//        
+//        
+//        
+//        gG.blendEnable()
+//        gG.blendSetAlpha()
+//        
+//        gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
+//        gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 300))
+//        
+//        gG.colorSet(a: 0.8)
+//        
+//        gG.rectDraw(x: 22.0, y: 220.0, width: 256.0, height: 256.0)
+//        
+    }
+    
+    
     deinit {
+        print("GameViewController.deinit()")
         self.tearDownGL()
         if EAGLContext.currentContext() === self.context {
             EAGLContext.setCurrentContext(nil)
@@ -34,7 +73,7 @@ class GameViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.context = EAGLContext(API: .OpenGLES2)
+        self.context = EAGLContext(API: .OpenGLES3)
         
         if !(self.context != nil) {
             print("Failed to create ES context")
@@ -72,11 +111,13 @@ class GameViewController: GLKViewController {
         
         self.loadShaders()
         
+        gG.create()
+        
         glEnable(GLenum(GL_DEPTH_TEST))
         
-        glGenVertexArraysOES(1, &vertexArray)
-        glBindVertexArrayOES(vertexArray)
-        glGenBuffers(1, &vertexBuffer)
+        //glGenVertexArraysOES(1, &vertexArray)
+        //glBindVertexArrayOES(vertexArray)
+        //glGenBuffers(1, &vertexBuffer)
         
         
         
@@ -87,28 +128,21 @@ class GameViewController: GLKViewController {
         //old.png
         
         path = path.stringByAppendingString("hero_stego_spike_1")
-        
         texxx = Texture(filename: path)
-        
         texxx?.load("rock")
-        
-        
-        
-        
-        
-            //Utils.getBundle()
-        //path = path.
-        
-        //texxx = Texture(filename: "texture.png")
-        
         
     }
     
     func tearDownGL() {
+        
+        
+        
         EAGLContext.setCurrentContext(self.context)
         
-        glDeleteBuffers(1, &vertexBuffer)
-        glDeleteVertexArraysOES(1, &vertexArray)
+        gG.dispose()
+        
+        //glDeleteBuffers(1, &vertexBuffer)
+        //glDeleteVertexArraysOES(1, &vertexArray)
         
         //self.effect = nil
         
@@ -118,65 +152,21 @@ class GameViewController: GLKViewController {
         }
     }
     
-    // MARK: - GLKView and GLKViewController delegate methods
     
-    func update() {
-        let aspect = fabsf(Float(self.view.bounds.size.width / self.view.bounds.size.height))
-        let projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0), aspect, 0.1, 100.0)
-        
-        //self.effect?.transform.projectionMatrix = projectionMatrix
-        
-        var baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0, 0.0, -4.0)
-        baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, rotation, 0.0, 1.0, 0.0)
-        
-        // Compute the model view matrix for the object rendered with GLKit
-        var modelViewMatrix = GLKMatrix4MakeTranslation(0.0, 0.0, -1.5)
-        modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 1.0, 1.0, 1.0)
-        modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix)
-        
-        //self.effect?.transform.modelviewMatrix = modelViewMatrix
-        
-        // Compute the model view matrix for the object rendered with ES2
-        modelViewMatrix = GLKMatrix4MakeTranslation(0.0, 0.0, 1.5)
-        modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 1.0, 1.0, 1.0)
-        modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix)
-        
-        normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), nil)
-        
-        modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix)
-        
-        rotation += Float(self.timeSinceLastUpdate * 0.5)
-    }
+    
     
     override func glkView(view: GLKView, drawInRect rect: CGRect) {
+        
         glClearColor(0.05, 0.06, 0.0925, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
-        
-        let width = self.view.frame.size.width
-        let height = self.view.frame.size.height
-        
-        let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
-        gG.matrixProjectionSet(p)
-        
-        //gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
-        //gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 100))
-        
         gG.colorSet()
-        gG.blendEnable()
-        gG.blendSetAlpha()
         
-        //gG.texCoordEnable()
-        //texxx
+        draw()
         
         
-        //gG.rectDraw(x: Float(width - (120 + 10)), y: Float(height - (390 + 10)), width: 120, height: 390)
-        
-        gG.rectDraw(x: 10.0, y: 10.0, width: 256.0, height: 256.0)
         
         
     }
-    
-    // MARK: -  OpenGL ES 2 shader compilation
     
     func loadShaders() -> Bool {
         var vertShader: GLuint = 0
@@ -187,7 +177,6 @@ class GameViewController: GLKViewController {
         // Create shader program.
         program = glCreateProgram()
         
-        
         // Create and compile vertex shader.
         vertShaderPathname = NSBundle.mainBundle().pathForResource("VertexShader", ofType: "glsl")!
         if self.compileShader(&vertShader, type: GLenum(GL_VERTEX_SHADER), file: vertShaderPathname) == false {
@@ -196,9 +185,7 @@ class GameViewController: GLKViewController {
         }
         
         // Create and compile fragment shader.
-        //fragShaderPathname = NSBundle.mainBundle().pathForResource("Shader", ofType: "fsh")!
         fragShaderPathname = NSBundle.mainBundle().pathForResource("FragmentShader", ofType: "glsl")!
-        
         if !self.compileShader(&fragShader, type: GLenum(GL_FRAGMENT_SHADER), file: fragShaderPathname) {
             print("Failed to compile fragment shader")
             return false
@@ -209,11 +196,6 @@ class GameViewController: GLKViewController {
         
         // Attach fragment shader to program.
         glAttachShader(program, fragShader)
-        
-        // Bind attribute locations.
-        // This needs to be done prior to linking.
-        glBindAttribLocation(program, GLuint(GLKVertexAttrib.Position.rawValue), "Position")
-        //glBindAttribLocation(program, GLuint(GLKVertexAttrib.Normal.rawValue), "normal")
         
         // Link program.
         if !self.linkProgram(program) {
@@ -235,10 +217,8 @@ class GameViewController: GLKViewController {
             return false
         }
         
-        
         gGLSlotPosition = glGetAttribLocation(program, "Position")
         gGLSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
-        
         gGLUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
         gGLUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
         gGLUniformTexture = glGetUniformLocation(program, "Texture")
@@ -257,10 +237,8 @@ class GameViewController: GLKViewController {
         
         glUseProgram(program)
         
-        
         return true
     }
-    
     
     func compileShader(inout shader: GLuint, type: GLenum, file: String) -> Bool {
         var status: GLint = 0
@@ -316,49 +294,3 @@ class GameViewController: GLKViewController {
         return returnVal
     }
 }
-
-var gCubeVertexData: [GLfloat] = [
-    // Data layout for each line below is:
-    // positionX, positionY, positionZ,     normalX, normalY, normalZ,
-    0.5, -0.5, -0.5,        1.0, 0.0, 0.0,
-    0.5, 0.5, -0.5,         1.0, 0.0, 0.0,
-    0.5, -0.5, 0.5,         1.0, 0.0, 0.0,
-    0.5, -0.5, 0.5,         1.0, 0.0, 0.0,
-    0.5, 0.5, -0.5,         1.0, 0.0, 0.0,
-    0.5, 0.5, 0.5,          1.0, 0.0, 0.0,
-    
-    0.5, 0.5, -0.5,         0.0, 1.0, 0.0,
-    -0.5, 0.5, -0.5,        0.0, 1.0, 0.0,
-    0.5, 0.5, 0.5,          0.0, 1.0, 0.0,
-    0.5, 0.5, 0.5,          0.0, 1.0, 0.0,
-    -0.5, 0.5, -0.5,        0.0, 1.0, 0.0,
-    -0.5, 0.5, 0.5,         0.0, 1.0, 0.0,
-    
-    -0.5, 0.5, -0.5,        -1.0, 0.0, 0.0,
-    -0.5, -0.5, -0.5,      -1.0, 0.0, 0.0,
-    -0.5, 0.5, 0.5,         -1.0, 0.0, 0.0,
-    -0.5, 0.5, 0.5,         -1.0, 0.0, 0.0,
-    -0.5, -0.5, -0.5,      -1.0, 0.0, 0.0,
-    -0.5, -0.5, 0.5,        -1.0, 0.0, 0.0,
-    
-    -0.5, -0.5, -0.5,      0.0, -1.0, 0.0,
-    0.5, -0.5, -0.5,        0.0, -1.0, 0.0,
-    -0.5, -0.5, 0.5,        0.0, -1.0, 0.0,
-    -0.5, -0.5, 0.5,        0.0, -1.0, 0.0,
-    0.5, -0.5, -0.5,        0.0, -1.0, 0.0,
-    0.5, -0.5, 0.5,         0.0, -1.0, 0.0,
-    
-    0.5, 0.5, 0.5,          0.0, 0.0, 1.0,
-    -0.5, 0.5, 0.5,         0.0, 0.0, 1.0,
-    0.5, -0.5, 0.5,         0.0, 0.0, 1.0,
-    0.5, -0.5, 0.5,         0.0, 0.0, 1.0,
-    -0.5, 0.5, 0.5,         0.0, 0.0, 1.0,
-    -0.5, -0.5, 0.5,        0.0, 0.0, 1.0,
-    
-    0.5, -0.5, -0.5,        0.0, 0.0, -1.0,
-    -0.5, -0.5, -0.5,      0.0, 0.0, -1.0,
-    0.5, 0.5, -0.5,         0.0, 0.0, -1.0,
-    0.5, 0.5, -0.5,         0.0, 0.0, -1.0,
-    -0.5, -0.5, -0.5,      0.0, 0.0, -1.0,
-    -0.5, 0.5, -0.5,        0.0, 0.0, -1.0
-]

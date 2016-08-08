@@ -1,0 +1,594 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D665E5C1D5814D100558EA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E4C1D5814D100558EA0 /* Assets.xcassets */; };
+		0D665E5D1D5814D100558EA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E4E1D5814D100558EA0 /* AppDelegate.swift */; };
+		0D665E5E1D5814D100558EA0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E4F1D5814D100558EA0 /* Config.swift */; };
+		0D665E5F1D5814D100558EA0 /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E501D5814D100558EA0 /* EditAffineViewController.swift */; };
+		0D665E601D5814D100558EA0 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E511D5814D100558EA0 /* FileUtils.swift */; };
+		0D665E611D5814D100558EA0 /* GLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E521D5814D100558EA0 /* GLViewController.swift */; };
+		0D665E621D5814D100558EA0 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E531D5814D100558EA0 /* Graphics.swift */; };
+		0D665E631D5814D100558EA0 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E541D5814D100558EA0 /* Image.swift */; };
+		0D665E641D5814D100558EA0 /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E551D5814D100558EA0 /* ImageImportViewController.swift */; };
+		0D665E651D5814D100558EA0 /* RRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E561D5814D100558EA0 /* RRButton.swift */; };
+		0D665E661D5814D100558EA0 /* RRSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E571D5814D100558EA0 /* RRSegment.swift */; };
+		0D665E671D5814D100558EA0 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E581D5814D100558EA0 /* Sprite.swift */; };
+		0D665E681D5814D100558EA0 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E591D5814D100558EA0 /* Texture.swift */; };
+		0D665E691D5814D100558EA0 /* TopMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E5A1D5814D100558EA0 /* TopMenuViewController.swift */; };
+		0D665E6A1D5814D100558EA0 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E5B1D5814D100558EA0 /* UIImage+Resize.swift */; };
+		0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */; };
+		0D665E6E1D5822E900558EA0 /* BounceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E6D1D5822E900558EA0 /* BounceViewController.swift */; };
+		0D665E721D58239800558EA0 /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E701D58239800558EA0 /* FragmentShader.glsl */; };
+		0D665E731D58239800558EA0 /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E711D58239800558EA0 /* VertexShader.glsl */; };
+		0D665E751D582D4500558EA0 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E741D582D4500558EA0 /* HomeMenuViewController.swift */; };
+		0DD20F561D581263006DDDAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F541D581263006DDDAB /* Main.storyboard */; };
+		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
+		0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F651D581263006DDDAB /* BounceTests.swift */; };
+		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0DD20F621D581263006DDDAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0DD20F451D581262006DDDAB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0DD20F4C1D581262006DDDAB;
+			remoteInfo = Bounce;
+		};
+		0DD20F6D1D581263006DDDAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0DD20F451D581262006DDDAB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0DD20F4C1D581262006DDDAB;
+			remoteInfo = Bounce;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0D665E4C1D5814D100558EA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D665E4E1D5814D100558EA0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0D665E4F1D5814D100558EA0 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		0D665E501D5814D100558EA0 /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
+		0D665E511D5814D100558EA0 /* FileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
+		0D665E521D5814D100558EA0 /* GLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLViewController.swift; sourceTree = "<group>"; };
+		0D665E531D5814D100558EA0 /* Graphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
+		0D665E541D5814D100558EA0 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		0D665E551D5814D100558EA0 /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
+		0D665E561D5814D100558EA0 /* RRButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRButton.swift; sourceTree = "<group>"; };
+		0D665E571D5814D100558EA0 /* RRSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRSegment.swift; sourceTree = "<group>"; };
+		0D665E581D5814D100558EA0 /* Sprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
+		0D665E591D5814D100558EA0 /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
+		0D665E5A1D5814D100558EA0 /* TopMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMenuViewController.swift; sourceTree = "<group>"; };
+		0D665E5B1D5814D100558EA0 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewControllerTests.swift; sourceTree = "<group>"; };
+		0D665E6D1D5822E900558EA0 /* BounceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewController.swift; sourceTree = "<group>"; };
+		0D665E701D58239800558EA0 /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
+		0D665E711D58239800558EA0 /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
+		0D665E741D582D4500558EA0 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
+		0DD20F4D1D581262006DDDAB /* Bounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DD20F551D581263006DDDAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0DD20F5A1D581263006DDDAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0DD20F5C1D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DD20F611D581263006DDDAB /* BounceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BounceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DD20F651D581263006DDDAB /* BounceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceTests.swift; sourceTree = "<group>"; };
+		0DD20F671D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BounceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DD20F701D581263006DDDAB /* BounceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceUITests.swift; sourceTree = "<group>"; };
+		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0DD20F4A1D581262006DDDAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DD20F5E1D581263006DDDAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DD20F691D581263006DDDAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D665E4D1D5814D100558EA0 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0D665E4E1D5814D100558EA0 /* AppDelegate.swift */,
+				0D665E4F1D5814D100558EA0 /* Config.swift */,
+				0D665E501D5814D100558EA0 /* EditAffineViewController.swift */,
+				0D665E511D5814D100558EA0 /* FileUtils.swift */,
+				0D665E521D5814D100558EA0 /* GLViewController.swift */,
+				0D665E531D5814D100558EA0 /* Graphics.swift */,
+				0D665E541D5814D100558EA0 /* Image.swift */,
+				0D665E551D5814D100558EA0 /* ImageImportViewController.swift */,
+				0D665E561D5814D100558EA0 /* RRButton.swift */,
+				0D665E571D5814D100558EA0 /* RRSegment.swift */,
+				0D665E581D5814D100558EA0 /* Sprite.swift */,
+				0D665E591D5814D100558EA0 /* Texture.swift */,
+				0D665E5A1D5814D100558EA0 /* TopMenuViewController.swift */,
+				0D665E5B1D5814D100558EA0 /* UIImage+Resize.swift */,
+				0D665E6D1D5822E900558EA0 /* BounceViewController.swift */,
+				0D665E741D582D4500558EA0 /* HomeMenuViewController.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0D665E6F1D58239800558EA0 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				0D665E701D58239800558EA0 /* FragmentShader.glsl */,
+				0D665E711D58239800558EA0 /* VertexShader.glsl */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		0DD20F441D581262006DDDAB = {
+			isa = PBXGroup;
+			children = (
+				0D665E4C1D5814D100558EA0 /* Assets.xcassets */,
+				0D665E4D1D5814D100558EA0 /* Classes */,
+				0DD20F4F1D581263006DDDAB /* Bounce */,
+				0DD20F641D581263006DDDAB /* BounceTests */,
+				0DD20F6F1D581263006DDDAB /* BounceUITests */,
+				0DD20F4E1D581262006DDDAB /* Products */,
+				0D665E6F1D58239800558EA0 /* Shaders */,
+			);
+			sourceTree = "<group>";
+		};
+		0DD20F4E1D581262006DDDAB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0DD20F4D1D581262006DDDAB /* Bounce.app */,
+				0DD20F611D581263006DDDAB /* BounceTests.xctest */,
+				0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0DD20F4F1D581263006DDDAB /* Bounce */ = {
+			isa = PBXGroup;
+			children = (
+				0DD20F541D581263006DDDAB /* Main.storyboard */,
+				0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */,
+				0DD20F5C1D581263006DDDAB /* Info.plist */,
+			);
+			path = Bounce;
+			sourceTree = "<group>";
+		};
+		0DD20F641D581263006DDDAB /* BounceTests */ = {
+			isa = PBXGroup;
+			children = (
+				0DD20F651D581263006DDDAB /* BounceTests.swift */,
+				0DD20F671D581263006DDDAB /* Info.plist */,
+				0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */,
+			);
+			path = BounceTests;
+			sourceTree = "<group>";
+		};
+		0DD20F6F1D581263006DDDAB /* BounceUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0DD20F701D581263006DDDAB /* BounceUITests.swift */,
+				0DD20F721D581263006DDDAB /* Info.plist */,
+			);
+			path = BounceUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0DD20F4C1D581262006DDDAB /* Bounce */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DD20F751D581263006DDDAB /* Build configuration list for PBXNativeTarget "Bounce" */;
+			buildPhases = (
+				0DD20F491D581262006DDDAB /* Sources */,
+				0DD20F4A1D581262006DDDAB /* Frameworks */,
+				0DD20F4B1D581262006DDDAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bounce;
+			productName = Bounce;
+			productReference = 0DD20F4D1D581262006DDDAB /* Bounce.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0DD20F601D581263006DDDAB /* BounceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DD20F781D581263006DDDAB /* Build configuration list for PBXNativeTarget "BounceTests" */;
+			buildPhases = (
+				0DD20F5D1D581263006DDDAB /* Sources */,
+				0DD20F5E1D581263006DDDAB /* Frameworks */,
+				0DD20F5F1D581263006DDDAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0DD20F631D581263006DDDAB /* PBXTargetDependency */,
+			);
+			name = BounceTests;
+			productName = BounceTests;
+			productReference = 0DD20F611D581263006DDDAB /* BounceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0DD20F6B1D581263006DDDAB /* BounceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DD20F7B1D581263006DDDAB /* Build configuration list for PBXNativeTarget "BounceUITests" */;
+			buildPhases = (
+				0DD20F681D581263006DDDAB /* Sources */,
+				0DD20F691D581263006DDDAB /* Frameworks */,
+				0DD20F6A1D581263006DDDAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0DD20F6E1D581263006DDDAB /* PBXTargetDependency */,
+			);
+			name = BounceUITests;
+			productName = BounceUITests;
+			productReference = 0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0DD20F451D581262006DDDAB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Darkswarm LLC";
+				TargetAttributes = {
+					0DD20F4C1D581262006DDDAB = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					0DD20F601D581263006DDDAB = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 0DD20F4C1D581262006DDDAB;
+					};
+					0DD20F6B1D581263006DDDAB = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 0DD20F4C1D581262006DDDAB;
+					};
+				};
+			};
+			buildConfigurationList = 0DD20F481D581262006DDDAB /* Build configuration list for PBXProject "Bounce" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0DD20F441D581262006DDDAB;
+			productRefGroup = 0DD20F4E1D581262006DDDAB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0DD20F4C1D581262006DDDAB /* Bounce */,
+				0DD20F601D581263006DDDAB /* BounceTests */,
+				0DD20F6B1D581263006DDDAB /* BounceUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0DD20F4B1D581262006DDDAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */,
+				0D665E5C1D5814D100558EA0 /* Assets.xcassets in Resources */,
+				0D665E731D58239800558EA0 /* VertexShader.glsl in Resources */,
+				0D665E721D58239800558EA0 /* FragmentShader.glsl in Resources */,
+				0DD20F561D581263006DDDAB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DD20F5F1D581263006DDDAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DD20F6A1D581263006DDDAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0DD20F491D581262006DDDAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D665E691D5814D100558EA0 /* TopMenuViewController.swift in Sources */,
+				0D665E631D5814D100558EA0 /* Image.swift in Sources */,
+				0D665E681D5814D100558EA0 /* Texture.swift in Sources */,
+				0D665E621D5814D100558EA0 /* Graphics.swift in Sources */,
+				0D665E751D582D4500558EA0 /* HomeMenuViewController.swift in Sources */,
+				0D665E671D5814D100558EA0 /* Sprite.swift in Sources */,
+				0D665E5D1D5814D100558EA0 /* AppDelegate.swift in Sources */,
+				0D665E6E1D5822E900558EA0 /* BounceViewController.swift in Sources */,
+				0D665E5F1D5814D100558EA0 /* EditAffineViewController.swift in Sources */,
+				0D665E6A1D5814D100558EA0 /* UIImage+Resize.swift in Sources */,
+				0D665E5E1D5814D100558EA0 /* Config.swift in Sources */,
+				0D665E661D5814D100558EA0 /* RRSegment.swift in Sources */,
+				0D665E651D5814D100558EA0 /* RRButton.swift in Sources */,
+				0D665E611D5814D100558EA0 /* GLViewController.swift in Sources */,
+				0D665E601D5814D100558EA0 /* FileUtils.swift in Sources */,
+				0D665E641D5814D100558EA0 /* ImageImportViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DD20F5D1D581263006DDDAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */,
+				0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DD20F681D581263006DDDAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0DD20F631D581263006DDDAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0DD20F4C1D581262006DDDAB /* Bounce */;
+			targetProxy = 0DD20F621D581263006DDDAB /* PBXContainerItemProxy */;
+		};
+		0DD20F6E1D581263006DDDAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0DD20F4C1D581262006DDDAB /* Bounce */;
+			targetProxy = 0DD20F6D1D581263006DDDAB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0DD20F541D581263006DDDAB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0DD20F551D581263006DDDAB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0DD20F5A1D581263006DDDAB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0DD20F731D581263006DDDAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0DD20F741D581263006DDDAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0DD20F761D581263006DDDAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Bounce/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.Bounce;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0DD20F771D581263006DDDAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Bounce/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.Bounce;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		0DD20F791D581263006DDDAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BounceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.BounceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bounce.app/Bounce";
+			};
+			name = Debug;
+		};
+		0DD20F7A1D581263006DDDAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BounceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.BounceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bounce.app/Bounce";
+			};
+			name = Release;
+		};
+		0DD20F7C1D581263006DDDAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BounceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.BounceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Bounce;
+			};
+			name = Debug;
+		};
+		0DD20F7D1D581263006DDDAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BounceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.BounceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Bounce;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0DD20F481D581262006DDDAB /* Build configuration list for PBXProject "Bounce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DD20F731D581263006DDDAB /* Debug */,
+				0DD20F741D581263006DDDAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0DD20F751D581263006DDDAB /* Build configuration list for PBXNativeTarget "Bounce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DD20F761D581263006DDDAB /* Debug */,
+				0DD20F771D581263006DDDAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0DD20F781D581263006DDDAB /* Build configuration list for PBXNativeTarget "BounceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DD20F791D581263006DDDAB /* Debug */,
+				0DD20F7A1D581263006DDDAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0DD20F7B1D581263006DDDAB /* Build configuration list for PBXNativeTarget "BounceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DD20F7C1D581263006DDDAB /* Debug */,
+				0DD20F7D1D581263006DDDAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0DD20F451D581262006DDDAB /* Project object */;
+}
