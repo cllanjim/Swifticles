@@ -13,6 +13,7 @@ import OpenGLES
 public class Texture {
     
     var bindIndex: BufferIndex
+    
     var width: Int
     var height: Int
     
@@ -22,10 +23,10 @@ public class Texture {
         height = 0
     }
     
-    public convenience init(filename: String) {
+    public convenience init(path: String?) {
         self.init()
         
-        load(filename)
+        load(path: path)
     }
     
     deinit {
@@ -39,34 +40,32 @@ public class Texture {
         bindIndex = -1
     }
     
-    public func load(filename: String) {
+    public func load(path path:String?) {
         
         clear()
         
-        var textureWidth:GLsizei = 0
-        var textureHeight:GLsizei = 0
-        
-        var scaledWidth:GLsizei = 0
-        var scaledHeight:GLsizei = 0
-        
-        //let imageData = Texture.Load(filename, width: &glWidth, height: &glHeight)
-        let imageData = Texture.Load(filename, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
+        if let texturePath = path where texturePath.characters.count > 0 {
             
-        //.Load(filename, width: &glWidth, height: &glHeight)
-        
-        
-        width = Int(textureWidth)
-        height = Int(textureHeight)
-        
-        bindIndex = gG.textureGenerate(width: Int(scaledWidth), height: Int(scaledHeight), data: imageData)
-        
-        free(imageData)
+            var textureWidth:GLsizei = 0
+            var textureHeight:GLsizei = 0
+            
+            var scaledWidth:GLsizei = 0
+            var scaledHeight:GLsizei = 0
+            
+            let imageData = Texture.Load(path:texturePath, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
+            
+            width = Int(textureWidth)
+            height = Int(textureHeight)
+            
+            bindIndex = gG.textureGenerate(width: Int(scaledWidth), height: Int(scaledHeight), data: imageData)
+            
+            free(imageData)
+        }
     }
     
-    private class func Load(filename: String, inout textureWidth: GLsizei, inout textureHeight: GLsizei, inout scaledWidth: GLsizei, inout scaledHeight: GLsizei) -> UnsafeMutablePointer<()> {
+    private class func Load(path path:String, inout textureWidth: GLsizei, inout textureHeight: GLsizei, inout scaledWidth: GLsizei, inout scaledHeight: GLsizei) -> UnsafeMutablePointer<()> {
         
-        if let image = UIImage(named: filename) {
-            
+        if let image = UIImage(named: path) {
             if image.size.width > 0 && image.size.height > 0 {
                 
                 textureWidth = GLsizei(image.size.width)

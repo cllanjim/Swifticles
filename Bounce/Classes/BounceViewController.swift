@@ -12,6 +12,18 @@ import OpenGLES
 class BounceViewController : GLViewController {
     
     
+    
+    let sprite1 = Sprite()
+    let sprite2 = Sprite()
+    
+    
+    override func load() {
+        
+        sprite1.load(path: "checkbox_back_unchecked@2x.png")
+        sprite2.load(path: "reg_btn_paste_down@2x.png")
+        
+    }
+    
     override func update() {
         
     }
@@ -29,12 +41,12 @@ class BounceViewController : GLViewController {
         
         //GLKMatrix4Identity
         
-        print("m1 = \(m.m)")
+        //print("m1 = \(m.m)")
         
         
         //m = GLKMatrix4Scale(m, 0.85, 0.85, 0.85)
         
-        print("m2 = \(m.array)")
+        //print("m2 = \(m.array)")
         
         
         //m = GLKMatrix4Rotate(m, 0.1, 0.7, 0.1, 0.25)

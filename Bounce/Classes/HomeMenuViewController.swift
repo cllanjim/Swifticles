@@ -10,7 +10,21 @@ import UIKit
 
 class HomeMenuViewController: UIViewController {
 
-    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var imageViewBackground: UIImageView!
+    
+    @IBOutlet weak var buttonCreate: RRButton!
+    
+    @IBOutlet weak var buttonLoad: RRButton!
+    
+    @IBOutlet weak var buttonContinue: RRButton!
+    
+    @IBOutlet weak var buttonUpgrade: RRButton!
+    
+    @IBOutlet weak var cloudTest: RRButton!
+    
+    @IBOutlet weak var glTest: RRButton!
+    
+    
     
     var animator:UIDynamicAnimator?
     
@@ -18,15 +32,29 @@ class HomeMenuViewController: UIViewController {
     
     override func viewDidLoad() {
 
-        //self.
-        //performSegueWithIdentifier("image_import", sender: nil)
+        self.performSegueWithIdentifier("bounce", sender: nil)
+        
+        //bounce
+        
     }
     
     @IBAction func testPush(sender: UIButton) {
         
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        print("viewWillTransitionToSize")
+        print("coord \(coordinator)")
+        print("size \(size.width)x\(size.height)")
+        print("~~~~~~~")
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "image_import" {
+            
+        }
         
         if segue.identifier == "image_import" {
             
@@ -39,6 +67,21 @@ class HomeMenuViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func clickCreate(sender: UIButton) {
+        self.performSegueWithIdentifier("import", sender: nil)
+    }
+    
+    @IBAction func clickLoad(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("bounce", sender: nil)
+    }
+    
+    @IBAction func clickUpgrade(sender: AnyObject) {
+    
+        self.performSegueWithIdentifier("bounce", sender: nil)
+    }
+    
     
     deinit {
         print("Deinit \(self)")

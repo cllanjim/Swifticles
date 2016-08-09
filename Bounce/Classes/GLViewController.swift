@@ -21,46 +21,14 @@ class GLViewController: GLKViewController {
         
     }
     
-    
-    func draw() {
-//        
-//        let width = self.view.frame.size.width
-//        let height = self.view.frame.size.height
-//        
-//        let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
-//        gG.matrixProjectionSet(p)
-//        
-//        
-//        var m = GLKMatrix4MakeScale(0.85, 0.85, 0.85)
-//        
-//        //GLKMatrix4Identity
-//        
-//        print("m1 = \(m.m)")
-//        
-//        
-//        //m = GLKMatrix4Scale(m, 0.85, 0.85, 0.85)
-//        
-//        print("m2 = \(m.array)")
-//        
-//        
-//        //m = GLKMatrix4Rotate(m, 0.1, 0.7, 0.1, 0.25)
-//        
-//        gG.matrixModelViewSet(m)
-//        
-//        
-//        
-//        gG.blendEnable()
-//        gG.blendSetAlpha()
-//        
-//        gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
-//        gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 300))
-//        
-//        gG.colorSet(a: 0.8)
-//        
-//        gG.rectDraw(x: 22.0, y: 220.0, width: 256.0, height: 256.0)
-//        
+    func load() {
+        
     }
     
+    
+    func draw() {
+        
+    }
     
     deinit {
         print("GameViewController.deinit()")
@@ -81,11 +49,14 @@ class GLViewController: GLKViewController {
         
         let view = self.view as! GLKView
         view.context = self.context!
-        
         view.drawableDepthFormat = .Format24
         
-        
         self.setupGL()
+        
+        self.performSelectorOnMainThread(#selector(load), withObject: nil, waitUntilDone: true)
+        
+        //self.load()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -128,23 +99,16 @@ class GLViewController: GLKViewController {
         //old.png
         
         path = path.stringByAppendingString("hero_stego_spike_1")
-        texxx = Texture(filename: path)
-        texxx?.load("rock")
+        texxx = Texture(path:  path)
+        texxx?.load(path: "rock")
         
     }
     
     func tearDownGL() {
         
-        
-        
         EAGLContext.setCurrentContext(self.context)
         
         gG.dispose()
-        
-        //glDeleteBuffers(1, &vertexBuffer)
-        //glDeleteVertexArraysOES(1, &vertexArray)
-        
-        //self.effect = nil
         
         if program != 0 {
             glDeleteProgram(program)
@@ -160,6 +124,8 @@ class GLViewController: GLKViewController {
         glClearColor(0.05, 0.06, 0.0925, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
         gG.colorSet()
+        gG.blendEnable()
+        gG.blendSetAlpha()
         
         draw()
         

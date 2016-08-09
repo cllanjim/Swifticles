@@ -15,25 +15,27 @@ public class Sprite {
     
     //"Single Source of Truth" doesn't necessarily apply
     //because a sprite can be only a slice of a texture...
-    var width:CGFloat = 0.0
-    var height:CGFloat = 0.0
+    //var width:CGFloat = 0.0
+    //var height:CGFloat = 0.0
+    var size:CGSize = CGSizeZero
     
     
-    /*
-    var width: CGFloat {
-        get {
-            if texture != nil {
-                return CGFloat(texture!.width)
-            }
-            return 0.0
-        }
-        set {
-            
-        }
-    }
-    */
+    
+    private var vertexBuffer:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
+    private var indexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
+    
+    //private var vertexBufferSlot:BufferIndex = -1
+    //private var indexBufferSlot:BufferIndex = -1
+
+    //vertexBuffer = [-128.0, -128.0, 0.0, 0.0, 128.0, -128.0,  1.0, 0.0, -128.0, 128.0,  0.0, 1.0, 128.0, 128.0,  1.0, 1.0]
+    //indexBuffer = [0, 2, 1, 1, 2, 3]
+        
+    //vertexBufferSlot = bufferVertexGenerate(data: vertexBuffer, size: 16)
+    //indexBufferSlot = bufferIndexGenerate(data: indexBuffer, size: 6)
+        
     
     public init() {
+        vertexBuffer[0] = -128
         
     }
     
@@ -42,18 +44,52 @@ public class Sprite {
     }
     
     func clear() {
-        
-        width = 0.0
-        height = 0.0
-        
+        size = CGSizeZero
         texture = nil
     }
     
-    public func load(filename: String) {
+    public func load(path path: String?) {
+        load(texture: Texture(path: path))
+    }
+    
+    public func load(texture t: Texture?) {
         
         clear()
         
+        if let newTexture = t {
+            if newTexture.bindIndex != -1 {// && newTexture.width > 0 && newTexture.height > 0 {
+                
+                
+                load(texture: newTexture, rect: CGRect(x: CGFloat(-newTexture.width) / 2.0, y: CGFloat(-newTexture.height) / 2.0, width: CGFloat(newTexture.width), height: CGFloat(newTexture.height)))
+                    
+                
+                //texture = newTexture
+            }
+        }
+        
+        
     }
+    
+    public func load(texture t: Texture?, rect:CGRect) {
+        
+        clear()
+        if let newTexture = t where newTexture.bindIndex != -1 && newTexture.width > 0 && newTexture.height > 0 {
+            
+            texture = newTexture
+            
+            
+        }
+    }
+    
+    public func drawCentered(pos pos:CGPoint) {
+        
+    }
+    
+    public func drawCentered(pos pos:CGPoint, scale:CGFloat, rot: CGFloat) {
+        
+    }
+    
+    
     
 }
 

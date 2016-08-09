@@ -74,10 +74,14 @@ class RRButton: UIButton {
         let clipPath = UIBezierPath(roundedRect: rect, byRoundingCorners: getCornerType(drawUL, ur: drawUR, dr: drawDR, dl: drawDL), cornerRadii: CGSize(width: 16.0, height: 32.0)).CGPath
         
         CGContextAddPath(ctx, clipPath)
-        CGContextSetFillColorWithColor(ctx, UIColor.redColor().CGColor)
+        CGContextSetFillColorWithColor(ctx, UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).CGColor)
         
         CGContextClosePath(ctx)
         CGContextFillPath(ctx)
+        
+        CGContextSetStrokeColorWithColor(ctx, UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).CGColor)
+        CGContextStrokePath(ctx)
+        
         CGContextRestoreGState(ctx)
     }
     

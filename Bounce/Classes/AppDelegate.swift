@@ -16,6 +16,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        
+        
+        
+        /*
+        //let oq = NSOperationQueue.mainQueue()
+        let oq = NSOperationQueue()
+        
+        
+        let oper1 = NSBlockOperation { 
+            
+            print("oper1.mainBlock...")
+            
+            let url = NSURL(string: "http://allstarcharts.com/wp-content/uploads/2012/01/1-9-12-DJIA-1896-2012.jpg")
+            let data = NSData(contentsOfURL: url!)
+            let image = UIImage(data: data!)
+            print("Image Size [\(image!.size.width) x \(image!.size.height)]")
+            
+        }
+        
+
+        oper1.completionBlock = {
+            
+            print("oper1.completionBlock")
+            
+        }
+        
+        let oper2 = NSOperation()
+        oper2.completionBlock = {
+            print("oper2.completionBlock")
+            
+        }
+        
+        oper2.addDependency(oper1)
+        //oper1.addDependency(oper2)
+    
+        
+        let oper3 = NSOperation()
+        oper3.completionBlock = {
+            print("oper3.completionBlock")
+            
+        }
+        
+        oper3.addDependency(oper1)
+        oper3.addDependency(oper2)
+        
+        
+        
+        
+        
+        //oper1.addDependency(oper1)
+        
+        
+        oq.addOperations([oper1, oper2, oper3], waitUntilFinished: false)
+        */
+        
+        
+        
+        
+        
         return true
     }
 

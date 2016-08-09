@@ -1,27 +1,184 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5oE-3G-7xf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5oE-3G-7xf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home Menu View Controller-->
         <scene sceneID="iBf-ho-an0">
             <objects>
-                <viewController id="7WL-lm-GZy" sceneMemberID="viewController">
+                <viewController id="7WL-lm-GZy" customClass="HomeMenuViewController" customModule="Bounce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dEv-MO-A9a"/>
                         <viewControllerLayoutGuide type="bottom" id="l55-up-fKj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QJR-Vx-Ban">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqn-WP-CYZ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5SI-QI-Vw9">
+                                <rect key="frame" x="75" y="75" width="450" height="450"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTg-Pp-k0U" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="434" height="81"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Build One"/>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="8" y="8" width="584" height="30"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="clickCreate:" destination="7WL-lm-GZy" eventType="touchUpInside" id="Fmd-Vi-Nfy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-3M-ndH" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="275" width="434" height="162"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Upgrade"/>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="8" y="8" width="584" height="30"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="clickCreate:" destination="7WL-lm-GZy" eventType="touchUpInside" id="rFf-rd-c3V"/>
+                                            <action selector="clickUpgrade:" destination="7WL-lm-GZy" eventType="touchUpInside" id="dl2-eP-ZH8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkZ-1b-r2s" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="97" width="213" height="81"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Load"/>
+                                        <connections>
+                                            <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="3zL-Hw-7YQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ia-Z6-wwE" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="229" y="186" width="213" height="81"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="GLTest"/>
+                                        <connections>
+                                            <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="UEP-S9-5Z6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIH-FF-IOa" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="186" width="213" height="81"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Cloud Test"/>
+                                        <connections>
+                                            <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="kCs-Wn-413"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bQ-dm-Sot" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="229" y="97" width="213" height="81"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Continue"/>
+                                        <connections>
+                                            <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="7E7-Wf-Uuc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.11225754310344828" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="6bQ-dm-Sot" firstAttribute="width" secondItem="lkZ-1b-r2s" secondAttribute="width" id="1tt-EW-EV3"/>
+                                    <constraint firstItem="KTO-3M-ndH" firstAttribute="width" secondItem="vTg-Pp-k0U" secondAttribute="width" id="2mc-U9-2jb"/>
+                                    <constraint firstItem="6bQ-dm-Sot" firstAttribute="height" secondItem="lkZ-1b-r2s" secondAttribute="height" id="4m9-xE-uYm"/>
+                                    <constraint firstItem="1Ia-Z6-wwE" firstAttribute="trailing" secondItem="6bQ-dm-Sot" secondAttribute="trailing" id="8Mt-kn-c7A"/>
+                                    <constraint firstItem="1Ia-Z6-wwE" firstAttribute="width" secondItem="lkZ-1b-r2s" secondAttribute="width" id="DcL-UX-F5c"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="leading" secondItem="vTg-Pp-k0U" secondAttribute="leading" id="G0F-1f-Bmu"/>
+                                    <constraint firstItem="JIH-FF-IOa" firstAttribute="height" secondItem="lkZ-1b-r2s" secondAttribute="height" id="GsB-Mh-aqX"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="leading" secondItem="5SI-QI-Vw9" secondAttribute="leading" constant="8" id="Htn-Ic-gcM"/>
+                                    <constraint firstItem="vTg-Pp-k0U" firstAttribute="width" secondItem="5SI-QI-Vw9" secondAttribute="width" multiplier="0.94" id="Iqy-YS-s5Z"/>
+                                    <constraint firstAttribute="width" secondItem="5SI-QI-Vw9" secondAttribute="height" multiplier="1:1" id="LRs-IK-O8t"/>
+                                    <constraint firstItem="KTO-3M-ndH" firstAttribute="height" secondItem="vTg-Pp-k0U" secondAttribute="height" multiplier="2" id="LWB-0a-aMT"/>
+                                    <constraint firstItem="JIH-FF-IOa" firstAttribute="leading" secondItem="lkZ-1b-r2s" secondAttribute="leading" id="Luk-HD-hCi"/>
+                                    <constraint firstItem="1Ia-Z6-wwE" firstAttribute="height" secondItem="JIH-FF-IOa" secondAttribute="height" id="PFx-f0-B3G"/>
+                                    <constraint firstAttribute="trailing" secondItem="vTg-Pp-k0U" secondAttribute="trailing" constant="8" id="UM3-Bo-1ak"/>
+                                    <constraint firstItem="KTO-3M-ndH" firstAttribute="top" secondItem="JIH-FF-IOa" secondAttribute="bottom" constant="8" id="W6S-3o-CTS"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="width" secondItem="vTg-Pp-k0U" secondAttribute="width" multiplier="0.49" id="bMq-ZF-E7m"/>
+                                    <constraint firstItem="JIH-FF-IOa" firstAttribute="top" secondItem="lkZ-1b-r2s" secondAttribute="bottom" constant="8" id="bgZ-yY-Ylt"/>
+                                    <constraint firstItem="1Ia-Z6-wwE" firstAttribute="height" secondItem="lkZ-1b-r2s" secondAttribute="height" id="bjC-M3-T22"/>
+                                    <constraint firstItem="JIH-FF-IOa" firstAttribute="width" secondItem="lkZ-1b-r2s" secondAttribute="width" id="cfy-UA-WGs"/>
+                                    <constraint firstItem="1Ia-Z6-wwE" firstAttribute="width" secondItem="JIH-FF-IOa" secondAttribute="width" id="dEo-uM-UZo"/>
+                                    <constraint firstItem="6bQ-dm-Sot" firstAttribute="trailing" secondItem="vTg-Pp-k0U" secondAttribute="trailing" id="fhB-pC-rQe"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="leading" secondItem="vTg-Pp-k0U" secondAttribute="leading" id="kLo-la-Jsw"/>
+                                    <constraint firstItem="6bQ-dm-Sot" firstAttribute="top" secondItem="lkZ-1b-r2s" secondAttribute="top" id="lnC-2z-4rU"/>
+                                    <constraint firstItem="1Ia-Z6-wwE" firstAttribute="top" secondItem="JIH-FF-IOa" secondAttribute="top" id="nQw-l6-pXx"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="top" secondItem="vTg-Pp-k0U" secondAttribute="bottom" constant="8" id="rIY-33-4zt"/>
+                                    <constraint firstItem="KTO-3M-ndH" firstAttribute="leading" secondItem="vTg-Pp-k0U" secondAttribute="leading" id="tRZ-1a-bIM"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="leading" secondItem="vTg-Pp-k0U" secondAttribute="leading" id="vLP-h5-Q3S"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="width" secondItem="vTg-Pp-k0U" secondAttribute="width" multiplier="0.44" id="vY3-Uy-48d"/>
+                                    <constraint firstItem="lkZ-1b-r2s" firstAttribute="height" secondItem="vTg-Pp-k0U" secondAttribute="height" id="xfc-jm-uGb"/>
+                                    <constraint firstItem="vTg-Pp-k0U" firstAttribute="leading" secondItem="5SI-QI-Vw9" secondAttribute="leading" constant="8" id="yuh-JS-0T1"/>
+                                    <constraint firstItem="vTg-Pp-k0U" firstAttribute="top" secondItem="5SI-QI-Vw9" secondAttribute="top" constant="8" id="z9m-bu-xOL"/>
+                                    <constraint firstItem="vTg-Pp-k0U" firstAttribute="height" secondItem="5SI-QI-Vw9" secondAttribute="height" multiplier="0.18" id="zIm-3G-oAn"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Iqy-YS-s5Z"/>
+                                        <exclude reference="Htn-Ic-gcM"/>
+                                        <exclude reference="kLo-la-Jsw"/>
+                                        <exclude reference="vLP-h5-Q3S"/>
+                                        <exclude reference="vY3-Uy-48d"/>
+                                        <exclude reference="PFx-f0-B3G"/>
+                                        <exclude reference="dEo-uM-UZo"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="width" secondItem="QJR-Vx-Ban" secondAttribute="width" id="0Os-fN-caC"/>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerY" secondItem="5SI-QI-Vw9" secondAttribute="centerY" id="2ag-Cy-ZLQ"/>
+                            <constraint firstItem="5SI-QI-Vw9" firstAttribute="height" secondItem="QJR-Vx-Ban" secondAttribute="height" multiplier="0.75" id="2ef-Rc-aZy"/>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="height" secondItem="5SI-QI-Vw9" secondAttribute="height" id="4Ip-ko-zco"/>
+                            <constraint firstItem="5SI-QI-Vw9" firstAttribute="centerY" secondItem="QJR-Vx-Ban" secondAttribute="centerY" id="8aM-Sy-ocm"/>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="width" secondItem="5SI-QI-Vw9" secondAttribute="width" id="ACS-hf-5cX"/>
+                            <constraint firstItem="5SI-QI-Vw9" firstAttribute="width" secondItem="QJR-Vx-Ban" secondAttribute="width" multiplier="0.75" id="CHz-qI-dpn"/>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerX" secondItem="5SI-QI-Vw9" secondAttribute="centerX" id="Hck-ZP-9S9"/>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerX" secondItem="QJR-Vx-Ban" secondAttribute="centerX" id="So4-sP-o5G"/>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="height" secondItem="QJR-Vx-Ban" secondAttribute="height" id="WFb-tc-sA7"/>
+                            <constraint firstItem="5SI-QI-Vw9" firstAttribute="centerX" secondItem="QJR-Vx-Ban" secondAttribute="centerX" id="ufI-6x-aN1"/>
+                            <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerY" secondItem="QJR-Vx-Ban" secondAttribute="centerY" id="xl5-RG-QdC"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="2ag-Cy-ZLQ"/>
+                                <exclude reference="4Ip-ko-zco"/>
+                                <exclude reference="ACS-hf-5cX"/>
+                                <exclude reference="Hck-ZP-9S9"/>
+                                <exclude reference="2ef-Rc-aZy"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="2ef-Rc-aZy"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="UAH-cX-1PS"/>
+                    <connections>
+                        <outlet property="buttonContinue" destination="6bQ-dm-Sot" id="MYt-32-OiN"/>
+                        <outlet property="buttonCreate" destination="vTg-Pp-k0U" id="JYy-3N-OWJ"/>
+                        <outlet property="buttonLoad" destination="lkZ-1b-r2s" id="44j-AT-jle"/>
+                        <outlet property="buttonUpgrade" destination="KTO-3M-ndH" id="KAs-Nf-D5c"/>
+                        <outlet property="cloudTest" destination="JIH-FF-IOa" id="3UB-JQ-Qg4"/>
+                        <outlet property="glTest" destination="1Ia-Z6-wwE" id="foK-b2-orv"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="bounce" id="8KK-ae-JtT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wby-p7-91w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="511.5" y="360"/>
+            <point key="canvasLocation" x="474" y="360"/>
         </scene>
         <!--Bounce View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -60,4 +217,7 @@
             <point key="canvasLocation" x="-249" y="360"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background_modal_ipad.png" width="1024" height="1024"/>
+    </resources>
 </document>
