@@ -84,7 +84,7 @@ class GLViewController: GLKViewController {
         
         gG.create()
         
-        glEnable(GLenum(GL_DEPTH_TEST))
+        //glEnable(GLenum(GL_DEPTH_TEST))
         
         //glGenVertexArraysOES(1, &vertexArray)
         //glBindVertexArrayOES(vertexArray)

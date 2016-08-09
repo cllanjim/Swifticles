@@ -12,13 +12,13 @@ import OpenGLES
 
 public class Texture {
     
-    var bindIndex: BufferIndex
+    var bindIndex: BufferIndex?
     
     var width: Int
     var height: Int
     
     public init() {
-        bindIndex = -1
+        bindIndex = nil
         width = 0
         height = 0
     }
@@ -36,8 +36,8 @@ public class Texture {
     func clear() {
         width = 0
         height = 0
-        gG.textureDelete(index: bindIndex)
-        bindIndex = -1
+        gG.textureDelete(bufferIndex: bindIndex)
+        bindIndex = nil
     }
     
     public func load(path path:String?) {

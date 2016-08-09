@@ -37,14 +37,19 @@ extension GLKMatrix4 {
 
 class Graphics {
     
+    private var cTestProjectionMatrix = [Float]()
+    private var cTestModelViewMatrix = [Float]()
+    
     private var cProjectionMatrix = GLKMatrix4Identity
     private var cModelViewMatrix = GLKMatrix4Identity
+    
+    private var cWhiteSprite: Sprite = Sprite()
     
     private var cRectVertexBuffer:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
     private var cRectIndexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
     
-    private var cRectVertexBufferSlot:BufferIndex = -1
-    private var cRectIndexBufferSlot:BufferIndex = -1
+    private var cRectVertexBufferSlot:BufferIndex?
+    private var cRectIndexBufferSlot:BufferIndex?
     
     init() {
         print("Graphics.init()")
@@ -52,9 +57,15 @@ class Graphics {
     
     //Expects external engine to have set up
     //the uniforms, gGLSlotPosition etc.
+    
+    //Interesting note - we ALWAYS are using textures,
+    //no matter WHAT!!!
     func create() {
         
         print("Graphics.create()")
+        
+        
+        cWhiteSprite.load(path: "white_square")
         
         //XYUV, XYUV, XYUV, XYUV
         cRectVertexBuffer = [-128.0, -128.0, 0.0, 0.0, 128.0, -128.0,  1.0, 0.0, -128.0, 128.0,  0.0, 1.0, 128.0, 128.0,  1.0, 1.0]
@@ -63,6 +74,7 @@ class Graphics {
         cRectVertexBufferSlot = bufferVertexGenerate(data: cRectVertexBuffer, size: 16)
         cRectIndexBufferSlot = bufferIndexGenerate(data: cRectIndexBuffer, size: 6)
         
+        textureEnable()
         
         //cRectVertexBuffer.forEach() { value in
         //    print("Float = \(value)")
@@ -74,12 +86,19 @@ class Graphics {
         
         print("Graphics.dispose()")
         
+        cWhiteSprite.clear()
+        
         bufferDelete(bufferIndex: cRectVertexBufferSlot)
+        cRectVertexBufferSlot = nil
+        
         bufferDelete(bufferIndex: cRectIndexBufferSlot)
+        cRectIndexBufferSlot = nil
     }
     
     func quadDraw(x1 x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat, x3:GLfloat, y3:GLfloat, x4:GLfloat, y4:GLfloat) {
         
+        
+        //cWhiteSquareSprite.
         cRectVertexBuffer[0] = x1
         cRectVertexBuffer[1] = y1
         cRectVertexBuffer[4] = x2
@@ -89,8 +108,8 @@ class Graphics {
         cRectVertexBuffer[12] = x4
         cRectVertexBuffer[13] = y4
         
-        //textureDisable()
-        textureEnable()
+        
+        textureBind(bufferIndex: cWhiteSprite.texture?.bindIndex)
         
         bufferIndexBind(cRectIndexBufferSlot)
         bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: cRectVertexBuffer, size: 16)
@@ -98,6 +117,7 @@ class Graphics {
         positionEnable()
         positionSetPointer(size: 2, offset: 0, stride: 4)
         
+        texCoordDisable()
         texCoordEnable()
         textureCoordSetPointer(size: 2, offset: 2, stride: 4)
         
@@ -197,16 +217,18 @@ class Graphics {
         return BufferIndex(result);
     }
     
-    func bufferDelete(bufferIndex bufferIndex:BufferIndex) {
-        if bufferIndex >= 0 {
-            var index = GLuint(bufferIndex)
+    func bufferDelete(bufferIndex bufferIndex:BufferIndex?) {
+        if let checkIndex = bufferIndex {
+            var index = GLuint(checkIndex)
             glDeleteBuffers(1, &index)
         }
     }
     
-    func bufferVertexSetData(bufferIndex bufferIndex:BufferIndex, data:[GLfloat], size:Int) {
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(bufferIndex))
-        glBufferData(GLenum(GL_ARRAY_BUFFER), size * sizeof(GLfloat), data, GLenum(GL_STATIC_DRAW))
+    func bufferVertexSetData(bufferIndex bufferIndex:BufferIndex?, data:[GLfloat], size:Int) {
+        if let checkIndex = bufferIndex {
+            glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(checkIndex))
+            glBufferData(GLenum(GL_ARRAY_BUFFER), size * sizeof(GLfloat), data, GLenum(GL_STATIC_DRAW))
+        }
     }
     
     func bufferIndexGenerate(data data:[IndexBufferType], size:Int) -> BufferIndex {
@@ -215,17 +237,23 @@ class Graphics {
         return result;
     }
     
-    func bufferIndexSetData(bufferIndex bufferIndex:BufferIndex, data:[IndexBufferType], size:Int) {
-        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(bufferIndex))
-        glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), size * sizeof(UInt32), data, GLenum(GL_STATIC_DRAW))
+    func bufferIndexSetData(bufferIndex bufferIndex:BufferIndex?, data:[IndexBufferType], size:Int) {
+        if let checkIndex = bufferIndex {
+            glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(checkIndex))
+            glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), size * sizeof(UInt32), data, GLenum(GL_STATIC_DRAW))
+        }
     }
     
-    func bufferVertexBind(bufferIndex:BufferIndex) {
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(bufferIndex))
+    func bufferVertexBind(bufferIndex:BufferIndex?) {
+        if let checkIndex = bufferIndex {
+            glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(checkIndex))
+        }
     }
     
-    func bufferIndexBind(bufferIndex:BufferIndex) {
-        glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(bufferIndex))
+    func bufferIndexBind(bufferIndex:BufferIndex?) {
+        if let checkIndex = bufferIndex {
+            glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(checkIndex))
+        }
     }
     
     func positionSetPointer(size size:Int, offset:Int, stride:Int) {
@@ -259,6 +287,7 @@ class Graphics {
     
     func matrixProjectionSet(mat:GLKMatrix4) {
         cProjectionMatrix = mat
+        cTestModelViewMatrix = cProjectionMatrix.array
         withUnsafePointer(&cProjectionMatrix) {
             glUniformMatrix4fv(gGLUniformProjection, 1, 0, UnsafePointer($0))
         }
@@ -266,6 +295,7 @@ class Graphics {
     
     func matrixModelViewSet(mat:GLKMatrix4) {
         cModelViewMatrix = mat
+        cTestProjectionMatrix = cModelViewMatrix.array
         withUnsafePointer(&cModelViewMatrix) {
             glUniformMatrix4fv(gGLUniformModelView, 1, 0, UnsafePointer($0))
         }
@@ -297,18 +327,18 @@ class Graphics {
         return BufferIndex(result);
     }
     
-    func textureGenerate(width width:Int, height:Int, data:UnsafeMutablePointer<()>) -> BufferIndex {
+    func textureGenerate(width width:Int, height:Int, data:UnsafeMutablePointer<()>) -> BufferIndex? {
         if width > 0 && height > 0 && data != nil {
             let bindIndex = textureGenerate()
-            textureSetData(bindIndex, width: width, height: height, data: data)
+            textureSetData(bufferIndex: bindIndex, width: width, height: height, data: data)
             return bindIndex
         }
-        return -1
+        return nil
     }
     
-    func textureSetData(index:BufferIndex, width:Int, height:Int, data:UnsafeMutablePointer<()>) {
-        if width > 0 && height > 0 && data != nil {
-            textureBind(index)
+    func textureSetData(bufferIndex bufferIndex:BufferIndex?, width:Int, height:Int, data:UnsafeMutablePointer<()>) {
+        if let checkIndex = bufferIndex where width > 0 && height > 0 && data != nil {
+            textureBind(bufferIndex:checkIndex)
             glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_NEAREST)
             glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_NEAREST)
             glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE)
@@ -317,14 +347,17 @@ class Graphics {
         }
     }
     
-    func textureBind(index:BufferIndex) {
-        glBindTexture(GLenum(GL_TEXTURE_2D), GLuint(index));
+    func textureBind(bufferIndex bufferIndex:BufferIndex?) {
+        if let checkIndex = bufferIndex {
+            glBindTexture(GLenum(GL_TEXTURE_2D), GLuint(checkIndex))
+        }
     }
     
-    func textureDelete(index index:BufferIndex) {
-        if index >= 0 {
-            var uindex = GLuint(index)
-            glDeleteTextures(1, &uindex)
+    func textureDelete(bufferIndex bufferIndex:BufferIndex?) {
+        
+        if let checkIndex = bufferIndex {
+            var index = GLuint(checkIndex)
+            glDeleteTextures(1, &index)
         }
     }
     

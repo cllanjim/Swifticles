@@ -37,7 +37,8 @@ class BounceViewController : GLViewController {
         gG.matrixProjectionSet(p)
         
         
-        var m = GLKMatrix4MakeScale(0.85, 0.85, 0.85)
+        //var m = GLKMatrix4MakeScale(0.85, 0.85, 0.85)
+        var m = GLKMatrix4Identity
         
         //GLKMatrix4Identity
         
@@ -53,17 +54,34 @@ class BounceViewController : GLViewController {
         
         gG.matrixModelViewSet(m)
         
-        
-        
         gG.blendEnable()
         gG.blendSetAlpha()
         
         gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
         gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 300))
         
-        gG.colorSet(a: 0.8)
+        gG.colorSet(r: 0.0, g: 1.0, b: 0.15, a: 1.0)
+        gG.rectDraw(CGRect(x: 20, y: 10, width: 60, height: 340))
         
-        gG.rectDraw(x: 22.0, y: 220.0, width: 256.0, height: 256.0)
+        gG.colorSet(r: 0.0, g: 0.0, b: 1.0, a: 1.0)
+        gG.rectDraw(CGRect(x: 200, y: 200, width: 60, height: 60))
+        
+        
+        gG.colorSet()
+        
+        //gG.rectDraw(x: 22.0, y: 220.0, width: 256.0, height: 256.0)
+        
+        gG.colorSet()
+        
+        
+        
+        //sprite2.drawCentered(pos: CGPoint(x: 0, y: 0))
+        
+        sprite1.drawCentered(pos: CGPoint(x: 1.0, y: 0.0))
+        sprite1.drawCentered(pos: CGPoint(x: 100.0, y: 0.0))
+        
+        sprite2.drawCentered(pos: CGPoint(x: 200, y: 200))
+        sprite2.drawCentered(pos: CGPoint(x: 100.0, y: 100))
         
     }
     

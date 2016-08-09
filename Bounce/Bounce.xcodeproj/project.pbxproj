@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D665E5C1D5814D100558EA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E4C1D5814D100558EA0 /* Assets.xcassets */; };
+		0D199C281D59AE7D006F857C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D199C271D59AE7D006F857C /* Assets.xcassets */; };
+		0D199C2C1D59B75F006F857C /* DrawNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D199C2B1D59B75F006F857C /* DrawNode.swift */; };
+		0D199C2E1D59B76B006F857C /* DrawTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D199C2D1D59B76B006F857C /* DrawTriangle.swift */; };
 		0D665E5D1D5814D100558EA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E4E1D5814D100558EA0 /* AppDelegate.swift */; };
 		0D665E5E1D5814D100558EA0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E4F1D5814D100558EA0 /* Config.swift */; };
 		0D665E5F1D5814D100558EA0 /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E501D5814D100558EA0 /* EditAffineViewController.swift */; };
@@ -82,7 +84,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D665E4C1D5814D100558EA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D199C271D59AE7D006F857C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D199C2B1D59B75F006F857C /* DrawNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNode.swift; sourceTree = "<group>"; };
+		0D199C2D1D59B76B006F857C /* DrawTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangle.swift; sourceTree = "<group>"; };
 		0D665E4E1D5814D100558EA0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D665E4F1D5814D100558EA0 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0D665E501D5814D100558EA0 /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 				0D665E5B1D5814D100558EA0 /* UIImage+Resize.swift */,
 				0D665E6D1D5822E900558EA0 /* BounceViewController.swift */,
 				0D665E741D582D4500558EA0 /* HomeMenuViewController.swift */,
+				0D199C2B1D59B75F006F857C /* DrawNode.swift */,
+				0D199C2D1D59B76B006F857C /* DrawTriangle.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -205,8 +211,8 @@
 		0DD20F441D581262006DDDAB = {
 			isa = PBXGroup;
 			children = (
+				0D199C271D59AE7D006F857C /* Assets.xcassets */,
 				C28BE7E31D59740100347155 /* Assets (Loose) */,
-				0D665E4C1D5814D100558EA0 /* Assets.xcassets */,
 				0D665E4D1D5814D100558EA0 /* Classes */,
 				0DD20F4F1D581263006DDDAB /* Bounce */,
 				0DD20F641D581263006DDDAB /* BounceTests */,
@@ -412,7 +418,6 @@
 				C28BE81D1D59740100347155 /* reg_btn_save_as_down@2x.png in Resources */,
 				C28BE8141D59740100347155 /* reg_btn_load_down@2x.png in Resources */,
 				C28BE80C1D59740100347155 /* reg_btn_clone_selected_down@2x.png in Resources */,
-				0D665E5C1D5814D100558EA0 /* Assets.xcassets in Resources */,
 				C28BE8071D59740100347155 /* background_modal_ipad@2x.png in Resources */,
 				C28BE8211D59740100347155 /* seg_back_highlight@2x.png in Resources */,
 				C28BE80F1D59740100347155 /* reg_btn_delete_all@2x.png in Resources */,
@@ -440,6 +445,7 @@
 				C28BE80B1D59740100347155 /* reg_btn_clone_selected@2x.png in Resources */,
 				0DD20F561D581263006DDDAB /* Main.storyboard in Resources */,
 				C28BE8201D59740100347155 /* reg_btn_select_any_down@2x.png in Resources */,
+				0D199C281D59AE7D006F857C /* Assets.xcassets in Resources */,
 				C28BE8221D59740100347155 /* test_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,9 +484,11 @@
 				0D665E5E1D5814D100558EA0 /* Config.swift in Sources */,
 				0D665E661D5814D100558EA0 /* RRSegment.swift in Sources */,
 				0D665E651D5814D100558EA0 /* RRButton.swift in Sources */,
+				0D199C2C1D59B75F006F857C /* DrawNode.swift in Sources */,
 				0D665E611D5814D100558EA0 /* GLViewController.swift in Sources */,
 				0D665E601D5814D100558EA0 /* FileUtils.swift in Sources */,
 				0D665E641D5814D100558EA0 /* ImageImportViewController.swift in Sources */,
+				0D199C2E1D59B76B006F857C /* DrawTriangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

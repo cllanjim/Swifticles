@@ -69,7 +69,7 @@ class HomeMenuViewController: UIViewController {
     }
     
     @IBAction func clickCreate(sender: UIButton) {
-        self.performSegueWithIdentifier("import", sender: nil)
+        self.performSegueWithIdentifier("bounce", sender: nil)
     }
     
     @IBAction func clickLoad(sender: AnyObject) {

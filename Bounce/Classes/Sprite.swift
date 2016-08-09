@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import GLKit
 
 public class Sprite {
     
@@ -24,28 +25,56 @@ public class Sprite {
     private var vertexBuffer:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
     private var indexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
     
-    //private var vertexBufferSlot:BufferIndex = -1
-    //private var indexBufferSlot:BufferIndex = -1
-
-    //vertexBuffer = [-128.0, -128.0, 0.0, 0.0, 128.0, -128.0,  1.0, 0.0, -128.0, 128.0,  0.0, 1.0, 128.0, 128.0,  1.0, 1.0]
-    //indexBuffer = [0, 2, 1, 1, 2, 3]
+    private var vertexBufferSlot:BufferIndex?
+    private var indexBufferSlot:BufferIndex?
         
     //vertexBufferSlot = bufferVertexGenerate(data: vertexBuffer, size: 16)
     //indexBufferSlot = bufferIndexGenerate(data: indexBuffer, size: 6)
-        
+    
+    public var quadX1:CGFloat {
+        get {return CGFloat(vertexBuffer[0])}
+        set {vertexBuffer[0] = GLfloat(newValue)}
+    }
+    
+    public var quadY1:CGFloat {
+        get {return CGFloat(vertexBuffer[1])}
+        set {vertexBuffer[0] = GLfloat(vertexBuffer[0])}
+    }
+    
+    //cRectVertexBuffer[0] = x1
+    //cRectVertexBuffer[1] = y1
+    //cRectVertexBuffer[4] = x2
+    //cRectVertexBuffer[5] = y2
+    //cRectVertexBuffer[8] = x3
+    //cRectVertexBuffer[9] = y3
+    //cRectVertexBuffer[12] = x4
+    //cRectVertexBuffer[13] = y4
+    
+    
     
     public init() {
-        vertexBuffer[0] = -128
+        vertexBuffer = [-128.0, -128.0, 0.0, 0.0, 128.0, -128.0,  1.0, 0.0, -128.0, 128.0,  0.0, 1.0, 128.0, 128.0,  1.0, 1.0]
         
+        //vertexBuffer = [-128.0, -128.0, 0.0, 0.0, 256.0, -128.0,  1.0, 0.0, -128.0, 256.0,  0.0, 1.0, 256.0, 256.0,  1.0, 1.0]
+        indexBuffer = [0, 2, 1, 1, 2, 3]
     }
     
     deinit {
         clear()
     }
     
+    //func set
+    
+    
     func clear() {
         size = CGSizeZero
         texture = nil
+        
+        gG.bufferDelete(bufferIndex: vertexBufferSlot)
+        vertexBufferSlot = nil
+        
+        gG.bufferDelete(bufferIndex: indexBufferSlot)
+        indexBufferSlot = nil
     }
     
     public func load(path path: String?) {
@@ -56,15 +85,9 @@ public class Sprite {
         
         clear()
         
-        if let newTexture = t {
-            if newTexture.bindIndex != -1 {// && newTexture.width > 0 && newTexture.height > 0 {
-                
+        if let newTexture = t where newTexture.bindIndex != nil {// && newTexture.width > 0 && newTexture.height > 0 {
                 
                 load(texture: newTexture, rect: CGRect(x: CGFloat(-newTexture.width) / 2.0, y: CGFloat(-newTexture.height) / 2.0, width: CGFloat(newTexture.width), height: CGFloat(newTexture.height)))
-                    
-                
-                //texture = newTexture
-            }
         }
         
         
@@ -73,16 +96,60 @@ public class Sprite {
     public func load(texture t: Texture?, rect:CGRect) {
         
         clear()
-        if let newTexture = t where newTexture.bindIndex != -1 && newTexture.width > 0 && newTexture.height > 0 {
+        if let newTexture = t where newTexture.bindIndex != nil && newTexture.width > 0 && newTexture.height > 0 {
             
             texture = newTexture
             
+            //private var vertexBuffer:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
+            //private var indexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
             
+            //private var vertexBufferSlot:BufferIndex = -1
+            //private var indexBufferSlot:BufferIndex = -1
+            
+            vertexBufferSlot = gG.bufferVertexGenerate(data: vertexBuffer, size: 16)
+            indexBufferSlot = gG.bufferIndexGenerate(data: indexBuffer, size: 6)
         }
     }
     
     public func drawCentered(pos pos:CGPoint) {
         
+        var modelView = gG.matrixModelViewGet()
+        
+        
+        //print("modelView = \(modelView.m)")
+        
+        
+        //m = GLKMatrix4Scale(m, 0.85, 0.85, 0.85)
+        
+        //print("m2 = \(m.array)")
+        
+        
+        //var matrix = GLKMatrix4Translate(modelView, Float(pos.x), Float(pos.y), 0.0)
+        var matrix = GLKMatrix4MakeTranslation(Float(pos.x), Float(pos.y), 0.0)
+        
+        //print("matrix = \(matrix.m)")
+        
+        
+        //textureDisable()
+        
+        
+        gG.bufferIndexBind(indexBufferSlot)
+        gG.bufferVertexBind(vertexBufferSlot)
+        
+        gG.positionEnable()
+        gG.positionSetPointer(size: 2, offset: 0, stride: 4)
+        
+        gG.texCoordEnable()
+        gG.textureCoordSetPointer(size: 2, offset: 2, stride: 4)
+        
+        gG.textureEnable()
+        gG.textureBind(bufferIndex: texture?.bindIndex)
+        
+        gG.matrixModelViewSet(matrix)
+        
+        gG.drawElementsTriangle(count:6, offset: 0)
+        
+        //gG.matrixModelViewSet(modelView)
     }
     
     public func drawCentered(pos pos:CGPoint, scale:CGFloat, rot: CGFloat) {
