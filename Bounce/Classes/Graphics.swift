@@ -354,7 +354,6 @@ class Graphics {
     }
     
     func textureDelete(bufferIndex bufferIndex:BufferIndex?) {
-        
         if let checkIndex = bufferIndex {
             var index = GLuint(checkIndex)
             glDeleteTextures(1, &index)

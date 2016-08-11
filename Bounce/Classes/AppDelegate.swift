@@ -75,7 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        
+        print("device width = \(gDevice.width)\ndevice height = \(gDevice.height)")
+        print("portrait width = \(gDevice.portraitWidth)\nportrait height = \(gDevice.portraitHeight)")
+        print("landscape width = \(gDevice.landscapeWidth)\nlandscape height = \(gDevice.landscapeHeight)")
         
         return true
     }

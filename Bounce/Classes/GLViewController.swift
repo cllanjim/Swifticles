@@ -22,7 +22,7 @@ class GLViewController: GLKViewController {
     }
     
     func load() {
-        
+        print("aa")
     }
     
     
@@ -185,6 +185,8 @@ class GLViewController: GLKViewController {
         
         gGLSlotPosition = glGetAttribLocation(program, "Position")
         gGLSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
+        gGLSlotColor = glGetAttribLocation(program, "DestinationColor")
+        
         gGLUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
         gGLUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
         gGLUniformTexture = glGetUniformLocation(program, "Texture")

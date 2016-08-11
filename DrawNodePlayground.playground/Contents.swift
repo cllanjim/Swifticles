@@ -1,14 +1,29 @@
-//
-//  DrawTriangle.swift
-//  Bounce
-//
-//  Created by Nicholas Raptis on 8/9/16.
-//  Copyright © 2016 Darkswarm LLC. All rights reserved.
-//
+//: Playground - noun: a place where people can play
 
 import UIKit
+import OpenGLES
+
+class DrawNode {
+    
+    var x:Double = 0.0
+    var y:Double = 0.0
+    var z:Double = 0.0
+    
+    var u:Double = 0.0
+    var v:Double = 0.0
+    var w:Double = 0.0
+    
+    var r:Double = 1.0
+    var g:Double = 1.0
+    var b:Double = 1.0
+    var a:Double = 1.0
+}
 
 class DrawTriangle {
+    
+    init() {
+        
+    }
     
     var node1 = DrawNode()
     var node2 = DrawNode()
@@ -17,26 +32,26 @@ class DrawTriangle {
     var p1:(x:Double, y:Double, z:Double) {
         get { return (node1.x, node1.y, node1.z)}
         set {
-            node1.x = newValue.x
-            node1.y = newValue.y
-            node1.z = newValue.z
+            node1.x = newValue.x;
+            node1.y = newValue.y;
+            node1.z = newValue.z;
         }
     }
     
     var p2:(x:Double, y:Double, z:Double) {
         get { return (node1.x, node1.y, node1.z)}
         set {
-            node2.x = newValue.x
-            node2.y = newValue.y
-            node2.z = newValue.z
+            node2.x = newValue.x;
+            node2.y = newValue.y;
+            node2.z = newValue.z;
         }
     }
     
     var p3:(x:Double, y:Double, z:Double) {
         get { return (node1.x, node1.y, node1.z)}
         set {
-            node3.x = newValue.x
-            node3.y = newValue.y
+            node3.x = newValue.x;
+            node3.y = newValue.y;
             node3.z = newValue.z
         }
     }
@@ -68,39 +83,9 @@ class DrawTriangle {
         }
     }
     
-    var c1:(r:Double, g:Double, b:Double, a:Double) {
-        get { return (node1.r, node1.g, node1.b, node1.a)}
-        set {
-            node1.r = newValue.r;
-            node1.g = newValue.g;
-            node1.b = newValue.b
-            node1.a = newValue.a
-        }
-    }
-    
-    var c2:(r:Double, g:Double, b:Double, a:Double) {
-        get { return (node2.r, node2.g, node2.b, node2.a)}
-        set {
-            node2.r = newValue.r;
-            node2.g = newValue.g;
-            node2.b = newValue.b
-            node2.a = newValue.a
-        }
-    }
-    
-    var c3:(r:Double, g:Double, b:Double, a:Double) {
-        get { return (node3.r, node3.g, node3.b, node3.a)}
-        set {
-            node3.r = newValue.r;
-            node3.g = newValue.g;
-            node3.b = newValue.b
-            node3.a = newValue.a
-        }
-    }
-    
     var buffer:[GLfloat] {
         
-        //var result = [GLfloat](count:4 * (3 + 3 + 4), repeatedValue: 0.0)
+        var result = [GLfloat](count:4 * (3 + 3 + 4), repeatedValue: 0.0)
         
         return [GLfloat](arrayLiteral: GLfloat(node1.x), GLfloat(node1.y), GLfloat(node1.z),
                          GLfloat(node1.u), GLfloat(node1.v), GLfloat(node1.w),
@@ -121,7 +106,23 @@ class DrawTriangle {
         //}
         
         //return result
-        
     }
     
 }
+
+
+var t1 = DrawTriangle()
+
+t1.p1 = (10.0, 20.0, 0.0)
+
+print("\(t1.p1)")
+print("\(t1)")
+print("\(t1.buffer)")
+
+
+
+
+
+//t1.
+
+

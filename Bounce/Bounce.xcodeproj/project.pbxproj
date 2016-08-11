@@ -33,6 +33,8 @@
 		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
 		0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F651D581263006DDDAB /* BounceTests.swift */; };
 		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
+		C2333C671D5AB5D100779FB6 /* DrawTriangleBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C661D5AB5D100779FB6 /* DrawTriangleBuffer.swift */; };
+		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
 		C28BE8041D59740100347155 /* background_generic.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E41D59740100347155 /* background_generic.png */; };
 		C28BE8051D59740100347155 /* background_generic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E51D59740100347155 /* background_generic@2x.png */; };
 		C28BE8061D59740100347155 /* background_modal_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E61D59740100347155 /* background_modal_ipad.png */; };
@@ -64,6 +66,8 @@
 		C28BE8201D59740100347155 /* reg_btn_select_any_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE8011D59740100347155 /* reg_btn_select_any_down@2x.png */; };
 		C28BE8211D59740100347155 /* seg_back_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE8021D59740100347155 /* seg_back_highlight@2x.png */; };
 		C28BE8221D59740100347155 /* test_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C28BE8031D59740100347155 /* test_image.jpg */; };
+		C2955EAA1D5C193900040805 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2955EA91D5C193900040805 /* Device.swift */; };
+		C2955EAC1D5C1DCE00040805 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2955EAB1D5C1DCE00040805 /* Geometry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +120,8 @@
 		0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BounceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD20F701D581263006DDDAB /* BounceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceUITests.swift; sourceTree = "<group>"; };
 		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2333C661D5AB5D100779FB6 /* DrawTriangleBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangleBuffer.swift; sourceTree = "<group>"; };
+		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
 		C28BE7E41D59740100347155 /* background_generic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_generic.png; sourceTree = "<group>"; };
 		C28BE7E51D59740100347155 /* background_generic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_generic@2x.png"; sourceTree = "<group>"; };
 		C28BE7E61D59740100347155 /* background_modal_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_modal_ipad.png; sourceTree = "<group>"; };
@@ -147,6 +153,8 @@
 		C28BE8011D59740100347155 /* reg_btn_select_any_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reg_btn_select_any_down@2x.png"; sourceTree = "<group>"; };
 		C28BE8021D59740100347155 /* seg_back_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seg_back_highlight@2x.png"; sourceTree = "<group>"; };
 		C28BE8031D59740100347155 /* test_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_image.jpg; sourceTree = "<group>"; };
+		C2955EA91D5C193900040805 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		C2955EAB1D5C1DCE00040805 /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +203,9 @@
 				0D665E741D582D4500558EA0 /* HomeMenuViewController.swift */,
 				0D199C2B1D59B75F006F857C /* DrawNode.swift */,
 				0D199C2D1D59B76B006F857C /* DrawTriangle.swift */,
+				C2333C661D5AB5D100779FB6 /* DrawTriangleBuffer.swift */,
+				C2955EA91D5C193900040805 /* Device.swift */,
+				C2955EAB1D5C1DCE00040805 /* Geometry.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -248,6 +259,7 @@
 				0DD20F651D581263006DDDAB /* BounceTests.swift */,
 				0DD20F671D581263006DDDAB /* Info.plist */,
 				0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */,
+				C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */,
 			);
 			path = BounceTests;
 			sourceTree = "<group>";
@@ -472,10 +484,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D665E691D5814D100558EA0 /* TopMenuViewController.swift in Sources */,
+				C2955EAC1D5C1DCE00040805 /* Geometry.swift in Sources */,
 				0D665E631D5814D100558EA0 /* Image.swift in Sources */,
 				0D665E681D5814D100558EA0 /* Texture.swift in Sources */,
 				0D665E621D5814D100558EA0 /* Graphics.swift in Sources */,
 				0D665E751D582D4500558EA0 /* HomeMenuViewController.swift in Sources */,
+				C2333C671D5AB5D100779FB6 /* DrawTriangleBuffer.swift in Sources */,
 				0D665E671D5814D100558EA0 /* Sprite.swift in Sources */,
 				0D665E5D1D5814D100558EA0 /* AppDelegate.swift in Sources */,
 				0D665E6E1D5822E900558EA0 /* BounceViewController.swift in Sources */,
@@ -489,6 +503,7 @@
 				0D665E601D5814D100558EA0 /* FileUtils.swift in Sources */,
 				0D665E641D5814D100558EA0 /* ImageImportViewController.swift in Sources */,
 				0D199C2E1D59B76B006F857C /* DrawTriangle.swift in Sources */,
+				C2955EAA1D5C193900040805 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +513,7 @@
 			files = (
 				0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */,
 				0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */,
+				C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,7 +651,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Bounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.Bounce;
+				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.digplex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -646,7 +662,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Bounce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.darkswarm.Bounce;
+				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.digplex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -1,13 +1,5 @@
 //
 //  Config.swift
-//  SwiftFunhouse
-//
-//  Created by Nicholas Raptis on 7/24/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
-//
-
-//
-//  DSConfig.swift
 //  OptimizeRX
 //
 //  Created by Nicholas Raptis on 9/20/15.
@@ -16,38 +8,52 @@
 
 import UIKit
 
+
+
 class Config
 {
     
-    var scale:CGFloat {
-        return 2.0
-    }
     
-    var importScale:CGFloat {
-        return scale * 1.5
-    }
+//    //if(updateTimer != nil){updateTimer.invalidate();}
+//    //self.updateTimer = NSTimer(timeInterval: (1 / 60.0), target: self, selector: "update", userInfo: nil, repeats: true);
+//    //NSRunLoop.mainRunLoop().addTimer(self.updateTimer, forMode: NSRunLoopCommonModes);
+//    
+//    
+//    //let screenSize: CGRect = UIScreen.mainScreen().bounds
+//    
+//    
+//    var scale:CGFloat {
+//        return 2.0
+//    }
+//    
+//    var importScale:CGFloat {
+//        return scale * 2.0
+//    }
+//    
+//    var portraitWidth:CGFloat {
+//        
+//        //let size = UIApplication.
+//        
+//        
+//    }
     
     
     func fontName() -> String{return String("Arial")}
     func fontNameBold() -> String{return String("Arial-BoldMT")}
     
-    func fontCellValue() -> UIFont!
-    {
+    func fontCellValue() -> UIFont! {
         return UIFont(name: fontName(), size: 16.0)
     }
     
-    func fontCellSubtitle() -> UIFont!
-    {
+    func fontCellSubtitle() -> UIFont! {
         return UIFont(name: fontName(), size: 11.0)
     }
     
-    func fontCellHeaderBold() -> UIFont!
-    {
+    func fontCellHeaderBold() -> UIFont! {
         return UIFont(name: fontNameBold(), size: 22.0)
     }
     
-    class var shared: Config
-    {
+    class var shared: Config {
         struct Static {
             static var cTokenOnce:dispatch_once_t = 0;
             static var cInstance: Config?;
@@ -59,4 +65,4 @@ class Config
     }
 }
 
-let gCfg = Config()//Config.shared;
+let gConfig = Config()//Config.shared;

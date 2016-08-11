@@ -4,5 +4,6 @@ uniform sampler2D Texture;
 uniform lowp vec4 ModulateColor;
 void main(void)
 {
-    gl_FragColor =  ModulateColor * texture2D(Texture, TexCoordOut);
+    //gl_FragColor =  ModulateColor * texture2D(Texture, TexCoordOut);
+    gl_FragColor =  DestinationColor * ModulateColor * texture2D(Texture, TexCoordOut);
 }

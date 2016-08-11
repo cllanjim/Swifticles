@@ -15,12 +15,55 @@ class BounceViewController : GLViewController {
     
     let sprite1 = Sprite()
     let sprite2 = Sprite()
+    let sprite3 = Sprite()
+    
+    
+    
+    var buffer = DrawTriangleBuffer()
+    
+    var tri1 = DrawTriangle()
+    var tri2 = DrawTriangle()
+    var tri3 = DrawTriangle()
     
     
     override func load() {
         
+        sprite3.load(path: "aaaa")
         sprite1.load(path: "checkbox_back_unchecked@2x.png")
         sprite2.load(path: "reg_btn_paste_down@2x.png")
+        
+        
+        
+        tri1.p1 = (40, 120, 0)
+        tri1.t1 = (0.01, 0.02, 0.0)
+        tri1.c1 = (0.99, 0.975, 0.15, 0.5)
+        
+        tri1.p2 = (250, 90, 0)
+        tri1.t2 = (0.01, 0.02, 0.0)
+        tri1.c2 = (0.99, 0.975, 0.15, 0.5)
+        
+        tri1.p3 = (140.0, 120, 0)
+        tri1.t3 = (0.01, 0.02, 0.0)
+        tri1.c3 = (0.99, 0.975, 0.15, 0.5)
+        
+        
+        
+        
+        
+        //x = 40.0
+        //tri1.y = 120.0
+        //tri1.u = 0.0
+        //tri1.v = 0.0
+        //tri1.w = 0.0
+        
+        
+        
+        
+        buffer.add(triangle: tri1)
+        buffer.add(triangle: tri2)
+        buffer.add(triangle: tri3)
+        
+        
         
     }
     
@@ -82,6 +125,8 @@ class BounceViewController : GLViewController {
         
         sprite2.drawCentered(pos: CGPoint(x: 200, y: 200))
         sprite2.drawCentered(pos: CGPoint(x: 100.0, y: 100))
+        
+        sprite3.drawCentered(pos: CGPoint(x: 118.0, y: 240.0))
         
     }
     
