@@ -29,42 +29,37 @@ class BounceViewController : GLViewController {
     override func load() {
         
         sprite3.load(path: "aaaa")
-        sprite1.load(path: "checkbox_back_unchecked@2x.png")
+        sprite1.load(path: "rock")
         sprite2.load(path: "reg_btn_paste_down@2x.png")
         
         
         
         tri1.p1 = (40, 120, 0)
         tri1.t1 = (0.01, 0.02, 0.0)
-        tri1.c1 = (0.99, 0.975, 0.15, 0.5)
+        //tri1.c1 = (0.99, 0.975, 0.15, 0.25)
         
-        tri1.p2 = (250, 90, 0)
-        tri1.t2 = (0.01, 0.02, 0.0)
-        tri1.c2 = (0.99, 0.975, 0.15, 0.5)
+        tri1.p2 = (100, 160, 0)
+        tri1.t2 = (0.99, 0.5, 0.0)
+        //tri1.c2 = (0.99, 0.175, 0.77, 1.0)
         
-        tri1.p3 = (140.0, 120, 0)
-        tri1.t3 = (0.01, 0.02, 0.0)
-        tri1.c3 = (0.99, 0.975, 0.15, 0.5)
-        
-        
+        tri1.p3 = (65.0, 180, 0)
+        tri1.t3 = (0.25, 1.0, 0.0)
+        //tri1.c3 = (0.45, 0.67, 0.55, 1.0)
         
         
         
-        //x = 40.0
-        //tri1.y = 120.0
-        //tri1.u = 0.0
-        //tri1.v = 0.0
-        //tri1.w = 0.0
+        tri2.p1 = (100, 160, 0)
+        tri2.t1 = (0.0, 0.85, 0.0)
+        tri2.c1 = (0.99, 0.175, 0.77, 1.0)
+        
+        tri2.p2 = (65.0, 180, 0)
+        tri2.t2 = (0.55, 1.0, 0.0)
+        tri2.c2 = (0.45, 0.67, 0.55, 1.0)
         
         
-        
-        
-        buffer.add(triangle: tri1)
-        buffer.add(triangle: tri2)
-        buffer.add(triangle: tri3)
-        
-        
-        
+        tri2.p3 = (80.0, 240.0, 0)
+        tri2.t3 = (1.0, 0.25, 0.0)
+        tri2.c3 = (0.45, 0.67, 0.55, 1.0)
     }
     
     override func update() {
@@ -73,11 +68,23 @@ class BounceViewController : GLViewController {
     
     override func draw() {
         
+        
+            
+        tri1.x1 += 0.5
+        if tri1.x1 >= 120.0 {
+            tri1.x1 = 20.0
+        }
+        
+        
+        
+        
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         
         let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
         gG.matrixProjectionSet(p)
+        
+        
         
         
         //var m = GLKMatrix4MakeScale(0.85, 0.85, 0.85)
@@ -100,6 +107,7 @@ class BounceViewController : GLViewController {
         gG.blendEnable()
         gG.blendSetAlpha()
         
+        /*
         gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
         gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 300))
         
@@ -111,17 +119,38 @@ class BounceViewController : GLViewController {
         
         
         gG.colorSet()
+        gG.rectDraw(x: 22.0, y: 220.0, width: 336.0, height: 336.0)
+        */
         
-        //gG.rectDraw(x: 22.0, y: 220.0, width: 256.0, height: 256.0)
+        gG.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
+        gG.textureEnable()
         
-        gG.colorSet()
+        //sprite1.bind()
         
         
+        for i in 0..<1000 {
+            
         
-        //sprite2.drawCentered(pos: CGPoint(x: 0, y: 0))
+        buffer.reset()
+        //buffer.add(triangle: tri1)
         
-        sprite1.drawCentered(pos: CGPoint(x: 1.0, y: 0.0))
-        sprite1.drawCentered(pos: CGPoint(x: 100.0, y: 0.0))
+        
+        buffer.set(index: 2, triangle: tri2)
+        buffer.set(index: 1, triangle: tri1)
+        //buffer.add(triangle: tri1)
+        
+        
+        //buffer.add(triangle: tri2)
+        //buffer.add(triangle: tri3)
+        buffer.draw(texture: gG.textureBlank())
+        
+            }
+        
+        
+        sprite2.drawCentered(pos: CGPoint(x: 0, y: 0))
+        
+        sprite1.drawCentered(pos: CGPoint(x: 170.0, y: 320.0))
+        sprite1.drawCentered(pos: CGPoint(x: 50.0, y: 400.0))
         
         sprite2.drawCentered(pos: CGPoint(x: 200, y: 200))
         sprite2.drawCentered(pos: CGPoint(x: 100.0, y: 100))

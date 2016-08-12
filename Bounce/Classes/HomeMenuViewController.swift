@@ -124,7 +124,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewDidLoad() {
 
-        //self.performSegueWithIdentifier("bounce", sender: nil)
+        self.performSegueWithIdentifier("bounce", sender: nil)
         
         //bounce
         

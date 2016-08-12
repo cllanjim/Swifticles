@@ -129,9 +129,6 @@ class GLViewController: GLKViewController {
         
         draw()
         
-        
-        
-        
     }
     
     func loadShaders() -> Bool {
@@ -183,9 +180,11 @@ class GLViewController: GLKViewController {
             return false
         }
         
+        glUseProgram(program)
+        
         gGLSlotPosition = glGetAttribLocation(program, "Position")
         gGLSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
-        gGLSlotColor = glGetAttribLocation(program, "DestinationColor")
+        gGLSlotColor = glGetAttribLocation(program, "SourceColor")
         
         gGLUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
         gGLUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
@@ -203,7 +202,7 @@ class GLViewController: GLKViewController {
             glDeleteShader(fragShader)
         }
         
-        glUseProgram(program)
+        
         
         return true
     }
