@@ -10,9 +10,45 @@ import UIKit
 
 class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    var imageView:UIImageView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var toolBarBottom: UIToolbar!
     
+    deinit {
+        print("ImageImportViewController.deinit()")
+    }
+    
+    
+    var imageView:UIImageView!
     var updateTimer:NSTimer?
+    
+    var cropView = UIView(frame: CGRectZero)
+    var cropViewOutsideU = UIView(frame: CGRectZero)
+    var cropViewOutsideR = UIView(frame: CGRectZero)
+    var cropViewOutsideD = UIView(frame: CGRectZero)
+    var cropViewOutsideL = UIView(frame: CGRectZero)
+    
+    
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        let imageCenter = imageView.convertPoint(cropView.center, fromView: view)
+        var imageTransform = imageView.transform
+        
+        coordinator.animateAlongsideTransition({ [weak weakSelf = self] (id:UIViewControllerTransitionCoordinatorContext) in
+            if let checkSelf = weakSelf {
+                checkSelf.cropView.frame = checkSelf.getCropRect(size)
+                checkSelf.placeCropOutside()
+                
+                let newImageCenter = checkSelf.imageView.convertPoint(checkSelf.cropView.center, fromView: checkSelf.view)
+                checkSelf.translation.x = newImageCenter.x - imageCenter.x
+                checkSelf.translation.y = newImageCenter.y - imageCenter.y
+                imageTransform = CGAffineTransformTranslate(imageTransform, checkSelf.translation.x, checkSelf.translation.y)
+                checkSelf.imageView.transform = imageTransform
+            }
+        }, completion: nil)
+    }
     
     
     func allowTransform() -> Bool {
@@ -23,18 +59,16 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func cancelAll() {
-        //Set the timer before .enabled = false, otherwise .enabled will generate calls..
         cancelTimer = 5
-        
         panRecognizer.enabled = false
         pinchRecognizer.enabled = false
         rotRecognizer.enabled = false
     }
     
     
-    var panRecognizer:UIPanGestureRecognizer!;//(target: self, action: #selector(ImageImportViewController.didPan(_:)))
-    var pinchRecognizer:UIPinchGestureRecognizer!;//(target: self, action: #selector(didPinch(_:)))
-    var rotRecognizer:UIRotationGestureRecognizer!;//(target: self, action: #selector(ImageImportViewController.didRotate(_:)))
+    var panRecognizer:UIPanGestureRecognizer!;
+    var pinchRecognizer:UIPinchGestureRecognizer!;
+    var rotRecognizer:UIRotationGestureRecognizer!;
     
     var panRecognizerTouchCount:Int = 0
     var pinchRecognizerTouchCount:Int = 0
@@ -71,6 +105,17 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         translation.y = newImageTouchCenter.y - startImageTouchCenter.y
         t = CGAffineTransformTranslate(t, translation.x, translation.y)
         imageView.transform = t
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTimer?.invalidate()
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: #selector(ImageImportViewController.update), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        updateTimer?.invalidate()
     }
     
     func gestureBegan(pos:CGPoint) {
@@ -114,8 +159,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    
-    
     func didPinch(gr:UIPinchGestureRecognizer) -> Void {
         self.performSelectorOnMainThread(#selector(didPinchMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
     }
@@ -131,7 +174,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             }
             break
         case .Changed:
-
+            
             if pinchRecognizerTouchCount != gr.numberOfTouches() {
                 if gr.numberOfTouches() > pinchRecognizerTouchCount {
                     pinchRecognizerTouchCount = gr.numberOfTouches()
@@ -151,7 +194,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             updateTransform()
         }
     }
-    
     
     func didRotate(gr:UIRotationGestureRecognizer) -> Void {
         self.performSelectorOnMainThread(#selector(didRotateMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
@@ -222,50 +264,91 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         print("Import Final Size: \(importWidth)x\(importHeight)")
         
         return importImage.resize(CGSize(width: importWidth, height: importHeight))
-    
+        
     }
     
     func setUp(importImage importImage:UIImage?, screenSize:CGSize) {
         
-        
-        
         if let image = importImage where screenSize.width > 64 && screenSize.height > 64 {
             
             if let image = self.constrainImageToImportSize(importImage: image, screenSize: screenSize) {
-            
-            print("SetUp Img[\(image.size.width)x\(image.size.height)] Size[\(screenSize.width)x\(screenSize.height)]")
-            
-            //let importImage:UIImage = constrainImageToImportSize(image, screenSize: screenSize)
-            
-            
-            
-            imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height))
-            imageView.image = image
-            imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            view.addSubview(imageView)
-            
-            
-            
-            panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
-            panRecognizer.delegate = self
-            panRecognizer.maximumNumberOfTouches = 2
-            //panRecognizer.delaysTouchesEnded = false
-            self.view.addGestureRecognizer(panRecognizer)
-            
-            pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:)))
-            pinchRecognizer.delegate = self
-            self.view.addGestureRecognizer(pinchRecognizer)
-            
-            rotRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(ImageImportViewController.didRotate(_:)))
-            rotRecognizer.delegate = self
-            
-            self.view.addGestureRecognizer(rotRecognizer)
-            
-            updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: #selector(ImageImportViewController.update), userInfo: nil, repeats: true)
                 
+                imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height))
+                imageView.image = image
+                imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+                view.addSubview(imageView)
+                
+                panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
+                panRecognizer.delegate = self
+                panRecognizer.maximumNumberOfTouches = 2
+                view.addGestureRecognizer(panRecognizer)
+                
+                pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:)))
+                pinchRecognizer.delegate = self
+                view.addGestureRecognizer(pinchRecognizer)
+                
+                rotRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(ImageImportViewController.didRotate(_:)))
+                rotRecognizer.delegate = self
+                view.addGestureRecognizer(rotRecognizer)
+
+                
+                
+                cropView.frame = getCropRect(screenSize)
+                view.addSubview(cropView)
+                
+                cropView.backgroundColor = UIColor.clearColor()
+                cropView.layer.borderColor = UIColor.whiteColor().CGColor
+                cropView.layer.borderWidth = 3
+                
+                view.addSubview(cropViewOutsideU)
+                view.addSubview(cropViewOutsideR)
+                view.addSubview(cropViewOutsideD)
+                view.addSubview(cropViewOutsideL)
+                
+                var outsideColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.75)
+                
+                cropViewOutsideU.backgroundColor = outsideColor
+                cropViewOutsideR.backgroundColor = outsideColor
+                cropViewOutsideD.backgroundColor = outsideColor
+                cropViewOutsideL.backgroundColor = outsideColor
+                
+                
+                placeCropOutside()
+                
+                
+                
+                self.view.bringSubviewToFront(toolBarBottom)
+                self.view.bringSubviewToFront(navigationBar)
             }
-            
         }
+    }
+    
+    func getCropRect(size: CGSize) -> CGRect {
+        
+        var activeBorder = 10.0
+        if gDevice.tablet {
+            activeBorder = 30.0
+        }
+        
+        let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
+        let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
+        let activeWidth = size.width - (CGFloat(activeBorder * 2))
+        let activeHeight = (activeBottom - activeTop)
+        let activeCenter = CGPoint(x: size.width / 2.0, y: activeTop + activeHeight / 2.0)
+
+        
+        let cropWidth = activeWidth
+        let cropHeight = activeHeight
+        
+        return CGRect(x: activeCenter.x - cropWidth / 2.0, y: activeCenter.y - cropHeight / 2.0, width: cropWidth, height: cropHeight)
+    }
+    
+    func placeCropOutside() {
+        
+        cropViewOutsideU.frame = CGRectMake(cropView.frame.origin.x, 0.0, cropView.frame.size.width, cropView.frame.origin.y)
+        cropViewOutsideR.frame = CGRectMake(cropView.frame.maxX, 0.0, view.frame.size.width - cropView.frame.maxX, view.frame.size.height)
+        cropViewOutsideD.frame = CGRectMake(cropView.frame.origin.x, cropView.frame.maxY, cropView.frame.size.width, view.frame.height - cropView.frame.maxY)
+        cropViewOutsideL.frame = CGRectMake(0.0, 0.0, cropView.frame.origin.x, view.frame.size.height)
     }
     
     func update() {

@@ -52,25 +52,6 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
             return
         }
         
-        
-        /*
-        let importScale = 1.0 //gDevice.importScale
-        
-        let importMaxWidth = Double(gDevice.portraitWidth) * Double(importScale)
-        let importMaxHeight = Double(gDevice.portraitHeight) * Double(importScale)
-        
-        let widthRatio = importMaxWidth / Double(image.size.width)
-        let heightRatio = importMaxHeight / Double(image.size.height)
-        
-        let ratio = min(widthRatio, heightRatio)
-        
-        let importWidth = CGFloat(Int(Double(image.size.width) * ratio + 0.5))
-        let importHeight = CGFloat(Int(Double(image.size.height) * ratio + 0.5))
-        
-        importImage = image.resize(CGSize(width: importWidth, height: importHeight))
- 
-        */
-        
         importImage = image
  
         self.dismissViewControllerAnimated(true) { [weak weakSelf = self] in
@@ -122,6 +103,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
             if let image = importImage {
                 if let importer = segue.destinationViewController as? ImageImportViewController {
                     importer.setUp(importImage: image, screenSize: self.view.bounds.size)
+                    importImage = nil
                 }
             }
         }
