@@ -27,11 +27,15 @@ class Device
     
     
     var scale:CGFloat {
-        return 2.0
+        return UIScreen.mainScreen().scale
     }
     
     var importScale:CGFloat {
-        return scale * 2.0
+        var result = scale * 2.0
+        if result > 4.0 {
+            result = 4.0
+        }
+        return result
     }
     
     var portraitWidth:CGFloat {

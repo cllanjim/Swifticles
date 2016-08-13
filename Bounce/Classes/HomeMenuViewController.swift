@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     @IBOutlet weak var imageViewBackground: UIImageView!
     @IBOutlet weak var buttonCreate: RRButton!
     @IBOutlet weak var buttonLoad: RRButton!
@@ -17,6 +17,8 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var buttonUpgrade: RRButton!
     @IBOutlet weak var cloudTest: RRButton!
     @IBOutlet weak var glTest: RRButton!
+    
+    var importImage: UIImage?
     
     func showImagePicker(sender:UIButton) {
         let imagePicker = UIImagePickerController()
@@ -33,73 +35,47 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     //func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
     //func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
     
-    
     internal func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        
-        
-        
-        
         
         for (key, obj) in info {
             print("key = \(key)")
             print("obj = \(obj)")
         }
         
-        
-        
-        
         let pickerImage = info["UIImagePickerControllerOriginalImage"] as? UIImage
         
         print("cond-1 \(pickerImage?.size.width)x\(pickerImage?.size.height)")
         
-        guard let image = pickerImage where image.size.width > 12.0 && image.size.height > 12.0 else {
-            
+        guard let image = pickerImage where image.size.width > 32.0 && image.size.height > 32.0 else {
             print("FAIL-SAUCE!!!")
-            
-            self.dismissViewControllerAnimated(true) { [weak self] in
-                
-            }
-            
+            self.dismissViewControllerAnimated(true) { }
             return
         }
         
         
-        var scale = UIScreen.mainScreen().scale * 2.0
+        /*
+        let importScale = 1.0 //gDevice.importScale
         
-        //CGFloat
+        let importMaxWidth = Double(gDevice.portraitWidth) * Double(importScale)
+        let importMaxHeight = Double(gDevice.portraitHeight) * Double(importScale)
         
+        let widthRatio = importMaxWidth / Double(image.size.width)
+        let heightRatio = importMaxHeight / Double(image.size.height)
         
-        self.dismissViewControllerAnimated(true) { [weak self] in
-            
+        let ratio = min(widthRatio, heightRatio)
+        
+        let importWidth = CGFloat(Int(Double(image.size.width) * ratio + 0.5))
+        let importHeight = CGFloat(Int(Double(image.size.height) * ratio + 0.5))
+        
+        importImage = image.resize(CGSize(width: importWidth, height: importHeight))
+ 
+        */
+        
+        importImage = image
+ 
+        self.dismissViewControllerAnimated(true) { [weak weakSelf = self] in
+            weakSelf?.performSegueWithIdentifier("import_image", sender: nil)
         }
-        
-        
-        //if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            
-            //guard image.size.width != 1668 else {
-                
-            //    print("aaaaa")
-                
-            //}
-            
-            
-        //}
-        
-        //guard image != nil else {
-        
-        //}
-        
-        
-            
-            
-        //    print("cond-1 \(image.size.width)x\(image.size.height)")
-        //} else {
-            
-        //    print("cond-1")
-        //}
-    
-        
-        
         
     }
     
@@ -110,24 +86,23 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     /*
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    picker.mediaTypes = @[(NSString *)kUTTypeImage];
-    picker.allowsEditing = NO;
-    picker.delegate = self;
-    picker.modalPresentationStyle = UIModalPresentationPopover;
-    
-    UIPopoverPresentationController *popPC = picker.popoverPresentationController;
-    popPC.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    popPC.barButtonItem = button;
-    */
+     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+     picker.mediaTypes = @[(NSString *)kUTTypeImage];
+     picker.allowsEditing = NO;
+     picker.delegate = self;
+     picker.modalPresentationStyle = UIModalPresentationPopover;
+     
+     UIPopoverPresentationController *popPC = picker.popoverPresentationController;
+     popPC.permittedArrowDirections = UIPopoverArrowDirectionAny;
+     popPC.barButtonItem = button;
+     */
     
     override func viewDidLoad() {
-
-        self.performSegueWithIdentifier("bounce", sender: nil)
         
-        //bounce
+        //self.performSegueWithIdentifier("bounce", sender: nil)
         
+        self.clickImport(RRButton())
     }
     
     @IBAction func testPush(sender: UIButton) {
@@ -143,19 +118,11 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "image_import" {
-            
-        }
-        
-        if segue.identifier == "image_import" {
-            
-            let testImage = UIImage(named: "test_image.jpg")
-            
-            if let importer = segue.destinationViewController as? ImageImportViewController {
-                
-                importer.setUp(testImage, screenSize: self.view.bounds.size)
-            
+        if segue.identifier == "import_image" {
+            if let image = importImage {
+                if let importer = segue.destinationViewController as? ImageImportViewController {
+                    importer.setUp(importImage: image, screenSize: self.view.bounds.size)
+                }
             }
         }
     }
@@ -176,10 +143,14 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func clickUpgrade(sender: AnyObject) {
-    
+        
         performSegueWithIdentifier("bounce", sender: nil)
     }
     
+    @IBAction func clickImport(sender: RRButton) {
+        importImage = UIImage(named: "test_image.jpg")
+        self.performSegueWithIdentifier("import_image", sender: nil)
+    }
     
     deinit {
         print("Deinit \(self)")

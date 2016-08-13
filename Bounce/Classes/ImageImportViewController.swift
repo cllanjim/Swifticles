@@ -199,22 +199,49 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         return true
     }
     
-    func constrainImageToImportSize(image:UIImage, screenSize:CGSize) -> UIImage {
+    func constrainImageToImportSize(importImage importImage:UIImage, screenSize:CGSize) -> UIImage? {
         
-        return image
+        let importScale = gDevice.importScale
+        
+        //let importMaxWidth = Double(gDevice.portraitWidth) * Double(importScale)
+        //let importMaxHeight = Double(gDevice.portraitHeight) * Double(importScale)
+        
+        let importMaxWidth = Double(screenSize.width) * Double(importScale)
+        let importMaxHeight = Double(screenSize.height) * Double(importScale)
+        
+        let widthRatio = importMaxWidth / Double(importImage.size.width)
+        let heightRatio = importMaxHeight / Double(importImage.size.height)
+        
+        let ratio = max(widthRatio, heightRatio)
+        
+        print("Import MaxSize[\(widthRatio)x\(heightRatio)]\n  wRat:\(widthRatio) hRat:\(heightRatio)")
+        
+        let importWidth = CGFloat(Int(Double(importImage.size.width) * ratio + 0.5))
+        let importHeight = CGFloat(Int(Double(importImage.size.height) * ratio + 0.5))
+        
+        print("Import Final Size: \(importWidth)x\(importHeight)")
+        
+        return importImage.resize(CGSize(width: importWidth, height: importHeight))
+    
     }
     
-    func setUp(image:UIImage?, screenSize:CGSize) {
+    func setUp(importImage importImage:UIImage?, screenSize:CGSize) {
         
-        print("SetUp Img[\(image?.size.width)x\(image?.size.height)] Size[\(screenSize.width)x\(screenSize.height)]")
         
-        if image != nil && screenSize.width > 64 && screenSize.height > 64 {
+        
+        if let image = importImage where screenSize.width > 64 && screenSize.height > 64 {
             
-            let importImage:UIImage = constrainImageToImportSize(image!, screenSize: screenSize)
-            imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: importImage.size.width, height: importImage.size.height))
+            if let image = self.constrainImageToImportSize(importImage: image, screenSize: screenSize) {
             
-            imageView.image = importImage
-            //imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            print("SetUp Img[\(image.size.width)x\(image.size.height)] Size[\(screenSize.width)x\(screenSize.height)]")
+            
+            //let importImage:UIImage = constrainImageToImportSize(image, screenSize: screenSize)
+            
+            
+            
+            imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height))
+            imageView.image = image
+            imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             view.addSubview(imageView)
             
             
@@ -235,6 +262,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             self.view.addGestureRecognizer(rotRecognizer)
             
             updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: #selector(ImageImportViewController.update), userInfo: nil, repeats: true)
+                
+            }
             
         }
     }

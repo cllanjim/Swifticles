@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -37,19 +38,6 @@
                                             <action selector="clickCreate:" destination="7WL-lm-GZy" eventType="touchUpInside" id="Fmd-Vi-Nfy"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-3M-ndH" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="275" width="434" height="162"/>
-                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Upgrade"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="8" width="584" height="30"/>
-                                        </variation>
-                                        <connections>
-                                            <action selector="clickCreate:" destination="7WL-lm-GZy" eventType="touchUpInside" id="rFf-rd-c3V"/>
-                                            <action selector="clickUpgrade:" destination="7WL-lm-GZy" eventType="touchUpInside" id="dl2-eP-ZH8"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkZ-1b-r2s" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
                                         <rect key="frame" x="8" y="97" width="213" height="81"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,9 +51,9 @@
                                         <rect key="frame" x="229" y="186" width="213" height="81"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="GLTest"/>
+                                        <state key="normal" title="Import Test"/>
                                         <connections>
-                                            <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="UEP-S9-5Z6"/>
+                                            <action selector="clickImport:" destination="7WL-lm-GZy" eventType="touchUpInside" id="AFM-lO-j3g"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIH-FF-IOa" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
@@ -73,9 +61,6 @@
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Cloud Test"/>
-                                        <connections>
-                                            <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="kCs-Wn-413"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bQ-dm-Sot" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
                                         <rect key="frame" x="229" y="97" width="213" height="81"/>
@@ -85,6 +70,15 @@
                                         <connections>
                                             <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="7E7-Wf-Uuc"/>
                                         </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-3M-ndH" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="275" width="434" height="162"/>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                        <state key="normal" title="Upgrade"/>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="8" y="8" width="584" height="30"/>
+                                        </variation>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.11225754310344828" colorSpace="calibratedRGB"/>
@@ -166,6 +160,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="UAH-cX-1PS"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="buttonContinue" destination="6bQ-dm-Sot" id="MYt-32-OiN"/>
                         <outlet property="buttonCreate" destination="vTg-Pp-k0U" id="JYy-3N-OWJ"/>
@@ -174,11 +169,12 @@
                         <outlet property="cloudTest" destination="JIH-FF-IOa" id="3UB-JQ-Qg4"/>
                         <outlet property="glTest" destination="1Ia-Z6-wwE" id="foK-b2-orv"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="bounce" id="8KK-ae-JtT"/>
+                        <segue destination="jAg-pi-FN2" kind="show" identifier="import_image" id="fAv-NO-UeZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wby-p7-91w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="474" y="360"/>
+            <point key="canvasLocation" x="412.5" y="366"/>
         </scene>
         <!--Bounce View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -193,16 +189,60 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1159.5" y="360"/>
+            <point key="canvasLocation" x="1190" y="281"/>
+        </scene>
+        <!--Import Image-->
+        <scene sceneID="CMF-NA-AwL">
+            <objects>
+                <viewController title="Import Image" id="jAg-pi-FN2" customClass="ImageImportViewController" customModule="Bounce" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hh8-J6-P7X"/>
+                        <viewControllerLayoutGuide type="bottom" id="db2-5h-Unk"/>
+                    </layoutGuides>
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="wQN-W4-IBZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">
+                                <rect key="frame" x="0.0" y="555" width="600" height="45"/>
+                                <items>
+                                    <barButtonItem title="Item" id="oa1-IK-SwL"/>
+                                    <barButtonItem image="reg_btn_delete_all.png" id="gOf-6P-2Cn"/>
+                                </items>
+                            </toolbar>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="I9c-V4-BvL">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="AAA" id="NO1-Rj-bpr"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="I9c-V4-BvL" firstAttribute="bottom" secondItem="hh8-J6-P7X" secondAttribute="bottom" id="RBe-2O-cnz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="I9c-V4-BvL" secondAttribute="trailing" constant="-20" id="ROv-WP-FQb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YSm-45-Njh" secondAttribute="trailing" constant="-20" id="Zes-rX-Poh"/>
+                            <constraint firstItem="YSm-45-Njh" firstAttribute="bottom" secondItem="db2-5h-Unk" secondAttribute="top" id="dsb-9t-Zjd"/>
+                            <constraint firstItem="I9c-V4-BvL" firstAttribute="leading" secondItem="wQN-W4-IBZ" secondAttribute="leadingMargin" constant="-20" id="iOn-Uq-YbR"/>
+                            <constraint firstItem="YSm-45-Njh" firstAttribute="leading" secondItem="wQN-W4-IBZ" secondAttribute="leadingMargin" constant="-20" id="oCh-M8-cHp"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VSg-EE-nat" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1190" y="942"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="u1C-6C-f3j">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5oE-3G-7xf" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="MKK-Ga-bA4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -220,6 +260,7 @@
     </scenes>
     <resources>
         <image name="background_modal_ipad.png" width="1024" height="1024"/>
+        <image name="reg_btn_delete_all.png" width="128" height="128"/>
     </resources>
     <color key="tintColor" red="1" green="0.20839306190000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>
