@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5oE-3G-7xf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -174,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wby-p7-91w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="412.5" y="366"/>
+            <point key="canvasLocation" x="1224" y="366"/>
         </scene>
         <!--Bounce View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -193,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1190" y="281"/>
+            <point key="canvasLocation" x="2002" y="281"/>
         </scene>
         <!--Import Image-->
         <scene sceneID="CMF-NA-AwL">
@@ -207,59 +207,85 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">
-                                <rect key="frame" x="0.0" y="555" width="600" height="45"/>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="2r7-v7-np8">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="G7G-S9-laV">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="g3y-lZ-gk9">
+                                            <connections>
+                                                <action selector="clickCancel:" destination="jAg-pi-FN2" id="QmK-WG-5cY"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="5Ed-Y0-XMX">
+                                            <connections>
+                                                <action selector="clickNext:" destination="jAg-pi-FN2" id="Qwv-oG-RkF"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem title="Item" id="oa1-IK-SwL"/>
                                     <barButtonItem title="Item" id="d2O-0k-wBl"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="sGL-tl-tr1"/>
+                                    <barButtonItem title="Fit" id="z2L-Ah-45u">
+                                        <connections>
+                                            <action selector="clickResetFit:" destination="jAg-pi-FN2" id="k2j-nc-2Mk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Fill" id="0cK-oy-cSC">
+                                        <connections>
+                                            <action selector="clickResetFill:" destination="jAg-pi-FN2" id="zbj-fe-iop"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wo8-Go-g43"/>
+                                    <barButtonItem title="Item" id="ssA-5T-qiw"/>
+                                    <barButtonItem title="Item" id="z0J-0G-cMm"/>
                                 </items>
                             </toolbar>
-                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="I9c-V4-BvL">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="0aq-9U-p7n"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="I9c-V4-BvL" firstAttribute="bottom" secondItem="hh8-J6-P7X" secondAttribute="bottom" id="RBe-2O-cnz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="I9c-V4-BvL" secondAttribute="trailing" constant="-20" id="ROv-WP-FQb"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="2r7-v7-np8" secondAttribute="leading" constant="20" id="Suy-yK-bwe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2r7-v7-np8" secondAttribute="trailing" constant="-20" id="XQ4-x4-RQE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YSm-45-Njh" secondAttribute="trailing" constant="-20" id="Zes-rX-Poh"/>
                             <constraint firstItem="YSm-45-Njh" firstAttribute="bottom" secondItem="db2-5h-Unk" secondAttribute="top" id="dsb-9t-Zjd"/>
-                            <constraint firstItem="I9c-V4-BvL" firstAttribute="leading" secondItem="wQN-W4-IBZ" secondAttribute="leadingMargin" constant="-20" id="iOn-Uq-YbR"/>
+                            <constraint firstItem="2r7-v7-np8" firstAttribute="top" secondItem="hh8-J6-P7X" secondAttribute="bottom" id="l68-Fh-y6L"/>
                             <constraint firstItem="YSm-45-Njh" firstAttribute="leading" secondItem="wQN-W4-IBZ" secondAttribute="leadingMargin" constant="-20" id="oCh-M8-cHp"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="navigationBar" destination="I9c-V4-BvL" id="fn2-vM-hr4"/>
+                        <outlet property="navigationBar" destination="2r7-v7-np8" id="dyh-yN-fVZ"/>
                         <outlet property="toolBarBottom" destination="YSm-45-Njh" id="JBe-uT-CSj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VSg-EE-nat" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1190" y="942"/>
+            <point key="canvasLocation" x="2002" y="942"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="u1C-6C-f3j">
+        <scene sceneID="yeL-a2-qnE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5oE-3G-7xf" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="main_navigation" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="brJ-ai-UTe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="MKK-Ga-bA4">
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bDn-eB-FbV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="7WL-lm-GZy" kind="relationship" relationship="rootViewController" id="IO7-Zl-rlN"/>
+                        <segue destination="7WL-lm-GZy" kind="relationship" relationship="rootViewController" id="GPq-Pf-qYG"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kgh-UV-yVS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1uf-e0-TR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-249" y="360"/>
+            <point key="canvasLocation" x="485" y="366"/>
         </scene>
     </scenes>
     <resources>

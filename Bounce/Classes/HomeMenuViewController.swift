@@ -20,6 +20,12 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var importImage: UIImage?
     
+    
+    override func viewDidLoad() {
+        //self.clickImport(RRButton())
+    }
+    
+    
     func showImagePicker(sender:UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -79,12 +85,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
      popPC.barButtonItem = button;
      */
     
-    override func viewDidLoad() {
-        
-        //self.performSegueWithIdentifier("bounce", sender: nil)
-        
-        self.clickImport(RRButton())
-    }
+    
     
     @IBAction func testPush(sender: UIButton) {
         
