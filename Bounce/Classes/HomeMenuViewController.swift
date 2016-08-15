@@ -132,6 +132,32 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @IBAction func clickImport(sender: RRButton) {
         importImage = UIImage(named: "test_image.jpg")
+        
+        //var imageImportVC = ImageImportViewController(nibName: nil, bundle: nil)
+        
+        /*
+        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        if let navigationController = storyboard.instantiateViewControllerWithIdentifier("main_navigation") as? UINavigationController {
+            //navigationController.popViewControllerAnimated(true)
+            
+            
+            navigationController.performSegueWithIdentifier("import_image", sender: nil)
+            
+            
+            
+            //if let imageImportVC = storyboard.instantiateViewControllerWithIdentifier("image_import") as? ImageImportViewController {
+            
+            //  navigationController.pushViewController(imageImportVC, animated: true)
+                
+            //}
+            
+            //navigationController.
+            
+            print(navigationController.viewControllers)
+            
+        }
+        */
+        
         self.performSegueWithIdentifier("import_image", sender: nil)
     }
     

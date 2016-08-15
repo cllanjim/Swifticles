@@ -193,12 +193,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2002" y="281"/>
+            <point key="canvasLocation" x="2327" y="288"/>
         </scene>
         <!--Import Image-->
         <scene sceneID="CMF-NA-AwL">
             <objects>
-                <viewController title="Import Image" id="jAg-pi-FN2" customClass="ImageImportViewController" customModule="Bounce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="image_import" title="Import Image" id="jAg-pi-FN2" customClass="ImageImportViewController" customModule="Bounce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hh8-J6-P7X"/>
                         <viewControllerLayoutGuide type="bottom" id="db2-5h-Unk"/>
@@ -207,23 +207,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="2r7-v7-np8">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="G7G-S9-laV">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="g3y-lZ-gk9">
-                                            <connections>
-                                                <action selector="clickCancel:" destination="jAg-pi-FN2" id="QmK-WG-5cY"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="5Ed-Y0-XMX">
-                                            <connections>
-                                                <action selector="clickNext:" destination="jAg-pi-FN2" id="Qwv-oG-RkF"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
@@ -245,36 +228,41 @@
                                     <barButtonItem title="Item" id="z0J-0G-cMm"/>
                                 </items>
                             </toolbar>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9zh-LN-5HN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="7HL-dZ-23I"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="leadingMargin" secondItem="2r7-v7-np8" secondAttribute="leading" constant="20" id="Suy-yK-bwe"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2r7-v7-np8" secondAttribute="trailing" constant="-20" id="XQ4-x4-RQE"/>
+                            <constraint firstItem="9zh-LN-5HN" firstAttribute="leading" secondItem="YSm-45-Njh" secondAttribute="leading" id="8IL-ec-DSz"/>
+                            <constraint firstItem="9zh-LN-5HN" firstAttribute="bottom" secondItem="hh8-J6-P7X" secondAttribute="bottom" id="FDr-M1-dWJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YSm-45-Njh" secondAttribute="trailing" constant="-20" id="Zes-rX-Poh"/>
+                            <constraint firstItem="9zh-LN-5HN" firstAttribute="trailing" secondItem="YSm-45-Njh" secondAttribute="trailing" id="b47-d8-uzc"/>
                             <constraint firstItem="YSm-45-Njh" firstAttribute="bottom" secondItem="db2-5h-Unk" secondAttribute="top" id="dsb-9t-Zjd"/>
-                            <constraint firstItem="2r7-v7-np8" firstAttribute="top" secondItem="hh8-J6-P7X" secondAttribute="bottom" id="l68-Fh-y6L"/>
                             <constraint firstItem="YSm-45-Njh" firstAttribute="leading" secondItem="wQN-W4-IBZ" secondAttribute="leadingMargin" constant="-20" id="oCh-M8-cHp"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="navigationBar" destination="2r7-v7-np8" id="dyh-yN-fVZ"/>
+                        <outlet property="navigationBar" destination="9zh-LN-5HN" id="1VG-83-0N2"/>
                         <outlet property="toolBarBottom" destination="YSm-45-Njh" id="JBe-uT-CSj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VSg-EE-nat" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2002" y="942"/>
+            <point key="canvasLocation" x="1615" y="1142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yeL-a2-qnE">
             <objects>
-                <navigationController storyboardIdentifier="main_navigation" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="brJ-ai-UTe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="main_navigation" automaticallyAdjustsScrollViewInsets="NO" id="brJ-ai-UTe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bDn-eB-FbV">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="bDn-eB-FbV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
