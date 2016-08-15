@@ -297,12 +297,12 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         
         let ratio = max(widthRatio, heightRatio)
         
-        print("Import MaxSize[\(widthRatio)x\(heightRatio)]\n  wRat:\(widthRatio) hRat:\(heightRatio)")
+        //print("Import MaxSize[\(widthRatio)x\(heightRatio)]\n  wRat:\(widthRatio) hRat:\(heightRatio)")
         
         let importWidth = CGFloat(Int(Double(importImage.size.width) * ratio + 0.5))
         let importHeight = CGFloat(Int(Double(importImage.size.height) * ratio + 0.5))
         
-        print("Import Final Size: \(importWidth)x\(importHeight)")
+        //print("Import Final Size: \(importWidth)x\(importHeight)")
         
         return importImage.resize(CGSize(width: importWidth, height: importHeight))
         
@@ -311,16 +311,16 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     func setUp(importImage importImage:UIImage?, screenSize:CGSize) {
         
         
+        let done = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(clickNext(_:)))
+        navigationItem.rightBarButtonItems = [done]
+        
+        
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         if let navigationController = storyboard.instantiateViewControllerWithIdentifier("main_navigation") as? UINavigationController {
             
             //navigationController.navigationBar.
             
-            let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(clickNext(_:)))
-            let play = UIBarButtonItem(title: "Play", style: .Plain, target: self, action: #selector(clickNext(_:)))
-            
-            navigationItem.rightBarButtonItems = [add, play]
-            
+            //let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(clickNext(_:)))
         }
         
         
@@ -447,10 +447,37 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
+    
+    func fixImageOrientation(image image:UIImage)->UIImage {
+
+        UIGraphicsBeginImageContext(CGSize(width: image.size.width, height: image.size.height))
+        
+        let imageContext = UIGraphicsGetCurrentContext();
+
+        CGContextTranslateCTM(imageContext, 0.0, image.size.height)
+        CGContextScaleCTM(imageContext, 1.0, -1.0)
+        
+        CGContextDrawImage(imageContext, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
+        
+        let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext();
+        
+        return resultImage
+ 
+    }
+    
     func cropImage() -> UIImage? {
         
         if let checkImageView = imageView where cropView.bounds.size.width > 32 && cropView.bounds.size.height > 32 {
-            if let image = checkImageView.image where image.size.width > 32 && image.size.height > 32 {
+            if let checkImage = checkImageView.image where checkImage.size.width > 32 && checkImage.size.height > 32 {
+                
+                //checkImageView.
+                
+                let image = fixImageOrientation(image: checkImage)
+                
+                
+                //return image
                 
                 
                 var imageWidth = image.size.width
@@ -477,82 +504,65 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 print("Image ori = \(image.imageOrientation.rawValue)")
                 
                 var transform = CGAffineTransformIdentity
-                
-                switch image.imageOrientation {
-                case .LeftMirrored, .Left:
-                    transform = CGAffineTransformTranslate(transform, image.size.width, 0);
-                    transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
-                    break
-                case .RightMirrored, .Right:
-                    transform = CGAffineTransformTranslate(transform, 0, image.size.height);
-                    transform = CGAffineTransformRotate(transform, CGFloat(-M_PI_2))
-                    break
-                case .DownMirrored, .Down:
-                    transform = CGAffineTransformTranslate(transform, image.size.width, image.size.height);
-                    transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
-                    break
-                default:
-                    break
-                }
-                
-                switch image.imageOrientation {
-                case .UpMirrored, .DownMirrored:
-                    transform = CGAffineTransformTranslate(transform, image.size.width, 0)
-                    transform = CGAffineTransformScale(transform, -1, 1)
-                    break
-                case .LeftMirrored, .RightMirrored:
-                    transform = CGAffineTransformTranslate(transform, image.size.height, 0)
-                    transform = CGAffineTransformScale(transform, -1, 1)
-                    break
-                default:
-                    break
-                }
+
                 
                 
+                var scaleX:CGFloat = 1.0
+                var scaleY:CGFloat = -1.0
                 
                 
+             
                 
-                transform = CGAffineTransformRotate(transform, rotation)
-                
-                //transform = CGAffineTransformTranslate(transform, imageWidth / 2.0, imageHeight / 2.0)
-                
-                transform = CGAffineTransformScale(transform, scale, scale)
-                
-                
-                
-                //transform = CGAffineTransformScale(transform, adjustScale, adjustScale)
-                
-                //transform = CGAffineTransformTranslate(transform, image.size.height, 0)
-                //transform = CGAffineTransformScale(transform, 1.0, -1.0)
-                
-                //transform = CGAffineTransformTranslate(transform, -cropView.frame.origin.x, -cropView.frame.origin.y)
-                
-                //transform = CGAffineTransformTranslate(transform, translation.x, translation.y)
-                
-                
-                
-                transform = CGAffineTransformScale(transform, adjustScale, adjustScale)
-                
-                
-                
-                
-                //transform = CGAffineTransformTranslate(transform, -cropView.frame.origin.x, -cropView.frame.origin.y)
-                
-                
-                //transform = CGAffineTransformTranslate(transform, imageWidth / 2.0, imageHeight / 2.0)
-                
-                
-                
-                //transform = CGAffineTransformTranslate(t, translation.x, translation.y)
-                
-                
-                
-                
-                
+                //UIGraphicsBeginImageContext(CGSize(width: image.size.width * cropScale, height: image.size.height * cropScale))
                 UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.size.width * cropScale, height: view.bounds.size.height * cropScale), false, 1.0)
                 
+                
+                let imageContext = UIGraphicsGetCurrentContext();
+                
+                
+                
+                //CGContextScaleCTM(imageContext, scale * adjustScale, scale * adjustScale)
+                
+                //CGContextScaleCTM(imageContext, adjustScale, adjustScale)
+                
+                
+                
+                CGContextScaleCTM(imageContext, scale, scale)
+                CGContextRotateCTM(imageContext, rotation)
+                CGContextTranslateCTM(imageContext, translation.x, translation.y)
+                
+                CGContextScaleCTM(imageContext, adjustScale, adjustScale)
+                
+                
+                
+                
+                CGContextTranslateCTM(imageContext, 0.0, image.size.height)
+                CGContextScaleCTM(imageContext, scaleX, scaleY)
+                CGContextTranslateCTM(imageContext, -(scaleX * image.size.width / 2.0), -(scaleY * image.size.height / 2.0))
+                
+                
+                //CGContextTranslateCTM(imageContext, (scaleX * (translation.x - cropView.frame.origin.x)), (scaleY * (translation.y - cropView.frame.origin.y)))
+                
+                
+                
+                
+                
+                CGContextDrawImage(imageContext, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
+                //CGContextDrawImage(imageContext, CGRectMake(-(image.size.width / 2.0), -(image.size.height / 2.0), image.size.width, image.size.height), image.CGImage)
+                
+                
+                let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+                
+                UIGraphicsEndImageContext();
+                
+                return resultImage
+                
+                
+                
+                //UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.size.width * cropScale, height: view.bounds.size.height * cropScale), false, 1.0)
+                
             
-                let context = UIGraphicsGetCurrentContext()
+                //let context = UIGraphicsGetCurrentContext()
                 
                 
                 
@@ -562,11 +572,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 
                 
-                CGContextConcatCTM(context, transform)
-                
-                CGContextTranslateCTM(context, image.size.width/2.0, image.size.height/2.0)
-                
-                
+                //CGContextConcatCTM(context, transform)
+                //CGContextTranslateCTM(context, image.size.width/2.0, image.size.height/2.0)
                 
                 //CGContextRotateCTM(context, rotation)
                 //CGContextScaleCTM(context, scale, scale)
@@ -578,12 +585,12 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             
                 //CGContextDrawImage(context, CGRectMake(-image.size.width, -image.size.height, image.size.width, image.size.height), image.CGImage)
                 //CGContextDrawImage(context, CGRectMake(-(image.size.width / 2.0), -(image.size.height) / 2.0, image.size.width, image.size.height), image.CGImage)
-                CGContextDrawImage(context, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
+                //CGContextDrawImage(context, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
                 
                 
-                let resultImage = UIGraphicsGetImageFromCurrentImageContext();
+                //let resultImage = UIGraphicsGetImageFromCurrentImageContext();
             
-            UIGraphicsEndImageContext();
+            //UIGraphicsEndImageContext();
             //return returnImg;
                 
                 
@@ -642,8 +649,14 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
             t = CATransform3DScale(t, scale, scale, scale)
             t = CATransform3DRotate(t, rotation, 0.0, 0.0, 1.0)
+            
             checkImageView.layer.transform = t
             imageView.layer.transform = t
+            
+            updateTransform()
+            
+            //checkImageView.layer.transform = t
+            //imageView.layer.transform = t
         }
     }
     
