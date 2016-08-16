@@ -131,7 +131,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func clickImport(sender: RRButton) {
-        importImage = UIImage(named: "test_image.jpg")
+        importImage = UIImage(named: "test_card.jpg")
         
         //var imageImportVC = ImageImportViewController(nibName: nil, bundle: nil)
         

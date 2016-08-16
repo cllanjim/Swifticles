@@ -30,6 +30,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     var cropViewOutsideD = UIView(frame: CGRectZero)
     var cropViewOutsideL = UIView(frame: CGRectZero)
     
+    var crosshairH = UIView(frame: CGRectZero)
+    var crosshairV = UIView(frame: CGRectZero)
     
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -45,12 +47,21 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 checkSelf.placeCropOutside()
                 
                 let newImageCenter = checkSelf.imageView.convertPoint(checkSelf.cropView.center, fromView: checkSelf.view)
-                checkSelf.translation.x = newImageCenter.x - imageCenter.x
-                checkSelf.translation.y = newImageCenter.y - imageCenter.y
-                //imageTransform = CGAffineTransformTranslate(imageTransform, checkSelf.translation.x, checkSelf.translation.y)
-                imageTransform = CATransform3DTranslate(imageTransform, checkSelf.translation.x, checkSelf.translation.y, 0.0)
+                checkSelf.translation.x += (newImageCenter.x - imageCenter.x)// / checkSelf.scale
+                checkSelf.translation.y += (newImageCenter.y - imageCenter.y)// / checkSelf.scale
                 
-                checkSelf.imageView.layer.transform = imageTransform
+                var t = CATransform3DIdentity
+                //t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
+                t = CATransform3DScale(t, checkSelf.scale, checkSelf.scale, checkSelf.scale)
+                t = CATransform3DRotate(t, checkSelf.rotation, 0.0, 0.0, 1.0)
+                t = CATransform3DTranslate(t, checkSelf.translation.x, checkSelf.translation.y, 0.0)
+                
+                
+                
+                //imageTransform = CGAffineTransformTranslate(imageTransform, checkSelf.translation.x, checkSelf.translation.y)
+                //imageTransform = CATransform3DTranslate(imageTransform, checkSelf.translation.x, checkSelf.translation.y, 0.0)
+                
+                checkSelf.imageView.layer.transform = t//imageTransform
             }
             }, completion: nil)
     }
@@ -100,19 +111,19 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func updateTransform() {
         /*
-        var t = CGAffineTransformIdentity
-        t = CGAffineTransformScale(t, scale, scale)
-        t = CGAffineTransformRotate(t, rotation)
-        imageView.transform = t
-        
-        //Re-center the image at the center of our touch
-        //within the object, based on initial touch within object.
-        let newImageTouchCenter = imageView.convertPoint(touchCenter, fromView: view)
-        translation.x = newImageTouchCenter.x - startImageTouchCenter.x
-        translation.y = newImageTouchCenter.y - startImageTouchCenter.y
-        t = CGAffineTransformTranslate(t, translation.x, translation.y)
-        imageView.transform = t
-        */
+         var t = CGAffineTransformIdentity
+         t = CGAffineTransformScale(t, scale, scale)
+         t = CGAffineTransformRotate(t, rotation)
+         imageView.transform = t
+         
+         //Re-center the image at the center of our touch
+         //within the object, based on initial touch within object.
+         let newImageTouchCenter = imageView.convertPoint(touchCenter, fromView: view)
+         translation.x = newImageTouchCenter.x - startImageTouchCenter.x
+         translation.y = newImageTouchCenter.y - startImageTouchCenter.y
+         t = CGAffineTransformTranslate(t, translation.x, translation.y)
+         imageView.transform = t
+         */
         
         
         var t = CATransform3DIdentity
@@ -310,28 +321,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func setUp(importImage importImage:UIImage?, screenSize:CGSize) {
         
-        
         let done = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(clickNext(_:)))
         navigationItem.rightBarButtonItems = [done]
-        
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        if let navigationController = storyboard.instantiateViewControllerWithIdentifier("main_navigation") as? UINavigationController {
-            
-            //navigationController.navigationBar.
-            
-            //let add = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(clickNext(_:)))
-        }
-        
-        
-        
-        //UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
-        //bundle: nil];
-        
-        //UINavigationController *controller = (UINavigationController*)[mainStoryboard
-        //instantiateViewControllerWithIdentifier: @"<Controller ID>"];
-        
-        
         
         if let image = importImage where screenSize.width > 64 && screenSize.height > 64 {
             
@@ -339,7 +330,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 imageView = UIImageView(frame: CGRect(x: (-image.size.width / 2.0), y: (-image.size.height / 2.0), width: image.size.width, height: image.size.height))
                 imageView.image = image
-                imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+                //imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
                 view.addSubview(imageView)
                 
                 panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
@@ -361,15 +352,27 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 view.addSubview(cropView)
                 
                 cropView.backgroundColor = UIColor.clearColor()
-                cropView.layer.borderColor = UIColor.whiteColor().CGColor
-                cropView.layer.borderWidth = 3
+                cropView.layer.borderColor = UIColor(red: 0.75, green: 1.0, blue: 0.95, alpha: 0.85).CGColor
+                cropView.layer.borderWidth = 2
+                
+                
+                view.addSubview(crosshairH)
+                view.addSubview(crosshairV)
+                
+                crosshairH.backgroundColor = UIColor(red: 0.25, green: 0.98, blue: 0.6, alpha: 0.88)
+                crosshairV.backgroundColor = UIColor(red: 0.25, green: 0.98, blue: 0.6, alpha: 0.88)
+                
+                //var crosshairH = UIView(frame: CGRectZero)
+                //var crosshairV = UIView(frame: CGRectZero)
+    
+                
                 
                 view.addSubview(cropViewOutsideU)
                 view.addSubview(cropViewOutsideR)
                 view.addSubview(cropViewOutsideD)
                 view.addSubview(cropViewOutsideL)
                 
-                var outsideColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.75)
+                var outsideColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.25)
                 
                 cropViewOutsideU.backgroundColor = outsideColor
                 cropViewOutsideR.backgroundColor = outsideColor
@@ -386,12 +389,12 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 
                 allowGestures = false
-                imageView.alpha = 0.5
+                imageView.alpha = 0.0
                 var t = imageView.layer.transform
                 
-                imageView.layer.transform = CATransform3DScale(imageView.layer.transform, 0.8, 0.8, 0.8)
-                
-                UIView.animateWithDuration(0.40, delay: 0.32, options: [], animations:
+                imageView.layer.transform = CATransform3DScale(imageView.layer.transform, 0.925, 0.925, 0.925)
+                allowGestures = false
+                UIView.animateWithDuration(0.33, delay: 0.20, options: [], animations:
                     {[weak weakSelf = self] in
                         weakSelf?.imageView.alpha = 1.0
                         weakSelf?.imageView.layer.transform = t
@@ -433,6 +436,10 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         cropViewOutsideR.frame = CGRectMake(cropView.frame.maxX, 0.0, view.frame.size.width - cropView.frame.maxX, view.frame.size.height)
         cropViewOutsideD.frame = CGRectMake(cropView.frame.origin.x, cropView.frame.maxY, cropView.frame.size.width, view.frame.height - cropView.frame.maxY)
         cropViewOutsideL.frame = CGRectMake(0.0, 0.0, cropView.frame.origin.x, view.frame.size.height)
+        
+        
+        crosshairH.frame = CGRect(x: cropView.frame.midX - 1.0, y: cropView.frame.midY - 200.0, width: 3.0, height: 400.0)
+        crosshairV.frame = CGRect(x: cropView.frame.midX - 200.0, y: cropView.frame.midY - 1.0, width: 400.0, height: 3.0)
     }
     
     func update() {
@@ -449,22 +456,22 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     func fixImageOrientation(image image:UIImage)->UIImage {
-
+        
         UIGraphicsBeginImageContext(CGSize(width: image.size.width, height: image.size.height))
         
-        let imageContext = UIGraphicsGetCurrentContext();
-
-        CGContextTranslateCTM(imageContext, 0.0, image.size.height)
-        CGContextScaleCTM(imageContext, 1.0, -1.0)
+        let context = UIGraphicsGetCurrentContext();
         
-        CGContextDrawImage(imageContext, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
+        CGContextTranslateCTM(context, 0.0, image.size.height)
+        CGContextScaleCTM(context, 1.0, -1.0)
+        
+        CGContextDrawImage(context, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
         
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext();
         
         return resultImage
- 
+        
     }
     
     func cropImage() -> UIImage? {
@@ -474,7 +481,17 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 //checkImageView.
                 
-                let image = fixImageOrientation(image: checkImage)
+                let image = checkImage//fixImageOrientation(image: checkImage)
+                
+                
+                let ic = CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY)
+                
+                let imageCenter = imageView.convertPoint(ic, toView: view)
+                
+                
+                //convertPoint(imageView.center, fromView: imageView)
+                let imageShift = CGPoint(x: imageCenter.x - cropView.frame.midX, y: imageCenter.y - cropView.frame.midY)
+                
                 
                 
                 //return image
@@ -496,60 +513,72 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 print("SCALE = \(scale)")
                 print("ROTATION = \(rotation)")
                 
-                
-                
                 let adjustScale = max(s1, s2)
-                
-
-                print("Image ori = \(image.imageOrientation.rawValue)")
-                
                 var transform = CGAffineTransformIdentity
-
+                
                 
                 
                 var scaleX:CGFloat = 1.0
                 var scaleY:CGFloat = -1.0
                 
                 
-             
-                
-                //UIGraphicsBeginImageContext(CGSize(width: image.size.width * cropScale, height: image.size.height * cropScale))
-                UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.size.width * cropScale, height: view.bounds.size.height * cropScale), false, 1.0)
+                var resultWidth = view.bounds.size.width * cropScale
+                var resultHeight = view.bounds.size.height * cropScale
                 
                 
-                let imageContext = UIGraphicsGetCurrentContext();
+                UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 1.0)
                 
                 
+                let context = UIGraphicsGetCurrentContext();
                 
-                //CGContextScaleCTM(imageContext, scale * adjustScale, scale * adjustScale)
-                
-                //CGContextScaleCTM(imageContext, adjustScale, adjustScale)
-                
+                var alpha = CGFloat(1.0)
                 
                 
-                CGContextScaleCTM(imageContext, scale, scale)
-                CGContextRotateCTM(imageContext, rotation)
-                CGContextTranslateCTM(imageContext, translation.x, translation.y)
+                UIColor(red: 1.0, green: 0.1, blue: 0.1, alpha: alpha).set()
+                CGContextFillRect(context, CGRect(x: 0.0, y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
                 
-                CGContextScaleCTM(imageContext, adjustScale, adjustScale)
+                UIColor(red: 0.2, green: 1.0, blue: 0.2, alpha: alpha).set()
+                CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
                 
+                UIColor(red: 0.2, green: 0.4, blue: 0.7, alpha: alpha).set()
+                CGContextFillRect(context, CGRect(x: 0.0, y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
                 
-                
-                
-                CGContextTranslateCTM(imageContext, 0.0, image.size.height)
-                CGContextScaleCTM(imageContext, scaleX, scaleY)
-                CGContextTranslateCTM(imageContext, -(scaleX * image.size.width / 2.0), -(scaleY * image.size.height / 2.0))
-                
-                
-                //CGContextTranslateCTM(imageContext, (scaleX * (translation.x - cropView.frame.origin.x)), (scaleY * (translation.y - cropView.frame.origin.y)))
+                UIColor(red: 0.85, green: 0.90, blue: 0.125, alpha: alpha).set()
+                CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
                 
                 
                 
                 
+                //CGContextScaleCTM(context, scale * adjustScale, scale * adjustScale)
                 
-                CGContextDrawImage(imageContext, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
-                //CGContextDrawImage(imageContext, CGRectMake(-(image.size.width / 2.0), -(image.size.height / 2.0), image.size.width, image.size.height), image.CGImage)
+                //CGContextScaleCTM(context, adjustScale, adjustScale)
                 
+                CGContextTranslateCTM(context, (resultWidth / 2.0), (resultHeight / 2.0))
+                
+                
+                
+                
+                //imageCenter
+                
+                
+                CGContextScaleCTM(context, adjustScale, adjustScale)
+                
+                CGContextTranslateCTM(context, imageShift.x, imageShift.y)
+                
+                
+                CGContextScaleCTM(context, scale, scale)
+                CGContextRotateCTM(context, rotation)
+                
+                CGContextTranslateCTM(context, -(image.size.width / 2.0), -(image.size.height / 2.0))
+
+                CGContextTranslateCTM(context, 0.0, image.size.height)
+                CGContextScaleCTM(context, scaleX, scaleY)
+                
+                //CGContextTranslateCTM(context, -(scaleX * image.size.width / 2.0), -(scaleY * image.size.height / 2.0))
+                
+                
+                CGContextSetAlpha(context, 0.7)
+                CGContextDrawImage(context, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
                 
                 let resultImage = UIGraphicsGetImageFromCurrentImageContext()
                 
@@ -561,7 +590,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 //UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.size.width * cropScale, height: view.bounds.size.height * cropScale), false, 1.0)
                 
-            
+                
                 //let context = UIGraphicsGetCurrentContext()
                 
                 
@@ -582,22 +611,22 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 //[[UIColor redColor] set]; //set the desired background color
                 //UIRectFill(CGRectMake(0.0, 0.0, temp.size.width, temp.size.height))
                 
-            
+                
                 //CGContextDrawImage(context, CGRectMake(-image.size.width, -image.size.height, image.size.width, image.size.height), image.CGImage)
                 //CGContextDrawImage(context, CGRectMake(-(image.size.width / 2.0), -(image.size.height) / 2.0, image.size.width, image.size.height), image.CGImage)
                 //CGContextDrawImage(context, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
                 
                 
                 //let resultImage = UIGraphicsGetImageFromCurrentImageContext();
-            
-            //UIGraphicsEndImageContext();
-            //return returnImg;
+                
+                //UIGraphicsEndImageContext();
+                //return returnImg;
                 
                 
                 return resultImage
-            
-            
-                }
+                
+                
+            }
             
         }
         
@@ -616,7 +645,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             view.addSubview(imageViewTest)
         }
         
-        imageViewTest.frame = CGRect(x: 50, y: 200, width: cropView.bounds.size.width / 2.0, height: cropView.bounds.size.height / 2.0)
+        imageViewTest.frame = CGRect(x: 20, y: cropView.bounds.midY + 30.0, width: cropView.bounds.size.width / 2.0, height: cropView.bounds.size.height / 2.0)
         imageViewTest.backgroundColor = UIColor(red: 0.5, green: 0.0, blue: 0.15, alpha: 0.4)
         
         if let resultImage = cropImage() {
@@ -640,23 +669,16 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     func resetToScale(resetScale resetScale:CGFloat) {
-        
         if let checkImageView = imageView {
             rotation = 0.0
             scale = resetScale
-            translation = CGPoint(x: (cropView.frame.midX), y: (cropView.frame.midY))
+            translation = CGPoint(x: (cropView.frame.midX / scale), y: (cropView.frame.midY / scale))
             var t = CATransform3DIdentity
-            t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
             t = CATransform3DScale(t, scale, scale, scale)
             t = CATransform3DRotate(t, rotation, 0.0, 0.0, 1.0)
-            
+            t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
             checkImageView.layer.transform = t
             imageView.layer.transform = t
-            
-            updateTransform()
-            
-            //checkImageView.layer.transform = t
-            //imageView.layer.transform = t
         }
     }
     

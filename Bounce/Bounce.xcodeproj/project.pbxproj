@@ -35,6 +35,7 @@
 		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
 		C2333C671D5AB5D100779FB6 /* DrawTriangleBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C661D5AB5D100779FB6 /* DrawTriangleBuffer.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
+		C27B0C011D62AC9E0084C656 /* test_card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C27B0C001D62AC9E0084C656 /* test_card.jpg */; };
 		C28BE8041D59740100347155 /* background_generic.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E41D59740100347155 /* background_generic.png */; };
 		C28BE8051D59740100347155 /* background_generic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E51D59740100347155 /* background_generic@2x.png */; };
 		C28BE8061D59740100347155 /* background_modal_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E61D59740100347155 /* background_modal_ipad.png */; };
@@ -122,6 +123,7 @@
 		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2333C661D5AB5D100779FB6 /* DrawTriangleBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangleBuffer.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
+		C27B0C001D62AC9E0084C656 /* test_card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_card.jpg; sourceTree = "<group>"; };
 		C28BE7E41D59740100347155 /* background_generic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_generic.png; sourceTree = "<group>"; };
 		C28BE7E51D59740100347155 /* background_generic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_generic@2x.png"; sourceTree = "<group>"; };
 		C28BE7E61D59740100347155 /* background_modal_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_modal_ipad.png; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		C28BE7E31D59740100347155 /* Assets (Loose) */ = {
 			isa = PBXGroup;
 			children = (
+				C27B0C001D62AC9E0084C656 /* test_card.jpg */,
 				C28BE7E41D59740100347155 /* background_generic.png */,
 				C28BE7E51D59740100347155 /* background_generic@2x.png */,
 				C28BE7E61D59740100347155 /* background_modal_ipad.png */,
@@ -439,6 +442,7 @@
 				C28BE8181D59740100347155 /* reg_btn_reset_center_down@2x.png in Resources */,
 				C28BE8161D59740100347155 /* reg_btn_paste_down@2x.png in Resources */,
 				C28BE8131D59740100347155 /* reg_btn_load@2x.png in Resources */,
+				C27B0C011D62AC9E0084C656 /* test_card.jpg in Resources */,
 				C28BE8171D59740100347155 /* reg_btn_reset_center@2x.png in Resources */,
 				C28BE8051D59740100347155 /* background_generic@2x.png in Resources */,
 				0D665E731D58239800558EA0 /* VertexShader.glsl in Resources */,
