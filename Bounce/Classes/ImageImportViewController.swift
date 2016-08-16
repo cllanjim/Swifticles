@@ -359,8 +359,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 view.addSubview(crosshairH)
                 view.addSubview(crosshairV)
                 
-                crosshairH.backgroundColor = UIColor(red: 0.25, green: 0.98, blue: 0.6, alpha: 0.88)
-                crosshairV.backgroundColor = UIColor(red: 0.25, green: 0.98, blue: 0.6, alpha: 0.88)
+                crosshairH.backgroundColor = UIColor(red: 0.25, green: 0.28, blue: 0.11, alpha: 0.88)
+                crosshairV.backgroundColor = UIColor(red: 0.25, green: 0.28, blue: 0.14, alpha: 0.88)
                 
                 //var crosshairH = UIView(frame: CGRectZero)
                 //var crosshairV = UIView(frame: CGRectZero)
@@ -483,154 +483,62 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 let image = checkImage//fixImageOrientation(image: checkImage)
                 
-                
-                let ic = CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY)
-                
-                let imageCenter = imageView.convertPoint(ic, toView: view)
-                
-                
-                //convertPoint(imageView.center, fromView: imageView)
+                let imageCenter = imageView.convertPoint(CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY), toView: view)
                 let imageShift = CGPoint(x: imageCenter.x - cropView.frame.midX, y: imageCenter.y - cropView.frame.midY)
                 
-                
-                
-                //return image
-                
-                
-                var imageWidth = image.size.width
-                var imageHeight = image.size.height
-                
-                
-                var cropScale = CGFloat(1.0)
+                let cropScale = gDevice.scale
                 
                 let s1 = ((view.bounds.size.width) / cropView.bounds.size.width) * cropScale
                 let s2 = ((view.bounds.size.height) / cropView.bounds.size.height) * cropScale
-                
-                print("scad1: \(s1) scad2: \(s2)")
-                
-                print("TRANSLATION = [\(translation.x) x \(translation.y)]")
-                print("CROP FRAME = [\(cropView.frame.origin.x) x \(cropView.frame.origin.y)]")
-                print("SCALE = \(scale)")
-                print("ROTATION = \(rotation)")
-                
                 let adjustScale = max(s1, s2)
-                var transform = CGAffineTransformIdentity
                 
                 
                 
-                var scaleX:CGFloat = 1.0
-                var scaleY:CGFloat = -1.0
                 
+                let resultWidth = view.bounds.size.width * cropScale
+                let resultHeight = view.bounds.size.height * cropScale
                 
-                var resultWidth = view.bounds.size.width * cropScale
-                var resultHeight = view.bounds.size.height * cropScale
+                //UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 1.0)
+                UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 0.0)
                 
-                
-                UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 1.0)
                 
                 
                 let context = UIGraphicsGetCurrentContext();
                 
-                var alpha = CGFloat(1.0)
+                //var alpha = CGFloat(1.0)
+                //UIColor(red: 1.0, green: 0.1, blue: 0.1, alpha: alpha).set()
+                //CGContextFillRect(context, CGRect(x: 0.0, y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
+                //UIColor(red: 0.2, green: 1.0, blue: 0.2, alpha: alpha).set()
+                //CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
+                //UIColor(red: 0.2, green: 0.4, blue: 0.7, alpha: alpha).set()
+                //CGContextFillRect(context, CGRect(x: 0.0, y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
+                //UIColor(red: 0.85, green: 0.90, blue: 0.125, alpha: alpha).set()
+                //CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
+
                 
-                
-                UIColor(red: 1.0, green: 0.1, blue: 0.1, alpha: alpha).set()
-                CGContextFillRect(context, CGRect(x: 0.0, y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                
-                UIColor(red: 0.2, green: 1.0, blue: 0.2, alpha: alpha).set()
-                CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                
-                UIColor(red: 0.2, green: 0.4, blue: 0.7, alpha: alpha).set()
-                CGContextFillRect(context, CGRect(x: 0.0, y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                
-                UIColor(red: 0.85, green: 0.90, blue: 0.125, alpha: alpha).set()
-                CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                
-                
-                
-                
-                //CGContextScaleCTM(context, scale * adjustScale, scale * adjustScale)
-                
-                //CGContextScaleCTM(context, adjustScale, adjustScale)
                 
                 CGContextTranslateCTM(context, (resultWidth / 2.0), (resultHeight / 2.0))
-                
-                
-                
-                
-                //imageCenter
-                
-                
                 CGContextScaleCTM(context, adjustScale, adjustScale)
-                
                 CGContextTranslateCTM(context, imageShift.x, imageShift.y)
-                
-                
                 CGContextScaleCTM(context, scale, scale)
                 CGContextRotateCTM(context, rotation)
-                
                 CGContextTranslateCTM(context, -(image.size.width / 2.0), -(image.size.height / 2.0))
-
+                
+                
+                //And then for some reason, flip the whole thing horizontally.
                 CGContextTranslateCTM(context, 0.0, image.size.height)
-                CGContextScaleCTM(context, scaleX, scaleY)
-                
-                //CGContextTranslateCTM(context, -(scaleX * image.size.width / 2.0), -(scaleY * image.size.height / 2.0))
-                
-                
-                CGContextSetAlpha(context, 0.7)
+                CGContextScaleCTM(context, 1.0, -1.0)
                 CGContextDrawImage(context, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
                 
                 let resultImage = UIGraphicsGetImageFromCurrentImageContext()
                 
-                UIGraphicsEndImageContext();
+                UIGraphicsEndImageContext()
+                
+                print("RESULT W[\(resultImage.size.width)] H[\(resultImage.size.height)] Sc[\(resultImage.scale)]")
                 
                 return resultImage
-                
-                
-                
-                //UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.size.width * cropScale, height: view.bounds.size.height * cropScale), false, 1.0)
-                
-                
-                //let context = UIGraphicsGetCurrentContext()
-                
-                
-                
-                //CGContextTranslateCTM(context, image.size.width/2.0, image.size.height/2.0)
-                //CGContextRotateCTM(context, CGFloat(M_PI))
-                //CGContextScaleCTM(context, -1.0, 1.0)
-                
-                
-                
-                //CGContextConcatCTM(context, transform)
-                //CGContextTranslateCTM(context, image.size.width/2.0, image.size.height/2.0)
-                
-                //CGContextRotateCTM(context, rotation)
-                //CGContextScaleCTM(context, scale, scale)
-                //CGContextTranslateCTM(context, translation.x, translation.y)
-                
-                //[[UIColor redColor] set]; //set the desired background color
-                //UIRectFill(CGRectMake(0.0, 0.0, temp.size.width, temp.size.height))
-                
-                
-                //CGContextDrawImage(context, CGRectMake(-image.size.width, -image.size.height, image.size.width, image.size.height), image.CGImage)
-                //CGContextDrawImage(context, CGRectMake(-(image.size.width / 2.0), -(image.size.height) / 2.0, image.size.width, image.size.height), image.CGImage)
-                //CGContextDrawImage(context, CGRectMake(0.0, 0.0, image.size.width, image.size.height), image.CGImage)
-                
-                
-                //let resultImage = UIGraphicsGetImageFromCurrentImageContext();
-                
-                //UIGraphicsEndImageContext();
-                //return returnImg;
-                
-                
-                return resultImage
-                
-                
             }
-            
         }
-        
-        
         return nil
     }
     
