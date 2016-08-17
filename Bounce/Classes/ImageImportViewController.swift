@@ -441,7 +441,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 //CGContextFillRect(context, CGRect(x: 0.0, y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
                 //UIColor(red: 0.85, green: 0.90, blue: 0.125, alpha: alpha).set()
                 //CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-
+                
                 
                 
                 CGContextTranslateCTM(context, (resultWidth / 2.0), (resultHeight / 2.0))
@@ -476,24 +476,16 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if let resultImage = cropImage() {
             
-            //imageCropped = resultImage
             
-            if let navigationController = self.navigationController {
-                
-                var isPortrait = view.bounds.size.width < view.bounds.size.height
-                
+            let isPortrait = view.bounds.size.width < view.bounds.size.height
             
-                let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                let bounce = storyboard.instantiateViewControllerWithIdentifier("bounce") as! BounceViewController
-                
-                bounce.loadViewIfNeeded()
-                
-                bounce.setUp(image: resultImage, portraitOrientation: isPortrait)
-                
-                navigationController.setNavigationBarHidden(true, animated: true)
-                
-                navigationController.setViewControllers([bounce], animated: true)
-            }
+            let bounce = gApp.getStoryboardVC("bounce") as! BounceViewController
+            
+            bounce.loadViewIfNeeded()
+            bounce.setUp(image: resultImage, portraitOrientation: isPortrait)
+            
+            gApp.navigationController.setNavigationBarHidden(true, animated: true)
+            gApp.navigationController.setViewControllers([bounce], animated: true)
         }
     }
     

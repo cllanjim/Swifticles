@@ -26,73 +26,74 @@ public class Sprite {
     private var vertexBufferSlot:BufferIndex?
     private var indexBufferSlot:BufferIndex?
     
+    private var needsRefresh = true
     
     var x1: CGFloat {
         get { return CGFloat(vertexBuffer[ 0])}
-        set {vertexBuffer[ 0] = GLfloat(newValue)}
+        set {vertexBuffer[ 0] = GLfloat(newValue);needsRefresh=true}
     }
     var x2: CGFloat {
         get { return CGFloat(vertexBuffer[10])}
-        set {vertexBuffer[10] = GLfloat(newValue)}
+        set {vertexBuffer[10] = GLfloat(newValue);needsRefresh=true}
     }
     var x3: CGFloat {
         get { return CGFloat(vertexBuffer[20])}
-        set {vertexBuffer[20] = GLfloat(newValue)}
+        set {vertexBuffer[20] = GLfloat(newValue);needsRefresh=true}
     }
     var x4: CGFloat {
         get { return CGFloat(vertexBuffer[30])}
-        set {vertexBuffer[30] = GLfloat(newValue)}
+        set {vertexBuffer[30] = GLfloat(newValue);needsRefresh=true}
     }
     
     var y1: CGFloat {
         get { return CGFloat(vertexBuffer[ 1])}
-        set {vertexBuffer[ 1] = GLfloat(newValue)}
+        set {vertexBuffer[ 1] = GLfloat(newValue);needsRefresh=true}
     }
     var y2: CGFloat {
         get { return CGFloat(vertexBuffer[11])}
-        set {vertexBuffer[11] = GLfloat(newValue)}
+        set {vertexBuffer[11] = GLfloat(newValue);needsRefresh=true}
     }
     var y3: CGFloat {
         get { return CGFloat(vertexBuffer[21])}
-        set {vertexBuffer[21] = GLfloat(newValue)}
+        set {vertexBuffer[21] = GLfloat(newValue);needsRefresh=true}
     }
     var y4: CGFloat {
         get { return CGFloat(vertexBuffer[31])}
-        set {vertexBuffer[31] = GLfloat(newValue)}
+        set {vertexBuffer[31] = GLfloat(newValue);needsRefresh=true}
     }
     
     var u1: CGFloat {
         get { return CGFloat(vertexBuffer[ 3])}
-        set {vertexBuffer[ 3] = GLfloat(newValue)}
+        set {vertexBuffer[ 3] = GLfloat(newValue);needsRefresh=true}
     }
     var u2: CGFloat {
         get { return CGFloat(vertexBuffer[13])}
-        set {vertexBuffer[13] = GLfloat(newValue)}
+        set {vertexBuffer[13] = GLfloat(newValue);needsRefresh=true}
     }
     var u3: CGFloat {
         get { return CGFloat(vertexBuffer[23])}
-        set {vertexBuffer[23] = GLfloat(newValue)}
+        set {vertexBuffer[23] = GLfloat(newValue);needsRefresh=true}
     }
     var u4: CGFloat {
         get { return CGFloat(vertexBuffer[33])}
-        set {vertexBuffer[33] = GLfloat(newValue)}
+        set {vertexBuffer[33] = GLfloat(newValue);needsRefresh=true}
     }
     
     var v1: CGFloat {
         get { return CGFloat(vertexBuffer[ 4])}
-        set {vertexBuffer[ 4] = GLfloat(newValue)}
+        set {vertexBuffer[ 4] = GLfloat(newValue);needsRefresh=true}
     }
     var v2: CGFloat {
         get { return CGFloat(vertexBuffer[14])}
-        set {vertexBuffer[14] = GLfloat(newValue)}
+        set {vertexBuffer[14] = GLfloat(newValue);needsRefresh=true}
     }
     var v3: CGFloat {
         get { return CGFloat(vertexBuffer[24])}
-        set {vertexBuffer[24] = GLfloat(newValue)}
+        set {vertexBuffer[24] = GLfloat(newValue);needsRefresh=true}
     }
     var v4: CGFloat {
         get { return CGFloat(vertexBuffer[34])}
-        set {vertexBuffer[34] = GLfloat(newValue)}
+        set {vertexBuffer[34] = GLfloat(newValue);needsRefresh=true}
     }
     
     var startX: CGFloat {
@@ -206,7 +207,34 @@ public class Sprite {
         }
     }
     
+    public func draw() {
+        
+        if needsRefresh {
+            refreshVB()
+        }
+        
+        gG.bufferIndexBind(indexBufferSlot)
+        gG.bufferVertexBind(vertexBufferSlot)
+        
+        gG.positionEnable()
+        gG.positionSetPointer(size: 3, offset: 0, stride: 10)
+        
+        gG.texCoordEnable()
+        gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        
+        gG.colorArrayEnable()
+        gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        
+        gG.textureEnable()
+        gG.textureBind(texture: texture)
+        
+        gG.drawElementsTriangle(count:6, offset: 0)
+    }
+    
     public func drawCentered(pos pos:CGPoint) {
+        
+        
+        
         
         var modelView = gG.matrixModelViewGet()
         
@@ -222,46 +250,31 @@ public class Sprite {
         //var matrix = GLKMatrix4Translate(modelView, Float(pos.x), Float(pos.y), 0.0)
         var matrix = GLKMatrix4MakeTranslation(Float(pos.x), Float(pos.y), 0.0)
         
-        //print("matrix = \(matrix.m)")
+        gG.matrixModelViewSet(matrix)
         
         
         //textureDisable()
         
         
-        gG.bufferIndexBind(indexBufferSlot)
-        gG.bufferVertexBind(vertexBufferSlot)
-        
-        gG.positionEnable()
-        //gG.positionSetPointer(size: 2, offset: 0, stride: 4)
-        gG.positionSetPointer(size: 3, offset: 0, stride: 10)
-        
-        
-        gG.texCoordEnable()
-        //gG.textureCoordSetPointer(size: 2, offset: 2, stride: 4)
-        gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
-        
-        gG.colorArrayEnable()
-        gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
-        
-        
-        
-        
-        
-        
-        gG.textureEnable()
-        gG.textureBind(texture: texture)
-        
-        gG.matrixModelViewSet(matrix)
-        
-        gG.drawElementsTriangle(count:6, offset: 0)
-        
-        //gG.matrixModelViewSet(modelView)
+        draw()
     }
     
     public func drawCentered(pos pos:CGPoint, scale:CGFloat, rot: CGFloat) {
         
+
+        draw()
+        
     }
     
+    
+    internal func refreshVB() {
+        
+        if let checkIndex = vertexBufferSlot {
+            gG.bufferVertexSetData(bufferIndex: checkIndex, data: vertexBuffer, size: 40)
+            needsRefresh = false
+        }
+        
+    }
     
     
 }

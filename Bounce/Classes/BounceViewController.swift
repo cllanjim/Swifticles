@@ -44,6 +44,16 @@ class BounceViewController : GLViewController {
         
         backgroundTexture.load(image: image)
         background.load(texture: backgroundTexture)
+        
+        background.startX = 0.0
+        background.startY = 0.0
+        background.endX = screenRect.size.width
+        background.endY = screenRect.size.height
+        
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -187,7 +197,9 @@ class BounceViewController : GLViewController {
         
             }
         
-        background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
+        
+        //background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
+        background.draw()
         
         sprite2.drawCentered(pos: CGPoint(x: 0, y: 0))
         
