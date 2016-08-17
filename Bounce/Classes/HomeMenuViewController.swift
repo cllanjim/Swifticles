@@ -20,7 +20,6 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var importImage: UIImage?
     
-    
     override func viewDidLoad() {
         //self.clickImport(RRButton())
     }
@@ -114,20 +113,20 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         
         showImagePicker(sender)
         
-        //self.performSegueWithIdentifier("bounce", sender: nil)
+        //self.performSegueWithIdentifier("test_bounce", sender: nil)
         
         
     }
     
     @IBAction func clickLoad(sender: AnyObject) {
         
-        performSegueWithIdentifier("bounce", sender: nil)
+        performSegueWithIdentifier("test_bounce", sender: nil)
         
     }
     
     @IBAction func clickUpgrade(sender: AnyObject) {
         
-        performSegueWithIdentifier("bounce", sender: nil)
+        performSegueWithIdentifier("test_bounce", sender: nil)
     }
     
     @IBAction func clickImport(sender: RRButton) {

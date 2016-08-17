@@ -14,24 +14,12 @@ class GLViewController: GLKViewController {
     var program: GLuint = 0
     var context: EAGLContext? = nil
     
-    var texxx:Texture?
-    
-    
-    func update() {
-        
-    }
-    
-    func load() {
-        print("aa")
-    }
-    
-    
-    func draw() {
-        
-    }
+    func update() { }
+    func load() { }
+    func draw() { }
     
     deinit {
-        print("GameViewController.deinit()")
+        print("GLViewController.deinit()")
         self.tearDownGL()
         if EAGLContext.currentContext() === self.context {
             EAGLContext.setCurrentContext(nil)
@@ -39,6 +27,9 @@ class GLViewController: GLKViewController {
     }
     
     override func viewDidLoad() {
+        
+        print("GLViewController.viewDidLoad()")
+        
         super.viewDidLoad()
         
         self.context = EAGLContext(API: .OpenGLES3)
@@ -76,32 +67,13 @@ class GLViewController: GLKViewController {
     
     func setupGL() {
         
-        print("GameViewController.setupGL()")
+        print("GLViewController.setupGL()")
         
         EAGLContext.setCurrentContext(self.context)
         
         self.loadShaders()
         
         gG.create()
-        
-        //glEnable(GLenum(GL_DEPTH_TEST))
-        
-        //glGenVertexArraysOES(1, &vertexArray)
-        //glBindVertexArrayOES(vertexArray)
-        //glGenBuffers(1, &vertexBuffer)
-        
-        
-        
-        
-        var path = ""//FileUtils.getBundle()
-        
-        //hero_stego_spike_1.png
-        //old.png
-        
-        path = path.stringByAppendingString("hero_stego_spike_1")
-        texxx = Texture(path:  path)
-        texxx?.load(path: "rock")
-        
     }
     
     func tearDownGL() {
@@ -120,7 +92,6 @@ class GLViewController: GLKViewController {
     
     
     override func glkView(view: GLKView, drawInRect rect: CGRect) {
-        
         glClearColor(0.05, 0.06, 0.0925, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
         gG.colorSet()
@@ -128,7 +99,6 @@ class GLViewController: GLKViewController {
         gG.blendSetAlpha()
         
         draw()
-        
     }
     
     func loadShaders() -> Bool {
@@ -163,7 +133,6 @@ class GLViewController: GLKViewController {
         // Link program.
         if !self.linkProgram(program) {
             print("Failed to link program: \(program)")
-            
             if vertShader != 0 {
                 glDeleteShader(vertShader)
                 vertShader = 0
@@ -176,7 +145,6 @@ class GLViewController: GLKViewController {
                 glDeleteProgram(program)
                 program = 0
             }
-            
             return false
         }
         
@@ -185,7 +153,6 @@ class GLViewController: GLKViewController {
         gGLSlotPosition = glGetAttribLocation(program, "Position")
         gGLSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
         gGLSlotColor = glGetAttribLocation(program, "SourceColor")
-        
         gGLUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
         gGLUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
         gGLUniformTexture = glGetUniformLocation(program, "Texture")
@@ -201,9 +168,6 @@ class GLViewController: GLKViewController {
             glDetachShader(program, fragShader)
             glDeleteShader(fragShader)
         }
-        
-        
-        
         return true
     }
     
@@ -231,6 +195,8 @@ class GLViewController: GLKViewController {
     }
     
     func linkProgram(prog: GLuint) -> Bool {
+        print("GLViewController.linkProgram()")
+        
         var status: GLint = 0
         glLinkProgram(prog)
         glGetProgramiv(prog, GLenum(GL_LINK_STATUS), &status)

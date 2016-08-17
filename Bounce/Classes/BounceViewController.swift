@@ -6,17 +6,20 @@
 //  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
+import UIKit
 import GLKit
 import OpenGLES
 
 class BounceViewController : GLViewController {
     
-    
+    var landscape:Bool = false
     
     let sprite1 = Sprite()
     let sprite2 = Sprite()
     let sprite3 = Sprite()
     
+    let background = Sprite()
+    let backgroundTexture = Texture()
     
     
     var buffer = DrawTriangleBuffer()
@@ -25,8 +28,46 @@ class BounceViewController : GLViewController {
     var tri2 = DrawTriangle()
     var tri3 = DrawTriangle()
     
+    var screenRect:CGRect {
+        if landscape {
+            return CGRect(x: 0.0, y: 0.0, width: gDevice.landscapeWidth, height: gDevice.landscapeHeight)
+        } else {
+            return CGRect(x: 0.0, y: 0.0, width: gDevice.portraitWidth, height: gDevice.portraitHeight)
+        }
+    }
+    
+    func setUp(image image:UIImage, portraitOrientation:Bool) {
+        
+        print("BounceViewController.setUp(portraitOrientation:[\(portraitOrientation)])")
+        
+        landscape = !portraitOrientation
+        
+        backgroundTexture.load(image: image)
+        background.load(texture: backgroundTexture)
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        
+        if landscape {
+            return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown]
+        } else {
+            return [.LandscapeRight, .LandscapeLeft]
+        }
+        
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        if landscape {
+            return UIInterfaceOrientation.LandscapeLeft
+        } else {
+            return UIInterfaceOrientation.Portrait
+        }
+    }
     
     override func load() {
+        
+        print("BounceViewController.load()")
+        
         
         sprite3.load(path: "aaaa")
         sprite1.load(path: "rock")
@@ -146,6 +187,7 @@ class BounceViewController : GLViewController {
         
             }
         
+        background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
         
         sprite2.drawCentered(pos: CGPoint(x: 0, y: 0))
         
@@ -156,7 +198,6 @@ class BounceViewController : GLViewController {
         sprite2.drawCentered(pos: CGPoint(x: 100.0, y: 100))
         
         sprite3.drawCentered(pos: CGPoint(x: 118.0, y: 240.0))
-        
     }
     
     deinit {

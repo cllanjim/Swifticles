@@ -81,6 +81,6 @@ class Device
     
 }
 
-let gDevice = Device();
+let gDevice = Device()
 
 

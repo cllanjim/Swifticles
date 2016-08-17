@@ -40,11 +40,9 @@ public class Texture {
         bindIndex = nil
     }
     
-    public func load(path path:String?) {
-        
+    public func load(image image:UIImage?) {
         clear()
-        
-        if let texturePath = path where texturePath.characters.count > 0 {
+        if let loadImage = image {
             
             var textureWidth:GLsizei = 0
             var textureHeight:GLsizei = 0
@@ -52,7 +50,7 @@ public class Texture {
             var scaledWidth:GLsizei = 0
             var scaledHeight:GLsizei = 0
             
-            let imageData = Texture.Load(path:texturePath, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
+            let imageData = Texture.Load(image:loadImage, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
             
             width = Int(textureWidth)
             height = Int(textureHeight)
@@ -63,32 +61,38 @@ public class Texture {
         }
     }
     
-    private class func Load(path path:String, inout textureWidth: GLsizei, inout textureHeight: GLsizei, inout scaledWidth: GLsizei, inout scaledHeight: GLsizei) -> UnsafeMutablePointer<()> {
+    public func load(path path:String?) {
+        clear()
+        if let texturePath = path where texturePath.characters.count > 0 {
+            load(image: UIImage(named: texturePath))
+        }
+    }
+    
+    private class func Load(image image:UIImage?, inout textureWidth: GLsizei, inout textureHeight: GLsizei, inout scaledWidth: GLsizei, inout scaledHeight: GLsizei) -> UnsafeMutablePointer<()> {
         
-        if let image = UIImage(named: path) {
-            if image.size.width > 0 && image.size.height > 0 {
-                
-                textureWidth = GLsizei(image.size.width)
-                textureHeight = GLsizei(image.size.height)
-                
-                scaledWidth = GLsizei(image.size.width * image.scale)
-                scaledHeight = GLsizei(image.size.height * image.scale)
-                
-                print("Loaded Texture\n\(textureWidth)x\(textureHeight) scale \(image.scale)\n\(scaledWidth)x\(scaledHeight)")
-                
-                let cgImage = image.CGImage;
-                let imageData: UnsafeMutablePointer<()> = malloc(Int(scaledWidth * scaledHeight * 4))
-                let colorSpace = CGColorSpaceCreateDeviceRGB()
-                let cgContext = CGBitmapContextCreate(imageData, Int(scaledWidth), Int(scaledHeight), 8, Int(scaledWidth * 4), colorSpace, CGImageAlphaInfo.PremultipliedLast.rawValue)
-                let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(Int(scaledWidth)), height: CGFloat(Int(scaledHeight)))
-                
-                CGContextSetBlendMode(cgContext, CGBlendMode.Copy)
-                
-                CGContextClearRect(cgContext, rect)
-                CGContextDrawImage(cgContext, rect, cgImage)
-                
-                return imageData
-            }
+        if let loadImage = image where loadImage.size.width > 0 && loadImage.size.height > 0 {
+            
+            textureWidth = GLsizei(loadImage.size.width)
+            textureHeight = GLsizei(loadImage.size.height)
+            
+            scaledWidth = GLsizei(loadImage.size.width * loadImage.scale)
+            scaledHeight = GLsizei(loadImage.size.height * loadImage.scale)
+            
+            print("Loaded Texture\n\(textureWidth)x\(textureHeight) scale \(loadImage.scale)\n\(scaledWidth)x\(scaledHeight)")
+            
+            let cgImage = loadImage.CGImage;
+            let imageData: UnsafeMutablePointer<()> = malloc(Int(scaledWidth * scaledHeight * 4))
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let cgContext = CGBitmapContextCreate(imageData, Int(scaledWidth), Int(scaledHeight), 8, Int(scaledWidth * 4), colorSpace, CGImageAlphaInfo.PremultipliedLast.rawValue)
+            let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(Int(scaledWidth)), height: CGFloat(Int(scaledHeight)))
+            
+            CGContextSetBlendMode(cgContext, CGBlendMode.Copy)
+            
+            CGContextClearRect(cgContext, rect)
+            CGContextDrawImage(cgContext, rect, cgImage)
+            
+            return imageData
+            
         }
         return nil
     }

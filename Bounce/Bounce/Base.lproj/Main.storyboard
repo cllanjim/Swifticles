@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -168,7 +167,7 @@
                         <outlet property="buttonUpgrade" destination="KTO-3M-ndH" id="KAs-Nf-D5c"/>
                         <outlet property="cloudTest" destination="JIH-FF-IOa" id="3UB-JQ-Qg4"/>
                         <outlet property="glTest" destination="1Ia-Z6-wwE" id="foK-b2-orv"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="bounce" id="8KK-ae-JtT"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="test_bounce" id="8KK-ae-JtT"/>
                         <segue destination="jAg-pi-FN2" kind="show" identifier="import_image" id="fAv-NO-UeZ"/>
                     </connections>
                 </viewController>
@@ -187,13 +186,79 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GLKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErV-qg-OsI">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <state key="normal" backgroundImage="reg_btn_clone_selected_down.png"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="66" height="30"/>
+                                        </variation>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BU-hg-uMx" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="0.0" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="clickMenu:" destination="27M-R0-Bg7" eventType="touchUpInside" id="4xM-ra-0ol"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.90115840517241375" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="C5F-vt-h4O"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="ErV-qg-OsI"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="ErV-qg-OsI"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="buttonMenu" destination="1BU-hg-uMx" id="dfQ-Sy-LK0"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9nR-oE-MDC" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.90115840520000001" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Nb5-Y7-uzB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="27M-R0-Bg7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0Uw-nu-EBq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9nR-oE-MDC" secondAttribute="trailing" constant="-20" id="3zg-W9-tmg"/>
+                            <constraint firstItem="9nR-oE-MDC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="CaR-9y-mi3"/>
+                            <constraint firstItem="27M-R0-Bg7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="IuA-Jz-M1A"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="bottom" constant="540" id="KnQ-Ii-oTq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9nR-oE-MDC" secondAttribute="bottom" id="N1b-eU-5x6"/>
+                            <constraint firstItem="27M-R0-Bg7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="euI-8U-Sz0"/>
+                            <constraint firstItem="27M-R0-Bg7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ioP-8o-Wa6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="27M-R0-Bg7" secondAttribute="trailing" constant="-20" id="wIx-j2-vE1"/>
+                            <constraint firstAttribute="trailing" secondItem="27M-R0-Bg7" secondAttribute="trailing" id="yXk-rQ-3UO"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="0Uw-nu-EBq"/>
+                                <exclude reference="ioP-8o-Wa6"/>
+                                <exclude reference="yXk-rQ-3UO"/>
+                                <exclude reference="KnQ-Ii-oTq"/>
+                            </mask>
+                        </variation>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2327" y="288"/>
+            <point key="canvasLocation" x="2047.5" y="390"/>
         </scene>
         <!--Import Image-->
         <scene sceneID="CMF-NA-AwL">
@@ -249,11 +314,12 @@
                     <connections>
                         <outlet property="navigationBar" destination="9zh-LN-5HN" id="1VG-83-0N2"/>
                         <outlet property="toolBarBottom" destination="YSm-45-Njh" id="JBe-uT-CSj"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="new_bounce" id="16d-sr-aXn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VSg-EE-nat" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1615" y="1142"/>
+            <point key="canvasLocation" x="1335" y="1145"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yeL-a2-qnE">
@@ -278,6 +344,10 @@
     </scenes>
     <resources>
         <image name="background_modal_ipad.png" width="1024" height="1024"/>
+        <image name="reg_btn_clone_selected_down.png" width="128" height="128"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="16d-sr-aXn"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.20839306190000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>
