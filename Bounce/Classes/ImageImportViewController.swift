@@ -85,7 +85,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     var pinchRecognizerTouchCount:Int = 0
     var rotRecognizerTouchCount:Int = 0
     
-    
     var cancelTimer:Int = 0
     
     var starTouchCenter:CGPoint = CGPointZero

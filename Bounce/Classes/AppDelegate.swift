@@ -8,8 +8,19 @@
 
 import UIKit
 
+
+extension UINavigationController {
+    public override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return (visibleViewController?.supportedInterfaceOrientations())!
+    }
+}
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
 
     var window: UIWindow?
 
@@ -79,6 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("portrait width = \(gDevice.portraitWidth)\nportrait height = \(gDevice.portraitHeight)")
         print("landscape width = \(gDevice.landscapeWidth)\nlandscape height = \(gDevice.landscapeHeight)")
         
+        
+        gApp.navigationController.delegate = self
+        
         return true
     }
 
@@ -104,6 +118,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    class ViewController: UIViewController, UINavigationControllerDelegate {
+        func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask {
+            return UIInterfaceOrientationMask.Portrait
+        }
+    }
+    
 }
 

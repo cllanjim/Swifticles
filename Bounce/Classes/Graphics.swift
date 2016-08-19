@@ -135,6 +135,74 @@ class Graphics {
         quadDraw(x1: x, y1: y, x2: x+width, y2: y, x3: x, y3: y+height, x4: x+width, y4: y+height)
     }
     
+    func lineDraw(p1 p1:CGPoint, p2:CGPoint, thickness:CGFloat) {
+        
+        var diff = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
+        
+        var dist = diff.x * diff.x + diff.y * diff.y
+        
+        if dist > 0.01 {
+            
+            
+            dist = sqrt(dist)
+            
+            diff.x = (diff.x / dist) * thickness
+            diff.y = (diff.y / dist) * thickness
+            
+            let holdX = diff.x
+            diff.x = -diff.y
+            diff.y = holdX
+            
+            quadDraw(x1: GLfloat(p1.x-diff.x), y1: GLfloat(p1.y-diff.y), x2: GLfloat(p1.x+diff.x), y2: GLfloat(p1.y+diff.y),
+                     x3: GLfloat(p2.x-diff.x), y3: GLfloat(p2.y-diff.y), x4: GLfloat(p2.x+diff.x), y4: GLfloat(p2.y+diff.y))
+            
+            
+        }
+        
+        
+        //float aDirX = x2 - x1;
+        //float aDirY = y2 - y1;
+        
+        //float aDist = sqrtf((aDirX*aDirX) + (aDirY*aDirY));
+        
+        //aDirX /= aDist;
+        //aDirY /= aDist;
+        
+        //float aHold = aDirX;
+        //aDirX=-aDirY;
+        //aDirY=aHold;
+        
+        //aDirX*=pThickness;
+        //aDirY*=pThickness;
+        
+        //gfx_drawQuad(x1-aDirX,,,,,,,);
+        
+    }
+    
+    /*
+    void gfx_drawLine(float x1, float y1, float x2, float y2, float pThickness)
+    {
+    float aDirX = x2 - x1;
+    float aDirY = y2 - y1;
+    
+    float aDist = sqrtf((aDirX*aDirX) + (aDirY*aDirY));
+    
+    aDirX /= aDist;
+    aDirY /= aDist;
+    
+    float aHold = aDirX;
+    aDirX=-aDirY;
+    aDirY=aHold;
+    
+    aDirX*=pThickness;
+    aDirY*=pThickness;
+    
+    gfx_drawQuad(x1-aDirX,y1-aDirY,x1+aDirX,y1+aDirY,x2-aDirX,y2-aDirY,x2+aDirX,y2+aDirY);
+    }
+ 
+    */
+    
+    
     func colorSet() {
         colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
     }

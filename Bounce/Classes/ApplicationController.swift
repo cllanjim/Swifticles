@@ -1,9 +1,9 @@
 //
-//  DSFramework.swift
-//  OptimizeRX
+//  ApplicationController.swift
+//  Bounce
 //
 //  Created by Nicholas Raptis on 9/19/15.
-//  Copyright (c) 2015 Darkswarm LLC. All rights reserved.
+//  Copyright (c) 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
