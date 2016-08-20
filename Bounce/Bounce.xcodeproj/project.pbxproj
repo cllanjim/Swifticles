@@ -33,9 +33,9 @@
 		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
 		0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F651D581263006DDDAB /* BounceTests.swift */; };
 		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
-		C22244BE1D6659750078CF0E /* BounceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22244BD1D6659750078CF0E /* BounceView.swift */; };
 		C2333C671D5AB5D100779FB6 /* DrawTriangleBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C661D5AB5D100779FB6 /* DrawTriangleBuffer.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
+		C26C62CF1D67DB030095EFBA /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26C62CE1D67DB030095EFBA /* Matrix.swift */; };
 		C27B0C011D62AC9E0084C656 /* test_card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C27B0C001D62AC9E0084C656 /* test_card.jpg */; };
 		C28BE8041D59740100347155 /* background_generic.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E41D59740100347155 /* background_generic.png */; };
 		C28BE8051D59740100347155 /* background_generic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28BE7E51D59740100347155 /* background_generic@2x.png */; };
@@ -127,9 +127,9 @@
 		0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BounceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD20F701D581263006DDDAB /* BounceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceUITests.swift; sourceTree = "<group>"; };
 		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C22244BD1D6659750078CF0E /* BounceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceView.swift; sourceTree = "<group>"; };
 		C2333C661D5AB5D100779FB6 /* DrawTriangleBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangleBuffer.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
+		C26C62CE1D67DB030095EFBA /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		C27B0C001D62AC9E0084C656 /* test_card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_card.jpg; sourceTree = "<group>"; };
 		C28BE7E41D59740100347155 /* background_generic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_generic.png; sourceTree = "<group>"; };
 		C28BE7E51D59740100347155 /* background_generic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_generic@2x.png"; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 				C28D7FFC1D63F51600B4D569 /* TBButton.swift */,
 				C29275191D63F9EB009258CF /* ToolActions.swift */,
 				C29275751D63FD59009258CF /* ApplicationController.swift */,
-				C22244BD1D6659750078CF0E /* BounceView.swift */,
+				C26C62CE1D67DB030095EFBA /* Matrix.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -526,8 +526,8 @@
 				C292751A1D63F9EB009258CF /* ToolActions.swift in Sources */,
 				0D665E651D5814D100558EA0 /* RRButton.swift in Sources */,
 				0D199C2C1D59B75F006F857C /* DrawNode.swift in Sources */,
+				C26C62CF1D67DB030095EFBA /* Matrix.swift in Sources */,
 				0D665E611D5814D100558EA0 /* GLViewController.swift in Sources */,
-				C22244BE1D6659750078CF0E /* BounceView.swift in Sources */,
 				C28D7FFD1D63F51600B4D569 /* TBButton.swift in Sources */,
 				0D665E601D5814D100558EA0 /* FileUtils.swift in Sources */,
 				0D665E641D5814D100558EA0 /* ImageImportViewController.swift in Sources */,

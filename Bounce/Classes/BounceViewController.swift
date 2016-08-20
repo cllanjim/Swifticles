@@ -17,9 +17,29 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     let background = Sprite()
     let backgroundTexture = Texture()
     
-    var panRecognizer:UIPanGestureRecognizer!;
-    var pinchRecognizer:UIPinchGestureRecognizer!;
-    var rotRecognizer:UIRotationGestureRecognizer!;
+    var panRecognizer:UIPanGestureRecognizer!
+    var pinchRecognizer:UIPinchGestureRecognizer!
+    
+    var panRecognizerTouchCount:Int = 0
+    var pinchRecognizerTouchCount:Int = 0
+    
+    var gestureCancelTimer:Int = 0
+    
+    var gestureTouchCenter:CGPoint = CGPointZero
+    
+    //var screenTranslation:CGPoint = CGPointZero
+    //var screenScale:CGFloat = 1.0
+    
+    var screenTranslation:CGPoint = CGPoint(x: 110.0, y: 200.0)
+    var screenScale:CGFloat = 1.35
+    
+    
+    var gestureStartTranslate:CGPoint = CGPointZero
+    var gestureStartScale:CGFloat = 1.0
+    
+    var gestureStartScreenTouch:CGPoint = CGPointZero
+    var gestureStartImageTouch:CGPoint = CGPointZero
+    
     
     var screenRect:CGRect {
         if landscape {
@@ -117,7 +137,13 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     override func update() {
-        
+        if gestureCancelTimer > 0 {
+            gestureCancelTimer = gestureCancelTimer - 1
+            if gestureCancelTimer <= 0 {
+                panRecognizer.enabled = true
+                pinchRecognizer.enabled = true
+            }
+        }
     }
     
     override func draw() {
@@ -125,28 +151,31 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         
-        let p = GLKMatrix4MakeOrtho(0.0, Float(width), Float(height), 0.0, -2048, 2048)
-        gG.matrixProjectionSet(p)
+        let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
         
+        var viewMat = screenMat.clone()
+        
+        
+        //viewMat = GLKMatrix4Multiply(viewMat, GLKMatrix4MakeTranslation(Float(screenTranslation.x), Float(screenTranslation.y), 0.0))
+        
+        
+        //viewMat = GLKMatrix4Translate(viewMat, Float(screenTranslation.x), Float(screenTranslation.y), 0.0)
+        //print("VM2 = \(viewMat.m)")
+        //viewMat = GLKMatrix4Scale(viewMat, Float(screenScale), Float(screenScale), Float(screenScale))
+        //print("VM3 = \(viewMat.m)")
+        
+        viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
+        viewMat.scale(Float(screenScale))
+        
+        
+        gG.matrixProjectionSet(viewMat)
         
         
         
         //var m = GLKMatrix4MakeScale(0.85, 0.85, 0.85)
-        var m = GLKMatrix4Identity
+        //var m = Matrix()
+        //gG.matrixModelViewSet(m)
         
-        //GLKMatrix4Identity
-        
-        //print("m1 = \(m.m)")
-        
-        
-        //m = GLKMatrix4Scale(m, 0.85, 0.85, 0.85)
-        
-        //print("m2 = \(m.array)")
-        
-        
-        //m = GLKMatrix4Rotate(m, 0.1, 0.7, 0.1, 0.25)
-        
-        gG.matrixModelViewSet(m)
         
         gG.blendEnable()
         gG.blendSetAlpha()
@@ -179,48 +208,139 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         //sprite2.drawCentered(pos: CGPoint(x: 100.0, y: 100))
         //sprite3.drawCentered(pos: CGPoint(x: 118.0, y: 240.0))
         
+        gG.colorSet(r: 0.0, g: 1.0, b: 0.0)
+        gG.rectDraw(CGRect(x: gestureStartScreenTouch.x - 4, y: gestureStartScreenTouch.y - 4, width: 9, height: 9))
+        
+        
+        gG.matrixProjectionSet(screenMat)
+        
+        
+        gG.colorSet(r: 1.0, g: 0.0, b: 0.0)
+        gG.rectDraw(CGRect(x: gestureStartScreenTouch.x - 3, y: gestureStartScreenTouch.y - 3, width: 7, height: 7))
+        
+        //var gestureStartScreenTouch:CGPoint = CGPointZero
+        //var gestureStartImageTouch:CGPoint = CGPointZero
+        
+        
         gG.lineDraw(p1:CGPoint(x: 100.0, y: 100.0), p2:CGPoint(x: 200.0, y: 500.0), thickness:8.0)
         
     }
     
     
+    
+    //var gestureStartScreenTouch:CGPoint = CGPointZero
+    //var gestureStartImageTouch:CGPoint = CGPointZero
+    
+    func transformPointToImage(screenPoint screenPoint:CGPoint) -> CGPoint {
+        
+        
+        return CGPoint(x: screenPoint.x * screenScale + screenTranslation.x, y: screenPoint.y * screenScale + screenTranslation.y)
+    }
+    
+    func transformPointToScreen(imagePoint imagePoint:CGPoint) -> CGPoint {
+        
+        return CGPoint(x: (imagePoint.x - screenTranslation.x) / screenScale, y: (imagePoint.y - screenTranslation.y) / screenScale)
+    }
+    
     func gestureBegan(pos:CGPoint) {
         
-        //starTouchCenter = pos
+        //var gestureStartScreenTouch:CGPoint = CGPointZero
+        //var gestureStartImageTouch:CGPoint = CGPointZero
+        
+        gestureStartScreenTouch = pos
+        gestureStartImageTouch =
+            //transformPointToScreen(imagePoint: pos)
+            transformPointToImage(screenPoint: pos)
+        
+        
+        
         //startImageTouchCenter = imageView.convertPoint(pos, fromView: view)
         
         pinchRecognizer.scale = 1.0
-        rotRecognizer.rotation = 0.0
         panRecognizer.setTranslation(CGPointZero, inView: view)
         
+        
+        gestureStartTranslate = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
+        gestureStartScale = screenScale
         
         //startScale = scale
         //startRotation = rotation
     }
     
-    func didPan(gr:UIPanGestureRecognizer) -> Void {
-        self.performSelectorOnMainThread(#selector(ImageImportViewController.didPanMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
+    
+    func updateTransform() {
+        
+        return
+            
+            /*
+            
+        screenTranslation.x = 0.0
+        screenTranslation.y = 0.0
+        
+        let newImageTouchCenter = transformPointToImage(screenPoint: gestureTouchCenter)
+        
+        
+        //transformPointToScreen(imagePoint: gestureTouchCenter)
+        
+        
+        screenTranslation.x = (newImageTouchCenter.x - gestureStartImageTouch.x)
+        screenTranslation.y = (newImageTouchCenter.y - gestureStartImageTouch.y)
+        
+        //t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
+        
+        //var new
+        
+        //var
+        
+        
+        //gestureTouchCenter
+        
+        */
+        /*
+        var t = CATransform3DIdentity
+        t = CATransform3DScale(t, scale, scale, scale)
+        t = CATransform3DRotate(t, rotation, 0.0, 0.0, 1.0)
+        imageView.layer.transform = t
+        
+        //Re-center the image at the center of our touch
+        //within the object, based on initial touch within object.
+        let newImageTouchCenter = imageView.convertPoint(touchCenter, fromView: view)
+        translation.x = newImageTouchCenter.x - startImageTouchCenter.x
+        translation.y = newImageTouchCenter.y - startImageTouchCenter.y
+        t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
+        
+        imageView.layer.transform = t
+        */
     }
+    
+    
+    var allowGestures:Bool {
+        if gestureCancelTimer > 0 {
+            return false
+        }
+        return true
+    }
+    
+    
     
     func didPanMainThread(gr:UIPanGestureRecognizer) -> Void {
         
-        /*
         if allowGestures == false {
             cancelAllGestureRecognizers()
             return
         }
         
-        touchCenter = gr.locationInView(self.view)
+        gestureTouchCenter = gr.locationInView(self.view)
         switch gr.state {
         case .Began:
-            gestureBegan(touchCenter)
+            gestureBegan(gestureTouchCenter)
             panRecognizerTouchCount = gr.numberOfTouches()
             break
         case .Changed:
             if panRecognizerTouchCount != gr.numberOfTouches() {
                 if gr.numberOfTouches() > panRecognizerTouchCount {
                     panRecognizerTouchCount = gr.numberOfTouches()
-                    gestureBegan(touchCenter)
+                    gestureBegan(gestureTouchCenter)
                 }
                 else {
                     cancelAllGestureRecognizers()
@@ -231,39 +351,40 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             cancelAllGestureRecognizers()
             break
         }
-        if allowTransform() {
+        
+        //screenTranslation = CGPoint(x: gestureTouchCenter.x, y: gestureTouchCenter.y)
+        
+        
+        //if allowTransform() {
             updateTransform()
-        }
-        */
+        //}
     }
     
-    func didPinch(gr:UIPinchGestureRecognizer) -> Void {
-        self.performSelectorOnMainThread(#selector(didPinchMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
-    }
+    
     
     func didPinchMainThread(gr:UIPinchGestureRecognizer) -> Void {
         
-        /*
+        
         if allowGestures == false {
             cancelAllGestureRecognizers()
             return
         }
         
-        touchCenter = gr.locationInView(self.view)
+        gestureTouchCenter = gr.locationInView(self.view)
         switch gr.state {
         case .Began:
-            if allowTransform() {
-                gestureBegan(touchCenter)
-                startScale = scale
+            
+                gestureBegan(gestureTouchCenter)
+                gestureStartScale = screenScale
                 pinchRecognizerTouchCount = gr.numberOfTouches()
-            }
+            
             break
         case .Changed:
             
             if pinchRecognizerTouchCount != gr.numberOfTouches() {
                 if gr.numberOfTouches() > pinchRecognizerTouchCount {
                     pinchRecognizerTouchCount = gr.numberOfTouches()
-                    gestureBegan(touchCenter)
+                    gestureBegan(gestureTouchCenter)
                 }
                 else {
                     cancelAllGestureRecognizers()
@@ -274,11 +395,26 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             cancelAllGestureRecognizers()
             break
         }
-        if allowTransform() {
-            scale = startScale * gr.scale
+        
+        //if allowTransform() {
+            screenScale = gestureStartScale * gr.scale
             updateTransform()
-        }
-        */
+        //}
+        
+    }
+    
+    func cancelAllGestureRecognizers() {
+        gestureCancelTimer = 5
+        panRecognizer.enabled = false
+        pinchRecognizer.enabled = false
+    }
+    
+    func didPan(gr:UIPanGestureRecognizer) -> Void {
+        self.performSelectorOnMainThread(#selector(ImageImportViewController.didPanMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
+    }
+    
+    func didPinch(gr:UIPinchGestureRecognizer) -> Void {
+        self.performSelectorOnMainThread(#selector(didPinchMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {

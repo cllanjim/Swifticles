@@ -21,7 +21,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     var importImage: UIImage?
     
     override func viewDidLoad() {
-        //self.clickImport(RRButton())
+        self.clickImport(RRButton())
     }
     
     
@@ -70,21 +70,6 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
             print("Finished Dismissing Image Picker")
         }
     }
-    
-    /*
-     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-     picker.mediaTypes = @[(NSString *)kUTTypeImage];
-     picker.allowsEditing = NO;
-     picker.delegate = self;
-     picker.modalPresentationStyle = UIModalPresentationPopover;
-     
-     UIPopoverPresentationController *popPC = picker.popoverPresentationController;
-     popPC.permittedArrowDirections = UIPopoverArrowDirectionAny;
-     popPC.barButtonItem = button;
-     */
-    
-    
     
     @IBAction func testPush(sender: UIButton) {
         

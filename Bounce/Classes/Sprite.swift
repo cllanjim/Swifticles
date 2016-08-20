@@ -129,14 +129,10 @@ public class Sprite {
     }
     
     public init() {
-        //vertexBuffer = [-128.0, -128.0, 0.0, 0.0, 128.0, -128.0,  1.0, 0.0, -128.0, 128.0,  0.0, 1.0, 128.0, 128.0,  1.0, 1.0]
-        
         vertexBuffer = [-128.0, -128.0, 0.0,    0.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                             128.0, -128.0, 0.0,    1.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                             -128.0,  128.0, 0.0,    0.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                             128.0,  128.0, 0.0,    1.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0]
-        
-        //vertexBuffer = [-128.0, -128.0, 0.0, 0.0, 256.0, -128.0,  1.0, 0.0, -128.0, 256.0,  0.0, 1.0, 256.0, 256.0,  1.0, 1.0]
+                         128.0, -128.0, 0.0,    1.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
+                        -128.0,  128.0, 0.0,    0.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0,
+                         128.0,  128.0, 0.0,    1.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0]
         indexBuffer = [0, 2, 1, 1, 2, 3]
     }
     
@@ -190,20 +186,8 @@ public class Sprite {
             startY = CGFloat(-height2)
             endY = CGFloat(height2)
             
-            
-            //private var vertexBuffer:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
-            //private var indexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
-            
-            //private var vertexBufferSlot:BufferIndex = -1
-            //private var indexBufferSlot:BufferIndex = -1
-            
             vertexBufferSlot = gG.bufferVertexGenerate(data: vertexBuffer, size: 40)
             indexBufferSlot = gG.bufferIndexGenerate(data: indexBuffer, size: 6)
-            
-            
-            
-            
-            
         }
     }
     
@@ -248,9 +232,9 @@ public class Sprite {
         
         
         //var matrix = GLKMatrix4Translate(modelView, Float(pos.x), Float(pos.y), 0.0)
-        var matrix = GLKMatrix4MakeTranslation(Float(pos.x), Float(pos.y), 0.0)
+        //var matrix = GLKMatrix4MakeTranslation(Float(pos.x), Float(pos.y), 0.0)
         
-        gG.matrixModelViewSet(matrix)
+        //gG.matrixModelViewSet(matrix)
         
         
         //textureDisable()

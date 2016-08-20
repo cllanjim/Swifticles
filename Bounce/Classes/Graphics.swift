@@ -42,8 +42,8 @@ class Graphics {
     private var cTestProjectionMatrix = [Float]()
     private var cTestModelViewMatrix = [Float]()
     
-    private var cProjectionMatrix = GLKMatrix4Identity
-    private var cModelViewMatrix = GLKMatrix4Identity
+    private var cProjectionMatrix = Matrix()
+    private var cModelViewMatrix = Matrix()
     
     private var cWhiteSprite: Sprite = Sprite()
     
@@ -79,6 +79,9 @@ class Graphics {
         cRectIndexBufferSlot = bufferIndexGenerate(data: cRectIndexBuffer, size: 6)
         
         textureEnable()
+        
+        matrixModelViewSet(Matrix())
+        matrixProjectionSet(Matrix())
         
         //cRectVertexBuffer.forEach() { value in
         //    print("Float = \(value)")
@@ -158,50 +161,7 @@ class Graphics {
             
             
         }
-        
-        
-        //float aDirX = x2 - x1;
-        //float aDirY = y2 - y1;
-        
-        //float aDist = sqrtf((aDirX*aDirX) + (aDirY*aDirY));
-        
-        //aDirX /= aDist;
-        //aDirY /= aDist;
-        
-        //float aHold = aDirX;
-        //aDirX=-aDirY;
-        //aDirY=aHold;
-        
-        //aDirX*=pThickness;
-        //aDirY*=pThickness;
-        
-        //gfx_drawQuad(x1-aDirX,,,,,,,);
-        
     }
-    
-    /*
-    void gfx_drawLine(float x1, float y1, float x2, float y2, float pThickness)
-    {
-    float aDirX = x2 - x1;
-    float aDirY = y2 - y1;
-    
-    float aDist = sqrtf((aDirX*aDirX) + (aDirY*aDirY));
-    
-    aDirX /= aDist;
-    aDirY /= aDist;
-    
-    float aHold = aDirX;
-    aDirX=-aDirY;
-    aDirY=aHold;
-    
-    aDirX*=pThickness;
-    aDirY*=pThickness;
-    
-    gfx_drawQuad(x1-aDirX,y1-aDirY,x1+aDirX,y1+aDirY,x2-aDirX,y2-aDirY,x2+aDirX,y2+aDirY);
-    }
- 
-    */
-    
     
     func colorSet() {
         colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
@@ -313,7 +273,7 @@ class Graphics {
     func bufferIndexGenerate(data data:[IndexBufferType], size:Int) -> BufferIndex {
         let result = bufferGenerate()
         bufferIndexSetData(bufferIndex:result, data: data, size: size)
-        return result;
+        return result
     }
     
     func bufferIndexSetData(bufferIndex bufferIndex:BufferIndex?, data:[IndexBufferType], size:Int) {
@@ -365,36 +325,42 @@ class Graphics {
     
     
     
-    func matrixProjectionGet() -> GLKMatrix4 {
+    func matrixProjectionGet() -> Matrix {
         return cProjectionMatrix
     }
     
-    func matrixModelViewGet() -> GLKMatrix4 {
+    func matrixModelViewGet() -> Matrix {
         return cModelViewMatrix
     }
     
-    func matrixProjectionSet(mat:GLKMatrix4) {
-        cProjectionMatrix = mat
+    func matrixProjectionSet(mat:Matrix) {
+        cProjectionMatrix.set(mat)
         //cTestModelViewMatrix = cProjectionMatrix.array
-        withUnsafePointer(&cProjectionMatrix) {
-            glUniformMatrix4fv(gGLUniformProjection, 1, 0, UnsafePointer($0))
-        }
+        
+        
+        //withUnsafePointer(&cProjectionMatrix) {
+        //    glUniformMatrix4fv(gGLUniformProjection, 1, 0, UnsafePointer($0))
+        //}
+        glUniformMatrix4fv(gGLUniformProjection, 1, 0, cProjectionMatrix.m)
+        //}
     }
     
-    func matrixModelViewSet(mat:GLKMatrix4) {
-        cModelViewMatrix = mat
+    func matrixModelViewSet(mat:Matrix) {
+        cModelViewMatrix.set(mat)
         //cTestProjectionMatrix = cModelViewMatrix.array
-        withUnsafePointer(&cModelViewMatrix) {
-            glUniformMatrix4fv(gGLUniformModelView, 1, 0, UnsafePointer($0))
-        }
+        //withUnsafePointer(&cModelViewMatrix) {
+        //    glUniformMatrix4fv(gGLUniformModelView, 1, 0, UnsafePointer($0))
+        //}
+        
+        glUniformMatrix4fv(gGLUniformModelView, 1, 0, cModelViewMatrix.m)
     }
     
     func matrixProjectionReset() {
-        matrixProjectionSet(GLKMatrix4Identity)
+        matrixProjectionSet(Matrix())
     }
     
     func matrixModelViewReset() {
-        matrixModelViewSet(GLKMatrix4Identity)
+        matrixModelViewSet(Matrix())
     }
     
     func depthEnable() {

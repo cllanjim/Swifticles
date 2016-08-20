@@ -12,7 +12,7 @@ class EditAffineViewController: UIViewController {
     
     @IBOutlet weak var segLeft: RRSegment!{
         didSet {
-            segLeft.segmentCount = 2;
+            segLeft.segmentCount = 2
             
         }
     }

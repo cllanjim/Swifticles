@@ -28,6 +28,37 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     var cropViewOutsideD = UIView(frame: CGRectZero)
     var cropViewOutsideL = UIView(frame: CGRectZero)
     
+    
+    
+    var allowGestures:Bool = true
+    
+    var panRecognizer:UIPanGestureRecognizer!;
+    var pinchRecognizer:UIPinchGestureRecognizer!;
+    var rotRecognizer:UIRotationGestureRecognizer!;
+    
+    var panRecognizerTouchCount:Int = 0
+    var pinchRecognizerTouchCount:Int = 0
+    var rotRecognizerTouchCount:Int = 0
+    
+    var gestureCancelTimer:Int = 0
+    
+    var startImageTouchCenter:CGPoint = CGPointZero
+    var startRotation:CGFloat = 0.0
+    var startScale:CGFloat = 1.0
+    
+    var touchCenter = CGPointZero
+    
+    
+    var translation:CGPoint = CGPointZero
+    var rotation:CGFloat = 0.0
+    var scale:CGFloat = 1.0
+    
+    //var pivot:Bool = false
+    
+    override func viewDidLoad() {
+        //self.clickNext(UIBarButtonItem())
+    }
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -62,45 +93,18 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     func allowTransform() -> Bool {
-        if cancelTimer > 0 {
+        if gestureCancelTimer > 0 {
             return false
         }
         return true
     }
     
     func cancelAllGestureRecognizers() {
-        cancelTimer = 5
+        gestureCancelTimer = 5
         panRecognizer.enabled = false
         pinchRecognizer.enabled = false
         rotRecognizer.enabled = false
     }
-    
-    var allowGestures:Bool = true
-    
-    var panRecognizer:UIPanGestureRecognizer!;
-    var pinchRecognizer:UIPinchGestureRecognizer!;
-    var rotRecognizer:UIRotationGestureRecognizer!;
-    
-    var panRecognizerTouchCount:Int = 0
-    var pinchRecognizerTouchCount:Int = 0
-    var rotRecognizerTouchCount:Int = 0
-    
-    var cancelTimer:Int = 0
-    
-    var starTouchCenter:CGPoint = CGPointZero
-    var startImageTouchCenter:CGPoint = CGPointZero
-    var startRotation:CGFloat = 0.0
-    var startScale:CGFloat = 1.0
-    
-    var touchCenter = CGPointZero
-    
-    
-    var translation:CGPoint = CGPointZero
-    var rotation:CGFloat = 0.0
-    var scale:CGFloat = 1.0
-    
-    //var pivot:Bool = false
-    
     
     func updateTransform() {
         var t = CATransform3DIdentity
@@ -130,7 +134,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func gestureBegan(pos:CGPoint) {
-        starTouchCenter = pos
         startImageTouchCenter = imageView.convertPoint(pos, fromView: view)
         pinchRecognizer.scale = 1.0
         rotRecognizer.rotation = 0.0
@@ -391,9 +394,9 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func update() {
-        if cancelTimer > 0 {
-            cancelTimer = cancelTimer - 1
-            if cancelTimer <= 0 {
+        if gestureCancelTimer > 0 {
+            gestureCancelTimer = gestureCancelTimer - 1
+            if gestureCancelTimer <= 0 {
                 panRecognizer.enabled = true
                 pinchRecognizer.enabled = true
                 rotRecognizer.enabled = true
