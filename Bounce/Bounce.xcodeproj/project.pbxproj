@@ -16,7 +16,6 @@
 		0D665E601D5814D100558EA0 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E511D5814D100558EA0 /* FileUtils.swift */; };
 		0D665E611D5814D100558EA0 /* GLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E521D5814D100558EA0 /* GLViewController.swift */; };
 		0D665E621D5814D100558EA0 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E531D5814D100558EA0 /* Graphics.swift */; };
-		0D665E631D5814D100558EA0 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E541D5814D100558EA0 /* Image.swift */; };
 		0D665E641D5814D100558EA0 /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E551D5814D100558EA0 /* ImageImportViewController.swift */; };
 		0D665E651D5814D100558EA0 /* RRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E561D5814D100558EA0 /* RRButton.swift */; };
 		0D665E661D5814D100558EA0 /* RRSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E571D5814D100558EA0 /* RRSegment.swift */; };
@@ -104,7 +103,6 @@
 		0D665E511D5814D100558EA0 /* FileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
 		0D665E521D5814D100558EA0 /* GLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLViewController.swift; sourceTree = "<group>"; };
 		0D665E531D5814D100558EA0 /* Graphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
-		0D665E541D5814D100558EA0 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		0D665E551D5814D100558EA0 /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
 		0D665E561D5814D100558EA0 /* RRButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRButton.swift; sourceTree = "<group>"; };
 		0D665E571D5814D100558EA0 /* RRSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRSegment.swift; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				0D665E511D5814D100558EA0 /* FileUtils.swift */,
 				0D665E521D5814D100558EA0 /* GLViewController.swift */,
 				0D665E531D5814D100558EA0 /* Graphics.swift */,
-				0D665E541D5814D100558EA0 /* Image.swift */,
 				0D665E551D5814D100558EA0 /* ImageImportViewController.swift */,
 				0D665E561D5814D100558EA0 /* RRButton.swift */,
 				0D665E571D5814D100558EA0 /* RRSegment.swift */,
@@ -509,7 +506,6 @@
 				C28D7F591D63C4F300B4D569 /* ToolBarBottom.swift in Sources */,
 				0D665E691D5814D100558EA0 /* TopMenuViewController.swift in Sources */,
 				C2955EAC1D5C1DCE00040805 /* Geometry.swift in Sources */,
-				0D665E631D5814D100558EA0 /* Image.swift in Sources */,
 				0D665E681D5814D100558EA0 /* Texture.swift in Sources */,
 				0D665E621D5814D100558EA0 /* Graphics.swift in Sources */,
 				C29275761D63FD59009258CF /* ApplicationController.swift in Sources */,
@@ -631,7 +627,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "d62eed88-5de4-425f-876c-368975e2ed79";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -673,7 +669,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "d62eed88-5de4-425f-876c-368975e2ed79";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -689,7 +685,7 @@
 				INFOPLIST_FILE = Bounce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.learn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.moon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -704,7 +700,7 @@
 				INFOPLIST_FILE = Bounce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.learn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.moon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

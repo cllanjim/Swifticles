@@ -27,12 +27,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     var gestureTouchCenter:CGPoint = CGPointZero
     
-    //var screenTranslation:CGPoint = CGPointZero
-    //var screenScale:CGFloat = 1.0
-    
-    var screenTranslation:CGPoint = CGPoint(x: 110.0, y: 200.0)
-    var screenScale:CGFloat = 1.35
-    
+    var screenTranslation:CGPoint = CGPointZero
+    var screenScale:CGFloat = 1.0
     
     var gestureStartTranslate:CGPoint = CGPointZero
     var gestureStartScale:CGFloat = 1.0
@@ -167,12 +163,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
         viewMat.scale(Float(screenScale))
         
-        
         gG.matrixProjectionSet(viewMat)
         
         
-        
-        //var m = GLKMatrix4MakeScale(0.85, 0.85, 0.85)
         //var m = Matrix()
         //gG.matrixModelViewSet(m)
         
@@ -208,21 +201,36 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         //sprite2.drawCentered(pos: CGPoint(x: 100.0, y: 100))
         //sprite3.drawCentered(pos: CGPoint(x: 118.0, y: 240.0))
         
-        gG.colorSet(r: 0.0, g: 1.0, b: 0.0)
-        gG.rectDraw(CGRect(x: gestureStartScreenTouch.x - 4, y: gestureStartScreenTouch.y - 4, width: 9, height: 9))
+        //gG.colorSet(r: 0.0, g: 1.0, b: 0.0)
+        //gG.rectDraw(CGRect(x: gestureStartScreenTouch.x - 14, y: gestureStartScreenTouch.y - 14, width: 29, height: 29))
+        
+        gG.colorSet(r: 0.4, g: 0.5, b: 0.6)
+        gG.rectDraw(CGRect(x: gestureStartImageTouch.x - 10, y: gestureStartImageTouch.y - 10, width: 21, height: 21))
+        
+        
+        
+        //var untran = transformPointToScreen(gestureStartImageTouch)
+        var untran = transformPointToImage(gestureTouchCenter)
+        
+        gG.colorSet(r: 0.0, g: 1.0, b: 1.0)
+        gG.rectDraw(CGRect(x: untran.x - 6, y: untran.y - 6, width: 13, height: 13))
+        
+        
         
         
         gG.matrixProjectionSet(screenMat)
         
         
+        
+        
         gG.colorSet(r: 1.0, g: 0.0, b: 0.0)
-        gG.rectDraw(CGRect(x: gestureStartScreenTouch.x - 3, y: gestureStartScreenTouch.y - 3, width: 7, height: 7))
+        gG.rectDraw(CGRect(x: gestureTouchCenter.x - 3, y: gestureTouchCenter.y - 3, width: 7, height: 7))
         
         //var gestureStartScreenTouch:CGPoint = CGPointZero
         //var gestureStartImageTouch:CGPoint = CGPointZero
         
         
-        gG.lineDraw(p1:CGPoint(x: 100.0, y: 100.0), p2:CGPoint(x: 200.0, y: 500.0), thickness:8.0)
+        //gG.lineDraw(p1:CGPoint(x: 100.0, y: 100.0), p2:CGPoint(x: 200.0, y: 500.0), thickness:8.0)
         
     }
     
@@ -231,15 +239,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     //var gestureStartScreenTouch:CGPoint = CGPointZero
     //var gestureStartImageTouch:CGPoint = CGPointZero
     
-    func transformPointToImage(screenPoint screenPoint:CGPoint) -> CGPoint {
-        
-        
-        return CGPoint(x: screenPoint.x * screenScale + screenTranslation.x, y: screenPoint.y * screenScale + screenTranslation.y)
+    func transformPointToImage(point:CGPoint) -> CGPoint {
+        return CGPoint(x: (point.x - screenTranslation.x) / screenScale, y: (point.y - screenTranslation.y) / screenScale)
     }
     
-    func transformPointToScreen(imagePoint imagePoint:CGPoint) -> CGPoint {
-        
-        return CGPoint(x: (imagePoint.x - screenTranslation.x) / screenScale, y: (imagePoint.y - screenTranslation.y) / screenScale)
+    func transformPointToScreen(point:CGPoint) -> CGPoint {
+        return CGPoint(x: point.x * screenScale + screenTranslation.x, y: point.y * screenScale + screenTranslation.y)
     }
     
     func gestureBegan(pos:CGPoint) {
@@ -248,9 +253,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         //var gestureStartImageTouch:CGPoint = CGPointZero
         
         gestureStartScreenTouch = pos
-        gestureStartImageTouch =
+        gestureStartImageTouch = transformPointToImage(pos)
+        
             //transformPointToScreen(imagePoint: pos)
-            transformPointToImage(screenPoint: pos)
+            
         
         
         
@@ -262,55 +268,13 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         gestureStartTranslate = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
         gestureStartScale = screenScale
-        
-        //startScale = scale
-        //startRotation = rotation
     }
     
-    
     func updateTransform() {
-        
-        return
-            
-            /*
-            
-        screenTranslation.x = 0.0
-        screenTranslation.y = 0.0
-        
-        let newImageTouchCenter = transformPointToImage(screenPoint: gestureTouchCenter)
-        
-        
-        //transformPointToScreen(imagePoint: gestureTouchCenter)
-        
-        
-        screenTranslation.x = (newImageTouchCenter.x - gestureStartImageTouch.x)
-        screenTranslation.y = (newImageTouchCenter.y - gestureStartImageTouch.y)
-        
-        //t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
-        
-        //var new
-        
-        //var
-        
-        
-        //gestureTouchCenter
-        
-        */
-        /*
-        var t = CATransform3DIdentity
-        t = CATransform3DScale(t, scale, scale, scale)
-        t = CATransform3DRotate(t, rotation, 0.0, 0.0, 1.0)
-        imageView.layer.transform = t
-        
-        //Re-center the image at the center of our touch
-        //within the object, based on initial touch within object.
-        let newImageTouchCenter = imageView.convertPoint(touchCenter, fromView: view)
-        translation.x = newImageTouchCenter.x - startImageTouchCenter.x
-        translation.y = newImageTouchCenter.y - startImageTouchCenter.y
-        t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
-        
-        imageView.layer.transform = t
-        */
+        screenTranslation = CGPointZero
+        let gestureStart = transformPointToScreen(gestureStartImageTouch)
+        screenTranslation.x = (gestureTouchCenter.x - gestureStart.x)
+        screenTranslation.y = (gestureTouchCenter.y - gestureStart.y)
     }
     
     
@@ -351,25 +315,19 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             cancelAllGestureRecognizers()
             break
         }
-        
-        //screenTranslation = CGPoint(x: gestureTouchCenter.x, y: gestureTouchCenter.y)
-        
-        
-        //if allowTransform() {
+        if allowGestures {
             updateTransform()
-        //}
+        }
     }
     
     
     
     func didPinchMainThread(gr:UIPinchGestureRecognizer) -> Void {
         
-        
         if allowGestures == false {
             cancelAllGestureRecognizers()
             return
         }
-        
         gestureTouchCenter = gr.locationInView(self.view)
         switch gr.state {
         case .Began:
@@ -395,12 +353,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             cancelAllGestureRecognizers()
             break
         }
-        
-        //if allowTransform() {
+        if allowGestures {
             screenScale = gestureStartScale * gr.scale
             updateTransform()
-        //}
-        
+        }
     }
     
     func cancelAllGestureRecognizers() {
