@@ -21,7 +21,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     var importImage: UIImage?
     
     override func viewDidLoad() {
-        self.clickImport(RRButton())
+        //self.clickImport(RRButton())
     }
     
     

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="XZz-WA-UDH">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--All Qand As Table View Controller-->
+        <scene sceneID="2t9-g0-Osd">
+            <objects>
+                <tableViewController id="0DS-o2-ez2" customClass="AllQandAsTableViewController" customModule="Pollster" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nRR-FE-mDp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="qanda_cell" id="4le-Fx-myK">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4le-Fx-myK" id="KoF-tD-90M">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="0gv-K9-D4o" kind="show" identifier="Show QandA" id="TQC-ID-TRZ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0DS-o2-ez2" id="atf-Cb-mis"/>
+                            <outlet property="delegate" destination="0DS-o2-ez2" id="7Z4-JX-zhI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="xaw-HO-VVq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MnW-EX-olv">
+                            <connections>
+                                <segue destination="0gv-K9-D4o" kind="show" identifier="Show QandA" id="QxI-5H-DaN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YJ6-8H-GS2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1334" y="446"/>
+        </scene>
+        <!--Cloud QandA Table View Controller-->
+        <scene sceneID="iL7-cr-X6o">
+            <objects>
+                <tableViewController id="0gv-K9-D4o" customClass="CloudQandATableViewController" customModule="Pollster" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aOV-HT-Syp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="BBE-fv-L8z">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BBE-fv-L8z" id="5Rh-OY-iVp">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0gv-K9-D4o" id="Di2-ER-H6l"/>
+                            <outlet property="delegate" destination="0gv-K9-D4o" id="uZX-Dz-6oZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="p3i-OQ-0DI"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Awv-n7-PlH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2016" y="446"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ykD-Ug-Mc3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XZz-WA-UDH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xRR-iL-6po">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0DS-o2-ez2" kind="relationship" relationship="rootViewController" id="ha4-M8-OMP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n9p-ve-0Ld" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="613" y="446"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="QxI-5H-DaN"/>
+    </inferredMetricsTieBreakers>
+</document>

@@ -1,0 +1,337 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C2425F3B1D6BA21800D0EEAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2425F3A1D6BA21800D0EEAE /* AppDelegate.swift */; };
+		C2425F401D6BA21800D0EEAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2425F3E1D6BA21800D0EEAE /* Main.storyboard */; };
+		C2425F421D6BA21800D0EEAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2425F411D6BA21800D0EEAE /* Assets.xcassets */; };
+		C2425F451D6BA21800D0EEAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2425F431D6BA21800D0EEAE /* LaunchScreen.storyboard */; };
+		C2425F521D6BA2B000D0EEAE /* CloudKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2425F4D1D6BA2B000D0EEAE /* CloudKitExtensions.swift */; };
+		C2425F541D6BA2B000D0EEAE /* QandAAccessoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2425F4F1D6BA2B000D0EEAE /* QandAAccessoryTableViewController.swift */; };
+		C2425F551D6BA2B000D0EEAE /* QandATableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2425F501D6BA2B000D0EEAE /* QandATableViewController.swift */; };
+		C2425F561D6BA2B000D0EEAE /* TextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2425F511D6BA2B000D0EEAE /* TextTableViewController.swift */; };
+		C2425F581D6BA38300D0EEAE /* CloudQandATableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2425F571D6BA38300D0EEAE /* CloudQandATableViewController.swift */; };
+		C2425F5B1D6BAE3500D0EEAE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2425F5A1D6BAE3500D0EEAE /* CloudKit.framework */; };
+		C2425F5D1D6BB32700D0EEAE /* AllQandAsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2425F5C1D6BB32700D0EEAE /* AllQandAsTableViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C2425F371D6BA21800D0EEAE /* Pollster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pollster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2425F3A1D6BA21800D0EEAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C2425F3F1D6BA21800D0EEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C2425F411D6BA21800D0EEAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C2425F441D6BA21800D0EEAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C2425F461D6BA21800D0EEAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2425F4D1D6BA2B000D0EEAE /* CloudKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitExtensions.swift; sourceTree = "<group>"; };
+		C2425F4F1D6BA2B000D0EEAE /* QandAAccessoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QandAAccessoryTableViewController.swift; sourceTree = "<group>"; };
+		C2425F501D6BA2B000D0EEAE /* QandATableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QandATableViewController.swift; sourceTree = "<group>"; };
+		C2425F511D6BA2B000D0EEAE /* TextTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewController.swift; sourceTree = "<group>"; };
+		C2425F571D6BA38300D0EEAE /* CloudQandATableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudQandATableViewController.swift; sourceTree = "<group>"; };
+		C2425F591D6BAD9200D0EEAE /* Pollster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Pollster.entitlements; sourceTree = "<group>"; };
+		C2425F5A1D6BAE3500D0EEAE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		C2425F5C1D6BB32700D0EEAE /* AllQandAsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllQandAsTableViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C2425F341D6BA21800D0EEAE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2425F5B1D6BAE3500D0EEAE /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C2425F2E1D6BA21800D0EEAE = {
+			isa = PBXGroup;
+			children = (
+				C2425F5A1D6BAE3500D0EEAE /* CloudKit.framework */,
+				C2425F391D6BA21800D0EEAE /* Pollster */,
+				C2425F381D6BA21800D0EEAE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C2425F381D6BA21800D0EEAE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2425F371D6BA21800D0EEAE /* Pollster.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C2425F391D6BA21800D0EEAE /* Pollster */ = {
+			isa = PBXGroup;
+			children = (
+				C2425F591D6BAD9200D0EEAE /* Pollster.entitlements */,
+				C2425F3A1D6BA21800D0EEAE /* AppDelegate.swift */,
+				C2425F3E1D6BA21800D0EEAE /* Main.storyboard */,
+				C2425F571D6BA38300D0EEAE /* CloudQandATableViewController.swift */,
+				C2425F4C1D6BA23B00D0EEAE /* Supporting */,
+				C2425F5C1D6BB32700D0EEAE /* AllQandAsTableViewController.swift */,
+			);
+			path = Pollster;
+			sourceTree = "<group>";
+		};
+		C2425F4C1D6BA23B00D0EEAE /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				C2425F4D1D6BA2B000D0EEAE /* CloudKitExtensions.swift */,
+				C2425F4F1D6BA2B000D0EEAE /* QandAAccessoryTableViewController.swift */,
+				C2425F501D6BA2B000D0EEAE /* QandATableViewController.swift */,
+				C2425F511D6BA2B000D0EEAE /* TextTableViewController.swift */,
+				C2425F411D6BA21800D0EEAE /* Assets.xcassets */,
+				C2425F431D6BA21800D0EEAE /* LaunchScreen.storyboard */,
+				C2425F461D6BA21800D0EEAE /* Info.plist */,
+			);
+			name = Supporting;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C2425F361D6BA21800D0EEAE /* Pollster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2425F491D6BA21800D0EEAE /* Build configuration list for PBXNativeTarget "Pollster" */;
+			buildPhases = (
+				C2425F331D6BA21800D0EEAE /* Sources */,
+				C2425F341D6BA21800D0EEAE /* Frameworks */,
+				C2425F351D6BA21800D0EEAE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pollster;
+			productName = Pollster;
+			productReference = C2425F371D6BA21800D0EEAE /* Pollster.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C2425F2F1D6BA21800D0EEAE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Apple Inc.";
+				TargetAttributes = {
+					C2425F361D6BA21800D0EEAE = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 2GG555KD5G;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = C2425F321D6BA21800D0EEAE /* Build configuration list for PBXProject "Pollster" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C2425F2E1D6BA21800D0EEAE;
+			productRefGroup = C2425F381D6BA21800D0EEAE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C2425F361D6BA21800D0EEAE /* Pollster */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C2425F351D6BA21800D0EEAE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2425F451D6BA21800D0EEAE /* LaunchScreen.storyboard in Resources */,
+				C2425F421D6BA21800D0EEAE /* Assets.xcassets in Resources */,
+				C2425F401D6BA21800D0EEAE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C2425F331D6BA21800D0EEAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2425F521D6BA2B000D0EEAE /* CloudKitExtensions.swift in Sources */,
+				C2425F581D6BA38300D0EEAE /* CloudQandATableViewController.swift in Sources */,
+				C2425F551D6BA2B000D0EEAE /* QandATableViewController.swift in Sources */,
+				C2425F541D6BA2B000D0EEAE /* QandAAccessoryTableViewController.swift in Sources */,
+				C2425F561D6BA2B000D0EEAE /* TextTableViewController.swift in Sources */,
+				C2425F5D1D6BB32700D0EEAE /* AllQandAsTableViewController.swift in Sources */,
+				C2425F3B1D6BA21800D0EEAE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C2425F3E1D6BA21800D0EEAE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C2425F3F1D6BA21800D0EEAE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C2425F431D6BA21800D0EEAE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C2425F441D6BA21800D0EEAE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C2425F471D6BA21800D0EEAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C2425F481D6BA21800D0EEAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C2425F4A1D6BA21800D0EEAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Pollster/Pollster.entitlements;
+				INFOPLIST_FILE = Pollster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.demo.test.sauce.Pollster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C2425F4B1D6BA21800D0EEAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Pollster/Pollster.entitlements;
+				INFOPLIST_FILE = Pollster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.demo.test.sauce.Pollster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C2425F321D6BA21800D0EEAE /* Build configuration list for PBXProject "Pollster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2425F471D6BA21800D0EEAE /* Debug */,
+				C2425F481D6BA21800D0EEAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2425F491D6BA21800D0EEAE /* Build configuration list for PBXNativeTarget "Pollster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2425F4A1D6BA21800D0EEAE /* Debug */,
+				C2425F4B1D6BA21800D0EEAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C2425F2F1D6BA21800D0EEAE /* Project object */;
+}

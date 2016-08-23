@@ -27,6 +27,21 @@ class ApplicationController
         return navigationController!
     }
     
+    var bounce:BounceViewController {
+        
+        //let nc =
+        
+        for vc:UIViewController in navigationController.viewControllers {
+            
+            if vc.isKindOfClass(BounceViewController) {
+                return vc as! BounceViewController
+            }
+        }
+        
+        return getStoryboardVC("bounce") as! BounceViewController
+        
+    }
+    
     func orientationLock(portrait portrait:Bool) {
         
     }

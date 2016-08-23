@@ -53,8 +53,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     var rotation:CGFloat = 0.0
     var scale:CGFloat = 1.0
     
-    //var pivot:Bool = false
-    
     override func viewDidLoad() {
         //self.clickNext(UIBarButtonItem())
     }
@@ -64,7 +62,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         let imageCenter = imageView.convertPoint(cropView.center, fromView: view)
-        //let imageTransform = imageView.layer.transform
         
         coordinator.animateAlongsideTransition({ [weak weakSelf = self] (id:UIViewControllerTransitionCoordinatorContext) in
             if let checkSelf = weakSelf {
@@ -76,19 +73,13 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 checkSelf.translation.y += (newImageCenter.y - imageCenter.y)// / checkSelf.scale
                 
                 var t = CATransform3DIdentity
-                //t = CATransform3DTranslate(t, translation.x, translation.y, 0.0)
                 t = CATransform3DScale(t, checkSelf.scale, checkSelf.scale, checkSelf.scale)
                 t = CATransform3DRotate(t, checkSelf.rotation, 0.0, 0.0, 1.0)
                 t = CATransform3DTranslate(t, checkSelf.translation.x, checkSelf.translation.y, 0.0)
-                
-                
-                
-                //imageTransform = CGAffineTransformTranslate(imageTransform, checkSelf.translation.x, checkSelf.translation.y)
-                //imageTransform = CATransform3DTranslate(imageTransform, checkSelf.translation.x, checkSelf.translation.y, 0.0)
-                
-                checkSelf.imageView.layer.transform = t//imageTransform
+                checkSelf.imageView.layer.transform = t
             }
             }, completion: nil)
+        
     }
     
     

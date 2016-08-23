@@ -12,6 +12,20 @@ import OpenGLES
 
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
+    
+    //
+    
+    var zoomMode:Bool = false
+    
+    //
+    
+    
+    
+    var blobs = [Blob]()
+    
+    var selectedBlob:Blob?
+    
+    
     var landscape:Bool = false
     
     let background = Sprite()
@@ -35,6 +49,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     var gestureStartScreenTouch:CGPoint = CGPointZero
     var gestureStartImageTouch:CGPoint = CGPointZero
+    
     
     
     var screenRect:CGRect {
@@ -68,9 +83,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         
         if landscape {
-            return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown]
-        } else {
             return [.LandscapeRight, .LandscapeLeft]
+        } else {
+            return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown]
         }
     }
     
@@ -85,43 +100,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     override func load() {
         
         print("BounceViewController.load()")
-        
-        
-//        sprite3.load(path: "aaaa")
-//        sprite1.load(path: "rock")
-//        sprite2.load(path: "reg_btn_paste_down@2x.png")
-//        
-//        
-//        
-//        tri1.p1 = (40, 120, 0)
-//        tri1.t1 = (0.01, 0.02, 0.0)
-//        //tri1.c1 = (0.99, 0.975, 0.15, 0.25)
-//        
-//        tri1.p2 = (100, 160, 0)
-//        tri1.t2 = (0.99, 0.5, 0.0)
-//        //tri1.c2 = (0.99, 0.175, 0.77, 1.0)
-//        
-//        tri1.p3 = (65.0, 180, 0)
-//        tri1.t3 = (0.25, 1.0, 0.0)
-//        //tri1.c3 = (0.45, 0.67, 0.55, 1.0)
-//        
-//        
-//        
-//        tri2.p1 = (100, 160, 0)
-//        tri2.t1 = (0.0, 0.85, 0.0)
-//        tri2.c1 = (0.99, 0.175, 0.77, 1.0)
-//        
-//        tri2.p2 = (65.0, 180, 0)
-//        tri2.t2 = (0.55, 1.0, 0.0)
-//        tri2.c2 = (0.45, 0.67, 0.55, 1.0)
-//        
-//        
-//        tri2.p3 = (80.0, 240.0, 0)
-//        tri2.t3 = (1.0, 0.25, 0.0)
-//        tri2.c3 = (0.45, 0.67, 0.55, 1.0)
-//        
-//        
-        
+
         panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
         panRecognizer.delegate = self
         panRecognizer.maximumNumberOfTouches = 2
@@ -140,6 +119,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 pinchRecognizer.enabled = true
             }
         }
+        
+        for blob:Blob in blobs {
+            if blob.enabled { blob.update() }
+        }
+        
     }
     
     override func draw() {
@@ -173,71 +157,26 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         gG.blendEnable()
         gG.blendSetAlpha()
         
-        /*
-        gG.colorSet(r: 1.0, g: 0.25, b: 0.15, a: 1.0)
-        gG.rectDraw(CGRect(x: 10, y: 10, width: 300, height: 300))
-        
-        gG.colorSet(r: 0.0, g: 1.0, b: 0.15, a: 1.0)
-        gG.rectDraw(CGRect(x: 20, y: 10, width: 60, height: 340))
-        
-        gG.colorSet(r: 0.0, g: 0.0, b: 1.0, a: 1.0)
-        gG.rectDraw(CGRect(x: 200, y: 200, width: 60, height: 60))
-        
-        
-        gG.colorSet()
-        gG.rectDraw(x: 22.0, y: 220.0, width: 336.0, height: 336.0)
-        */
-        
         gG.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         gG.textureEnable()
         
         //background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
         background.draw()
         
-        //sprite2.drawCentered(pos: CGPoint(x: 0, y: 0))
-        //sprite1.drawCentered(pos: CGPoint(x: 170.0, y: 320.0))
-        //sprite1.drawCentered(pos: CGPoint(x: 50.0, y: 400.0))
-        //sprite2.drawCentered(pos: CGPoint(x: 200, y: 200))
-        //sprite2.drawCentered(pos: CGPoint(x: 100.0, y: 100))
-        //sprite3.drawCentered(pos: CGPoint(x: 118.0, y: 240.0))
-        
-        //gG.colorSet(r: 0.0, g: 1.0, b: 0.0)
-        //gG.rectDraw(CGRect(x: gestureStartScreenTouch.x - 14, y: gestureStartScreenTouch.y - 14, width: 29, height: 29))
-        
-        gG.colorSet(r: 0.4, g: 0.5, b: 0.6)
-        gG.rectDraw(CGRect(x: gestureStartImageTouch.x - 10, y: gestureStartImageTouch.y - 10, width: 21, height: 21))
-        
-        
-        
-        //var untran = transformPointToScreen(gestureStartImageTouch)
-        var untran = transformPointToImage(gestureTouchCenter)
-        
-        gG.colorSet(r: 0.0, g: 1.0, b: 1.0)
-        gG.rectDraw(CGRect(x: untran.x - 6, y: untran.y - 6, width: 13, height: 13))
-        
-        
+        for blob:Blob in blobs {
+            if blob.enabled { blob.update() }
+        }
         
         
         gG.matrixProjectionSet(screenMat)
-        
-        
-        
-        
-        gG.colorSet(r: 1.0, g: 0.0, b: 0.0)
-        gG.rectDraw(CGRect(x: gestureTouchCenter.x - 3, y: gestureTouchCenter.y - 3, width: 7, height: 7))
-        
-        //var gestureStartScreenTouch:CGPoint = CGPointZero
-        //var gestureStartImageTouch:CGPoint = CGPointZero
-        
-        
-        //gG.lineDraw(p1:CGPoint(x: 100.0, y: 100.0), p2:CGPoint(x: 200.0, y: 500.0), thickness:8.0)
         
     }
     
     
     
-    //var gestureStartScreenTouch:CGPoint = CGPointZero
-    //var gestureStartImageTouch:CGPoint = CGPointZero
+    func addBlob() {
+        
+    }
     
     func transformPointToImage(point:CGPoint) -> CGPoint {
         return CGPoint(x: (point.x - screenTranslation.x) / screenScale, y: (point.y - screenTranslation.y) / screenScale)
@@ -247,27 +186,13 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         return CGPoint(x: point.x * screenScale + screenTranslation.x, y: point.y * screenScale + screenTranslation.y)
     }
     
-    func gestureBegan(pos:CGPoint) {
-        
-        //var gestureStartScreenTouch:CGPoint = CGPointZero
-        //var gestureStartImageTouch:CGPoint = CGPointZero
-        
-        gestureStartScreenTouch = pos
-        gestureStartImageTouch = transformPointToImage(pos)
-        
-            //transformPointToScreen(imagePoint: pos)
-            
-        
-        
-        
-        //startImageTouchCenter = imageView.convertPoint(pos, fromView: view)
-        
-        pinchRecognizer.scale = 1.0
-        panRecognizer.setTranslation(CGPointZero, inView: view)
-        
-        
-        gestureStartTranslate = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
-        gestureStartScale = screenScale
+    //MARK: Gesture stuff, pan, pinch, etc
+    
+    private var _allowGestures:Bool {
+        if gestureCancelTimer > 0 {
+            return false
+        }
+        return true
     }
     
     func updateTransform() {
@@ -277,23 +202,22 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         screenTranslation.y = (gestureTouchCenter.y - gestureStart.y)
     }
     
-    
-    var allowGestures:Bool {
-        if gestureCancelTimer > 0 {
-            return false
-        }
-        return true
+    func gestureBegan(pos:CGPoint) {
+        gestureStartScreenTouch = pos
+        gestureStartImageTouch = transformPointToImage(pos)
+        
+        pinchRecognizer.scale = 1.0
+        panRecognizer.setTranslation(CGPointZero, inView: view)
+        
+        gestureStartTranslate = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
+        gestureStartScale = screenScale
     }
     
-    
-    
     func didPanMainThread(gr:UIPanGestureRecognizer) -> Void {
-        
-        if allowGestures == false {
+        if _allowGestures == false {
             cancelAllGestureRecognizers()
             return
         }
-        
         gestureTouchCenter = gr.locationInView(self.view)
         switch gr.state {
         case .Began:
@@ -315,16 +239,13 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             cancelAllGestureRecognizers()
             break
         }
-        if allowGestures {
+        if _allowGestures {
             updateTransform()
         }
     }
     
-    
-    
     func didPinchMainThread(gr:UIPinchGestureRecognizer) -> Void {
-        
-        if allowGestures == false {
+        if _allowGestures == false {
             cancelAllGestureRecognizers()
             return
         }
@@ -338,7 +259,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             
             break
         case .Changed:
-            
             if pinchRecognizerTouchCount != gr.numberOfTouches() {
                 if gr.numberOfTouches() > pinchRecognizerTouchCount {
                     pinchRecognizerTouchCount = gr.numberOfTouches()
@@ -353,7 +273,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             cancelAllGestureRecognizers()
             break
         }
-        if allowGestures {
+        if _allowGestures {
             screenScale = gestureStartScale * gr.scale
             updateTransform()
         }
@@ -384,6 +304,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     deinit {
         print("Deinit \(self)")
     }
-    
-    
 }
+
+
+
+
+
+
+
+
+
+

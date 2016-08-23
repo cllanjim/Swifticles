@@ -11,6 +11,7 @@ import UIKit
 class ToolBarTop: UIView {
     
     @IBOutlet weak var buttonMenu: TBButton!
+    @IBOutlet weak var buttonAddBlob: TBButton!
     
     
     
@@ -31,6 +32,11 @@ class ToolBarTop: UIView {
     @IBAction func clickMenu(sender: AnyObject) {
         
         ToolActions.menu()
+    }
+    
+    @IBAction func clickAddBlob(sender: AnyObject) {
+        
+        ToolActions.addBlob()
     }
     
     deinit {

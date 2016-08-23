@@ -27,17 +27,12 @@ class ToolActions {
             //_ = self.navigationController?.popToRootViewController(animated: false)
             
             gApp.navigationController.setNavigationBarHidden(false, animated: true)
-            
         }
+    }
+    
+    class func addBlob() {
         
-        //let transition = CATransition()
-        //transition.duration = 0.5
-        //transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        //transition.type = kCATransitionFade
-        //self.navigationController?.view.layer.add(transition, forKey: nil)
-        //_ = self.navigationController?.popToRootViewController(animated: false)
-        
-        
+        gApp.bounce.addBlob()
         
     }
     

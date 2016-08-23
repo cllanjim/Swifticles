@@ -188,7 +188,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErV-qg-OsI">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -198,16 +198,23 @@
                                         </variation>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BU-hg-uMx" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="0.0" width="46" height="30"/>
+                                        <rect key="frame" x="8" y="7" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="clickMenu:" destination="27M-R0-Bg7" eventType="touchUpInside" id="4xM-ra-0ol"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-LB-RtY" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="62" y="7" width="46" height="30"/>
+                                        <state key="normal" title="+"/>
+                                        <connections>
+                                            <action selector="clickAddBlob:" destination="27M-R0-Bg7" eventType="touchUpInside" id="G9x-Xb-ziJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.90115840517241375" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="C5F-vt-h4O"/>
+                                    <constraint firstAttribute="height" constant="44" id="C5F-vt-h4O"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
@@ -220,6 +227,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="buttonAddBlob" destination="Lsy-LB-RtY" id="ai8-KK-adV"/>
                                     <outlet property="buttonMenu" destination="1BU-hg-uMx" id="dfQ-Sy-LK0"/>
                                 </connections>
                             </view>
@@ -258,7 +266,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2047.5" y="390"/>
+            <point key="canvasLocation" x="2047" y="390"/>
         </scene>
         <!--Import Image-->
         <scene sceneID="CMF-NA-AwL">
@@ -347,7 +355,7 @@
         <image name="reg_btn_clone_selected_down.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="16d-sr-aXn"/>
+        <segue reference="8KK-ae-JtT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.20839306190000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>
