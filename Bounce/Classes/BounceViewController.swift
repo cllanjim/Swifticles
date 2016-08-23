@@ -25,7 +25,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     var selectedBlob:Blob?
     
-    
     var landscape:Bool = false
     
     let background = Sprite()
@@ -51,6 +50,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     var gestureStartImageTouch:CGPoint = CGPointZero
     
     
+    var activeRect:CGRect = CGRectZero {
+        didSet {
+            background.startX = activeRect.origin.x
+            background.startY = activeRect.origin.y
+            background.endX = activeRect.size.width
+            background.endY = activeRect.size.height
+        }
+    }
     
     var screenRect:CGRect {
         if landscape {
@@ -69,10 +76,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         backgroundTexture.load(image: image)
         background.load(texture: backgroundTexture)
         
-        background.startX = 0.0
-        background.startY = 0.0
-        background.endX = screenRect.size.width
-        background.endY = screenRect.size.height
+        
+        activeRect = CGRect(x: 50, y: 50, width: screenRect.size.width * 0.75, height: screenRect.size.width * 0.75)
         
     }
     
@@ -133,26 +138,18 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
         
-        var viewMat = screenMat.clone()
+        gG.matrixProjectionSet(screenMat)
+        gG.colorSet(r: 0.25, g: 0.15, b: 0.33)
+        gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(screenRect.size.height))
         
         
-        //viewMat = GLKMatrix4Multiply(viewMat, GLKMatrix4MakeTranslation(Float(screenTranslation.x), Float(screenTranslation.y), 0.0))
-        
-        
-        //viewMat = GLKMatrix4Translate(viewMat, Float(screenTranslation.x), Float(screenTranslation.y), 0.0)
-        //print("VM2 = \(viewMat.m)")
-        //viewMat = GLKMatrix4Scale(viewMat, Float(screenScale), Float(screenScale), Float(screenScale))
-        //print("VM3 = \(viewMat.m)")
-        
+        let viewMat = screenMat.clone()
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
         viewMat.scale(Float(screenScale))
-        
         gG.matrixProjectionSet(viewMat)
-        
         
         //var m = Matrix()
         //gG.matrixModelViewSet(m)
-        
         
         gG.blendEnable()
         gG.blendSetAlpha()
@@ -163,8 +160,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         //background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
         background.draw()
         
+        gG.colorSet(r: 1.0, g: 0.25, b: 1.0, a: 0.25)
+        gG.rectDraw(x: Float(activeRect.origin.x - 10), y: Float(activeRect.origin.y - 10), width: Float(activeRect.size.width + 20), height: Float(activeRect.size.height + 20))
+        
         for blob:Blob in blobs {
-            if blob.enabled { blob.update() }
+            if blob.enabled { blob.draw() }
         }
         
         
@@ -175,6 +175,20 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     
     func addBlob() {
+        
+        let blob = Blob()
+        blobs.append(blob)
+        selectedBlob = blob
+        
+        blob.center.x = activeRect.origin.x + 50
+        blob.center.y = activeRect.origin.y + activeRect.size.height / 2.0
+        
+        
+        //blob
+        
+        //selectedBlob
+        
+        
         
     }
     

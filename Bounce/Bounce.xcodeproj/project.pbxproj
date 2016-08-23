@@ -10,6 +10,7 @@
 		0D199C281D59AE7D006F857C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D199C271D59AE7D006F857C /* Assets.xcassets */; };
 		0D199C2C1D59B75F006F857C /* DrawNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D199C2B1D59B75F006F857C /* DrawNode.swift */; };
 		0D199C2E1D59B76B006F857C /* DrawTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D199C2D1D59B76B006F857C /* DrawTriangle.swift */; };
+		0D2C0A7A1D6C05B500FB8101 /* CubicSpline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2C0A791D6C05B500FB8101 /* CubicSpline.swift */; };
 		0D665E5D1D5814D100558EA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E4E1D5814D100558EA0 /* AppDelegate.swift */; };
 		0D665E5E1D5814D100558EA0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E4F1D5814D100558EA0 /* Config.swift */; };
 		0D665E5F1D5814D100558EA0 /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E501D5814D100558EA0 /* EditAffineViewController.swift */; };
@@ -98,6 +99,7 @@
 		0D199C271D59AE7D006F857C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D199C2B1D59B75F006F857C /* DrawNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNode.swift; sourceTree = "<group>"; };
 		0D199C2D1D59B76B006F857C /* DrawTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangle.swift; sourceTree = "<group>"; };
+		0D2C0A791D6C05B500FB8101 /* CubicSpline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicSpline.swift; sourceTree = "<group>"; };
 		0D665E4E1D5814D100558EA0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D665E4F1D5814D100558EA0 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		0D665E501D5814D100558EA0 /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				C29275751D63FD59009258CF /* ApplicationController.swift */,
 				C26C62CE1D67DB030095EFBA /* Matrix.swift */,
 				C23A29CA1D6BEDFE0082F570 /* Blob.swift */,
+				0D2C0A791D6C05B500FB8101 /* CubicSpline.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				C23A29CB1D6BEDFE0082F570 /* Blob.swift in Sources */,
 				C28D7F571D63C4E700B4D569 /* ToolBarTop.swift in Sources */,
 				0D665E751D582D4500558EA0 /* HomeMenuViewController.swift in Sources */,
+				0D2C0A7A1D6C05B500FB8101 /* CubicSpline.swift in Sources */,
 				C2333C671D5AB5D100779FB6 /* DrawTriangleBuffer.swift in Sources */,
 				0D665E671D5814D100558EA0 /* Sprite.swift in Sources */,
 				0D665E5D1D5814D100558EA0 /* AppDelegate.swift in Sources */,
