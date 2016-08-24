@@ -12,55 +12,71 @@ class RRButton: UIButton {
     
     //var fill =
     
-    var drawUL = true {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+    var cornerUL = true { didSet { setNeedsDisplay() } }
+    var cornerUR = false { didSet { setNeedsDisplay() } }
+    var cornerDR = true { didSet { setNeedsDisplay() } }
+    var cornerDL = true { didSet { setNeedsDisplay() } }
     
-    var drawUR = true {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+    var fillColor:UIColor = UIColor(red: 0.45, green: 0.45, blue: 1.0, alpha: 1.0) { didSet { setNeedsDisplay() } }
+    var fillColorDown:UIColor = UIColor(red: 0.65, green: 0.65, blue: 1.0, alpha: 1.0) { didSet { setNeedsDisplay() } }
     
-    var drawDR = true {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
+    var strokeColor:UIColor = UIColor(red: 1.0, green: 1.0, blue: 0.75, alpha: 1.0) { didSet { setNeedsDisplay() } }
+    var strokeColorDown:UIColor = UIColor(red: 0.86, green: 0.86, blue: 0.72, alpha: 1.0) { didSet { setNeedsDisplay() } }
     
-    var drawDL = true {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
     
+    var isPressed:Bool { return touchInside && tracking }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setUp()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         setUp()
+    }
+    
+    deinit {
+        print("Deinit RRButton")
     }
     
     func setUp() {
         self.backgroundColor = UIColor.clearColor()
+        
+        
+        self.addTarget(self, action: #selector(didToggleControlState), forControlEvents: .TouchDown)
+        self.addTarget(self, action: #selector(didToggleControlState), forControlEvents: .TouchDragInside)
+        self.addTarget(self, action: #selector(didToggleControlState), forControlEvents: .TouchDragOutside)
+        self.addTarget(self, action: #selector(didToggleControlState), forControlEvents: .TouchCancel)
+        self.addTarget(self, action: #selector(didToggleControlState), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(didToggleControlState), forControlEvents: .TouchUpOutside)
+        
+        
+        
+        
+        
+        
+        
+        //[self addTarget:self action:@selector(didTouchButton) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        //[self addTarget:self action:@selector(didTouchButton) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        //[self addTarget:self action:@selector(didTouchButton) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
+        
     }
     
-    func getCornerType(ul:Bool, ur:Bool, dr:Bool, dl:Bool) -> UIRectCorner
-    {
-        var aReturn:UIRectCorner = UIRectCorner(rawValue: 0)
-        if ul == true {aReturn = aReturn.union(UIRectCorner.TopLeft)}
-        if ur == true {aReturn = aReturn.union(UIRectCorner.TopRight)}
-        if dr == true {aReturn = aReturn.union(UIRectCorner.BottomRight)}
-        if dl == true {aReturn = aReturn.union(UIRectCorner.BottomLeft)}
-        return aReturn;
+    func getCornerType(ul:Bool, ur:Bool, dr:Bool, dl:Bool) -> UIRectCorner {
+        var result:UIRectCorner = UIRectCorner(rawValue: 0)
+        if ul == true {result = result.union(UIRectCorner.TopLeft)}
+        if ur == true {result = result.union(UIRectCorner.TopRight)}
+        if dr == true {result = result.union(UIRectCorner.BottomRight)}
+        if dl == true {result = result.union(UIRectCorner.BottomLeft)}
+        return result;
     }
     
     override func drawRect(rect: CGRect) {
@@ -71,22 +87,39 @@ class RRButton: UIButton {
         CGContextSaveGState(ctx)
         
         let rect = CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)
-        let clipPath = UIBezierPath(roundedRect: rect, byRoundingCorners: getCornerType(drawUL, ur: drawUR, dr: drawDR, dl: drawDL), cornerRadii: CGSize(width: 16.0, height: 32.0)).CGPath
+        let clipPath = UIBezierPath(roundedRect: rect, byRoundingCorners: getCornerType(cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL), cornerRadii: CGSize(width: 12.0, height: 12.0)).CGPath
         
         CGContextAddPath(ctx, clipPath)
-        CGContextSetFillColorWithColor(ctx, UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).CGColor)
         
+        //fillColor
+        
+        if isPressed {
+            CGContextSetFillColorWithColor(ctx, fillColorDown.CGColor)
+        } else {
+            CGContextSetFillColorWithColor(ctx, fillColor.CGColor)
+        }
         CGContextClosePath(ctx)
         CGContextFillPath(ctx)
         
-        CGContextSetStrokeColorWithColor(ctx, UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0).CGColor)
+        
+        if isPressed {
+            CGContextSetStrokeColorWithColor(ctx, strokeColorDown.CGColor)
+        } else {
+            CGContextSetStrokeColorWithColor(ctx, strokeColor.CGColor)
+        }
+        CGContextSetLineWidth(ctx, 8.0)
         CGContextStrokePath(ctx)
         
         CGContextRestoreGState(ctx)
     }
     
-    deinit {
-        print("Deinit \(self)")
+    func didToggleControlState() {
+        //self.backgroundColor = fillColorDown
+        self.setNeedsDisplay()
+    }
+    
+    func didRelease() {
+        
     }
     
 }

@@ -8,9 +8,25 @@
 
 import UIKit
 
+protocol RRSegmentDelegate
+{
+    func segmentSelected(segment:RRSegment, index: Int)
+    
+    //func webServiceDidStart(pWS: DNetWebService)
+    //func webServiceDidFail(pWS: DNetWebService)
+    //func webServiceDidSucceed(pWS: DNetWebService)
+    //func webServiceDidReceiveResponse(pWS: DNetWebService)
+    //func webServiceDidUpdate(pWS: DNetWebService)
+    
+}
+
 class RRSegment: UIView {
     
-    private var arrayButtons = [RRButton]()
+    var delegate:RRSegmentDelegate?
+    
+    var selectedIndex:Int = 0
+    
+    private var buttons = [RRButton]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,39 +39,61 @@ class RRSegment: UIView {
     }
     
     private func setUp() {
-        //self.backgroundColor = UIColor.clearColor()
-        
+        self.backgroundColor = UIColor.clearColor()
+    }
+    
+    deinit {
+        print("Dealloc RRSegment!!")
     }
     
     func clickSegment(segment:RRButton) {
         print("clickSegment")
+        
+        var checkIndex:Int?
+        
+        for i in 0..<buttons.count {
+            if segment == buttons[i] {
+                print("Click Seg Index \(i)")
+                checkIndex = i
+            }
+        }
+        
+        if let index = checkIndex {
+            
+            selectedIndex = index
+            
+            delegate?.segmentSelected(self, index: selectedIndex)
+            
+        }
+        
+        //delegate
         
     }
     
     var segmentCount:Int {
         
         get {
-            return arrayButtons.count
+            return buttons.count
         }
         set {
             
             //arrayButtons
-            for button:RRButton in arrayButtons {
+            for button:RRButton in buttons {
                 button.removeFromSuperview()
                 button.removeTarget(self, action: #selector(clickSegment(_:)), forControlEvents: .TouchUpInside)
             }
-            arrayButtons.removeAll()
+            buttons.removeAll()
             
             if newValue > 0 {
                 for _ in 0..<newValue {
                     
                     let button = RRButton(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
-                    arrayButtons.append(button)
+                    buttons.append(button)
                     
                     //#selector(FaceView.changeScale(_:))
                     
                     
-                    var sel = #selector(clickSegment(_:))
+                    //var sel = #selector(clickSegment(_:))
                     button.addTarget(self, action: #selector(clickSegment(_:)), forControlEvents:.TouchUpInside)
                     
                     addSubview(button)
@@ -78,7 +116,7 @@ class RRSegment: UIView {
             var right = left + Double(stride)
             
             for index in 0..<segmentCount {
-                let button = arrayButtons[index]
+                let button = buttons[index]
                 
                 if index == (segmentCount - 1) {
                     right = Double(self.frame.size.width)

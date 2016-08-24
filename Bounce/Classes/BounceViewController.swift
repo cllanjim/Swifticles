@@ -76,9 +76,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         backgroundTexture.load(image: image)
         background.load(texture: backgroundTexture)
         
-        
-        activeRect = CGRect(x: 50, y: 50, width: screenRect.size.width * 0.75, height: screenRect.size.width * 0.75)
-        
+        activeRect = CGRect(x: 0.0, y: 0.0, width: screenRect.size.width, height: screenRect.size.height)
     }
     
     override func shouldAutorotate() -> Bool {

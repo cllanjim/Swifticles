@@ -187,8 +187,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9nR-oE-MDC" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.90115840520000001" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Nb5-Y7-uzB"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ErV-qg-OsI">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -197,28 +204,77 @@
                                             <rect key="frame" x="0.0" y="0.0" width="66" height="30"/>
                                         </variation>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BU-hg-uMx" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="7" width="46" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BU-hg-uMx" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="clickMenu:" destination="27M-R0-Bg7" eventType="touchUpInside" id="4xM-ra-0ol"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-LB-RtY" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="62" y="7" width="46" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-LB-RtY" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="38" width="42" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="5Hd-nl-gOZ"/>
+                                            <constraint firstAttribute="width" constant="42" id="jbd-54-RUA"/>
+                                        </constraints>
                                         <state key="normal" title="+"/>
                                         <connections>
                                             <action selector="clickAddBlob:" destination="27M-R0-Bg7" eventType="touchUpInside" id="G9x-Xb-ziJ"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u1l-Ja-7wp">
+                                        <rect key="frame" x="218" y="41" width="164" height="36"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ue-w5-5AI">
+                                                <rect key="frame" x="-218" y="-41" width="30" height="30"/>
+                                                <state key="normal" title="P+"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="GsT-xP-gg4"/>
+                                            <constraint firstAttribute="width" constant="164" id="Wjj-bS-hEv"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLb-r9-sfa" customClass="RRSegment" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="192" y="0.0" width="216" height="33"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="WDO-hC-L9d"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZG-oi-s0r" customClass="RRSegment" customModule="Bounce" customModuleProvider="target">
+                                        <rect key="frame" x="412" y="0.0" width="180" height="52"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="E96-ah-qkU"/>
+                                            <constraint firstAttribute="height" constant="52" id="srY-LF-KxH"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.90115840517241375" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="C5F-vt-h4O"/>
+                                    <constraint firstItem="u1l-Ja-7wp" firstAttribute="width" secondItem="27M-R0-Bg7" secondAttribute="width" multiplier="0.6" id="4GN-Je-Pnm"/>
+                                    <constraint firstItem="vLb-r9-sfa" firstAttribute="centerX" secondItem="27M-R0-Bg7" secondAttribute="centerX" id="7Lr-H7-g6N"/>
+                                    <constraint firstAttribute="height" constant="80" id="C5F-vt-h4O"/>
+                                    <constraint firstItem="cZG-oi-s0r" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="top" id="JQn-wh-buk"/>
+                                    <constraint firstItem="cZG-oi-s0r" firstAttribute="width" secondItem="27M-R0-Bg7" secondAttribute="width" multiplier="0.3" id="OSJ-nt-uPa"/>
+                                    <constraint firstAttribute="bottom" secondItem="Lsy-LB-RtY" secondAttribute="bottom" id="Tqx-aL-3du"/>
+                                    <constraint firstItem="Lsy-LB-RtY" firstAttribute="leading" secondItem="27M-R0-Bg7" secondAttribute="leading" id="cMg-fF-URh"/>
+                                    <constraint firstAttribute="trailing" secondItem="cZG-oi-s0r" secondAttribute="trailing" constant="8" id="g6x-M8-UVi"/>
+                                    <constraint firstItem="Lsy-LB-RtY" firstAttribute="leading" secondItem="1BU-hg-uMx" secondAttribute="trailing" constant="8" id="ixx-9y-j3w"/>
+                                    <constraint firstAttribute="bottom" secondItem="u1l-Ja-7wp" secondAttribute="bottom" constant="3" id="jyc-DF-iSC"/>
+                                    <constraint firstItem="u1l-Ja-7wp" firstAttribute="centerX" secondItem="27M-R0-Bg7" secondAttribute="centerX" id="lGn-84-MT1"/>
+                                    <constraint firstItem="vLb-r9-sfa" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="top" id="rVH-y2-9aB"/>
+                                    <constraint firstItem="vLb-r9-sfa" firstAttribute="width" secondItem="27M-R0-Bg7" secondAttribute="width" multiplier="0.36" id="uID-rz-2pS"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="ErV-qg-OsI"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="ixx-9y-j3w"/>
+                                        <exclude reference="4GN-Je-Pnm"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -229,14 +285,9 @@
                                 <connections>
                                     <outlet property="buttonAddBlob" destination="Lsy-LB-RtY" id="ai8-KK-adV"/>
                                     <outlet property="buttonMenu" destination="1BU-hg-uMx" id="dfQ-Sy-LK0"/>
+                                    <outlet property="segEditMode" destination="cZG-oi-s0r" id="4pM-fv-jlr"/>
+                                    <outlet property="segMode" destination="vLb-r9-sfa" id="aIz-16-dTG"/>
                                 </connections>
-                            </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9nR-oE-MDC" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.90115840520000001" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Nb5-Y7-uzB"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

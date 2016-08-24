@@ -8,10 +8,29 @@
 
 import UIKit
 
-class ToolBarTop: UIView {
+class ToolBarTop: UIView, RRSegmentDelegate {
     
+    
+    
+        
     @IBOutlet weak var buttonMenu: TBButton!
     @IBOutlet weak var buttonAddBlob: TBButton!
+    
+    @IBOutlet weak var segMode: RRSegment!{
+        didSet {
+            segMode.segmentCount = 3
+            //segMode.bu
+            
+        }
+    }
+    
+    @IBOutlet weak var segEditMode: RRSegment!{
+        didSet {
+            
+            segEditMode.segmentCount = 3
+            
+        }
+    }
     
     
     
@@ -37,6 +56,10 @@ class ToolBarTop: UIView {
     @IBAction func clickAddBlob(sender: AnyObject) {
         
         ToolActions.addBlob()
+    }
+    
+    func segmentSelected(segment:RRSegment, index: Int) {
+        
     }
     
     deinit {
