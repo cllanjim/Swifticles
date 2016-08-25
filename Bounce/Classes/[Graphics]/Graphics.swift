@@ -138,6 +138,14 @@ class Graphics {
         quadDraw(x1: x, y1: y, x2: x+width, y2: y, x3: x, y3: y+height, x4: x+width, y4: y+height)
     }
     
+    func pointDraw(point point:CGPoint) {
+        pointDraw(point: point, size: 8.0)
+    }
+    
+    func pointDraw(point point:CGPoint, size: GLfloat) {
+        rectDraw(x: GLfloat(point.x - CGFloat(size / 2.0)), y: GLfloat(point.y - CGFloat(size / 2.0)), width: size, height: size)
+    }
+    
     func lineDraw(p1 p1:CGPoint, p2:CGPoint, thickness:CGFloat) {
         
         var diff = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)

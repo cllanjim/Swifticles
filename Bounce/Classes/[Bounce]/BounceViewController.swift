@@ -12,23 +12,9 @@ import OpenGLES
 
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
-    
-    //
-    
-    var zoomMode:Bool = false
-    
-    //
-    
-    
-    
-    var blobs = [Blob]()
-    
-    var selectedBlob:Blob?
+    let engine = BounceEngine()
     
     var landscape:Bool = false
-    
-    let background = Sprite()
-    let backgroundTexture = Texture()
     
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
@@ -36,7 +22,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     var panRecognizerTouchCount:Int = 0
     var pinchRecognizerTouchCount:Int = 0
     
-    var gestureCancelTimer:Int = 0
+    var zoomGestureCancelTimer:Int = 0
     
     var gestureTouchCenter:CGPoint = CGPointZero
     
@@ -49,16 +35,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     var gestureStartScreenTouch:CGPoint = CGPointZero
     var gestureStartImageTouch:CGPoint = CGPointZero
     
-    
-    var activeRect:CGRect = CGRectZero {
-        didSet {
-            background.startX = activeRect.origin.x
-            background.startY = activeRect.origin.y
-            background.endX = activeRect.size.width
-            background.endY = activeRect.size.height
-        }
-    }
-    
     var screenRect:CGRect {
         if landscape {
             return CGRect(x: 0.0, y: 0.0, width: gDevice.landscapeWidth, height: gDevice.landscapeHeight)
@@ -67,16 +43,27 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func setUp(image image:UIImage, portraitOrientation:Bool) {
+    func setUp(image image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
         
         print("BounceViewController.setUp(portraitOrientation:[\(portraitOrientation)])")
         
         landscape = !portraitOrientation
         
-        backgroundTexture.load(image: image)
-        background.load(texture: backgroundTexture)
+        engine.setUp(image: image, sceneRect:sceneRect, screenRect:screenRect)
         
-        activeRect = CGRect(x: 0.0, y: 0.0, width: screenRect.size.width, height: screenRect.size.height)
+        
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleZoomModeChange), name: String(BounceNotification.ZoomModeChanged), object: nil)
+        //NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: String(BounceNotification.ZoomModeChanged), object: self))
+        
+    }
+    
+    func handleZoomModeChange() {
+        print("handleZoomModeChange")
+        engine.cancelAllTouches()
+        cancelAllGestureRecognizers()
+        engine.cancelAllGestures()
     }
     
     override func shouldAutorotate() -> Bool {
@@ -101,32 +88,28 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     override func load() {
-        
-        print("BounceViewController.load()")
-
         panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
         panRecognizer.delegate = self
         panRecognizer.maximumNumberOfTouches = 2
+        panRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(panRecognizer)
         
         pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:)))
         pinchRecognizer.delegate = self
+        pinchRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(pinchRecognizer)
     }
     
     override func update() {
-        if gestureCancelTimer > 0 {
-            gestureCancelTimer = gestureCancelTimer - 1
-            if gestureCancelTimer <= 0 {
+        if zoomGestureCancelTimer > 0 {
+            zoomGestureCancelTimer = zoomGestureCancelTimer - 1
+            if zoomGestureCancelTimer <= 0 {
                 panRecognizer.enabled = true
                 pinchRecognizer.enabled = true
             }
         }
         
-        for blob:Blob in blobs {
-            if blob.enabled { blob.update() }
-        }
-        
+        engine.update()
     }
     
     override func draw() {
@@ -156,37 +139,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         gG.textureEnable()
         
         //background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
-        background.draw()
-        
-        gG.colorSet(r: 1.0, g: 0.25, b: 1.0, a: 0.25)
-        gG.rectDraw(x: Float(activeRect.origin.x - 10), y: Float(activeRect.origin.y - 10), width: Float(activeRect.size.width + 20), height: Float(activeRect.size.height + 20))
-        
-        for blob:Blob in blobs {
-            if blob.enabled { blob.draw() }
-        }
+        engine.draw()
         
         
         gG.matrixProjectionSet(screenMat)
-        
-    }
-    
-    
-    
-    func addBlob() {
-        
-        let blob = Blob()
-        blobs.append(blob)
-        selectedBlob = blob
-        
-        blob.center.x = activeRect.origin.x + 50
-        blob.center.y = activeRect.origin.y + activeRect.size.height / 2.0
-        
-        
-        //blob
-        
-        //selectedBlob
-        
-        
         
     }
     
@@ -199,9 +155,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     //MARK: Gesture stuff, pan, pinch, etc
-    
-    private var _allowGestures:Bool {
-        if gestureCancelTimer > 0 {
+    private var _allowZoomGestures:Bool {
+        if zoomGestureCancelTimer > 0 {
             return false
         }
         return true
@@ -226,73 +181,124 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     func didPanMainThread(gr:UIPanGestureRecognizer) -> Void {
-        if _allowGestures == false {
-            cancelAllGestureRecognizers()
-            return
-        }
+        
         gestureTouchCenter = gr.locationInView(self.view)
-        switch gr.state {
-        case .Began:
-            gestureBegan(gestureTouchCenter)
-            panRecognizerTouchCount = gr.numberOfTouches()
-            break
-        case .Changed:
-            if panRecognizerTouchCount != gr.numberOfTouches() {
-                if gr.numberOfTouches() > panRecognizerTouchCount {
-                    panRecognizerTouchCount = gr.numberOfTouches()
-                    gestureBegan(gestureTouchCenter)
-                }
-                else {
-                    cancelAllGestureRecognizers()
-                }
+        
+        if engine.zoomMode {
+            if _allowZoomGestures == false {
+                cancelAllGestureRecognizers()
+                return
             }
-            break
-        default:
-            cancelAllGestureRecognizers()
-            break
-        }
-        if _allowGestures {
-            updateTransform()
+            
+            switch gr.state {
+            case .Began:
+                gestureBegan(gestureTouchCenter)
+                panRecognizerTouchCount = gr.numberOfTouches()
+                break
+            case .Changed:
+                if panRecognizerTouchCount != gr.numberOfTouches() {
+                    if gr.numberOfTouches() > panRecognizerTouchCount {
+                        panRecognizerTouchCount = gr.numberOfTouches()
+                        gestureBegan(gestureTouchCenter)
+                    }
+                    else {
+                        cancelAllGestureRecognizers()
+                    }
+                }
+                break
+            default:
+                cancelAllGestureRecognizers()
+                break
+            }
+            if _allowZoomGestures {
+                updateTransform()
+            }
+        } else {
+            switch gr.state {
+            case .Began:
+                panRecognizerTouchCount = gr.numberOfTouches()
+                break
+            case .Changed:
+                if panRecognizerTouchCount != gr.numberOfTouches() {
+                    if gr.numberOfTouches() > panRecognizerTouchCount {
+                        panRecognizerTouchCount = gr.numberOfTouches()
+                        
+                    }
+                    else {
+                        engine.cancelAllGestures()
+                    }
+                }
+                break
+            default:
+                engine.cancelAllGestures()
+                break
+            }
         }
     }
     
     func didPinchMainThread(gr:UIPinchGestureRecognizer) -> Void {
-        if _allowGestures == false {
-            cancelAllGestureRecognizers()
-            return
-        }
+        
         gestureTouchCenter = gr.locationInView(self.view)
-        switch gr.state {
-        case .Began:
-            
+        
+        if engine.zoomMode {
+            if _allowZoomGestures == false {
+                cancelAllGestureRecognizers()
+                return
+            }
+            switch gr.state {
+            case .Began:
                 gestureBegan(gestureTouchCenter)
                 gestureStartScale = screenScale
                 pinchRecognizerTouchCount = gr.numberOfTouches()
-            
-            break
-        case .Changed:
-            if pinchRecognizerTouchCount != gr.numberOfTouches() {
-                if gr.numberOfTouches() > pinchRecognizerTouchCount {
-                    pinchRecognizerTouchCount = gr.numberOfTouches()
-                    gestureBegan(gestureTouchCenter)
+                
+                break
+            case .Changed:
+                if pinchRecognizerTouchCount != gr.numberOfTouches() {
+                    if gr.numberOfTouches() > pinchRecognizerTouchCount {
+                        pinchRecognizerTouchCount = gr.numberOfTouches()
+                        gestureBegan(gestureTouchCenter)
+                    }
+                    else {
+                        cancelAllGestureRecognizers()
+                    }
                 }
-                else {
-                    cancelAllGestureRecognizers()
-                }
+                break
+            default:
+                cancelAllGestureRecognizers()
+                break
             }
-            break
-        default:
-            cancelAllGestureRecognizers()
-            break
-        }
-        if _allowGestures {
-            screenScale = gestureStartScale * gr.scale
-            updateTransform()
+            if _allowZoomGestures {
+                screenScale = gestureStartScale * gr.scale
+                updateTransform()
+            }
+        } else {
+            
+            switch gr.state {
+            case .Began:
+                pinchRecognizerTouchCount = gr.numberOfTouches()
+                
+                break
+            case .Changed:
+                if pinchRecognizerTouchCount != gr.numberOfTouches() {
+                    if gr.numberOfTouches() > pinchRecognizerTouchCount {
+                        pinchRecognizerTouchCount = gr.numberOfTouches()
+                        
+                    }
+                    else {
+                        engine.cancelAllGestures()
+                        break
+                    }
+                }
+                break
+            default:
+                engine.cancelAllGestures()
+                break
+            }
         }
     }
     
     func cancelAllGestureRecognizers() {
-        gestureCancelTimer = 5
+        zoomGestureCancelTimer = 5
         panRecognizer.enabled = false
         pinchRecognizer.enabled = false
     }
@@ -311,6 +317,46 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        if engine.zoomMode == false {
+            for var touch:UITouch in touches {
+                if touch.phase == .Began {
+                    let location = touch.locationInView(view)
+                    engine.touchDown(&touch, point: transformPointToImage(location))
+                }
+            }
+        } else {
+            engine.cancelAllTouches()
+        }
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if engine.zoomMode == false {
+            for var touch:UITouch in touches {
+                if touch.phase == .Moved {
+                    let location = touch.locationInView(view)
+                    engine.touchMove(&touch, point: transformPointToImage(location))
+                }
+            }
+        } else {
+            engine.cancelAllTouches()
+        }
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if engine.zoomMode == false {
+            for var touch:UITouch in touches {
+                if touch.phase == .Ended || touch.phase == .Cancelled {
+                    let location = touch.locationInView(view)
+                    engine.touchMove(&touch, point: transformPointToImage(location))
+                }
+            }
+        } else {
+            engine.cancelAllTouches()
+        }
     }
     
     deinit {

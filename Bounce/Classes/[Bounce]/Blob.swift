@@ -24,6 +24,8 @@ class Blob
         spline.add(130, y: 160)
         
         spline.add(157, y: 90)
+        spline.add(220, y: 140.0)
+        
         
         spline.linear = false
         spline.closed = true

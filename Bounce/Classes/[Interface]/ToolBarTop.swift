@@ -8,27 +8,28 @@
 
 import UIKit
 
-class ToolBarTop: UIView, RRSegmentDelegate {
+class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
     
-    
-    
-        
     @IBOutlet weak var buttonMenu: TBButton!
     @IBOutlet weak var buttonAddBlob: TBButton!
     
-    @IBOutlet weak var segMode: RRSegment!{
+    @IBOutlet weak var checkBoxZoom: TBCheckBox! {
         didSet {
-            segMode.segmentCount = 3
-            //segMode.bu
-            
+            checkBoxZoom.delegate = self
         }
     }
     
-    @IBOutlet weak var segEditMode: RRSegment!{
+    @IBOutlet weak var segMode: TBSegment!{
         didSet {
-            
-            segEditMode.segmentCount = 3
-            
+            segMode.segmentCount = 2
+            segMode.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var segEditMode: TBSegment!{
+        didSet {
+            segEditMode.segmentCount = 8
+            segEditMode.delegate = self
         }
     }
     
@@ -38,7 +39,7 @@ class ToolBarTop: UIView, RRSegmentDelegate {
         super.init(frame: frame)
         setUp()
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         setUp()
@@ -58,7 +59,16 @@ class ToolBarTop: UIView, RRSegmentDelegate {
         ToolActions.addBlob()
     }
     
-    func segmentSelected(segment:RRSegment, index: Int) {
+    func segmentSelected(segment:TBSegment, index: Int) {
+        print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
+    }
+    
+    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
+        
+        if checkBox == checkBoxZoom {
+            
+            ToolActions.setZoomMode(zoomMode: checked)
+        }
         
     }
     

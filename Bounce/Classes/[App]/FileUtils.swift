@@ -4,24 +4,21 @@
 //
 
 import UIKit
-//import Foundation
 
-public class FileUtils// : DSObject
+public class FileUtils
 {
     required public init() {
         
     }
     
-    public class func getBundle() -> String
-    {
+    public class func getBundle() -> String {
         var result:String! = nil
         result = NSBundle.mainBundle().resourcePath
         result = result.stringByAppendingString("/")
         return result
     }
     
-    public class func getDocs() -> String
-    {
+    public class func getDocs() -> String {
         var result:String! = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
         result = result.stringByAppendingString("/")
         return result

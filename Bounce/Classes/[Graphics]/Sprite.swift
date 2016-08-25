@@ -16,8 +16,6 @@ public class Sprite {
     
     //"Single Source of Truth" doesn't necessarily apply
     //because a sprite can be only a slice of a texture...
-    //var width:CGFloat = 0.0
-    //var height:CGFloat = 0.0
     var size:CGSize = CGSizeZero
     
     private var vertexBuffer:[GLfloat] = [GLfloat](count:40, repeatedValue: 0.0)

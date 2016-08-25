@@ -1,5 +1,5 @@
 //
-//  RRSegment.swift
+//  TBSegment.swift
 //  SwiftFunhouse
 //
 //  Created by Raptis, Nicholas on 7/18/16.
@@ -8,23 +8,27 @@
 
 import UIKit
 
-protocol RRSegmentDelegate
+protocol TBSegmentDelegate
 {
-    func segmentSelected(segment:RRSegment, index: Int)
-    
-    //func webServiceDidStart(pWS: DNetWebService)
-    //func webServiceDidFail(pWS: DNetWebService)
-    //func webServiceDidSucceed(pWS: DNetWebService)
-    //func webServiceDidReceiveResponse(pWS: DNetWebService)
-    //func webServiceDidUpdate(pWS: DNetWebService)
-    
+    func segmentSelected(segment:TBSegment, index: Int)
 }
 
-class RRSegment: UIView {
+class TBSegment: UIView {
     
-    var delegate:RRSegmentDelegate?
+    var delegate:TBSegmentDelegate?
     
-    var selectedIndex:Int = 0
+    var selectedIndex:Int? {
+        willSet {
+            if let index = selectedIndex where index >= 0 && index < buttons.count {
+                buttons[index].styleSetSegment()
+            }
+        }
+        didSet {
+            if let index = selectedIndex where index >= 0 && index < buttons.count {
+                buttons[index].styleSetSegmentSelected()
+            }
+        }
+    }
     
     private var buttons = [RRButton]()
     
@@ -43,7 +47,7 @@ class RRSegment: UIView {
     }
     
     deinit {
-        print("Dealloc RRSegment!!")
+        print("Dealloc TBSegment!!")
     }
     
     func clickSegment(segment:RRButton) {
@@ -61,9 +65,7 @@ class RRSegment: UIView {
         if let index = checkIndex {
             
             selectedIndex = index
-            
-            delegate?.segmentSelected(self, index: selectedIndex)
-            
+            delegate?.segmentSelected(self, index: index)
         }
         
         //delegate
@@ -85,19 +87,39 @@ class RRSegment: UIView {
             buttons.removeAll()
             
             if newValue > 0 {
-                for _ in 0..<newValue {
-                    
+                for index in 0..<newValue {
                     let button = RRButton(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
                     buttons.append(button)
                     
-                    //#selector(FaceView.changeScale(_:))
+                    if index <= 0 {
+                        button.cornerUL = true
+                        button.cornerDL = true
+                        if newValue > 1 {
+                            button.cornerUR = false
+                            button.cornerDR = false
+                        } else {
+                            button.cornerUR = true
+                            button.cornerDR = true
+                        }
+                    } else if index < (newValue - 1) {
+                        button.cornerUL = false
+                        button.cornerDL = false
+                        button.cornerUR = false
+                        button.cornerDR = false
+                        
+                    } else {
+                        button.cornerUL = false
+                        button.cornerDL = false
+                        button.cornerUR = true
+                        button.cornerDR = true
+                    }
                     
                     
-                    //var sel = #selector(clickSegment(_:))
                     button.addTarget(self, action: #selector(clickSegment(_:)), forControlEvents:.TouchUpInside)
-                    
+                    button.styleSetSegment()
                     addSubview(button)
                 }
+                
             }
             
             layoutButtons()
@@ -123,7 +145,6 @@ class RRSegment: UIView {
                 }
                 
                 button.frame = CGRect(x: CGFloat(left), y: 0, width: CGFloat(right - left), height: self.frame.size.height)
-                
                 button.setNeedsDisplay()
                 
                 left = right

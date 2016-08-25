@@ -83,16 +83,14 @@ public class Texture {
             let cgImage = loadImage.CGImage;
             let imageData: UnsafeMutablePointer<()> = malloc(Int(scaledWidth * scaledHeight * 4))
             let colorSpace = CGColorSpaceCreateDeviceRGB()
-            let cgContext = CGBitmapContextCreate(imageData, Int(scaledWidth), Int(scaledHeight), 8, Int(scaledWidth * 4), colorSpace, CGImageAlphaInfo.PremultipliedLast.rawValue)
+            let context = CGBitmapContextCreate(imageData, Int(scaledWidth), Int(scaledHeight), 8, Int(scaledWidth * 4), colorSpace, CGImageAlphaInfo.PremultipliedLast.rawValue)
             let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(Int(scaledWidth)), height: CGFloat(Int(scaledHeight)))
             
-            CGContextSetBlendMode(cgContext, CGBlendMode.Copy)
-            
-            CGContextClearRect(cgContext, rect)
-            CGContextDrawImage(cgContext, rect, cgImage)
+            CGContextSetBlendMode(context, CGBlendMode.Copy)
+            CGContextClearRect(context, rect)
+            CGContextDrawImage(context, rect, cgImage)
             
             return imageData
-            
         }
         return nil
     }

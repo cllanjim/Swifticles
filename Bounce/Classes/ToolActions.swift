@@ -24,17 +24,21 @@ class ToolActions {
             nc.view.layer.addAnimation(transition, forKey: nil)
             
             gApp.navigationController.setViewControllers([home], animated: true)
-            //_ = self.navigationController?.popToRootViewController(animated: false)
-            
             gApp.navigationController.setNavigationBarHidden(false, animated: true)
         }
     }
     
     class func addBlob() {
-        
-        gApp.bounce.addBlob()
-        
+        gApp.engine?.addBlob()
     }
+    
+    class func setZoomMode(zoomMode zm:Bool) {
+        gApp.engine?.zoomMode = zm
+    }
+    
+    
+    //class func set
+    
     
     
 }

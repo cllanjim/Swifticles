@@ -475,7 +475,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             let bounce = gApp.getStoryboardVC("bounce") as! BounceViewController
             
             bounce.loadViewIfNeeded()
-            bounce.setUp(image: resultImage, portraitOrientation: isPortrait)
+            bounce.setUp(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? gDevice.portraitWidth : gDevice.landscapeWidth, height: isPortrait ? gDevice.portraitHeight : gDevice.landscapeHeight), portraitOrientation: isPortrait)
             
             gApp.navigationController.setNavigationBarHidden(true, animated: true)
             gApp.navigationController.setViewControllers([bounce], animated: true)

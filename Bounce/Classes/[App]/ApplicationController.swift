@@ -27,21 +27,23 @@ class ApplicationController
         return navigationController!
     }
     
-    var bounce:BounceViewController {
-        
-        //let nc =
-        
+    var bounce:BounceViewController? {
         for vc:UIViewController in navigationController.viewControllers {
-            
             if vc.isKindOfClass(BounceViewController) {
                 return vc as! BounceViewController
             }
         }
-        
-        return getStoryboardVC("bounce") as! BounceViewController
-        
+        return nil
     }
     
+    var engine:BounceEngine? {
+        if let checkBounce = bounce {
+            return checkBounce.engine
+        }
+        return nil
+    }
+    
+    //Would be nice if this could work..
     func orientationLock(portrait portrait:Bool) {
         
     }

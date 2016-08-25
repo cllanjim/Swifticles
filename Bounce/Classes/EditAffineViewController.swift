@@ -10,20 +10,20 @@ import UIKit
 
 class EditAffineViewController: UIViewController {
     
-    @IBOutlet weak var segLeft: RRSegment!{
+    @IBOutlet weak var segLeft: TBSegment!{
         didSet {
             segLeft.segmentCount = 2
             
         }
     }
     
-    @IBOutlet weak var segMiddle: RRSegment!{
+    @IBOutlet weak var segMiddle: TBSegment!{
         didSet {
             segMiddle.segmentCount = 4
         }
     }
     
-    @IBOutlet weak var segRight: RRSegment!{
+    @IBOutlet weak var segRight: TBSegment!{
         didSet {
             segRight.segmentCount = 1
         }

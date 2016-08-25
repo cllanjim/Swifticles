@@ -42,6 +42,10 @@ class GLViewController: GLKViewController {
         view.context = self.context!
         view.drawableDepthFormat = .Format24
         
+        view.multipleTouchEnabled = true
+        view.userInteractionEnabled = true
+        view.exclusiveTouch = false
+        
         self.setupGL()
         
         self.performSelectorOnMainThread(#selector(load), withObject: nil, waitUntilDone: true)

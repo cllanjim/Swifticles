@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 struct CubicSplineNode {
     var value:CGFloat = 0.0
     
@@ -33,8 +32,6 @@ class CubicSpline {
     var x = [CubicSplineNode]()
     var y = [CubicSplineNode]()
     
-    
-    
     var maxPos:CGFloat {
         return CGFloat(maxIndex)
     }
@@ -50,12 +47,10 @@ class CubicSpline {
     
     func getControlPoint(index:Int) ->CGPoint {
         var point = CGPointZero
-        
         if index >= 0 && index < x.count {
             point.x = x[index].value
             point.y = y[index].value
         }
-        
         return point
     }
     
@@ -92,10 +87,8 @@ class CubicSpline {
                 self.y.append(CubicSplineNode())
             }
         }
-        
         self.x[index].value = x
         self.y[index].value = y
-        
         refresh = true
     }
     
@@ -179,7 +172,6 @@ class CubicSpline {
                 coord[count1].coefA = coord[count1].derivative
                 coord[count1].coefB = 3.0 * (coord[0].value - coord[count1].value) - 2.0 * coord[count1].derivative - coord[0].derivative
                 coord[count1].coefC = 2.0 * (coord[count1].value - coord[0].value) + coord[count1].derivative + coord[0].derivative
-                
             } else {
                 coord[0].delta = 3.0 * (coord[1].value - coord[0].value) * 0.25
                 
