@@ -48,8 +48,8 @@ class Graphics {
     private var cWhiteSprite: Sprite = Sprite()
     
     // x y z u v w r g b a (10) * 4 = 40
-    private var cRectVertexBuffer:[GLfloat] = [GLfloat](count:40, repeatedValue: 0.0)
-    private var cRectIndexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
+    private var cRectVertexBuffer = [GLfloat](count:40, repeatedValue: 0.0)
+    private var cRectIndexBuffer = [IndexBufferType](count: 6, repeatedValue: 0)
     
     private var cRectVertexBufferSlot:BufferIndex?
     private var cRectIndexBufferSlot:BufferIndex?
@@ -343,23 +343,11 @@ class Graphics {
     
     func matrixProjectionSet(mat:Matrix) {
         cProjectionMatrix.set(mat)
-        //cTestModelViewMatrix = cProjectionMatrix.array
-        
-        
-        //withUnsafePointer(&cProjectionMatrix) {
-        //    glUniformMatrix4fv(gGLUniformProjection, 1, 0, UnsafePointer($0))
-        //}
         glUniformMatrix4fv(gGLUniformProjection, 1, 0, cProjectionMatrix.m)
-        //}
     }
     
     func matrixModelViewSet(mat:Matrix) {
         cModelViewMatrix.set(mat)
-        //cTestProjectionMatrix = cModelViewMatrix.array
-        //withUnsafePointer(&cModelViewMatrix) {
-        //    glUniformMatrix4fv(gGLUniformModelView, 1, 0, UnsafePointer($0))
-        //}
-        
         glUniformMatrix4fv(gGLUniformModelView, 1, 0, cModelViewMatrix.m)
     }
     
@@ -446,6 +434,149 @@ class Graphics {
     func textureDisable() {
         glDisable(GLenum(GL_TEXTURE_2D))
     }
+    
+    
+    
+    //static float cClipPlane[4][4] = {{0.0f, 1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f, 512.0f}, {0.0f, -1.0f, 0.0f, 512.0f}};
+    
+    
+    
+    //void Graphics::Clip(float pX, float pY, float pWidth, float pHeight)
+    //{
+    /*
+     if(cClipStackCount > 0)
+     {
+     float aParentX = cClipStack[cClipStackCount - 1][0];
+     float aParentY = cClipStack[cClipStackCount - 1][1];
+     float aParentWidth = cClipStack[cClipStackCount - 1][2];
+     float aParentHeight = cClipStack[cClipStackCount - 1][3];
+     float aParentRight = aParentX + aParentWidth;
+     float aParentBottom = aParentY + aParentHeight;
+     
+     //Log("ClipParent[%d] = [%f %f %f %f]\n", cClipStackCount, aParentX, aParentY, aParentWidth, aParentHeight);
+     
+     if(pX < aParentX)pX = aParentX;
+     if(pY < aParentY)pY = aParentY;
+     
+     if((pX + pWidth) > aParentRight)
+     {
+     pWidth = (aParentRight - pX);
+     }
+     
+     if((pY + pHeight) > aParentBottom)
+     {
+     pHeight = (aParentBottom - pY);
+     }
+     }
+     */
+    
+    var cClipPlane0 = [GLfloat](count:4, repeatedValue: 0.0)
+    var cClipPlane1 = [GLfloat](count:4, repeatedValue: 0.0)
+    var cClipPlane2 = [GLfloat](count:4, repeatedValue: 0.0)
+    var cClipPlane3 = [GLfloat](count:4, repeatedValue: 0.0)
+    
+    
+    func clip(clipRect clipRect:CGRect) {
+        
+        glEnable(GLenum(GL_SCISSOR_TEST))
+        glScissor(GLint(clipRect.origin.x), GLint(clipRect.origin.y), GLsizei(clipRect.size.width), GLsizei(clipRect.size.height))
+        
+        /*
+    
+        //GLfloat planeTop[]    = {0.0f, -1.0f, 0.0f, viewRect.origin.y + viewSize.height * s};
+        //GLfloat planeBottom[] = {0.0f, 1.0f, 0.0f, -viewRect.origin.y};
+        //GLfloat planeLeft[]   = {1.0f, 0.0f, 0.0f, -viewRect.origin.x};
+        //GLfloat planeRight[]  = {-1.0f, 0.0f, 0.0f, viewRect.origin.x + viewSize.width * s};
+        
+        glEnable(GLenum(GL_CLIP_PLANE0))
+        glEnable(GLenum(GL_CLIP_PLANE1))
+        glEnable(GLenum(GL_CLIP_PLANE2))
+        glEnable(GLenum(GL_CLIP_PLANE3))
+        
+        
+        //GLfloat planeTop[]    = {
+        cClipPlane0[0] = 0.0
+        cClipPlane0[1] = -1.0
+        cClipPlane0[2] = 0.0
+        cClipPlane0[3] = GLfloat(clipRect.origin.y + clipRect.size.height)
+    
+        
+        //GLfloat planeBottom[] = {
+        cClipPlane1[0] = 0.0
+        cClipPlane1[1] = 1.0
+        cClipPlane1[2] = 0.0
+        cClipPlane1[3] = GLfloat(-clipRect.origin.y)
+    
+    //GLfloat planeLeft[]   = {
+        cClipPlane2[0] = 1.0
+        cClipPlane2[1] = 0.0
+        cClipPlane2[2] = 0.0
+        cClipPlane2[3] = GLfloat(-clipRect.origin.x)
+        
+        
+        //GLfloat planeRight[]  = {
+        cClipPlane3[0] = -1.0
+        cClipPlane3[1] = 0.0
+        cClipPlane3[2] = 0.0
+        cClipPlane3[3] = GLfloat(clipRect.origin.x + clipRect.size.width)
+
+        glClipPlanef(GLenum(GL_CLIP_PLANE0), cClipPlane0);
+        glClipPlanef(GLenum(GL_CLIP_PLANE1), cClipPlane1);
+        glClipPlanef(GLenum(GL_CLIP_PLANE2), cClipPlane2);
+        glClipPlanef(GLenum(GL_CLIP_PLANE3), cClipPlane3);
+        */
+    }
+    
+    func clipDisable() {
+        
+        glDisable(GLenum(GL_SCISSOR_TEST))
+        
+        /*
+        glDisable(GLenum(GL_CLIP_PLANE0))
+        glDisable(GLenum(GL_CLIP_PLANE1))
+        glDisable(GLenum(GL_CLIP_PLANE2))
+        glDisable(GLenum(GL_CLIP_PLANE3))
+        */
+    }
+    
+    
+    /*
+    void Graphics::ClipAbsolute(float pX, float pY, float pWidth, float pHeight)
+    {
+    //glScissor(pX, gDeviceScreenHeight - (pY + pHeight), pWidth, pHeight);
+    
+    //cClipRect[0] = pX;
+    //cClipRect[1] = pY;
+    //cClipRect[2] = pWidth;
+    //cClipRect[3] = pHeight;
+    
+    cClipPlane[0][0] = 0.0f;
+    cClipPlane[0][1] = 1.0f;
+    cClipPlane[0][2] = 0.0f;
+    cClipPlane[0][3] = 0.0f;
+    
+    cClipPlane[1][0] = 1.0f;
+    cClipPlane[1][1] = 0.0f;
+    cClipPlane[1][2] = 0.0f;
+    cClipPlane[1][3] = 0.0f;
+    
+    cClipPlane[2][0] = -1.0f;
+    cClipPlane[2][1] = 0.0f;
+    cClipPlane[2][2] = 0.0f;
+    cClipPlane[2][3] = pWidth;
+    
+    cClipPlane[3][0] = 0.0f;
+    cClipPlane[3][1] = -1.0f;
+    cClipPlane[3][2] = 0.0f;
+    cClipPlane[3][3] = pHeight;
+    
+    glClipPlanef(GL_CLIP_PLANE0, cClipPlane[0]);
+    glClipPlanef(GL_CLIP_PLANE1, cClipPlane[1]);
+    glClipPlanef(GL_CLIP_PLANE2, cClipPlane[2]);
+    glClipPlanef(GL_CLIP_PLANE3, cClipPlane[3]);
+    }
+    */
+    
 }
 
 let gG:Graphics = Graphics()

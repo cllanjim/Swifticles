@@ -9,7 +9,7 @@
 import UIKit
 import OpenGLES
 
-class Blob
+public class Blob
 {
     
     var spline = CubicSpline()

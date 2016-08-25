@@ -13,26 +13,35 @@ import Foundation
 enum BounceNotification:String {
     case ZoomModeChanged = "BounceNotification.ZoomModeChanged"
     case SceneModeChanged = "BounceNotification.SceneModeChanged"
-    
     case EditModeChanged = "BounceNotification.EditModeChanged"
     case ViewModeChanged = "BounceNotification.ViewModeChanged"
-    
     case BlobAdded = "BounceNotification.BlobAdded"
-    
     case BlobSelectionChanged = "BounceNotification.BlobSelectionChanged"
 }
+
+enum SceneMode: UInt32 { case Edit = 1, View = 2 }
+enum EditMode: UInt32 { case Affine = 1, Shape = 2 }
+
 
 class BounceEngine {
     
     var zoomMode:Bool = false {
         didSet {
-            NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: String(BounceNotification.ZoomModeChanged), object: self))
+            postNotification(BounceNotification.ZoomModeChanged)
         }
     }
     
     var blobs = [Blob]()
     
-    var selectedBlob:Blob?
+    internal var previousSelectedBlob:Blob?
+    var selectedBlob:Blob? {
+        willSet { previousSelectedBlob = selectedBlob }
+        didSet {
+            if previousSelectedBlob === selectedBlob {
+                postNotification(BounceNotification.ZoomModeChanged, object: selectedBlob)
+            }
+        }
+    }
     
     let background = Sprite()
     let backgroundTexture = Texture()
@@ -47,6 +56,12 @@ class BounceEngine {
             background.endY = sceneRect.size.height
         }
     }
+    
+    var sceneMode:SceneMode = .Edit { didSet { postNotification(BounceNotification.SceneModeChanged) } }
+    var editMode:EditMode = .Affine { didSet { postNotification(BounceNotification.EditModeChanged) } }
+    
+    
+    
     
     func setUp(image image:UIImage, sceneRect:CGRect, screenRect:CGRect) {
         backgroundTexture.load(image: image)
@@ -96,6 +111,13 @@ class BounceEngine {
         
     }
     
+    func postNotification(notification: BounceNotification) {
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: String(notification), object: self))
+    }
+    
+    func postNotification(notification: BounceNotification, object: AnyObject?) {
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: String(notification), object: object))
+    }
     
     func addBlob() -> Blob {
         let blob = Blob()

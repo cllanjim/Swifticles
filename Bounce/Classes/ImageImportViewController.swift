@@ -69,8 +69,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 checkSelf.placeCropOutside()
                 
                 let newImageCenter = checkSelf.imageView.convertPoint(checkSelf.cropView.center, fromView: checkSelf.view)
-                checkSelf.translation.x += (newImageCenter.x - imageCenter.x)// / checkSelf.scale
-                checkSelf.translation.y += (newImageCenter.y - imageCenter.y)// / checkSelf.scale
+                checkSelf.translation.x += (newImageCenter.x - imageCenter.x)
+                checkSelf.translation.y += (newImageCenter.y - imageCenter.y)
                 
                 var t = CATransform3DIdentity
                 t = CATransform3DScale(t, checkSelf.scale, checkSelf.scale, checkSelf.scale)
@@ -91,7 +91,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func cancelAllGestureRecognizers() {
-        gestureCancelTimer = 5
+        gestureCancelTimer = 3
         panRecognizer.enabled = false
         pinchRecognizer.enabled = false
         rotRecognizer.enabled = false
@@ -500,7 +500,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         if let checkImageView = imageView where cropView.frame.size.width > 16.0 && cropView.frame.size.height > 16.0 {
             let widthRatio = cropView.frame.size.width / checkImageView.bounds.size.width
             let heightRatio = cropView.frame.size.height / checkImageView.bounds.size.height
-            resetToScale(resetScale: max(widthRatio, heightRatio))
+            resetToScale(resetScale: min(widthRatio, heightRatio))
         }
     }
     
@@ -508,7 +508,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         if let checkImageView = imageView where cropView.frame.size.width > 16.0 && cropView.frame.size.height > 16.0 {
             let widthRatio = cropView.frame.size.width / checkImageView.bounds.size.width
             let heightRatio = cropView.frame.size.height / checkImageView.bounds.size.height
-            resetToScale(resetScale: min(widthRatio, heightRatio))
+            resetToScale(resetScale: max(widthRatio, heightRatio))
         }
     }
     

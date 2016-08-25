@@ -36,11 +36,15 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     var gestureStartImageTouch:CGPoint = CGPointZero
     
     var screenRect:CGRect {
-        if landscape {
-            return CGRect(x: 0.0, y: 0.0, width: gDevice.landscapeWidth, height: gDevice.landscapeHeight)
-        } else {
-            return CGRect(x: 0.0, y: 0.0, width: gDevice.portraitWidth, height: gDevice.portraitHeight)
-        }
+        
+        return CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: view.bounds.size.height)
+        
+        
+        //if landscape {
+        //    return CGRect(x: 0.0, y: 0.0, width: gDevice.landscapeWidth, height: gDevice.landscapeHeight)
+        //} else {
+        //    return CGRect(x: 0.0, y: 0.0, width: gDevice.portraitWidth, height: gDevice.portraitHeight)
+        //}
     }
     
     func setUp(image image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
@@ -55,12 +59,50 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleZoomModeChange), name: String(BounceNotification.ZoomModeChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleSceneModeChanged), name: String(BounceNotification.SceneModeChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleEditModeChanged), name: String(BounceNotification.EditModeChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleViewModeChanged), name: String(BounceNotification.ViewModeChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded), name: String(BounceNotification.BlobSelectionChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobSelectionChanged), name: String(BounceNotification.BlobAdded), object: nil)
+        
+        
+        
         //NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: String(BounceNotification.ZoomModeChanged), object: self))
         
     }
     
     func handleZoomModeChange() {
-        print("handleZoomModeChange")
+        print("handleZoomModeChange()")
+        cancelAllGesturesAndTouches()
+    }
+    
+    func handleSceneModeChanged() {
+        print("handleSceneModeChanged()")
+        cancelAllGesturesAndTouches()
+    }
+    
+    func handleEditModeChanged() {
+        print("handleEditModeChanged()")
+        cancelAllGesturesAndTouches()
+    }
+    
+    func handleViewModeChanged() {
+        print("handleViewModeChanged()")
+        cancelAllGesturesAndTouches()
+    }
+    
+    func handleBlobAdded() {
+        print("handleBlobAdded()")
+        cancelAllGesturesAndTouches()
+    }
+    
+    func handleBlobSelectionChanged() {
+        print("handleBlobSelectionChanged()")
+        cancelAllGesturesAndTouches()
+    }
+    
+    func cancelAllGesturesAndTouches() {
+        print("cancelAllGesturesAndTouches()")
         engine.cancelAllTouches()
         cancelAllGestureRecognizers()
         engine.cancelAllGestures()
@@ -119,15 +161,21 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
         
+        glViewport(GLint(0.0), GLint(0.0), GLint(screenRect.size.width * view.contentScaleFactor), GLint(screenRect.size.height * view.contentScaleFactor))
+        
+        gG.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
+        
         gG.matrixProjectionSet(screenMat)
         gG.colorSet(r: 0.25, g: 0.15, b: 0.33)
-        gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(screenRect.size.height))
+        gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
         
         
         let viewMat = screenMat.clone()
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
         viewMat.scale(Float(screenScale))
         gG.matrixProjectionSet(viewMat)
+        
+        
         
         //var m = Matrix()
         //gG.matrixModelViewSet(m)
@@ -137,6 +185,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         gG.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         gG.textureEnable()
+        
+        
         
         //background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
         engine.draw()
@@ -298,7 +348,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     func cancelAllGestureRecognizers() {
-        zoomGestureCancelTimer = 5
+        zoomGestureCancelTimer = 3
         panRecognizer.enabled = false
         pinchRecognizer.enabled = false
     }
