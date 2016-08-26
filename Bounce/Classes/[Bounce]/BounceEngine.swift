@@ -63,8 +63,8 @@ class BounceEngine {
     
     
     
-    func setUp(image image:UIImage, sceneRect:CGRect, screenRect:CGRect) {
-        backgroundTexture.load(image: image)
+    func setUp(scene scene:BounceScene, screenRect:CGRect) {
+        backgroundTexture.load(image: scene.image)
         background.load(texture: backgroundTexture)
         self.sceneRect = CGRect(x: 0.0, y: 0.0, width: screenRect.size.width, height: screenRect.size.height)
     }

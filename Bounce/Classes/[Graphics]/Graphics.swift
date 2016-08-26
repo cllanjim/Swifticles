@@ -331,8 +331,6 @@ class Graphics {
         glDrawArrays(GLenum(GL_TRIANGLE_STRIP), GLint(offset), GLint(count))
     }
     
-    
-    
     func matrixProjectionGet() -> Matrix {
         return cProjectionMatrix
     }
@@ -434,6 +432,12 @@ class Graphics {
     func textureDisable() {
         glDisable(GLenum(GL_TEXTURE_2D))
     }
+    
+    func viewport(rect:CGRect) {
+        glViewport(GLint(rect.origin.x), GLint(rect.origin.y), GLint(rect.size.width + 0.5), GLint(rect.size.height + 0.5))
+    }
+    //
+    
     
     
     

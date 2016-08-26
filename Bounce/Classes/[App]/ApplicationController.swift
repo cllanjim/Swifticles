@@ -43,13 +43,10 @@ class ApplicationController
         return nil
     }
     
-    //Would be nice if this could work..
-    func orientationLock(portrait portrait:Bool) {
-        
-    }
-    
-    func orientationUnlock() {
-        
+    var uniqueName:String {
+        var result:String = ""
+        result = "ABCDEFG"
+        return result
     }
     
     

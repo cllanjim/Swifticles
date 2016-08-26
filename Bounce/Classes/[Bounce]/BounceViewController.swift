@@ -14,8 +14,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     let engine = BounceEngine()
     
-    var landscape:Bool = false
-    
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
     
@@ -36,27 +34,55 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     var gestureStartImageTouch:CGPoint = CGPointZero
     
     var screenRect:CGRect {
-        
         return CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: view.bounds.size.height)
-        
-        
-        //if landscape {
-        //    return CGRect(x: 0.0, y: 0.0, width: gDevice.landscapeWidth, height: gDevice.landscapeHeight)
-        //} else {
-        //    return CGRect(x: 0.0, y: 0.0, width: gDevice.portraitWidth, height: gDevice.portraitHeight)
-        //}
     }
     
-    func setUp(image image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
+    
+    internal var scene = BounceScene()
+    
+    
+    
+    
+    func setUpNew(image image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
         
         print("BounceViewController.setUp(portraitOrientation:[\(portraitOrientation)])")
         
-        landscape = !portraitOrientation
         
-        engine.setUp(image: image, sceneRect:sceneRect, screenRect:screenRect)
+        var scene = BounceScene()
+        
+        //scene.imageName = gApp.uniqueName
+        //scene.imagePath = FileUtils.getDocs().stringByAppendingString(scene.imageName).stringByAppendingString(".jpg")
+        
+        scene.image = image
+        scene.size = sceneRect.size
+        scene.isLandscape = !portraitOrientation
+        
+        setUp(scene: scene, screenRect: screenRect)
+        //setUp(image: image, sceneRect: sceneRect, portraitOrientation: portraitOrientation)
         
         
         
+        
+        
+        //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        //NSString *docs = [paths objectAtIndex:0];
+        //NSString* path =  [docs stringByAppendingFormat:@"/image1.jpg"];
+        
+        //NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(imageView.image, 80)];
+        //NSError *writeError = nil;
+        //[imageData writeToFile:path options:NSDataWritingAtomic error:&writeError];
+        
+    }
+    
+    internal func setUp(scene scene:BounceScene, screenRect:CGRect) {
+        
+        
+        self.scene = scene
+        
+        //scene.imageName = gApp.uniqueName
+        //scene.imagePath = FileUtils.getDocs().stringByAppendingString(scene.imageName).stringByAppendingString(".jpg")
+        
+        engine.setUp(scene: self.scene, screenRect:screenRect)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleZoomModeChange), name: String(BounceNotification.ZoomModeChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleSceneModeChanged), name: String(BounceNotification.SceneModeChanged), object: nil)
@@ -64,8 +90,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleViewModeChanged), name: String(BounceNotification.ViewModeChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded), name: String(BounceNotification.BlobSelectionChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobSelectionChanged), name: String(BounceNotification.BlobAdded), object: nil)
-        
-        
         
         //NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: String(BounceNotification.ZoomModeChanged), object: self))
         
@@ -114,7 +138,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         
-        if landscape {
+        if scene.isLandscape {
             return [.LandscapeRight, .LandscapeLeft]
         } else {
             return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown]
@@ -122,7 +146,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        if landscape {
+        if scene.isLandscape {
             return UIInterfaceOrientation.LandscapeLeft
         } else {
             return UIInterfaceOrientation.Portrait
@@ -161,7 +185,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
         
-        glViewport(GLint(0.0), GLint(0.0), GLint(screenRect.size.width * view.contentScaleFactor), GLint(screenRect.size.height * view.contentScaleFactor))
+        
+        gG.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
         
         gG.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
         

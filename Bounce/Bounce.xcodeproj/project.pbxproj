@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D199C281D59AE7D006F857C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D199C271D59AE7D006F857C /* Assets.xcassets */; };
+		0D5219EB1D7015D40039598D /* BounceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5219EA1D7015D40039598D /* BounceScene.swift */; };
 		0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */; };
 		0D665E721D58239800558EA0 /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E701D58239800558EA0 /* FragmentShader.glsl */; };
 		0D665E731D58239800558EA0 /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E711D58239800558EA0 /* VertexShader.glsl */; };
@@ -99,6 +100,7 @@
 
 /* Begin PBXFileReference section */
 		0D199C271D59AE7D006F857C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D5219EA1D7015D40039598D /* BounceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceScene.swift; sourceTree = "<group>"; };
 		0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewControllerTests.swift; sourceTree = "<group>"; };
 		0D665E701D58239800558EA0 /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
 		0D665E711D58239800558EA0 /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				C214D23E1D6E9745004069A3 /* Blob.swift */,
 				C214D23F1D6E9745004069A3 /* BounceEngine.swift */,
 				C214D2401D6E9745004069A3 /* BounceViewController.swift */,
+				0D5219EA1D7015D40039598D /* BounceScene.swift */,
 			);
 			path = "[Bounce]";
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D5219EB1D7015D40039598D /* BounceScene.swift in Sources */,
 				C214D2701D6E9745004069A3 /* ToolBarTop.swift in Sources */,
 				C214D2791D6E9745004069A3 /* ToolActions.swift in Sources */,
 				C214D2611D6E9745004069A3 /* BounceViewController.swift in Sources */,
