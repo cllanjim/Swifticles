@@ -18,6 +18,8 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var cloudTest: RRButton!
     @IBOutlet weak var glTest: RRButton!
     
+    var loadPath:String? = "test_ipad_info.plist"
+    
     var importImage: UIImage?
     
     override func viewDidLoad() {
@@ -58,7 +60,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         }
         
         importImage = image
- 
+        
         self.dismissViewControllerAnimated(true) { [weak weakSelf = self] in
             weakSelf?.performSegueWithIdentifier("import_image", sender: nil)
         }
@@ -92,6 +94,19 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
                 }
             }
         }
+        if segue.identifier == "test_bounce" {
+            
+            if let bounce = segue.destinationViewController as? BounceViewController {
+                
+                //loadPath = "test_ipad_info.plist"
+                //loadPath = "test_ipad_landscape_info.plist"
+                
+                bounce.loadScene(filePath: loadPath)
+            }
+        }
+        
+        
+        
     }
     
     @IBAction func clickCreate(sender: UIButton) {
@@ -99,18 +114,15 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         showImagePicker(sender)
         
         //self.performSegueWithIdentifier("test_bounce", sender: nil)
-        
-        
     }
     
     @IBAction func clickLoad(sender: AnyObject) {
-        
+        loadPath = "test_ipad_info.plist"
         performSegueWithIdentifier("test_bounce", sender: nil)
-        
     }
     
     @IBAction func clickUpgrade(sender: AnyObject) {
-        
+        loadPath = "test_ipad_landscape_info.plist"
         performSegueWithIdentifier("test_bounce", sender: nil)
     }
     
@@ -120,27 +132,27 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         //var imageImportVC = ImageImportViewController(nibName: nil, bundle: nil)
         
         /*
-        let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        if let navigationController = storyboard.instantiateViewControllerWithIdentifier("main_navigation") as? UINavigationController {
-            //navigationController.popViewControllerAnimated(true)
-            
-            
-            navigationController.performSegueWithIdentifier("import_image", sender: nil)
-            
-            
-            
-            //if let imageImportVC = storyboard.instantiateViewControllerWithIdentifier("image_import") as? ImageImportViewController {
-            
-            //  navigationController.pushViewController(imageImportVC, animated: true)
-                
-            //}
-            
-            //navigationController.
-            
-            print(navigationController.viewControllers)
-            
-        }
-        */
+         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+         if let navigationController = storyboard.instantiateViewControllerWithIdentifier("main_navigation") as? UINavigationController {
+         //navigationController.popViewControllerAnimated(true)
+         
+         
+         navigationController.performSegueWithIdentifier("import_image", sender: nil)
+         
+         
+         
+         //if let imageImportVC = storyboard.instantiateViewControllerWithIdentifier("image_import") as? ImageImportViewController {
+         
+         //  navigationController.pushViewController(imageImportVC, animated: true)
+         
+         //}
+         
+         //navigationController.
+         
+         print(navigationController.viewControllers)
+         
+         }
+         */
         
         self.performSegueWithIdentifier("import_image", sender: nil)
     }

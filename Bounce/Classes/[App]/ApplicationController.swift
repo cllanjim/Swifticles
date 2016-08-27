@@ -43,13 +43,6 @@ class ApplicationController
         return nil
     }
     
-    var uniqueName:String {
-        var result:String = ""
-        result = "ABCDEFG"
-        return result
-    }
-    
-    
 }
 
 let gApp = ApplicationController()

@@ -29,8 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // Override point for customization after application launch.
         
         
-        
-        
+        //for i in 0..<100000 {
+        //    print("\(gConfig.uniqueString)")
+        //}
+        //print("___")
         
         /*
         //let oq = NSOperationQueue.mainQueue()

@@ -3,14 +3,13 @@
 //  SwiftFunhouse
 //
 //  Created by Raptis, Nicholas on 7/22/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
 import UIKit
 
 class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    //@IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var toolBarBottom: UIToolbar!
     
     deinit {
@@ -52,10 +51,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     var translation:CGPoint = CGPointZero
     var rotation:CGFloat = 0.0
     var scale:CGFloat = 1.0
-    
-    override func viewDidLoad() {
-        //self.clickNext(UIBarButtonItem())
-    }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         
@@ -104,7 +99,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         imageView.layer.transform = t
         
         //Re-center the image at the center of our touch
-        //within the object, based on initial touch within object.
+        //within the object, based on initial touch center.
         let newImageTouchCenter = imageView.convertPoint(touchCenter, fromView: view)
         translation.x = newImageTouchCenter.x - startImageTouchCenter.x
         translation.y = newImageTouchCenter.y - startImageTouchCenter.y
@@ -298,14 +293,17 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
                 panRecognizer.delegate = self
                 panRecognizer.maximumNumberOfTouches = 2
+                panRecognizer.cancelsTouchesInView = false
                 view.addGestureRecognizer(panRecognizer)
                 
                 pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:)))
                 pinchRecognizer.delegate = self
+                pinchRecognizer.cancelsTouchesInView = false
                 view.addGestureRecognizer(pinchRecognizer)
                 
                 rotRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(ImageImportViewController.didRotate(_:)))
                 rotRecognizer.delegate = self
+                rotRecognizer.cancelsTouchesInView = false
                 view.addGestureRecognizer(rotRecognizer)
                 
                 
@@ -332,7 +330,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 placeCropOutside()
                 
                 self.view.bringSubviewToFront(toolBarBottom)
-                self.view.bringSubviewToFront(navigationBar)
+                //self.view.bringSubviewToFront(navigationBar)
+                
                 
                 
                 resetFill()
@@ -344,15 +343,13 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 imageView.layer.transform = CATransform3DScale(imageView.layer.transform, 0.925, 0.925, 0.925)
                 allowGestures = false
-                UIView.animateWithDuration(0.33, delay: 0.20, options: [], animations:
+                UIView.animateWithDuration(0.48, delay: 0.36, options: [], animations:
                     {[weak weakSelf = self] in
                         weakSelf?.imageView.alpha = 1.0
                         weakSelf?.imageView.layer.transform = t
-                }){[weak weakSelf = self] (b) in
+                }) { [weak weakSelf = self] (complete) in
                     weakSelf?.allowGestures = true
                 }
-                
-                
             }
         }
     }
@@ -361,20 +358,35 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         var activeBorder = 10.0
         if gDevice.tablet { activeBorder = 30.0 }
         
-        let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
-        let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
-        let activeWidth = size.width - (CGFloat(activeBorder * 2))
-        let activeHeight = (activeBottom - activeTop)
-        let activeCenter = CGPoint(x: size.width / 2.0, y: activeTop + activeHeight / 2.0)
+        if let navigationBar = self.navigationController?.navigationBar {
         
-        let widthRatio = activeWidth / size.width
-        let heightRatio = activeHeight / size.height
-        let ratio = min(widthRatio, heightRatio)
         
-        let cropWidth = CGFloat(Int(size.width * ratio + 0.5))
-        let cropHeight = CGFloat(Int(size.height * ratio + 0.5))
         
-        return CGRect(x: activeCenter.x - cropWidth / 2.0, y: activeCenter.y - cropHeight / 2.0, width: cropWidth, height: cropHeight)
+            let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
+            let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
+            let activeWidth = size.width - (CGFloat(activeBorder * 2))
+            let activeHeight = (activeBottom - activeTop)
+            let activeCenter = CGPoint(x: size.width / 2.0, y: activeTop + activeHeight / 2.0)
+            let widthRatio = activeWidth / size.width
+            let heightRatio = activeHeight / size.height
+            let ratio = min(widthRatio, heightRatio)
+            let cropWidth = CGFloat(Int(size.width * ratio + 0.5))
+            let cropHeight = CGFloat(Int(size.height * ratio + 0.5))
+            return CGRect(x: activeCenter.x - cropWidth / 2.0, y: activeCenter.y - cropHeight / 2.0, width: cropWidth, height: cropHeight)
+        } else {
+            let activeTop = CGFloat(activeBorder)
+            let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
+            let activeWidth = size.width - (CGFloat(activeBorder * 2))
+            let activeHeight = (activeBottom - activeTop)
+            let activeCenter = CGPoint(x: size.width / 2.0, y: activeTop + activeHeight / 2.0)
+            let widthRatio = activeWidth / size.width
+            let heightRatio = activeHeight / size.height
+            let ratio = min(widthRatio, heightRatio)
+            let cropWidth = CGFloat(Int(size.width * ratio + 0.5))
+            let cropHeight = CGFloat(Int(size.height * ratio + 0.5))
+            return CGRect(x: activeCenter.x - cropWidth / 2.0, y: activeCenter.y - cropHeight / 2.0, width: cropWidth, height: cropHeight)
+        }
+        
     }
     
     func placeCropOutside() {
@@ -400,24 +412,18 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         if let checkImageView = imageView where cropView.bounds.size.width > 32 && cropView.bounds.size.height > 32 {
             if let checkImage = checkImageView.image where checkImage.size.width > 32 && checkImage.size.height > 32 {
                 
-                let image = checkImage//fixImageOrientation(image: checkImage)
-                
+                let image = checkImage
                 let imageCenter = imageView.convertPoint(CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY), toView: view)
                 let imageShift = CGPoint(x: imageCenter.x - cropView.frame.midX, y: imageCenter.y - cropView.frame.midY)
                 
                 let cropScale = gDevice.scale
-                
                 let s1 = ((view.bounds.size.width) / cropView.bounds.size.width) * cropScale
                 let s2 = ((view.bounds.size.height) / cropView.bounds.size.height) * cropScale
                 let adjustScale = max(s1, s2)
                 
-                
-                
-                
                 let resultWidth = view.bounds.size.width * cropScale
                 let resultHeight = view.bounds.size.height * cropScale
                 
-                //UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 1.0)
                 //UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 0.0)
                 UIGraphicsBeginImageContext(CGSize(width: resultWidth, height: resultHeight))
                 
@@ -425,25 +431,12 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 let context = UIGraphicsGetCurrentContext();
                 
-                //var alpha = CGFloat(1.0)
-                //UIColor(red: 1.0, green: 0.1, blue: 0.1, alpha: alpha).set()
-                //CGContextFillRect(context, CGRect(x: 0.0, y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                //UIColor(red: 0.2, green: 1.0, blue: 0.2, alpha: alpha).set()
-                //CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: 0.0, width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                //UIColor(red: 0.2, green: 0.4, blue: 0.7, alpha: alpha).set()
-                //CGContextFillRect(context, CGRect(x: 0.0, y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                //UIColor(red: 0.85, green: 0.90, blue: 0.125, alpha: alpha).set()
-                //CGContextFillRect(context, CGRect(x: (resultWidth / 2.0), y: (resultHeight / 2.0), width: (resultWidth / 2.0), height: (resultHeight / 2.0)))
-                
-                
-                
                 CGContextTranslateCTM(context, (resultWidth / 2.0), (resultHeight / 2.0))
                 CGContextScaleCTM(context, adjustScale, adjustScale)
                 CGContextTranslateCTM(context, imageShift.x, imageShift.y)
                 CGContextScaleCTM(context, scale, scale)
                 CGContextRotateCTM(context, rotation)
                 CGContextTranslateCTM(context, -(image.size.width / 2.0), -(image.size.height / 2.0))
-                
                 
                 //And then for some reason, flip the whole thing horizontally.
                 CGContextTranslateCTM(context, 0.0, image.size.height)

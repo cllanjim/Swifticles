@@ -14,6 +14,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     let engine = BounceEngine()
     
+    //internal var scene = BounceScene()
+    
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
     
@@ -37,52 +39,25 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         return CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: view.bounds.size.height)
     }
     
-    
-    internal var scene = BounceScene()
-    
-    
-    
-    
     func setUpNew(image image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
-        
         print("BounceViewController.setUp(portraitOrientation:[\(portraitOrientation)])")
         
+        let scene = BounceScene()
         
-        var scene = BounceScene()
-        
-        //scene.imageName = gApp.uniqueName
-        //scene.imagePath = FileUtils.getDocs().stringByAppendingString(scene.imageName).stringByAppendingString(".jpg")
+        scene.imageName = gConfig.uniqueString
+        scene.imagePath = String(scene.imageName).stringByAppendingString(".jpg")
+        FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
         
         scene.image = image
         scene.size = sceneRect.size
         scene.isLandscape = !portraitOrientation
         
         setUp(scene: scene, screenRect: screenRect)
-        //setUp(image: image, sceneRect: sceneRect, portraitOrientation: portraitOrientation)
-        
-        
-        
-        
-        
-        //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-        //NSString *docs = [paths objectAtIndex:0];
-        //NSString* path =  [docs stringByAppendingFormat:@"/image1.jpg"];
-        
-        //NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(imageView.image, 80)];
-        //NSError *writeError = nil;
-        //[imageData writeToFile:path options:NSDataWritingAtomic error:&writeError];
-        
     }
     
     internal func setUp(scene scene:BounceScene, screenRect:CGRect) {
         
-        
-        self.scene = scene
-        
-        //scene.imageName = gApp.uniqueName
-        //scene.imagePath = FileUtils.getDocs().stringByAppendingString(scene.imageName).stringByAppendingString(".jpg")
-        
-        engine.setUp(scene: self.scene, screenRect:screenRect)
+        engine.setUp(scene: scene, screenRect:screenRect)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleZoomModeChange), name: String(BounceNotification.ZoomModeChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleSceneModeChanged), name: String(BounceNotification.SceneModeChanged), object: nil)
@@ -90,9 +65,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleViewModeChanged), name: String(BounceNotification.ViewModeChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded), name: String(BounceNotification.BlobSelectionChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobSelectionChanged), name: String(BounceNotification.BlobAdded), object: nil)
-        
-        //NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: String(BounceNotification.ZoomModeChanged), object: self))
-        
     }
     
     func handleZoomModeChange() {
@@ -138,7 +110,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         
-        if scene.isLandscape {
+        if engine.scene.isLandscape {
             return [.LandscapeRight, .LandscapeLeft]
         } else {
             return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown]
@@ -146,11 +118,22 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        if scene.isLandscape {
+        if engine.scene.isLandscape {
             return UIInterfaceOrientation.LandscapeLeft
         } else {
             return UIInterfaceOrientation.Portrait
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        saveScene()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     override func load() {
@@ -185,7 +168,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
         
-        
         gG.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
         
         gG.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
@@ -218,7 +200,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         
         gG.matrixProjectionSet(screenMat)
-        
     }
     
     func transformPointToImage(point:CGPoint) -> CGPoint {
@@ -433,6 +414,92 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             engine.cancelAllTouches()
         }
     }
+    
+    
+    
+    func saveScene() {
+        print("************\nBounceEngine.save()")
+        
+        if engine.scene.scenePath == nil {
+            engine.scene.scenePath = engine.scene.imageName.stringByAppendingString("_info.plist")
+        }
+        
+        saveScene(filePath: engine.scene.scenePath)
+        
+        
+        
+        
+    }
+    
+    func loadScene() {
+        print("************\nBounceEngine.load()")
+        
+        
+    }
+    
+    
+    func saveScene(filePath filePath:String?) {
+        print("************\nBounceEngine.save(\(filePath))")
+        
+        if let path = filePath where path.characters.count > 0 {
+            
+            var info = [String:AnyObject]()
+            
+            info["scene"] = engine.scene.save()
+            info["engine"] = engine.save()
+            
+            info["test_1"] = "t-1"
+            info["test_2"] = "t-2"
+            
+            print("Save\(info)")
+            
+            var fileData:NSData? = NSKeyedArchiver.archivedDataWithRootObject(info)
+            FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
+        }
+        
+        
+        
+        
+    }
+    
+    func loadScene(filePath filePath:String?) {
+        print("************\nBounceEngine.load()")
+        
+        if let fileData = FileUtils.loadData(filePath) {
+            //FileUtils.findAbsolutePath(filePath: filePath) {
+            
+            if let info = NSKeyedUnarchiver.unarchiveObjectWithData(fileData) as? [String:AnyObject] {
+                print("Loaded [\(info)]")
+                
+                var scene = BounceScene()
+                
+                if let sceneInfo = info["scene"] as? [String:AnyObject] {
+                    scene.load(info: sceneInfo)
+                }
+                
+                setUp(scene: scene, screenRect: screenRect)
+                
+                if let engineInfo = info["engine"] as? [String:AnyObject] {
+                    
+                    engine.load(info: engineInfo)
+                    
+                }
+                
+                
+                
+            }
+            
+            //var info = [String:AnyObject]()
+            
+            //NSKeyedUnarchiver.unarchiveObjectWithData(data) as [Int : [Int : MyOwnType]]
+            
+        }
+        
+        
+        
+    }
+    
+    
     
     deinit {
         print("Deinit \(self)")

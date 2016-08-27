@@ -366,26 +366,16 @@
                                     <barButtonItem title="Item" id="z0J-0G-cMm"/>
                                 </items>
                             </toolbar>
-                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9zh-LN-5HN">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="7HL-dZ-23I"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9zh-LN-5HN" firstAttribute="leading" secondItem="YSm-45-Njh" secondAttribute="leading" id="8IL-ec-DSz"/>
-                            <constraint firstItem="9zh-LN-5HN" firstAttribute="bottom" secondItem="hh8-J6-P7X" secondAttribute="bottom" id="FDr-M1-dWJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YSm-45-Njh" secondAttribute="trailing" constant="-20" id="Zes-rX-Poh"/>
-                            <constraint firstItem="9zh-LN-5HN" firstAttribute="trailing" secondItem="YSm-45-Njh" secondAttribute="trailing" id="b47-d8-uzc"/>
                             <constraint firstItem="YSm-45-Njh" firstAttribute="bottom" secondItem="db2-5h-Unk" secondAttribute="top" id="dsb-9t-Zjd"/>
                             <constraint firstItem="YSm-45-Njh" firstAttribute="leading" secondItem="wQN-W4-IBZ" secondAttribute="leadingMargin" constant="-20" id="oCh-M8-cHp"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="navigationBar" destination="9zh-LN-5HN" id="1VG-83-0N2"/>
                         <outlet property="toolBarBottom" destination="YSm-45-Njh" id="JBe-uT-CSj"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="new_bounce" id="16d-sr-aXn"/>
                     </connections>

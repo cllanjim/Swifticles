@@ -43,6 +43,8 @@ class BounceEngine {
         }
     }
     
+    var scene = BounceScene()
+    
     let background = Sprite()
     let backgroundTexture = Texture()
     
@@ -60,10 +62,16 @@ class BounceEngine {
     var sceneMode:SceneMode = .Edit { didSet { postNotification(BounceNotification.SceneModeChanged) } }
     var editMode:EditMode = .Affine { didSet { postNotification(BounceNotification.EditModeChanged) } }
     
-    
-    
-    
     func setUp(scene scene:BounceScene, screenRect:CGRect) {
+        
+        self.scene = scene
+            
+            /*.isLandscape = scene.isLandscape
+        self.scene.imageName = scene.imageName
+        
+        self.scene.imagePath = scene.imagePath
+        */
+        
         backgroundTexture.load(image: scene.image)
         background.load(texture: backgroundTexture)
         self.sceneRect = CGRect(x: 0.0, y: 0.0, width: screenRect.size.width, height: screenRect.size.height)
@@ -127,6 +135,28 @@ class BounceEngine {
         blob.center.y = sceneRect.origin.y + sceneRect.size.height / 2.0
         return blob
     }
+    
+    func save() -> [String:AnyObject] {
+        var info = [String:AnyObject]()
+        
+        /*
+        info["image_name"] = imageName
+        info["image_path"] = imagePath
+        
+        info["landscape"] = isLandscape
+        
+        info["size_width"] = Float(size.width)
+        info["size_height"] = Float(size.height)
+        */
+ 
+        return info
+    }
+    
+    func load(info info:[String:AnyObject]) {
+        print("************\nBounceEngine.load()")
+        
+    }
+    
     
     
 }
