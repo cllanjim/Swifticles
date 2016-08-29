@@ -54,27 +54,49 @@ class BounceEngine {
         didSet {
             background.startX = sceneRect.origin.x
             background.startY = sceneRect.origin.y
-            background.endX = sceneRect.size.width
-            background.endY = sceneRect.size.height
+            background.endX = (sceneRect.origin.x + sceneRect.size.width)
+            background.endY = (sceneRect.origin.y + sceneRect.size.height)
         }
     }
     
     var sceneMode:SceneMode = .Edit { didSet { postNotification(BounceNotification.SceneModeChanged) } }
     var editMode:EditMode = .Affine { didSet { postNotification(BounceNotification.EditModeChanged) } }
     
-    func setUp(scene scene:BounceScene, screenRect:CGRect) {
-        
+    func setUp(scene scene:BounceScene) {//, screenRect:CGRect) {
         self.scene = scene
+        let screenSize = scene.isLandscape ? CGSize(width: gDevice.landscapeWidth, height: gDevice.landscapeHeight) : CGSize(width: gDevice.portraitWidth, height: gDevice.portraitHeight)
+        
+        if let image = scene.image where image.size.width > 32 && image.size.height > 32 {
             
-            /*.isLandscape = scene.isLandscape
-        self.scene.imageName = scene.imageName
-        
-        self.scene.imagePath = scene.imagePath
-        */
-        
-        backgroundTexture.load(image: scene.image)
-        background.load(texture: backgroundTexture)
-        self.sceneRect = CGRect(x: 0.0, y: 0.0, width: screenRect.size.width, height: screenRect.size.height)
+            
+            //If the image is too large for the device, shrink it down.
+            let widthRatio = (Double(screenSize.width) * Double(gDevice.scale)) / Double(image.size.width)
+            let heightRatio = (Double(screenSize.height) * Double(gDevice.scale)) / Double(image.size.height)
+            let ratio = min(widthRatio, heightRatio)
+            if ratio < 0.999 {
+                let importWidth = CGFloat(Int(Double(image.size.width) * ratio + 0.5))
+                let importHeight = CGFloat(Int(Double(image.size.height) * ratio + 0.5))
+                print("Import Resized [\(image.size.width) x \(image.size.height)] ->\n[\(importWidth) x \(importHeight)]")
+                scene.image = image.resize(CGSize(width: importWidth, height: importHeight))
+                
+                //TODO: Re-save the image here.
+            }
+            
+            backgroundTexture.load(image: scene.image)
+            background.load(texture: backgroundTexture)
+            
+            //Center the image on the screen,
+            if screenSize.width > 64 && screenSize.height > 64 && image.size.width > 64 && image.size.height > 64 {
+                let widthRatio = Double(screenSize.width) / Double(image.size.width)
+                let heightRatio = Double(screenSize.height) / Double(image.size.height)
+                let ratio = min(widthRatio, heightRatio)
+                let sceneWidth = CGFloat(Int(Double(image.size.width) * ratio + 0.5))
+                let sceneHeight = CGFloat(Int(Double(image.size.height) * ratio + 0.5))
+                let sceneX = CGFloat(Int(screenSize.width / 2.0 - sceneWidth / 2.0 + 0.25))
+                let sceneY = CGFloat(Int(screenSize.height / 2.0 - sceneHeight / 2.0 + 0.25))
+                self.sceneRect = CGRect(x: sceneX, y: sceneY, width: sceneWidth, height: sceneHeight)
+            }
+        }
     }
     
     
@@ -87,7 +109,29 @@ class BounceEngine {
     
     func draw() {
         
+        let screenSize = scene.isLandscape ? CGSize(width: gDevice.landscapeWidth, height: gDevice.landscapeHeight) : CGSize(width: gDevice.portraitWidth, height: gDevice.portraitHeight)
+        
+        gG.colorSet(r: 0.2, g: 0.6, b: 0.6)
+        
+        gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
+        
+        gG.colorSet()
         background.draw()
+        
+        gG.colorSet(r: 1.0, g: 0.2, b: 0.2)
+        gG.pointDraw(point: CGPoint(x: background.startX, y: background.startY))
+        gG.pointDraw(point: CGPoint(x: background.startX, y: background.endY))
+        gG.pointDraw(point: CGPoint(x: background.endX, y: background.startY))
+        gG.pointDraw(point: CGPoint(x: background.endX, y: background.endY))
+        
+        
+        gG.pointDraw(point: CGPoint(x: 95, y: 120.0))
+        gG.pointDraw(point: CGPoint(x: 95 + 577.0, y: 120.0))
+        
+        
+        
+        gG.colorSet()
+        
         for blob:Blob in blobs {
             if blob.enabled { blob.draw() }
         }

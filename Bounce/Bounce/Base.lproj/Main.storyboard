@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="brJ-ai-UTe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -80,6 +80,9 @@
                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="8" y="8" width="584" height="30"/>
                                         </variation>
+                                        <connections>
+                                            <action selector="clickUpgrade:" destination="7WL-lm-GZy" eventType="touchUpInside" id="b6v-Fv-Mv5"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.11225754310344828" colorSpace="calibratedRGB"/>
@@ -129,6 +132,58 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avy-g3-bzv" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="52" width="49" height="27"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="WW0-AK-E5S"/>
+                                    <constraint firstAttribute="height" constant="27" id="rjB-42-eVZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="clickTest1:" destination="7WL-lm-GZy" eventType="touchUpInside" id="Lfd-1i-fk0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taE-g4-sOD" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="87" width="49" height="27"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="131-5Z-vea"/>
+                                    <constraint firstAttribute="height" constant="27" id="wfs-kb-Rwb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="clickTest2:" destination="7WL-lm-GZy" eventType="touchUpInside" id="xXy-vT-0tP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2c-mG-end" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="122" width="49" height="27"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="69A-yc-eA7"/>
+                                    <constraint firstAttribute="height" constant="27" id="J7i-6c-oxN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="clickTest3:" destination="7WL-lm-GZy" eventType="touchUpInside" id="b8I-qi-6Nr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRJ-Tc-W5X" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="157" width="49" height="27"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="CGd-Da-BhC"/>
+                                    <constraint firstAttribute="height" constant="27" id="tKc-RR-g6a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="clickTest4:" destination="7WL-lm-GZy" eventType="touchUpInside" id="hQa-UQ-xvi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -138,11 +193,19 @@
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="height" secondItem="5SI-QI-Vw9" secondAttribute="height" id="4Ip-ko-zco"/>
                             <constraint firstItem="5SI-QI-Vw9" firstAttribute="centerY" secondItem="QJR-Vx-Ban" secondAttribute="centerY" id="8aM-Sy-ocm"/>
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="width" secondItem="5SI-QI-Vw9" secondAttribute="width" id="ACS-hf-5cX"/>
+                            <constraint firstItem="nRJ-Tc-W5X" firstAttribute="leading" secondItem="QJR-Vx-Ban" secondAttribute="leadingMargin" constant="-20" id="CHK-eW-KZV"/>
                             <constraint firstItem="5SI-QI-Vw9" firstAttribute="width" secondItem="QJR-Vx-Ban" secondAttribute="width" multiplier="0.75" id="CHz-qI-dpn"/>
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerX" secondItem="5SI-QI-Vw9" secondAttribute="centerX" id="Hck-ZP-9S9"/>
+                            <constraint firstItem="taE-g4-sOD" firstAttribute="leading" secondItem="QJR-Vx-Ban" secondAttribute="leadingMargin" constant="-20" id="KME-jF-zXH"/>
+                            <constraint firstItem="taE-g4-sOD" firstAttribute="top" secondItem="avy-g3-bzv" secondAttribute="bottom" constant="8" id="LVA-RG-ZCL"/>
+                            <constraint firstItem="avy-g3-bzv" firstAttribute="leading" secondItem="QJR-Vx-Ban" secondAttribute="leadingMargin" constant="-20" id="M7I-R0-Unc"/>
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerX" secondItem="QJR-Vx-Ban" secondAttribute="centerX" id="So4-sP-o5G"/>
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="height" secondItem="QJR-Vx-Ban" secondAttribute="height" id="WFb-tc-sA7"/>
+                            <constraint firstItem="avy-g3-bzv" firstAttribute="top" secondItem="dEv-MO-A9a" secondAttribute="bottom" constant="8" id="ew0-Rd-SGs"/>
+                            <constraint firstItem="nRJ-Tc-W5X" firstAttribute="top" secondItem="S2c-mG-end" secondAttribute="bottom" constant="8" id="geE-hc-PqY"/>
                             <constraint firstItem="5SI-QI-Vw9" firstAttribute="centerX" secondItem="QJR-Vx-Ban" secondAttribute="centerX" id="ufI-6x-aN1"/>
+                            <constraint firstItem="S2c-mG-end" firstAttribute="leading" secondItem="QJR-Vx-Ban" secondAttribute="leadingMargin" constant="-20" id="vF3-vf-D86"/>
+                            <constraint firstItem="S2c-mG-end" firstAttribute="top" secondItem="taE-g4-sOD" secondAttribute="bottom" constant="8" id="x6x-Kr-BEH"/>
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerY" secondItem="QJR-Vx-Ban" secondAttribute="centerY" id="xl5-RG-QdC"/>
                         </constraints>
                         <variation key="default">
@@ -259,7 +322,7 @@
                                         </variation>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.90115840517241375" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.23563257312907004" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="1Vp-Rx-vsc" firstAttribute="centerY" secondItem="cZG-oi-s0r" secondAttribute="centerY" id="2Rb-cY-Nzx"/>
                                     <constraint firstItem="vLb-r9-sfa" firstAttribute="leading" secondItem="1Vp-Rx-vsc" secondAttribute="trailing" constant="26" id="3yg-Rq-YBP"/>
@@ -409,7 +472,7 @@
         <image name="background_modal_ipad.png" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="16d-sr-aXn"/>
+        <segue reference="8KK-ae-JtT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.20839306190000001" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -79,6 +79,20 @@ class Device
         return UIApplication.sharedApplication().statusBarFrame.size.height
     }
     
+    var isPortrait: Bool {
+        let device = UIDevice.currentDevice()
+        return device.orientation == .Portrait || device.orientation == .PortraitUpsideDown
+    }
+    
+    var isLandscape: Bool {
+        let device = UIDevice.currentDevice()
+        return device.orientation == .LandscapeLeft || device.orientation == .LandscapeRight
+    }
+    
+    func setOrientation(orientation orientation: UIInterfaceOrientation) {
+        UIDevice.currentDevice().setValue(orientation.rawValue, forKey: "orientation")
+    }
+    
 }
 
 let gDevice = Device()

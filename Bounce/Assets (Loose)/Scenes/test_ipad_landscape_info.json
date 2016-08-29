@@ -1,0 +1,14 @@
+{
+  "test_2" : "t-2",
+  "engine" : {
+
+  },
+  "scene" : {
+    "size_height" : 768,
+    "landscape" : true,
+    "image_name" : "00004080_00002048",
+    "size_width" : 1024,
+    "image_path" : "test_ipad_landscape.jpg"
+  },
+  "test_1" : "t-1"
+}

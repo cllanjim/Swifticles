@@ -40,8 +40,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     func setUpNew(image image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
-        print("BounceViewController.setUp(portraitOrientation:[\(portraitOrientation)])")
-        
         let scene = BounceScene()
         
         scene.imageName = gConfig.uniqueString
@@ -57,14 +55,31 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     internal func setUp(scene scene:BounceScene, screenRect:CGRect) {
         
-        engine.setUp(scene: scene, screenRect:screenRect)
+        let orientation = UIApplication.sharedApplication().statusBarOrientation
+        if orientation == .LandscapeLeft || orientation == .LandscapeRight {
+            if scene.isLandscape == false {
+                gDevice.setOrientation(orientation: .Portrait)
+            }
+        } else {
+            if scene.isLandscape {
+                gDevice.setOrientation(orientation: .LandscapeLeft)
+            }
+            
+        }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleZoomModeChange), name: String(BounceNotification.ZoomModeChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleSceneModeChanged), name: String(BounceNotification.SceneModeChanged), object: nil)
+        engine.setUp(scene: scene)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleZoomModeChange),
+                                                         name: String(BounceNotification.ZoomModeChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleSceneModeChanged),
+                                                         name: String(BounceNotification.SceneModeChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleEditModeChanged), name: String(BounceNotification.EditModeChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleViewModeChanged), name: String(BounceNotification.ViewModeChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded), name: String(BounceNotification.BlobSelectionChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobSelectionChanged), name: String(BounceNotification.BlobAdded), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleViewModeChanged),
+                                                         name: String(BounceNotification.ViewModeChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded),
+                                                         name: String(BounceNotification.BlobSelectionChanged), object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobSelectionChanged),
+                                                         name: String(BounceNotification.BlobAdded), object: nil)
     }
     
     func handleZoomModeChange() {
@@ -111,16 +126,20 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         
         if engine.scene.isLandscape {
+            print("[.LandscapeRight, .LandscapeLeft]")
             return [.LandscapeRight, .LandscapeLeft]
         } else {
-            return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown]
+            print("[.Portrait, .PortraitUpsideDown]")
+            return [.Portrait, .PortraitUpsideDown]
         }
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         if engine.scene.isLandscape {
+            print("UIInterfaceOrientation.LandscapeLeft")
             return UIInterfaceOrientation.LandscapeLeft
         } else {
+            print("UIInterfaceOrientation.Portrait")
             return UIInterfaceOrientation.Portrait
         }
     }
@@ -421,7 +440,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         print("************\nBounceEngine.save()")
         
         if engine.scene.scenePath == nil {
-            engine.scene.scenePath = engine.scene.imageName.stringByAppendingString("_info.plist")
+            engine.scene.scenePath = engine.scene.imageName.stringByAppendingString("_info.json")
         }
         
         saveScene(filePath: engine.scene.scenePath)
@@ -453,8 +472,15 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             
             print("Save\(info)")
             
-            var fileData:NSData? = NSKeyedArchiver.archivedDataWithRootObject(info)
-            FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
+            do {
+                var fileData:NSData?
+                try fileData = NSJSONSerialization.dataWithJSONObject(info, options: .PrettyPrinted)
+                if fileData != nil {
+                    FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
+                }
+            } catch {
+                print("Unable to save Data [\(filePath)]")
+            }
         }
         
         
@@ -466,15 +492,32 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         print("************\nBounceEngine.load()")
         
         if let fileData = FileUtils.loadData(filePath) {
-            //FileUtils.findAbsolutePath(filePath: filePath) {
             
-            if let info = NSKeyedUnarchiver.unarchiveObjectWithData(fileData) as? [String:AnyObject] {
+            var parsedInfo:[String:AnyObject]?
+            do {
+                var jsonData:AnyObject?
+                jsonData = try NSJSONSerialization.JSONObjectWithData(fileData, options:.MutableLeaves)
+                parsedInfo = jsonData as? [String:AnyObject]
+            }
+            catch {
+                print("Unable to parse data [\(filePath)]")
+            }
+            
+            if let info = parsedInfo {
+                
+                
+                //if let info = NSKeyedUnarchiver.unarchiveObjectWithData(fileData) as? [String:AnyObject] {
+                
                 print("Loaded [\(info)]")
                 
                 var scene = BounceScene()
                 
                 if let sceneInfo = info["scene"] as? [String:AnyObject] {
                     scene.load(info: sceneInfo)
+                    
+                    if let imagePath = FileUtils.findAbsolutePath(filePath: scene.imagePath) {
+                        scene.image = UIImage(contentsOfFile: imagePath)
+                    }
                 }
                 
                 setUp(scene: scene, screenRect: screenRect)
@@ -484,19 +527,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                     engine.load(info: engineInfo)
                     
                 }
-                
-                
-                
             }
-            
-            //var info = [String:AnyObject]()
-            
-            //NSKeyedUnarchiver.unarchiveObjectWithData(data) as [Int : [Int : MyOwnType]]
-            
         }
-        
-        
-        
     }
     
     
@@ -504,14 +536,5 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     deinit {
         print("Deinit \(self)")
     }
+
 }
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,14 @@
+{
+  "engine" : {
+
+  },
+  "scene" : {
+    "size_width" : 568,
+    "landscape" : true,
+    "size_height" : 320,
+    "image_name" : "00004080_00002048",
+    "image_path" : "test_iphone5_landscape.png"
+  },
+  "test_1" : "t-1",
+  "test_2" : "t-2"
+}

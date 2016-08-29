@@ -285,6 +285,10 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         if let image = importImage where screenSize.width > 64 && screenSize.height > 64 {
             if let image = self.constrainImageToImportSize(importImage: image, screenSize: screenSize) {
                 
+                
+                gApp.navigationController.setNavigationBarHidden(false, animated: true)
+                
+                
                 imageView = UIImageView(frame: CGRect(x: (-image.size.width / 2.0), y: (-image.size.height / 2.0), width: image.size.width, height: image.size.height))
                 imageView.image = image
                 //imageView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -355,38 +359,19 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func getCropRect(size: CGSize) -> CGRect {
-        var activeBorder = 10.0
-        if gDevice.tablet { activeBorder = 30.0 }
-        
-        if let navigationBar = self.navigationController?.navigationBar {
-        
-        
-        
-            let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
-            let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
-            let activeWidth = size.width - (CGFloat(activeBorder * 2))
-            let activeHeight = (activeBottom - activeTop)
-            let activeCenter = CGPoint(x: size.width / 2.0, y: activeTop + activeHeight / 2.0)
-            let widthRatio = activeWidth / size.width
-            let heightRatio = activeHeight / size.height
-            let ratio = min(widthRatio, heightRatio)
-            let cropWidth = CGFloat(Int(size.width * ratio + 0.5))
-            let cropHeight = CGFloat(Int(size.height * ratio + 0.5))
-            return CGRect(x: activeCenter.x - cropWidth / 2.0, y: activeCenter.y - cropHeight / 2.0, width: cropWidth, height: cropHeight)
-        } else {
-            let activeTop = CGFloat(activeBorder)
-            let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
-            let activeWidth = size.width - (CGFloat(activeBorder * 2))
-            let activeHeight = (activeBottom - activeTop)
-            let activeCenter = CGPoint(x: size.width / 2.0, y: activeTop + activeHeight / 2.0)
-            let widthRatio = activeWidth / size.width
-            let heightRatio = activeHeight / size.height
-            let ratio = min(widthRatio, heightRatio)
-            let cropWidth = CGFloat(Int(size.width * ratio + 0.5))
-            let cropHeight = CGFloat(Int(size.height * ratio + 0.5))
-            return CGRect(x: activeCenter.x - cropWidth / 2.0, y: activeCenter.y - cropHeight / 2.0, width: cropWidth, height: cropHeight)
-        }
-        
+        let activeBorder = gDevice.tablet ? 24.0 : 6.0
+        let navigationBar = gApp.navigationController.navigationBar
+        let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
+        let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
+        let activeWidth = size.width - (CGFloat(activeBorder * 2))
+        let activeHeight = (activeBottom - activeTop)
+        let activeCenter = CGPoint(x: size.width / 2.0, y: activeTop + activeHeight / 2.0)
+        let widthRatio = activeWidth / size.width
+        let heightRatio = activeHeight / size.height
+        let ratio = min(widthRatio, heightRatio)
+        let cropWidth = CGFloat(Int(size.width * ratio + 0.5))
+        let cropHeight = CGFloat(Int(size.height * ratio + 0.5))
+        return CGRect(x: activeCenter.x - cropWidth / 2.0, y: activeCenter.y - cropHeight / 2.0, width: cropWidth, height: cropHeight)
     }
     
     func placeCropOutside() {
@@ -408,10 +393,9 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func cropImage() -> UIImage? {
-        
         if let checkImageView = imageView where cropView.bounds.size.width > 32 && cropView.bounds.size.height > 32 {
             if let checkImage = checkImageView.image where checkImage.size.width > 32 && checkImage.size.height > 32 {
-                
+
                 let image = checkImage
                 let imageCenter = imageView.convertPoint(CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY), toView: view)
                 let imageShift = CGPoint(x: imageCenter.x - cropView.frame.midX, y: imageCenter.y - cropView.frame.midY)
@@ -426,8 +410,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 //UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 0.0)
                 UIGraphicsBeginImageContext(CGSize(width: resultWidth, height: resultHeight))
-                
-                
                 
                 let context = UIGraphicsGetCurrentContext();
                 
@@ -457,21 +439,16 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         return nil
     }
     
-    
     @IBAction func clickNext(sender: UIBarButtonItem) {
-        
         if let resultImage = cropImage() {
-            
-            
             let isPortrait = view.bounds.size.width < view.bounds.size.height
+            if let bounce = gApp.getStoryboardVC("bounce") as? BounceViewController {
+                bounce.loadViewIfNeeded()
+                bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? gDevice.portraitWidth : gDevice.landscapeWidth, height: isPortrait ? gDevice.portraitHeight : gDevice.landscapeHeight), portraitOrientation: isPortrait)
             
-            let bounce = gApp.getStoryboardVC("bounce") as! BounceViewController
-            
-            bounce.loadViewIfNeeded()
-            bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? gDevice.portraitWidth : gDevice.landscapeWidth, height: isPortrait ? gDevice.portraitHeight : gDevice.landscapeHeight), portraitOrientation: isPortrait)
-            
-            gApp.navigationController.setNavigationBarHidden(true, animated: true)
-            gApp.navigationController.setViewControllers([bounce], animated: true)
+                gApp.navigationController.setNavigationBarHidden(true, animated: true)
+                gApp.navigationController.setViewControllers([bounce], animated: true)
+            }
         }
     }
     

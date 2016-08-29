@@ -11,11 +11,21 @@ import UIKit
 
 extension UINavigationController {
     public override func shouldAutorotate() -> Bool {
+        if (visibleViewController as? BounceViewController) != nil {
+            //print("NC.shouldAutorotate(false)")
+            //return false
+        }
         return true
     }
     
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return (visibleViewController?.supportedInterfaceOrientations())!
+        if let vc = visibleViewController {
+            return vc.supportedInterfaceOrientations()
+        }
+        var mask = UIInterfaceOrientationMask(rawValue: 0)
+        mask = mask.union(.Portrait);mask = mask.union(.PortraitUpsideDown)
+        mask = mask.union(.LandscapeLeft);mask = mask.union(.LandscapeRight)
+        return mask
     }
 }
 

@@ -22,6 +22,12 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var importImage: UIImage?
     
+    override func viewWillAppear(animated: Bool) {
+        
+        gApp.navigationController.setNavigationBarHidden(true, animated: true)
+        
+    }
+    
     override func viewDidLoad() {
         //self.clickImport(RRButton())
     }
@@ -79,10 +85,6 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         
-        print("viewWillTransitionToSize")
-        print("coord \(coordinator)")
-        print("size \(size.width)x\(size.height)")
-        print("~~~~~~~")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -95,66 +97,52 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
             }
         }
         if segue.identifier == "test_bounce" {
-            
             if let bounce = segue.destinationViewController as? BounceViewController {
-                
-                //loadPath = "test_ipad_info.plist"
-                //loadPath = "test_ipad_landscape_info.plist"
-                
                 bounce.loadScene(filePath: loadPath)
             }
         }
-        
-        
-        
     }
     
     @IBAction func clickCreate(sender: UIButton) {
-        
         showImagePicker(sender)
-        
-        //self.performSegueWithIdentifier("test_bounce", sender: nil)
     }
     
     @IBAction func clickLoad(sender: AnyObject) {
-        loadPath = "test_ipad_info.plist"
+        loadPath = "test_ipad_portrait_info.json"
         performSegueWithIdentifier("test_bounce", sender: nil)
     }
     
     @IBAction func clickUpgrade(sender: AnyObject) {
-        loadPath = "test_ipad_landscape_info.plist"
+        loadPath = "test_ipad_landscape_info.json"
         performSegueWithIdentifier("test_bounce", sender: nil)
     }
     
     @IBAction func clickImport(sender: RRButton) {
         importImage = UIImage(named: "test_card.jpg")
-        
-        //var imageImportVC = ImageImportViewController(nibName: nil, bundle: nil)
-        
-        /*
-         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-         if let navigationController = storyboard.instantiateViewControllerWithIdentifier("main_navigation") as? UINavigationController {
-         //navigationController.popViewControllerAnimated(true)
-         
-         
-         navigationController.performSegueWithIdentifier("import_image", sender: nil)
-         
-         
-         
-         //if let imageImportVC = storyboard.instantiateViewControllerWithIdentifier("image_import") as? ImageImportViewController {
-         
-         //  navigationController.pushViewController(imageImportVC, animated: true)
-         
-         //}
-         
-         //navigationController.
-         
-         print(navigationController.viewControllers)
-         
-         }
-         */
-        
         self.performSegueWithIdentifier("import_image", sender: nil)
+    }
+    
+    
+    
+    
+    @IBAction func clickTest1(sender: RRButton) {
+        loadPath = "test_iphone5_landscape_info.json"
+        performSegueWithIdentifier("test_bounce", sender: nil)
+    }
+    
+    @IBAction func clickTest2(sender: RRButton) {
+        loadPath = "test_iphone5_portrait_info.json"
+        performSegueWithIdentifier("test_bounce", sender: nil)
+    }
+    
+    @IBAction func clickTest3(sender: RRButton) {
+        loadPath = "test_iphone6_portrait_info.json"
+        performSegueWithIdentifier("test_bounce", sender: nil)
+    }
+    
+    @IBAction func clickTest4(sender: RRButton) {
+        loadPath = "test_iphone6_landscape_info.json"
+        performSegueWithIdentifier("test_bounce", sender: nil)
     }
     
     deinit {

@@ -30,7 +30,9 @@ class ApplicationController
     var bounce:BounceViewController? {
         for vc:UIViewController in navigationController.viewControllers {
             if vc.isKindOfClass(BounceViewController) {
-                return vc as! BounceViewController
+                if let bounce = vc as? BounceViewController {
+                    return bounce
+                }
             }
         }
         return nil

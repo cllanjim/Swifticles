@@ -8,7 +8,7 @@ import UIKit
 public class FileUtils
 {
     required public init() {
-        
+        //Do something AMAZING!
     }
     
     public class var bundleDir: String {

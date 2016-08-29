@@ -195,7 +195,6 @@ public class Sprite {
             refreshVB()
         }
         
-        gG.bufferIndexBind(indexBufferSlot)
         gG.bufferVertexBind(vertexBufferSlot)
         
         gG.positionEnable()
@@ -210,6 +209,9 @@ public class Sprite {
         gG.textureEnable()
         gG.textureBind(texture: texture)
         
+        
+        gG.bufferIndexBind(indexBufferSlot)
+        
         gG.drawElementsTriangle(count:6, offset: 0)
     }
     
@@ -218,7 +220,7 @@ public class Sprite {
         
         
         
-        var modelView = gG.matrixModelViewGet()
+        //var modelView = gG.matrixModelViewGet()
         
         
         //print("modelView = \(modelView.m)")

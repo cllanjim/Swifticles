@@ -32,7 +32,7 @@ class GLViewController: GLKViewController {
         
         super.viewDidLoad()
         
-        self.context = EAGLContext(API: .OpenGLES3)
+        self.context = EAGLContext(API: .OpenGLES2)
         
         if !(self.context != nil) {
             print("Failed to create ES context")
