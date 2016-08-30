@@ -27,9 +27,6 @@ class GLViewController: GLKViewController {
     }
     
     override func viewDidLoad() {
-        
-        print("GLViewController.viewDidLoad()")
-        
         super.viewDidLoad()
         
         self.context = EAGLContext(API: .OpenGLES2)
@@ -70,38 +67,25 @@ class GLViewController: GLKViewController {
     }
     
     func setupGL() {
-        
-        print("GLViewController.setupGL()")
-        
         EAGLContext.setCurrentContext(self.context)
-        
         self.loadShaders()
-        
         gG.create()
     }
     
     func tearDownGL() {
-        
         EAGLContext.setCurrentContext(self.context)
-        
         gG.dispose()
-        
         if program != 0 {
             glDeleteProgram(program)
             program = 0
         }
     }
     
-    
-    
-    
     override func glkView(view: GLKView, drawInRect rect: CGRect) {
-        glClearColor(0.05, 0.06, 0.0925, 1.0)
-        glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
+        gG.clear()
         gG.colorSet()
         gG.blendEnable()
         gG.blendSetAlpha()
-        
         draw()
     }
     

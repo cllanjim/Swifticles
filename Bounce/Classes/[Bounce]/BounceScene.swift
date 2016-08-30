@@ -27,43 +27,20 @@ class BounceScene
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
-        
         info["image_name"] = imageName
         info["image_path"] = imagePath
-        
         info["landscape"] = isLandscape
-        
         info["size_width"] = Float(size.width)
         info["size_height"] = Float(size.height)
         return info
     }
     
     func load(info info:[String:AnyObject]) {
-        print("************\nBounceEngine.load()")
-        
-        if let _imageName = info["image_name"] as? String {
-            imageName = _imageName
-        }
-        
-        if let _imagePath = info["image_path"] as? String {
-            imagePath = _imagePath
-        }
-        
-        if let _isLandscape = info["landscape"] as? Bool {
-            isLandscape = _isLandscape
-        }
-
-        if let _sizeWidth = info["size_width"] as? Float {
-            size.width = CGFloat(_sizeWidth)
-        }
-        
-        if let _sizeHeight = info["size_height"] as? Float {
-            size.height = CGFloat(_sizeHeight)
-        }
-        
-        
-        
+        if let _imageName = info["image_name"] as? String { imageName = _imageName }
+        if let _imagePath = info["image_path"] as? String { imagePath = _imagePath }
+        if let _isLandscape = info["landscape"] as? Bool { isLandscape = _isLandscape }
+        if let _sizeWidth = info["size_width"] as? Float { size.width = CGFloat(_sizeWidth) }
+        if let _sizeHeight = info["size_height"] as? Float { size.height = CGFloat(_sizeHeight) }
     }
-    
     
 }

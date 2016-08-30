@@ -12,20 +12,29 @@ import OpenGLES
 public class Blob
 {
     
+    weak var touch:UITouch?
+    
     var spline = CubicSpline()
     
     var demoPos:CGFloat = 0.0
     
+    //Base = untransformed, no Base = transformed...
+    var borderBase = PointList()
+    var border = PointList()
+    
     var center:CGPoint = CGPoint(x: 256, y: 256)
+    var scale:CGFloat = 1.0
+    var rotation:CGFloat = 0.0
+    
+    var selectable:Bool {
+        return true
+    }
     
     init() {
-        spline.add(100, y: 100)
-        spline.add(200, y: 100)
-        spline.add(130, y: 160)
-        
-        spline.add(157, y: 90)
-        spline.add(220, y: 140.0)
-        
+        spline.add(0.0, y: -100)
+        spline.add(100, y: 0.0)
+        spline.add(0.0, y: 100.0)
+        spline.add(-100.0, y: 0.0)
         
         spline.linear = false
         spline.closed = true
@@ -78,6 +87,45 @@ public class Blob
         let point = spline.get(demoPos)
         gG.rectDraw(x: Float(point.x - 3.0), y: Float(point.y - 3.0), width: 7.0, height: 7.0)
         
+    }
+    
+    func computeShape() {
+        
+        borderBase.reset()
+        
+        var threshDist = 12.0
+        if gDevice.tablet { threshDist = 18 }
+        
+        threshDist = (threshDist * threshDist)
+        
+        var step = CGFloat(0.01)
+        var prevPoint = spline.get(0.0)
+        var lastPoint = spline.get(spline.maxPos)
+        
+        for pos:CGFloat in step.stride(to: CGFloat(spline.maxPos), by: step) {
+            
+            //let point =
+            
+        }
+        
+        
+        
+        computeAffine()
+    }
+    
+    func computeAffine() {
+        
+        //borderBase
+        
+        
+    }
+    
+    func transformPointTo(point point:CGPoint) -> CGPoint {
+        return CGPoint(x: (point.x - center.x) / scale, y: (point.y - center.y) / scale)
+    }
+    
+    func transformPointFrom(point point:CGPoint) -> CGPoint {
+        return CGPoint(x: point.x * scale + center.x, y: point.y * scale + center.y)
     }
     
     

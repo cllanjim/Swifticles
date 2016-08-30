@@ -76,9 +76,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleEditModeChanged), name: String(BounceNotification.EditModeChanged), object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleViewModeChanged),
                                                          name: String(BounceNotification.ViewModeChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded),
-                                                         name: String(BounceNotification.BlobSelectionChanged), object: nil)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobSelectionChanged),
+                                                         name: String(BounceNotification.BlobSelectionChanged), object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded),
                                                          name: String(BounceNotification.BlobAdded), object: nil)
     }
     
@@ -104,12 +106,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     func handleBlobAdded() {
         print("handleBlobAdded()")
-        cancelAllGesturesAndTouches()
+        //cancelAllGesturesAndTouches()
+        
     }
     
     func handleBlobSelectionChanged() {
         print("handleBlobSelectionChanged()")
-        cancelAllGesturesAndTouches()
+        //cancelAllGesturesAndTouches()
+        
     }
     
     func cancelAllGesturesAndTouches() {
@@ -247,18 +251,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     func gestureBegan(pos:CGPoint) {
         gestureStartScreenTouch = pos
         gestureStartImageTouch = transformPointToImage(pos)
-        
         pinchRecognizer.scale = 1.0
         panRecognizer.setTranslation(CGPointZero, inView: view)
-        
         gestureStartTranslate = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
         gestureStartScale = screenScale
     }
     
     func didPanMainThread(gr:UIPanGestureRecognizer) -> Void {
-        
         gestureTouchCenter = gr.locationInView(self.view)
-        
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
@@ -289,22 +289,31 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 updateTransform()
             }
         } else {
+            let panPos = transformPointToImage(gestureTouchCenter)
+            var panVelocity = gr.velocityInView(self.view)
+            panVelocity = CGPoint(x: panVelocity.x / screenScale, y: panVelocity.y / screenScale)
             switch gr.state {
             case .Began:
                 panRecognizerTouchCount = gr.numberOfTouches()
+                engine.panBegin(pos: panPos)
                 break
             case .Changed:
                 if panRecognizerTouchCount != gr.numberOfTouches() {
                     if gr.numberOfTouches() > panRecognizerTouchCount {
                         panRecognizerTouchCount = gr.numberOfTouches()
-                        
+                        engine.panBegin(pos: panPos)
+                        engine.pan(pos: panPos)
                     }
                     else {
+                        engine.panEnd(pos: panPos, velocity: CGPointZero)
                         engine.cancelAllGestures()
                     }
+                } else {
+                    engine.pan(pos: panPos)
                 }
                 break
             default:
+                engine.panEnd(pos: panPos, velocity: CGPointZero)
                 engine.cancelAllGestures()
                 break
             }
@@ -312,9 +321,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     func didPinchMainThread(gr:UIPinchGestureRecognizer) -> Void {
-        
         gestureTouchCenter = gr.locationInView(self.view)
-        
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
@@ -325,7 +332,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 gestureBegan(gestureTouchCenter)
                 gestureStartScale = screenScale
                 pinchRecognizerTouchCount = gr.numberOfTouches()
-                
                 break
             case .Changed:
                 if pinchRecognizerTouchCount != gr.numberOfTouches() {
@@ -347,25 +353,31 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 updateTransform()
             }
         } else {
-            
+            let pinchPos = transformPointToImage(gestureTouchCenter)
+            let pinchScale = gr.scale
             switch gr.state {
             case .Began:
                 pinchRecognizerTouchCount = gr.numberOfTouches()
-                
+                engine.pinchBegin(pos: pinchPos, scale: pinchScale)
                 break
             case .Changed:
                 if pinchRecognizerTouchCount != gr.numberOfTouches() {
                     if gr.numberOfTouches() > pinchRecognizerTouchCount {
                         pinchRecognizerTouchCount = gr.numberOfTouches()
-                        
+                        gr.scale = 1.0
+                        engine.pinchBegin(pos: pinchPos, scale: 1.0)
                     }
                     else {
+                        engine.pinchEnd(pos: pinchPos, scale: pinchScale)
                         engine.cancelAllGestures()
                         break
                     }
+                } else {
+                    engine.pinch(pos: pinchPos, scale: pinchScale)
                 }
                 break
             default:
+                engine.pinchEnd(pos: pinchPos, scale: pinchScale)
                 engine.cancelAllGestures()
                 break
             }
