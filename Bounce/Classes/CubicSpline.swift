@@ -100,8 +100,16 @@ class CubicSpline {
                 point.x = x[0].value
                 point.y = y[0].value
             } else {
-                let index:Int = Int(pos)
-                let factor = pos - CGFloat(index)
+                var index:Int = Int(pos)
+                var factor = pos - CGFloat(index)
+                
+                if index < 0 {
+                    index = 0
+                    factor = 0.0
+                } else if index >= _controlPointCount {
+                    index = _controlPointCount - 1
+                    factor = 1.0
+                }
                 
                 point.x = x[index].value + (((x[index].coefC * factor) + x[index].coefB) * factor + x[index].coefA) * factor
                 point.y = y[index].value + (((y[index].coefC * factor) + y[index].coefB) * factor + y[index].coefA) * factor

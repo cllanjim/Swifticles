@@ -9,8 +9,20 @@
 import UIKit
 import OpenGLES
 
+struct BlobGridNode {
+    
+    //Base = untransformed, no Base = transformed...
+    var point:CGPoint = CGPointZero
+    var pointBase:CGPoint = CGPointZero
+    
+    var inside:Bool = false
+    var border:Bool = false
+    
+}
+
 public class Blob
 {
+    var node = [[BlobGridNode]]()
     
     weak var touch:UITouch?
     
@@ -22,9 +34,16 @@ public class Blob
     var borderBase = PointList()
     var border = PointList()
     
-    var center:CGPoint = CGPoint(x: 256, y: 256)
-    var scale:CGFloat = 1.0
-    var rotation:CGFloat = 0.0
+    var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { needsComputeAffine = true } }
+    var scale:CGFloat = 1.0 { didSet { needsComputeAffine = true } }
+    var rotation:CGFloat = 0.0 { didSet { needsComputeAffine = true } }
+    
+    internal var needsComputeShape:Bool = true
+    internal var needsComputeAffine:Bool = true
+    
+    var enabled: Bool {
+        return true
+    }
     
     var selectable:Bool {
         return true
@@ -34,18 +53,17 @@ public class Blob
         spline.add(0.0, y: -100)
         spline.add(100, y: 0.0)
         spline.add(0.0, y: 100.0)
-        spline.add(-100.0, y: 0.0)
+        
+        //spline.add(-100.0, y: 0.0)
+        
         
         spline.linear = false
         spline.closed = true
         
-        
+        computeShape()
     }
     
-    var enabled: Bool {
-        
-        return true
-    }
+    
     
     func update() {
         
@@ -57,6 +75,9 @@ public class Blob
     }
     
     func draw() {
+        
+        computeIfNeeded()
+        
         gG.colorSet(r: 0.5, g: 0.8, b: 0.05)
         gG.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
         
@@ -76,11 +97,15 @@ public class Blob
         while pos <= (spline.maxPos) {
             let point = spline.get(pos)
             gG.rectDraw(x: Float(point.x - 0.5), y: Float(point.y - 0.5), width: 1, height: 1)
-            pos += 0.01
-            
-            
-            
+            pos += 0.1
         }
+        
+        gG.colorSet(r: 1.0, g: 0.0, b: 0.0)
+        borderBase.drawEdges(closed: false)
+        border.drawEdges(closed: true)
+        
+        gG.colorSet(r: 0.25, g: 0.88, b: 0.89)
+        border.drawPoints()
         
         gG.colorSet(r: 0.25, g: 1.0, b: 1.0, a: 1.0)
         
@@ -91,21 +116,32 @@ public class Blob
     
     func computeShape() {
         
+        needsComputeShape = false
+        
         borderBase.reset()
         
-        var threshDist = 12.0
+        var threshDist = CGFloat(12.0)
         if gDevice.tablet { threshDist = 18 }
         
         threshDist = (threshDist * threshDist)
         
-        var step = CGFloat(0.01)
+        let step = CGFloat(0.01)
         var prevPoint = spline.get(0.0)
-        var lastPoint = spline.get(spline.maxPos)
+        let lastPoint = spline.get(spline.maxPos)
         
+        borderBase.add(x: prevPoint.x, y: prevPoint.y)
         for pos:CGFloat in step.stride(to: CGFloat(spline.maxPos), by: step) {
-            
-            //let point =
-            
+            let point = spline.get(pos)
+            let diffX1 = point.x - prevPoint.x
+            let diffY1 = point.y - prevPoint.y
+            let diffX2 = point.x - lastPoint.x
+            let diffY2 = point.y - lastPoint.y
+            let dist1 = diffX1 * diffX1 + diffY1 * diffY1
+            let dist2 = diffX2 * diffX2 + diffY2 * diffY2
+            if dist1 > threshDist && dist2 > threshDist {
+                borderBase.add(x: point.x, y: point.y)
+                prevPoint = point
+            }
         }
         
         
@@ -115,9 +151,24 @@ public class Blob
     
     func computeAffine() {
         
+        needsComputeAffine = false
+        
+        border.reset()
+        border.add(list: borderBase)
+        
+        border.transform(scale: scale, rotation: rotation)
+        border.transform(translation: center)
+        
+        
+        //border.add(x: <#T##CGFloat#>, y: <#T##CGFloat#>)
+        
         //borderBase
         
-        
+    }
+    
+    internal func computeIfNeeded() {
+        if needsComputeShape { computeShape() }
+        if needsComputeAffine { computeAffine() }
     }
     
     func transformPointTo(point point:CGPoint) -> CGPoint {

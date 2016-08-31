@@ -18,9 +18,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
+    var rotRecognizer:UIRotationGestureRecognizer!;
     
     var panRecognizerTouchCount:Int = 0
     var pinchRecognizerTouchCount:Int = 0
+    var rotRecognizerTouchCount:Int = 0
     
     var zoomGestureCancelTimer:Int = 0
     
@@ -160,7 +162,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     override func load() {
-        panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ImageImportViewController.didPan(_:)))
+        panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
         panRecognizer.delegate = self
         panRecognizer.maximumNumberOfTouches = 2
         panRecognizer.cancelsTouchesInView = false
@@ -170,6 +172,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         pinchRecognizer.delegate = self
         pinchRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(pinchRecognizer)
+        
+        rotRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(didRotate(_:)))
+        rotRecognizer.delegate = self
+        rotRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(rotRecognizer)
     }
     
     override func update() {
@@ -178,9 +185,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             if zoomGestureCancelTimer <= 0 {
                 panRecognizer.enabled = true
                 pinchRecognizer.enabled = true
+                rotRecognizer.enabled = true
             }
         }
-        
         engine.update()
     }
     
@@ -255,6 +262,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         panRecognizer.setTranslation(CGPointZero, inView: view)
         gestureStartTranslate = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
         gestureStartScale = screenScale
+        rotRecognizer.rotation = 0.0
     }
     
     func didPanMainThread(gr:UIPanGestureRecognizer) -> Void {
@@ -264,7 +272,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 cancelAllGestureRecognizers()
                 return
             }
-            
             switch gr.state {
             case .Began:
                 gestureBegan(gestureTouchCenter)
@@ -384,10 +391,74 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    func didRotateMainThread(gr:UIRotationGestureRecognizer) -> Void {
+        gestureTouchCenter = gr.locationInView(self.view)
+        if engine.zoomMode {
+            if _allowZoomGestures == false {
+                cancelAllGestureRecognizers()
+                return
+            }
+            switch gr.state {
+            case .Began:
+                gestureBegan(gestureTouchCenter)
+                rotRecognizerTouchCount = gr.numberOfTouches()
+                break
+            case .Changed:
+                if rotRecognizerTouchCount != gr.numberOfTouches() {
+                    if gr.numberOfTouches() > rotRecognizerTouchCount {
+                        rotRecognizerTouchCount = gr.numberOfTouches()
+                        gestureBegan(gestureTouchCenter)
+                    }
+                    else {
+                        cancelAllGestureRecognizers()
+                    }
+                }
+                break
+            default:
+                cancelAllGestureRecognizers()
+                break
+            }
+            if _allowZoomGestures {
+                updateTransform()
+            }
+        } else {
+            let rotPos = transformPointToImage(gestureTouchCenter)
+            let rot = gr.rotation
+            switch gr.state {
+            case .Began:
+                rotRecognizerTouchCount = gr.numberOfTouches()
+                engine.rotateBegin(pos: rotPos, radians: rot)
+                break
+            case .Changed:
+                if rotRecognizerTouchCount != gr.numberOfTouches() {
+                    if gr.numberOfTouches() > rotRecognizerTouchCount {
+                        rotRecognizerTouchCount = gr.numberOfTouches()
+                        gr.rotation = 0.0
+                        engine.rotateBegin(pos: rotPos, radians: 0.0)
+                    }
+                    else {
+                        engine.rotateEnd(pos: rotPos, radians: rot)
+                        engine.cancelAllGestures()
+                        break
+                    }
+                } else {
+                    engine.rotate(pos: rotPos, radians: rot)
+                }
+                break
+            default:
+                engine.rotateEnd(pos: rotPos, radians: rot)
+                engine.cancelAllGestures()
+                gr.rotation = 0.0
+                break
+            }
+        }
+    }
+    
     func cancelAllGestureRecognizers() {
         zoomGestureCancelTimer = 3
         panRecognizer.enabled = false
         pinchRecognizer.enabled = false
+        rotRecognizer.enabled = false
     }
     
     func didPan(gr:UIPanGestureRecognizer) -> Void {
@@ -396,6 +467,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     func didPinch(gr:UIPinchGestureRecognizer) -> Void {
         self.performSelectorOnMainThread(#selector(didPinchMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
+    }
+    
+    func didRotate(gr:UIRotationGestureRecognizer) -> Void {
+        self.performSelectorOnMainThread(#selector(didRotateMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {

@@ -155,11 +155,9 @@ class BounceEngine {
         }
         
         
-        gG.pointDraw(point: panStartPos, size: 40)
+        gG.pointDraw(point: panStartPos, size: 14)
         
-        gG.lineDraw(p1: panStartPos, p2: panPos, thickness: 13.22)
-        
-        
+        gG.lineDraw(p1: panStartPos, p2: panPos, thickness: 2.56325453424)
         
         
         
@@ -168,7 +166,9 @@ class BounceEngine {
         gG.colorSet()
         
         for blob:Blob in blobs {
-            if blob.enabled { blob.draw() }
+            if blob.enabled {
+                blob.draw()
+            }
         }
         
         gG.colorSet(r: 0.6, g: 0.8, b: 0.25)
@@ -183,17 +183,12 @@ class BounceEngine {
         //selectedBlob
         let touchBlob = selectBlobAtPoint(point)
         
-        
         if sceneMode == .Edit && editMode == .Affine {
-            
             if affineSelectedBlob == nil {
                 affineSelectedBlob = touchBlob
-                
-                
                 if let checkAffineSelectedBlob = affineSelectedBlob {
                     selectedBlob = checkAffineSelectedBlob
                     affineSelectionTouch = touch
-                    
                     affineSelectionStartCenter = checkAffineSelectedBlob.center
                     affineSelectionStartScale = checkAffineSelectedBlob.scale
                     affineSelectionStartRotation = checkAffineSelectedBlob.rotation
@@ -203,12 +198,6 @@ class BounceEngine {
                 }
             }
         }
-        
-        
-        //if sc
-        
-        //sceneMode:SceneMode = .Edit
-        
         
     }
     
@@ -283,13 +272,14 @@ class BounceEngine {
         isPinching = true
         pinchStartPos = pos
         pinchPos = pos
-        
+        pinchScale = scale
         if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
     }
     
     func pinch(pos pos:CGPoint, scale:CGFloat) {
         guard isPinching else { return }
         pinchPos = pos
+        pinchScale = scale
         if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
     }
     
@@ -301,6 +291,42 @@ class BounceEngine {
         isPinching = false
     }
     
+    
+    
+    var isRotating:Bool = false
+    var rotation:CGFloat = 0.0
+    var rotationStartPos:CGPoint = CGPointZero
+    var rotationPos:CGPoint = CGPointZero
+    func rotateBegin(pos pos:CGPoint, radians:CGFloat) {
+        print("RotateBegin(\(pos.x) x \(pos.y)) Rad: \(radians * 100) RSS(\(affineSelectionStartRotation * 100))")
+        if isRotating {
+            rotateEnd(pos: pos, radians: radians)
+            isRotating = false
+        }
+        isRotating = true
+        rotationStartPos = pos
+        rotationPos = pos
+        rotation = radians
+        if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
+    }
+    
+    func rotate(pos pos:CGPoint, radians:CGFloat) {
+        print("Rotate(\(pos.x) x \(pos.y)) Rad: \(radians * 100) RSS(\(affineSelectionStartRotation * 100))")
+        guard isRotating else { return }
+        rotationPos = pos
+        rotation = radians
+        if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
+    }
+    
+    func rotateEnd(pos pos:CGPoint, radians:CGFloat) {
+        guard isRotating else { return }
+        print("RotateEnd(\(pos.x) x \(pos.y)) Rad: \(radians * 100) RSS(\(affineSelectionStartRotation * 100))")
+        rotationPos = pos
+        rotation = radians
+        isRotating = false
+    }
+    
+    
     func cancelAllGestures() {
         print("Engine.cancelAllGestures()")
         //if isPanning { panEnd(pos: panPos, velocity: CGPointZero) }
@@ -308,6 +334,7 @@ class BounceEngine {
         
         isPanning = false
         isPinching = false
+        isRotating = false
         
         affineSelectedBlob = nil
         affineSelectionTouch = nil
@@ -372,9 +399,16 @@ class BounceEngine {
                 let y = affineSelectionStartCenter.y + (panPos.y - panStartPos.y)
                 blob.center = CGPoint(x: x, y: y)
             }
+            if isPinching {
+                blob.scale = affineSelectionStartScale * pinchScale
+            }
+            if isRotating {
+                var newRotation = affineSelectionStartRotation + rotation
+                while newRotation > Math.PI2 { newRotation -= Math.PI2 }
+                while newRotation < 0.0 { newRotation += Math.PI2 }
+                blob.rotation = newRotation
+            }
         }
-        
-        
     }
     
 //    if sceneMode == .Edit && editMode == .Affine {
