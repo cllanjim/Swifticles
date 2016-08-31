@@ -86,13 +86,14 @@
 		C214D2731D6E9745004069A3 /* CubicSpline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2541D6E9745004069A3 /* CubicSpline.swift */; };
 		C214D2741D6E9745004069A3 /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2551D6E9745004069A3 /* EditAffineViewController.swift */; };
 		C214D2751D6E9745004069A3 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2571D6E9745004069A3 /* UIImage+Resize.swift */; };
-		C214D2761D6E9745004069A3 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2581D6E9745004069A3 /* Geometry.swift */; };
+		C214D2761D6E9745004069A3 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2581D6E9745004069A3 /* Math.swift */; };
 		C214D2771D6E9745004069A3 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2591D6E9745004069A3 /* HomeMenuViewController.swift */; };
 		C214D2781D6E9745004069A3 /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D25A1D6E9745004069A3 /* ImageImportViewController.swift */; };
 		C214D2791D6E9745004069A3 /* ToolActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D25B1D6E9745004069A3 /* ToolActions.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
 		C2340AD11D71026800F8CD02 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AD01D71026800F8CD02 /* Config.swift */; };
 		C2340AE51D71094A00F8CD02 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AE41D71094A00F8CD02 /* String+File.swift */; };
+		C2391B0A1D75249100D9341F /* PointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2391B091D75249100D9341F /* PointList.swift */; };
 		C29EC0411D713204004A6204 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EC0401D713204004A6204 /* Reader.swift */; };
 /* End PBXBuildFile section */
 
@@ -199,13 +200,14 @@
 		C214D2541D6E9745004069A3 /* CubicSpline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicSpline.swift; sourceTree = "<group>"; };
 		C214D2551D6E9745004069A3 /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
 		C214D2571D6E9745004069A3 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
-		C214D2581D6E9745004069A3 /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
+		C214D2581D6E9745004069A3 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		C214D2591D6E9745004069A3 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
 		C214D25A1D6E9745004069A3 /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
 		C214D25B1D6E9745004069A3 /* ToolActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolActions.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
 		C2340AD01D71026800F8CD02 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C2340AE41D71094A00F8CD02 /* String+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
+		C2391B091D75249100D9341F /* PointList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointList.swift; sourceTree = "<group>"; };
 		C29EC0401D713204004A6204 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -375,7 +377,7 @@
 				C214D2541D6E9745004069A3 /* CubicSpline.swift */,
 				C214D2551D6E9745004069A3 /* EditAffineViewController.swift */,
 				C214D2561D6E9745004069A3 /* Extensions */,
-				C214D2581D6E9745004069A3 /* Geometry.swift */,
+				C214D2581D6E9745004069A3 /* Math.swift */,
 				C214D2591D6E9745004069A3 /* HomeMenuViewController.swift */,
 				C214D25A1D6E9745004069A3 /* ImageImportViewController.swift */,
 				C214D25B1D6E9745004069A3 /* ToolActions.swift */,
@@ -417,6 +419,7 @@
 				C214D2471D6E9745004069A3 /* Matrix.swift */,
 				C214D2481D6E9745004069A3 /* Sprite.swift */,
 				C214D2491D6E9745004069A3 /* Texture.swift */,
+				C2391B091D75249100D9341F /* PointList.swift */,
 			);
 			path = "[Graphics]";
 			sourceTree = "<group>";
@@ -635,12 +638,13 @@
 				C214D2661D6E9745004069A3 /* Graphics.swift in Sources */,
 				C214D2751D6E9745004069A3 /* UIImage+Resize.swift in Sources */,
 				C214D2731D6E9745004069A3 /* CubicSpline.swift in Sources */,
-				C214D2761D6E9745004069A3 /* Geometry.swift in Sources */,
+				C214D2761D6E9745004069A3 /* Math.swift in Sources */,
 				C214D26A1D6E9745004069A3 /* RRButton.swift in Sources */,
 				C214D2631D6E9745004069A3 /* DrawTriangle.swift in Sources */,
 				C214D26F1D6E9745004069A3 /* ToolBarBottom.swift in Sources */,
 				C214D25F1D6E9745004069A3 /* Blob.swift in Sources */,
 				C214D2711D6E9745004069A3 /* TopMenuViewController.swift in Sources */,
+				C2391B0A1D75249100D9341F /* PointList.swift in Sources */,
 				C214D26D1D6E9745004069A3 /* TBCheckBox.swift in Sources */,
 				C214D2681D6E9745004069A3 /* Sprite.swift in Sources */,
 				C214D2691D6E9745004069A3 /* Texture.swift in Sources */,
@@ -731,8 +735,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Raptis (7HDW82U75E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Raptis (7HDW82U75E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -755,7 +759,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "f4c4fb94-4e45-4097-be82-3979e6dfc835";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -780,8 +784,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Raptis (7HDW82U75E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Raptis (7HDW82U75E)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -797,7 +801,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "f4c4fb94-4e45-4097-be82-3979e6dfc835";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -808,12 +812,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_MODULES_AUTOLINK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bounce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.learn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.bb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -823,12 +828,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_MODULES_AUTOLINK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Bounce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.learn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.bb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
