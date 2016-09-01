@@ -121,6 +121,32 @@ class CubicSpline {
         return point
     }
     
+    func getClosestControlPoint(point point:CGPoint) -> (index:Int, distance:CGFloat)? {
+        
+        if controlPointCount > 0 {
+            
+            var diffX = point.x - x[0].value
+            var diffY = point.y - y[0].value
+            var bestDist = diffX * diffX + diffY * diffY
+            var bestIndex = 0
+            
+            for i in 1..<controlPointCount {
+                
+                diffX = x[i].value - point.x
+                diffY = y[i].value - point.y
+                let dist = diffX * diffX + diffY * diffY
+                if dist < bestDist {
+                    bestDist = dist
+                    bestIndex = i
+                }
+            }
+            if bestDist > 0.01 { bestDist = CGFloat(sqrtf(Float(bestDist))) }
+            return (bestIndex, bestDist)
+        }
+        return nil
+    }
+    
+    
     internal var refresh:Bool = false
     internal var _controlPointCount:Int = 0
     
@@ -154,42 +180,34 @@ class CubicSpline {
         } else {
             if closed {
                 coord[1].delta = 0.25
-                coord[0].derivative = 0.25 * 3.0 * (coord[1].value - coord[count1].value);
-                
+                coord[0].derivative = 0.25 * 3.0 * (coord[1].value - coord[count1].value)
                 var G = CGFloat(1.0)
                 var H = CGFloat(4.0)
                 var F = 3.0 * (coord[0].value - coord[count2].value)
-                
                 for i in 1..<count1 {
                     coord[i+1].delta = -0.25 * coord[i].delta
-                    coord[i].derivative = 0.25 * (3.0 * (coord[i+1].value - coord[i-1].value) - coord[i-1].derivative);
-                    H = H - G * coord[i].delta;
-                    F = F - G * coord[i-1].derivative;
+                    coord[i].derivative = 0.25 * (3.0 * (coord[i+1].value - coord[i-1].value) - coord[i-1].derivative)
+                    H = H - G * coord[i].delta
+                    F = F - G * coord[i-1].derivative
                     G = (-0.25 * G)
                 }
                 H = H - (G + 1) * (0.25 + coord[count1].delta)
-                
                 coord[count1].derivative = F - (G + 1.0) * coord[count2].derivative
                 coord[count1].derivative = coord[count1].derivative / H
                 coord[count2].derivative = coord[count2].derivative - (0.25 + coord[count1].delta) * coord[count1].derivative
-                
                 for i in (count1-2).stride(to: 0, by: -1) {
                     coord[i].derivative = coord[i].derivative - 0.25 * coord[i + 1].derivative - coord[i + 1].delta * coord[count1].derivative
                 }
-                
                 coord[count1].coefA = coord[count1].derivative
                 coord[count1].coefB = 3.0 * (coord[0].value - coord[count1].value) - 2.0 * coord[count1].derivative - coord[0].derivative
                 coord[count1].coefC = 2.0 * (coord[count1].value - coord[0].value) + coord[count1].derivative + coord[0].derivative
             } else {
                 coord[0].delta = 3.0 * (coord[1].value - coord[0].value) * 0.25
-                
                 for i in 1..<count1 {
                     coord[i].delta = (3.0 * (coord[i+1].value - coord[i-1].value) - coord[i-1].delta) * 0.25
                 }
-                
                 coord[count1].delta = (3.0 * (coord[count1].value - coord[count2].value) - coord[count2].delta) * 0.25
                 coord[count1].derivative = coord[count1].delta
-                
                 for i in (count2).stride(to: 0, by: -1) {
                     coord[i].derivative = coord[i].delta - 0.25 * coord[i+1].derivative
                 }

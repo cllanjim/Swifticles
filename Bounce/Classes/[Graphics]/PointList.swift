@@ -56,14 +56,12 @@ class PointList
     
     
     func transform(scaleX scaleX:CGFloat, scaleY scaleY:CGFloat, rotation:CGFloat) {
-        
         if rotation == 0 {
             for i in 0..<count {
                 data[i].x = data[i].x * scaleX
                 data[i].y = data[i].y * scaleY
             }
         } else {
-            
             for i in 0..<count {
                 var x = data[i].x * scaleX
                 var y = data[i].y * scaleY
@@ -78,38 +76,6 @@ class PointList
                 data[i].y = CGFloat(-cosf(Float(pivotRotation))) * dist
             }
         }
-        
-        /*
-        if(pRotation != 0.0f)
-        {
-            pRotation = pRotation * 0.01745329251994329576923690768488;
-            float aX = 0.0f;
-            float aY = 0.0f;
-            float aDist = 0.0f;
-            float aPivot = 0.0f;
-            for(int i=0;i<mCount;i++)
-            {
-                aX = mX[i] * pScaleX;
-                aY = mY[i] * pScaleY;
-                aDist = aX * aX + aY * aY;
-                
-                if(aDist > SQRT_EPSILON)
-                {
-                    aDist = sqrtf(aDist);
-                    aX /= aDist;
-                    aY /= aDist;
-                }
-                aPivot = (pRotation - atan2f(-aX, -aY));
-                mX[i] = (sin(aPivot)) * aDist;
-                mY[i] = (-cos(aPivot)) * aDist;
-            }
-        }
-        else
-        {
-            if(pScaleX != 1.0f)for(int i=0;i<mCount;i++)mX[i] *= pScaleX;
-            if(pScaleY != 1.0f)for(int i=0;i<mCount;i++)mY[i] *= pScaleY;
-        }
-        */
     }
     
     func transform(scale scale:CGFloat, rotation:CGFloat) {
@@ -117,14 +83,57 @@ class PointList
     }
     
     func transform(translation translation:CGPoint) {
-        
-            for i in 0..<count {
-                data[i].x = data[i].x + translation.x
-                data[i].y = data[i].y + translation.y
-            }
-        
+        for i in 0..<count {
+            data[i].x = data[i].x + translation.x
+            data[i].y = data[i].y + translation.y
+        }
     }
     
+    func getMinX()->CGFloat {
+        var left:CGFloat = 0.0
+        if count > 0 { left = data[0].x }
+        for i in 0..<count {
+            if data[i].x < left { left = data[i].x }
+        }
+        return left
+    }
+    
+    func getMaxX()->CGFloat {
+        
+        var right:CGFloat = 0.0
+        if count > 0 { right = data[0].x }
+        for i in 0..<count {
+            if data[i].x > right { right = data[i].x }
+        }
+        return right
+    }
+    
+    func getMinY()->CGFloat {
+        var top:CGFloat = 0.0
+        if count > 0 { top = data[0].y }
+        for i in 0..<count {
+            if data[i].y < top { top = data[i].y }
+        }
+        return top
+    }
+    
+    func getMaxY()->CGFloat {
+        var bottom:CGFloat = 0.0
+        if count > 0 { bottom = data[0].y }
+        for i in 0..<count {
+            if data[i].y > bottom { bottom = data[i].y }
+        }
+        return bottom
+    }
+    
+    func getBoundingBox(padding padding:CGFloat)->CGRect {
+        let left = getMinX()
+        let top = getMinY()
+        return CGRect(x: (left - padding),
+                      y: (top - padding),
+                      width: ((getMaxX() - left) + padding * 2),
+                      height: ((getMaxY() - top) + padding * 2))
+    }
     
     func drawEdges(closed closed:Bool) {
         guard count >= 2 else { return }
@@ -147,105 +156,106 @@ class PointList
             gG.pointDraw(point: CGPoint(x: point.x, y: point.y))
         }
     }
+    
 }
 
 
 /*
-
-bool FPointList::ContainsPoint(float pX, float pY)
-{
-    bool aReturn = false;
-    
-    for(int aStart=0,aEnd=(mCount - 1);aStart<mCount;aEnd=aStart++)
-    {
-        if((((mY[aStart] <= pY) && (pY < mY[aEnd]))||
-            ((mY[aEnd] <= pY) && (pY < mY[aStart])))&&
-                (pX < (mX[aEnd] - mX[aStart]) * (pY - mY[aStart])
-                    / (mY[aEnd] - mY[aStart]) + mX[aStart]))
-        {
-            aReturn = !aReturn;
-        }
-    }
-    
-    return aReturn;
-}
-
-bool FPointList::IsClockwise()
-{
-    float aAreaSum=0;
-    for(int aStart=0,aEnd=mCount-1;aStart<mCount;aEnd=aStart++)
-    {
-        aAreaSum+=CROSS_PRODUCT(mX[aStart], mY[aStart], mX[aEnd], mY[aEnd]);
-    }
-    return aAreaSum < 0;
-}
-
-
-void FPointList::Transform(float pX, float pY, float pScaleX, float pScaleY, float pRotation)
-{
-    TransformScaleRotate(pScaleX, pScaleY, pRotation);
-    TransformTranslate(pX, pY);
-}
-
-void FPointList::TransformScaleRotate(float pScaleX, float pScaleY, float pRotation)
-{
-    if(pRotation != 0.0f)
-    {
-        pRotation = pRotation * 0.01745329251994329576923690768488;
-        float aX = 0.0f;
-        float aY = 0.0f;
-        float aDist = 0.0f;
-        float aPivot = 0.0f;
-        for(int i=0;i<mCount;i++)
-        {
-            aX = mX[i] * pScaleX;
-            aY = mY[i] * pScaleY;
-            aDist = aX * aX + aY * aY;
-            
-            if(aDist > SQRT_EPSILON)
-            {
-                aDist = sqrtf(aDist);
-                aX /= aDist;
-                aY /= aDist;
-            }
-            aPivot = (pRotation - atan2f(-aX, -aY));
-            mX[i] = (sin(aPivot)) * aDist;
-            mY[i] = (-cos(aPivot)) * aDist;
-        }
-    }
-    else
-    {
-        if(pScaleX != 1.0f)for(int i=0;i<mCount;i++)mX[i] *= pScaleX;
-        if(pScaleY != 1.0f)for(int i=0;i<mCount;i++)mY[i] *= pScaleY;
-    }
-}
-
-void FPointList::TransformTranslate(float pX, float pY)
-{
-    if(pX != 0)for(int i=0;i<mCount;i++)mX[i] += pX;
-    if(pY != 0)for(int i=0;i<mCount;i++)mY[i] += pY;
-}
-
-void FPointList::Untransform(float pX, float pY, float pScaleX, float pScaleY, float pRotation)
-{
-    UntransformTranslate(pX, pY);
-    
-    if((pScaleX != 1.0f) || (pScaleY != 1.0f) || (pRotation != 0.0f))
-    UntransformScaleRotate(pScaleX, pScaleY, pRotation);
-}
-
-void FPointList::UntransformScaleRotate(float pScaleX, float pScaleY, float pRotation)
-{
-    if((pScaleX < -0.01f) || (pScaleX > -0.01f) || (pScaleY < -0.01f) || (pScaleY > -0.01f))
-    {
-        TransformScaleRotate(1.0 / pScaleX, 1.0 / pScaleY, -pRotation);
-    }
-}
-
-void FPointList::UntransformTranslate(float pX, float pY)
-{
-    TransformTranslate(-pX, -pY);
-}
-
-*/
+ 
+ bool FPointList::ContainsPoint(float pX, float pY)
+ {
+ bool aReturn = false;
+ 
+ for(int aStart=0,aEnd=(mCount - 1);aStart<mCount;aEnd=aStart++)
+ {
+ if((((mY[aStart] <= pY) && (pY < mY[aEnd]))||
+ ((mY[aEnd] <= pY) && (pY < mY[aStart])))&&
+ (pX < (mX[aEnd] - mX[aStart]) * (pY - mY[aStart])
+ / (mY[aEnd] - mY[aStart]) + mX[aStart]))
+ {
+ aReturn = !aReturn;
+ }
+ }
+ 
+ return aReturn;
+ }
+ 
+ bool FPointList::IsClockwise()
+ {
+ float aAreaSum=0;
+ for(int aStart=0,aEnd=mCount-1;aStart<mCount;aEnd=aStart++)
+ {
+ aAreaSum+=CROSS_PRODUCT(mX[aStart], mY[aStart], mX[aEnd], mY[aEnd]);
+ }
+ return aAreaSum < 0;
+ }
+ 
+ 
+ void FPointList::Transform(float pX, float pY, float pScaleX, float pScaleY, float pRotation)
+ {
+ TransformScaleRotate(pScaleX, pScaleY, pRotation);
+ TransformTranslate(pX, pY);
+ }
+ 
+ void FPointList::TransformScaleRotate(float pScaleX, float pScaleY, float pRotation)
+ {
+ if(pRotation != 0.0f)
+ {
+ pRotation = pRotation * 0.01745329251994329576923690768488;
+ float aX = 0.0f;
+ float aY = 0.0f;
+ float aDist = 0.0f;
+ float aPivot = 0.0f;
+ for(int i=0;i<mCount;i++)
+ {
+ aX = mX[i] * pScaleX;
+ aY = mY[i] * pScaleY;
+ aDist = aX * aX + aY * aY;
+ 
+ if(aDist > SQRT_EPSILON)
+ {
+ aDist = sqrtf(aDist);
+ aX /= aDist;
+ aY /= aDist;
+ }
+ aPivot = (pRotation - atan2f(-aX, -aY));
+ mX[i] = (sin(aPivot)) * aDist;
+ mY[i] = (-cos(aPivot)) * aDist;
+ }
+ }
+ else
+ {
+ if(pScaleX != 1.0f)for(int i=0;i<mCount;i++)mX[i] *= pScaleX;
+ if(pScaleY != 1.0f)for(int i=0;i<mCount;i++)mY[i] *= pScaleY;
+ }
+ }
+ 
+ void FPointList::TransformTranslate(float pX, float pY)
+ {
+ if(pX != 0)for(int i=0;i<mCount;i++)mX[i] += pX;
+ if(pY != 0)for(int i=0;i<mCount;i++)mY[i] += pY;
+ }
+ 
+ void FPointList::Untransform(float pX, float pY, float pScaleX, float pScaleY, float pRotation)
+ {
+ UntransformTranslate(pX, pY);
+ 
+ if((pScaleX != 1.0f) || (pScaleY != 1.0f) || (pRotation != 0.0f))
+ UntransformScaleRotate(pScaleX, pScaleY, pRotation);
+ }
+ 
+ void FPointList::UntransformScaleRotate(float pScaleX, float pScaleY, float pRotation)
+ {
+ if((pScaleX < -0.01f) || (pScaleX > -0.01f) || (pScaleY < -0.01f) || (pScaleY > -0.01f))
+ {
+ TransformScaleRotate(1.0 / pScaleX, 1.0 / pScaleY, -pRotation);
+ }
+ }
+ 
+ void FPointList::UntransformTranslate(float pX, float pY)
+ {
+ TransformTranslate(-pX, -pY);
+ }
+ 
+ */
 

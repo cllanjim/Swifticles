@@ -28,7 +28,7 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
     
     @IBOutlet weak var segEditMode: TBSegment!{
         didSet {
-            segEditMode.segmentCount = 8
+            segEditMode.segmentCount = 2
             segEditMode.delegate = self
         }
     }
@@ -61,6 +61,17 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
     
     func segmentSelected(segment:TBSegment, index: Int) {
         print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
+        
+        if segment === segEditMode {
+            
+            if segEditMode.selectedIndex == 0 {
+                gApp.engine?.editMode = .Affine
+            } else {
+                gApp.engine?.editMode = .Shape
+            }
+            
+        }
+        
     }
     
     func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {

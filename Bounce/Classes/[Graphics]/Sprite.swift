@@ -184,8 +184,8 @@ public class Sprite {
             startY = CGFloat(-height2)
             endY = CGFloat(height2)
             
-            vertexBufferSlot = gG.bufferVertexGenerate(data: vertexBuffer, size: 40)
-            indexBufferSlot = gG.bufferIndexGenerate(data: indexBuffer, size: 6)
+            vertexBufferSlot = gG.bufferVertexGenerate(data: &vertexBuffer, size: 40)
+            indexBufferSlot = gG.bufferIndexGenerate(data: &indexBuffer, size: 6)
         }
     }
     
@@ -254,7 +254,7 @@ public class Sprite {
     internal func refreshVB() {
         
         if let checkIndex = vertexBufferSlot {
-            gG.bufferVertexSetData(bufferIndex: checkIndex, data: vertexBuffer, size: 40)
+            gG.bufferVertexSetData(bufferIndex: checkIndex, data: &vertexBuffer, size: 40)
             needsRefresh = false
         }
         

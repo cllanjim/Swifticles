@@ -75,8 +75,8 @@ class Graphics {
                               128.0,  128.0, 0.0,    1.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0]
         cRectIndexBuffer = [0, 2, 1, 1, 2, 3]
         
-        cRectVertexBufferSlot = bufferVertexGenerate(data: cRectVertexBuffer, size: 40)
-        cRectIndexBufferSlot = bufferIndexGenerate(data: cRectIndexBuffer, size: 6)
+        cRectVertexBufferSlot = bufferVertexGenerate(data: &cRectVertexBuffer, size: 40)
+        cRectIndexBufferSlot = bufferIndexGenerate(data: &cRectIndexBuffer, size: 6)
         
         textureEnable()
         
@@ -102,6 +102,7 @@ class Graphics {
         cRectIndexBufferSlot = nil
     }
     
+    //Why is this slower than balls? (iPad Air)
     func quadDraw(x1 x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat, x3:GLfloat, y3:GLfloat, x4:GLfloat, y4:GLfloat) {
         
         cRectVertexBuffer[0] = x1
@@ -113,17 +114,20 @@ class Graphics {
         cRectVertexBuffer[30] = x4
         cRectVertexBuffer[31] = y4
         
+        //textureDisable()
         textureBind(bufferIndex: cWhiteSprite.texture?.bindIndex)
         
         bufferIndexBind(cRectIndexBufferSlot)
-        bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: cRectVertexBuffer, size: 40)
+        bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: &cRectVertexBuffer, size: 40)
         
         positionEnable()
         positionSetPointer(size: 3, offset: 0, stride: 10)
         
+        //texCoordDisable()
         texCoordEnable()
         textureCoordSetPointer(size: 3, offset: 3, stride: 10)
         
+        //colorArrayDisable()
         colorArrayEnable()
         colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
@@ -147,27 +151,19 @@ class Graphics {
     }
     
     func lineDraw(p1 p1:CGPoint, p2:CGPoint, thickness:CGFloat) {
-        
         var diff = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
-        
         var dist = diff.x * diff.x + diff.y * diff.y
-        
         if dist > 0.01 {
-            
-            
             dist = sqrt(dist)
-            
             diff.x = (diff.x / dist) * thickness
             diff.y = (diff.y / dist) * thickness
-            
+            //flop vector to norm.
             let holdX = diff.x
             diff.x = -diff.y
             diff.y = holdX
-            
+            //draw a long quad.
             quadDraw(x1: GLfloat(p1.x-diff.x), y1: GLfloat(p1.y-diff.y), x2: GLfloat(p1.x+diff.x), y2: GLfloat(p1.y+diff.y),
                      x3: GLfloat(p2.x-diff.x), y3: GLfloat(p2.y-diff.y), x4: GLfloat(p2.x+diff.x), y4: GLfloat(p2.y+diff.y))
-            
-            
         }
     }
     
@@ -185,6 +181,13 @@ class Graphics {
     
     func colorSet(r r:GLfloat, g:GLfloat, b:GLfloat, a:GLfloat) {
         glUniform4f(gGLUniformColorModulate, r, g, b, a)
+    }
+    
+    func colorSet(color color:UIColor) {
+        var r: CGFloat = 0.0;var g: CGFloat = 0.0;var b: CGFloat = 0.0;var a: CGFloat = 0.0
+        if color.getRed(&r, green: &g, blue: &b, alpha: &a) {
+            colorSet(r: GLfloat(r), g: GLfloat(g), b: GLfloat(b), a: GLfloat(a))
+        }
     }
     
     func clear() {
@@ -252,9 +255,9 @@ class Graphics {
         glCullFace(GLenum(GL_BACK))
     }
     
-    func bufferVertexGenerate(data data:[GLfloat], size:Int) -> BufferIndex {
+    func bufferVertexGenerate(inout data data:[GLfloat], size:Int) -> BufferIndex {
         let result:BufferIndex = bufferGenerate()
-        bufferVertexSetData(bufferIndex:result, data: data, size: size)
+        bufferVertexSetData(bufferIndex:result, data: &data, size: size)
         return result
     }
     
@@ -271,20 +274,20 @@ class Graphics {
         }
     }
     
-    func bufferVertexSetData(bufferIndex bufferIndex:BufferIndex?, data:[GLfloat], size:Int) {
+    func bufferVertexSetData(bufferIndex bufferIndex:BufferIndex?, inout data:[GLfloat], size:Int) {
         if let checkIndex = bufferIndex {
             glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(checkIndex))
             glBufferData(GLenum(GL_ARRAY_BUFFER), size * sizeof(GLfloat), data, GLenum(GL_STATIC_DRAW))
         }
     }
     
-    func bufferIndexGenerate(data data:[IndexBufferType], size:Int) -> BufferIndex {
+    func bufferIndexGenerate(inout data data:[IndexBufferType], size:Int) -> BufferIndex {
         let result = bufferGenerate()
-        bufferIndexSetData(bufferIndex:result, data: data, size: size)
+        bufferIndexSetData(bufferIndex:result, data: &data, size: size)
         return result
     }
     
-    func bufferIndexSetData(bufferIndex bufferIndex:BufferIndex?, data:[IndexBufferType], size:Int) {
+    func bufferIndexSetData(bufferIndex bufferIndex:BufferIndex?, inout data:[IndexBufferType], size:Int) {
         if let checkIndex = bufferIndex {
             glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(checkIndex))
             glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), size * sizeof(UInt32), data, GLenum(GL_STATIC_DRAW))

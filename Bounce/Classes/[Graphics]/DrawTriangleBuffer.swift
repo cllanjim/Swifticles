@@ -76,7 +76,8 @@ class DrawTriangleBuffer {
                     gG.textureDisable()
                 }
                 
-                gG.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: t[index].buffer, size: 30)
+                
+                //gG.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &t[index].buffer, size: 30)
                 
                 gG.positionSetPointer(size: 3, offset: 0, stride: 10)
                 gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)

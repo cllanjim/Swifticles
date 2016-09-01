@@ -28,7 +28,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     var gestureTouchCenter:CGPoint = CGPointZero
     
-    var screenTranslation:CGPoint = CGPointZero
+    var screenTranslation:CGPoint = CGPoint(x:140, y:140)
     var screenScale:CGFloat = 1.0
     
     var gestureStartTranslate:CGPoint = CGPointZero

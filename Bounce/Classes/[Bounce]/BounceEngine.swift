@@ -47,10 +47,16 @@ class BounceEngine {
     //For the affine transformations only..
     weak var affineSelectedBlob:Blob?
     weak var affineSelectionTouch:UITouch?
+    var affineGestureStartCenter:CGPoint = CGPointZero
+    var affineGestureCenter:CGPoint = CGPointZero
     var affineSelectionStartCenter:CGPoint = CGPointZero
     var affineSelectionStartScale:CGFloat = 1.0
     var affineSelectionStartRotation:CGFloat = 0.0
     
+    
+    weak var shapeSelectedBlob:Blob?
+    weak var shapeSelectionTouch:UITouch?
+    var shapeSelectionControlPointIndex:Int?
     
     
     var scene = BounceScene()
@@ -82,7 +88,11 @@ class BounceEngine {
     }
     
     func handleModeChange() {
+        cancelAllTouches()
+        cancelAllGestures()
+        
         affineSelectedBlob = nil
+        shapeSelectedBlob = nil
     }
     
     func setUp(scene scene:BounceScene) {//, screenRect:CGRect) {
@@ -120,6 +130,9 @@ class BounceEngine {
                 self.sceneRect = CGRect(x: sceneX, y: sceneY, width: sceneWidth, height: sceneHeight)
             }
         }
+        
+        addBlob()
+        
     }
     
     
@@ -199,10 +212,44 @@ class BounceEngine {
             }
         }
         
+        if sceneMode == .Edit && editMode == .Shape {
+            
+            shapeSelectedBlob = nil
+            
+            
+            if let blob = touchBlob {
+                
+                var pointInBlob = blob.untransformPoint(point: point)
+                if let closest = blob.spline.getClosestControlPoint(point: pointInBlob) {
+                    
+                    shapeSelectedBlob = blob
+                    shapeSelectionTouch = touch
+                    shapeSelectionControlPointIndex = closest.index
+                }
+                
+                
+                //weak var shapeSelectedBlob:Blob?
+                //weak var shapeSelectionTouch:UITouch?
+                //var shapeSelectionControlPointIndex:Int?
+                
+                
+                blob.touchPoint = blob.untransformPoint(point: point)
+                
+            }
+        }
     }
     
     func touchMove(inout touch:UITouch, point:CGPoint) {
         touchPoint = CGPoint(x:point.x, y:point.y)
+        if sceneMode == .Edit && editMode == .Shape {
+            if let blob = shapeSelectedBlob where touch === shapeSelectionTouch {
+                if let index = shapeSelectionControlPointIndex {
+                    let pointInBlob = blob.untransformPoint(point: point)
+                    blob.spline.set(index, x: pointInBlob.x, y: pointInBlob.y)
+                    blob.setNeedsComputeShape()
+                }
+            }
+        }
     }
     
     func touchUp(inout touch:UITouch, point:CGPoint) {
@@ -212,16 +259,19 @@ class BounceEngine {
             affineSelectedBlob = nil
         }
         
+        if touch === shapeSelectionTouch {
+            shapeSelectionTouch = nil
+            shapeSelectedBlob = nil
+        }
+        
         
         
     }
     
     //this may be called extremely frequently.
     func cancelAllTouches() {
-        print("Engine.cancelAllTouches()")
         affineSelectedBlob = nil
         affineSelectionTouch = nil
-        
     }
     
     
@@ -230,18 +280,22 @@ class BounceEngine {
     var panPos:CGPoint = CGPointZero
     
     func panBegin(pos pos:CGPoint) {
-        print("PanBegin(\(pos.x) x \(pos.y))")
         if isPanning {
             panEnd(pos: pos, velocity: CGPointZero)
         }
         isPanning = true
         panStartPos = pos
         panPos = pos
+        affineGestureCenter = pos
         
         if sceneMode == .Edit && editMode == .Affine {
             
             if let blob = affineSelectedBlob {
                 affineSelectionStartCenter = blob.center
+                
+                affineGestureStartCenter = blob.untransformPoint(point: pos)
+                
+                
             }
             gestureUpdateAffine()
         }
@@ -250,6 +304,7 @@ class BounceEngine {
     func pan(pos pos:CGPoint) {
         guard isPanning else { return }
         panPos = pos
+        affineGestureCenter = pos
         if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
     }
     
@@ -264,7 +319,6 @@ class BounceEngine {
     var pinchStartPos:CGPoint = CGPointZero
     var pinchPos:CGPoint = CGPointZero
     func pinchBegin(pos pos:CGPoint, scale:CGFloat) {
-        print("PinchBegin(\(pos.x) x \(pos.y))")
         if isPinching {
             pinchEnd(pos: pos, scale: pinchScale)
             isPinching = false
@@ -272,20 +326,30 @@ class BounceEngine {
         isPinching = true
         pinchStartPos = pos
         pinchPos = pos
+        affineGestureCenter = pos
         pinchScale = scale
-        if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
+        //if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
+        
+        if sceneMode == .Edit && editMode == .Affine {
+            
+            if let blob = affineSelectedBlob {
+                affineGestureStartCenter = blob.untransformPoint(point: pos)
+            }
+            gestureUpdateAffine()
+        }
+        
     }
     
     func pinch(pos pos:CGPoint, scale:CGFloat) {
         guard isPinching else { return }
         pinchPos = pos
         pinchScale = scale
+        affineGestureCenter = pos
         if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
     }
     
     func pinchEnd(pos pos:CGPoint, scale:CGFloat) {
         guard isPinching else { return }
-        print("PinchEnd(\(pos.x) x \(pos.y))")
         pinchPos = pos
         pinchScale = scale
         isPinching = false
@@ -298,7 +362,6 @@ class BounceEngine {
     var rotationStartPos:CGPoint = CGPointZero
     var rotationPos:CGPoint = CGPointZero
     func rotateBegin(pos pos:CGPoint, radians:CGFloat) {
-        print("RotateBegin(\(pos.x) x \(pos.y)) Rad: \(radians * 100) RSS(\(affineSelectionStartRotation * 100))")
         if isRotating {
             rotateEnd(pos: pos, radians: radians)
             isRotating = false
@@ -307,20 +370,28 @@ class BounceEngine {
         rotationStartPos = pos
         rotationPos = pos
         rotation = radians
-        if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
+        affineGestureCenter = pos
+        //if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
+        
+        if sceneMode == .Edit && editMode == .Affine {
+            
+            if let blob = affineSelectedBlob {
+                affineGestureStartCenter = blob.untransformPoint(point: pos)
+            }
+            gestureUpdateAffine()
+        }
     }
     
     func rotate(pos pos:CGPoint, radians:CGFloat) {
-        print("Rotate(\(pos.x) x \(pos.y)) Rad: \(radians * 100) RSS(\(affineSelectionStartRotation * 100))")
         guard isRotating else { return }
         rotationPos = pos
         rotation = radians
+        affineGestureCenter = pos
         if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
     }
     
     func rotateEnd(pos pos:CGPoint, radians:CGFloat) {
         guard isRotating else { return }
-        print("RotateEnd(\(pos.x) x \(pos.y)) Rad: \(radians * 100) RSS(\(affineSelectionStartRotation * 100))")
         rotationPos = pos
         rotation = radians
         isRotating = false
@@ -328,7 +399,7 @@ class BounceEngine {
     
     
     func cancelAllGestures() {
-        print("Engine.cancelAllGestures()")
+        
         //if isPanning { panEnd(pos: panPos, velocity: CGPointZero) }
         //if isPinching { pinchEnd(pos: pinchPos, scale: pinchScale) }
         
@@ -408,30 +479,76 @@ class BounceEngine {
                 while newRotation < 0.0 { newRotation += Math.PI2 }
                 blob.rotation = newRotation
             }
+            
+            //Correction to the center of blob. "Pivot" effect..
+            let startCenter = blob.transformPoint(point: affineGestureStartCenter)
+            blob.center = CGPoint(x: blob.center.x + (affineGestureCenter.x - startCenter.x),
+                                  y: blob.center.y + (affineGestureCenter.y - startCenter.y))
         }
     }
     
-//    if sceneMode == .Edit && editMode == .Affine {
-//    
-//    if affineSelectedBlob == nil {
-//    affineSelectedBlob = touchBlob
-//    
-//    
-//    if let checkAffineSelectedBlob = affineSelectedBlob {
-//    selectedBlob = checkAffineSelectedBlob
-//    affineSelectionTouch = touch
-//    
-//    affineSelectionStartCenter = checkAffineSelectedBlob.center
-//    affineSelectionStartScale = checkAffineSelectedBlob.scale
-//    affineSelectionStartRotation = checkAffineSelectedBlob.rotation
-//    } else {
-//    affineSelectedBlob = nil
-//    affineSelectionTouch = nil
-//    }
-//    }
-//    }
+    
+    class func transformPoint(point point:CGPoint, scale: CGFloat, rotation:CGFloat) -> CGPoint {
+        var x = point.x
+        var y = point.y
+        if scale != 1.0 {
+            x *= scale
+            y *= scale
+        }
+        if rotation != 0 {
+            var dist = x * x + y * y
+            if dist > 0.01 {
+                dist = CGFloat(sqrtf(Float(dist)))
+                x /= dist
+                y /= dist
+            }
+            let pivotRotation = rotation - CGFloat(atan2f(Float(-x), Float(-y)))
+            x = CGFloat(sinf(Float(pivotRotation))) * dist
+            y = CGFloat(-cosf(Float(pivotRotation))) * dist
+        }
+        
+        return CGPoint(x: x, y: y)
+    }
+    
+    class func transformPoint(point point:CGPoint, translation:CGPoint, scale: CGFloat, rotation:CGFloat) -> CGPoint {
+        var result = transformPoint(point: point, scale: scale, rotation: rotation)
+        result = CGPoint(x: result.x + translation.x, y: result.y + translation.y)
+        return result
+    }
     
     
+    class func untransformPoint(point point:CGPoint, scale: CGFloat, rotation:CGFloat) -> CGPoint {
+        return transformPoint(point: point, scale: 1.0 / scale, rotation: -rotation)
+    }
+    
+    class func untransformPoint(point point:CGPoint, translation:CGPoint, scale: CGFloat, rotation:CGFloat) -> CGPoint {
+        var result = CGPoint(x: point.x - translation.x, y: point.y - translation.y)
+        result = untransformPoint(point: result, scale: scale, rotation: rotation)
+        return result
+    }
+    
+    /*
+    void FPointList::Untransform(float pX, float pY, float pScaleX, float pScaleY, float pRotation)
+    {
+    UntransformTranslate(pX, pY);
+    
+    if((pScaleX != 1.0f) || (pScaleY != 1.0f) || (pRotation != 0.0f))
+    UntransformScaleRotate(pScaleX, pScaleY, pRotation);
+    }
+    
+    void FPointList::UntransformScaleRotate(float pScaleX, float pScaleY, float pRotation)
+    {
+    if((pScaleX < -0.01f) || (pScaleX > -0.01f) || (pScaleY < -0.01f) || (pScaleY > -0.01f))
+    {
+    TransformScaleRotate(1.0 / pScaleX, 1.0 / pScaleY, -pRotation);
+    }
+    }
+    
+    void FPointList::UntransformTranslate(float pX, float pY)
+    {
+    TransformTranslate(-pX, -pY);
+    }
+    */
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
