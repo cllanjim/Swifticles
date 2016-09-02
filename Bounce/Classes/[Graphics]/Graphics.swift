@@ -277,7 +277,7 @@ class Graphics {
     func bufferVertexSetData(bufferIndex bufferIndex:BufferIndex?, inout data:[GLfloat], size:Int) {
         if let checkIndex = bufferIndex {
             glBindBuffer(GLenum(GL_ARRAY_BUFFER), GLuint(checkIndex))
-            glBufferData(GLenum(GL_ARRAY_BUFFER), size * sizeof(GLfloat), data, GLenum(GL_STATIC_DRAW))
+            glBufferData(GLenum(GL_ARRAY_BUFFER), size * sizeof(GLfloat), &data, GLenum(GL_STATIC_DRAW))
         }
     }
     
@@ -290,7 +290,7 @@ class Graphics {
     func bufferIndexSetData(bufferIndex bufferIndex:BufferIndex?, inout data:[IndexBufferType], size:Int) {
         if let checkIndex = bufferIndex {
             glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), GLuint(checkIndex))
-            glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), size * sizeof(UInt32), data, GLenum(GL_STATIC_DRAW))
+            glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), size * sizeof(UInt32), &data, GLenum(GL_STATIC_DRAW))
         }
     }
     

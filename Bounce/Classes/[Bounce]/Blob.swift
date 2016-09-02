@@ -30,8 +30,6 @@ public class Blob
     
     var spline = CubicSpline()
     
-    var demoPos:CGFloat = 0.0
-    
     var valid:Bool = false
     
     //Base = untransformed, no Base = transformed...
@@ -75,11 +73,6 @@ public class Blob
     
     func update() {
         
-        demoPos += 0.06
-        if demoPos > spline.maxPos {
-            demoPos -= spline.maxPos
-        }
-        
     }
     
     func draw() {
@@ -103,10 +96,6 @@ public class Blob
         
         
         gG.colorSet(r: 0.25, g: 1.0, b: 1.0, a: 1.0)
-        
-        let point = spline.get(demoPos)
-        gG.rectDraw(x: Float(point.x - 3.0), y: Float(point.y - 3.0), width: 7.0, height: 7.0)
-        
         
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
@@ -191,7 +180,7 @@ public class Blob
     func computeGrid() {
         
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
-        let stepSize = minSize / 16.0
+        let stepSize = minSize / 10.0
         //if stepSize >
         
         var countX = 0
@@ -222,7 +211,18 @@ public class Blob
                 let y = topY + (bottomY - topY) * percentY
                 
                 grid[i][n].pointBase = CGPoint(x: x, y: y)
-                grid[i][n].color = UIColor(red: percentX, green: 0.5, blue: percentY, alpha: 1.0)
+                
+                if borderBase.pointInside(point: grid[i][n].pointBase) {
+                    grid[i][n].color = UIColor(red: 1.0 - percentX, green: 1.0, blue: 1.0 - percentY, alpha: 1.0)
+                }
+                else {
+                    grid[i][n].color = UIColor(red: percentX, green: 0.0, blue: percentY, alpha: 1.0)
+                }
+                
+                
+                
+                
+                
             }
         }
     }
@@ -301,66 +301,65 @@ public class Blob
         return BounceEngine.transformPoint(point: point, translation: center, scale: scale, rotation: rotation)
     }
     
+    
     /*
-    void JigglePoint::Transform(float x, float y, float &pNewX, float &pNewY)
-    {
-    x -= mX;y -= mY;
     
-    float aDiffX = -x;float aDiffY = -y;
-    
-    float aRot = FaceTarget(aDiffX, aDiffY);
-    float aDist = aDiffX * aDiffX + aDiffY * aDiffY;
-    
-    if(aDist > 0.25f)
-    {
-    aDist = sqrtf(aDist);
-    aDiffX /= aDist;aDiffY /= aDist;
-    }
-    else
-    {
-    aDiffX = 0;aDiffY = 0;
+    func save() -> [String:AnyObject] {
+        var info = [String:AnyObject]()
+        info["image_name"] = imageName
+        info["image_path"] = imagePath
+        info["landscape"] = isLandscape
+        info["size_width"] = Float(size.width)
+        info["size_height"] = Float(size.height)
+        return info
     }
     
-    aRot -= mRotation;
-    
-    float aDirX = Sin(-aRot);
-    float aDirY = Cos(-aRot);
-    
-    pNewX = aDirX * (aDist / mScale);
-    pNewY = aDirY * (aDist / mScale);
+    func load(info info:[String:AnyObject]) {
+        if let _imageName = info["image_name"] as? String { imageName = _imageName }
+        if let _imagePath = info["image_path"] as? String { imagePath = _imagePath }
+        if let _isLandscape = info["landscape"] as? Bool { isLandscape = _isLandscape }
+        if let _sizeWidth = info["size_width"] as? Float { size.width = CGFloat(_sizeWidth) }
+        if let _sizeHeight = info["size_height"] as? Float { size.height = CGFloat(_sizeHeight) }
     }
-    
-    void JigglePoint::Untransform(float x, float y, float &pNewX, float &pNewY, bool pSkipTranslate)
-    {
-    float aDiffX = x;float aDiffY = y;
-    float aRot = FaceTarget(-aDiffX, -aDiffY);
-    float aDist = aDiffX * aDiffX + aDiffY * aDiffY;
-    
-    if(aDist > 0.25f)
-    {
-    aDist = sqrtf(aDist);
-    aDiffX /= aDist;aDiffY /= aDist;
-    }
-    else
-    {
-    aDiffX = 0;aDiffY = 0;
-    }
-    
-    aRot += mRotation;
-    
-    float aDirX = Sin(-aRot);
-    float aDirY = Cos(-aRot);
-    
-    pNewX = aDirX * (aDist * mScale);
-    pNewY = aDirY * (aDist * mScale);
-    
-    if(pSkipTranslate == false)
-    {
-    pNewX += mX;
-    pNewY += mY;
-    }
-    }
+ 
     */
     
+    func save() -> [String:AnyObject] {
+        
+        var info = [String:AnyObject]()
+        
+        info["center_x"] = Float(center.x)
+        info["center_y"] = Float(center.y)
+        
+        info["scale"] = Float(scale)
+        info["rotation"] = Float(rotation)
+        
+        info["spline"] = spline.save()
+        
+        
+        /*
+         info["image_name"] = imageName
+         info["image_path"] = imagePath
+         
+         info["landscape"] = isLandscape
+         
+         info["size_width"] = Float(size.width)
+         info["size_height"] = Float(size.height)
+         */
+        
+        return info
+    }
     
+    func load(info info:[String:AnyObject]) {
+        
+        if let _centerX = info["center_x"] as? Float { center.x = CGFloat(_centerX) }
+        if let _centerY = info["center_y"] as? Float { center.y = CGFloat(_centerY) }
+        
+        if let _scale = info["scale"] as? Float { scale = CGFloat(_scale) }
+        if let _rotation = info["rotation"] as? Float { rotation = CGFloat(_rotation) }
+        
+        if let splineInfo = info["spline"] as? [String:AnyObject] { spline.load(info: splineInfo) }
+        
+    }
 }
+

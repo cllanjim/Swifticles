@@ -21,7 +21,6 @@ extension UIImage {
         return nil
     }
     
-    
     /*
     - (UIImage *)scaleAndRotateImage(UIImage *)image
     {

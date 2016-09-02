@@ -45,7 +45,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         let scene = BounceScene()
         
         scene.imageName = gConfig.uniqueString
-        scene.imagePath = String(scene.imageName).stringByAppendingString(".jpg")
+        scene.imagePath = String(scene.imageName).stringByAppendingString(".png")
         FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
         
         scene.image = image
@@ -84,6 +84,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded),
                                                          name: String(BounceNotification.BlobAdded), object: nil)
+        
+        //...
+        scene.image = nil
     }
     
     func handleZoomModeChange() {
@@ -130,29 +133,23 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        
         if engine.scene.isLandscape {
-            print("[.LandscapeRight, .LandscapeLeft]")
             return [.LandscapeRight, .LandscapeLeft]
         } else {
-            print("[.Portrait, .PortraitUpsideDown]")
             return [.Portrait, .PortraitUpsideDown]
         }
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         if engine.scene.isLandscape {
-            print("UIInterfaceOrientation.LandscapeLeft")
             return UIInterfaceOrientation.LandscapeLeft
         } else {
-            print("UIInterfaceOrientation.Portrait")
             return UIInterfaceOrientation.Portrait
         }
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        
         saveScene()
     }
     
@@ -513,7 +510,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             for var touch:UITouch in touches {
                 if touch.phase == .Ended || touch.phase == .Cancelled {
                     let location = touch.locationInView(view)
-                    engine.touchMove(&touch, point: transformPointToImage(location))
+                    engine.touchUp(&touch, point: transformPointToImage(location))
                 }
             }
         } else {

@@ -43,6 +43,39 @@ class BounceEngine {
         }
     }
     
+    func deleteAllBlobs() {
+        var temp = [Blob]()
+        for blob:Blob in blobs { temp.append(blob) }
+        for blob:Blob in temp { deleteBlob(blob) }
+    }
+    
+    var deletedBlobs = [Blob]()
+    
+    func deleteBlob(blob:Blob?) {
+        
+        if let deleteBlob = blob {
+            
+            deletedBlobs.append(deleteBlob)
+            
+            if affineSelectedBlob === deleteBlob {
+                affineSelectedBlob = nil
+                affineSelectionTouch = nil
+            }
+            if shapeSelectedBlob === deleteBlob {
+                shapeSelectedBlob = nil
+                shapeSelectionTouch = nil
+            }
+            var deleteIndex:Int?
+            for i in 0..<blobs.count {
+                if blobs[i] === deleteBlob {
+                    deleteIndex = i
+                }
+            }
+            if let index = deleteIndex {
+                blobs.removeAtIndex(index)
+            }
+        }
+    }
     
     //For the affine transformations only..
     weak var affineSelectedBlob:Blob?
@@ -107,12 +140,18 @@ class BounceEngine {
             let heightRatio = (Double(screenSize.height) * Double(gDevice.scale)) / Double(image.size.height)
             let ratio = min(widthRatio, heightRatio)
             if ratio < 0.999 {
+                //This basically means that we've imported an image from
+                //a different device.
+                
                 let importWidth = CGFloat(Int(Double(image.size.width) * ratio + 0.5))
                 let importHeight = CGFloat(Int(Double(image.size.height) * ratio + 0.5))
                 print("Import Resized [\(image.size.width) x \(image.size.height)] ->\n[\(importWidth) x \(importHeight)]")
                 scene.image = image.resize(CGSize(width: importWidth, height: importHeight))
                 
-                //TODO: Re-save the image here.
+                //TODO: Re-save the image here?
+                //scene.imageName = gConfig.uniqueString
+                //scene.imagePath = String(scene.imageName).stringByAppendingString(".png")
+                //FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
             }
             
             backgroundTexture.load(image: scene.image)
@@ -214,27 +253,30 @@ class BounceEngine {
         
         if sceneMode == .Edit && editMode == .Shape {
             
-            shapeSelectedBlob = nil
+            var closest:(index:Int, distance:CGFloat)?
+            var editBlob:Blob?
             
+            for blob:Blob in blobs {
+                if blob.selectable {
+                    let pointInBlob = blob.untransformPoint(point: point)
+                    if let c = blob.spline.getClosestControlPoint(point: pointInBlob) {
+                        if closest == nil {
+                            closest = c
+                            editBlob = blob
+                        } else if c.distance < closest!.distance {
+                            closest = c
+                            editBlob = blob
+                        }
+                    }
+                }
+            }
             
-            if let blob = touchBlob {
-                
-                var pointInBlob = blob.untransformPoint(point: point)
-                if let closest = blob.spline.getClosestControlPoint(point: pointInBlob) {
-                    
+            if let blob = editBlob where shapeSelectedBlob == nil {
+                if closest!.distance < 80.0 {
                     shapeSelectedBlob = blob
                     shapeSelectionTouch = touch
-                    shapeSelectionControlPointIndex = closest.index
+                    shapeSelectionControlPointIndex = closest!.index
                 }
-                
-                
-                //weak var shapeSelectedBlob:Blob?
-                //weak var shapeSelectionTouch:UITouch?
-                //var shapeSelectionControlPointIndex:Int?
-                
-                
-                blob.touchPoint = blob.untransformPoint(point: point)
-                
             }
         }
     }
@@ -253,25 +295,23 @@ class BounceEngine {
     }
     
     func touchUp(inout touch:UITouch, point:CGPoint) {
-        
         if touch === affineSelectionTouch {
             affineSelectionTouch = nil
             affineSelectedBlob = nil
         }
-        
         if touch === shapeSelectionTouch {
             shapeSelectionTouch = nil
             shapeSelectedBlob = nil
         }
-        
-        
-        
     }
     
     //this may be called extremely frequently.
     func cancelAllTouches() {
         affineSelectedBlob = nil
         affineSelectionTouch = nil
+        
+        shapeSelectionTouch = nil
+        shapeSelectedBlob = nil
     }
     
     
@@ -287,15 +327,10 @@ class BounceEngine {
         panStartPos = pos
         panPos = pos
         affineGestureCenter = pos
-        
         if sceneMode == .Edit && editMode == .Affine {
-            
             if let blob = affineSelectedBlob {
                 affineSelectionStartCenter = blob.center
-                
                 affineGestureStartCenter = blob.untransformPoint(point: pos)
-                
-                
             }
             gestureUpdateAffine()
         }
@@ -328,16 +363,13 @@ class BounceEngine {
         pinchPos = pos
         affineGestureCenter = pos
         pinchScale = scale
-        //if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
         
         if sceneMode == .Edit && editMode == .Affine {
-            
             if let blob = affineSelectedBlob {
                 affineGestureStartCenter = blob.untransformPoint(point: pos)
             }
             gestureUpdateAffine()
         }
-        
     }
     
     func pinch(pos pos:CGPoint, scale:CGFloat) {
@@ -371,10 +403,7 @@ class BounceEngine {
         rotationPos = pos
         rotation = radians
         affineGestureCenter = pos
-        //if sceneMode == .Edit && editMode == .Affine { gestureUpdateAffine() }
-        
         if sceneMode == .Edit && editMode == .Affine {
-            
             if let blob = affineSelectedBlob {
                 affineGestureStartCenter = blob.untransformPoint(point: pos)
             }
@@ -397,16 +426,10 @@ class BounceEngine {
         isRotating = false
     }
     
-    
     func cancelAllGestures() {
-        
-        //if isPanning { panEnd(pos: panPos, velocity: CGPointZero) }
-        //if isPinching { pinchEnd(pos: pinchPos, scale: pinchScale) }
-        
         isPanning = false
         isPinching = false
         isRotating = false
-        
         affineSelectedBlob = nil
         affineSelectionTouch = nil
     }
@@ -425,12 +448,9 @@ class BounceEngine {
         selectedBlob = blob
         blob.center.x = sceneRect.origin.x + 50
         blob.center.y = sceneRect.origin.y + sceneRect.size.height / 2.0
-        
         postNotification(.BlobAdded)
-        
         return blob
     }
-    
     
     func blobClosestToPoint(pos:CGPoint) -> Blob? {
         var result:Blob?
@@ -516,7 +536,6 @@ class BounceEngine {
         return result
     }
     
-    
     class func untransformPoint(point point:CGPoint, scale: CGFloat, rotation:CGFloat) -> CGPoint {
         return transformPoint(point: point, scale: 1.0 / scale, rotation: -rotation)
     }
@@ -527,31 +546,16 @@ class BounceEngine {
         return result
     }
     
-    /*
-    void FPointList::Untransform(float pX, float pY, float pScaleX, float pScaleY, float pRotation)
-    {
-    UntransformTranslate(pX, pY);
-    
-    if((pScaleX != 1.0f) || (pScaleY != 1.0f) || (pRotation != 0.0f))
-    UntransformScaleRotate(pScaleX, pScaleY, pRotation);
-    }
-    
-    void FPointList::UntransformScaleRotate(float pScaleX, float pScaleY, float pRotation)
-    {
-    if((pScaleX < -0.01f) || (pScaleX > -0.01f) || (pScaleY < -0.01f) || (pScaleY > -0.01f))
-    {
-    TransformScaleRotate(1.0 / pScaleX, 1.0 / pScaleY, -pRotation);
-    }
-    }
-    
-    void FPointList::UntransformTranslate(float pX, float pY)
-    {
-    TransformTranslate(-pX, -pY);
-    }
-    */
-    
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
+        
+        
+        //[String:AnyObject]
+        var blobData = [[String:AnyObject]]()
+        for blob in blobs {
+            blobData.append(blob.save())
+        }
+        info["blobs"] = blobData
         
         /*
          info["image_name"] = imageName
@@ -567,6 +571,21 @@ class BounceEngine {
     }
     
     func load(info info:[String:AnyObject]) {
+        
+        deleteAllBlobs()
+        
+        
+        if let blobData = info["blobs"] as? [[String:AnyObject]] {
+            for i in 0..<blobData.count {
+                var blob = Blob()
+                blob.load(info: blobData[i])
+                blobs.append(blob)
+            }
+        }
+        
+        //info["blobs"] = blobData
+        
+        
         print("************\nBounceEngine.load()")
         
     }

@@ -28,18 +28,10 @@ class PointList
         set(_count, x: x, y: y)
     }
     
-    
     func add(list list:PointList) {
-        
         for i in 0..<list.count {
             add(x: list.data[i].x, y: list.data[i].y)
         }
-        
-        
-        //for listData:(x:CGFloat, y:CGFloat) in list.data {
-        //    add(x: listData.x, y: listData.y)
-        //}
-        
     }
     
     func set(index:Int, x:CGFloat, y:CGFloat) {
@@ -55,7 +47,7 @@ class PointList
     }
     
     
-    func transform(scaleX scaleX:CGFloat, scaleY scaleY:CGFloat, rotation:CGFloat) {
+    func transform(scaleX scaleX:CGFloat, scaleY:CGFloat, rotation:CGFloat) {
         if rotation == 0 {
             for i in 0..<count {
                 data[i].x = data[i].x * scaleX
@@ -133,6 +125,20 @@ class PointList
                       y: (top - padding),
                       width: ((getMaxX() - left) + padding * 2),
                       height: ((getMaxY() - top) + padding * 2))
+    }
+    
+    func pointInside(point point:CGPoint)->Bool {
+        var result = false
+        var index2 = count - 1
+        for index1 in 0..<count {
+            let yBetween = (data[index1].y <= point.y) && (point.y < data[index2].y) || (data[index2].y <= point.y) && (point.y < data[index1].y)
+            let xIntersects = (point.x < (data[index2].x - data[index1].x) * (point.y - data[index1].y) / (data[index2].y - data[index1].y) + data[index1].x)
+            if yBetween && xIntersects {
+                result = !result;
+            }
+            index2 = index1
+        }
+        return result
     }
     
     func drawEdges(closed closed:Bool) {

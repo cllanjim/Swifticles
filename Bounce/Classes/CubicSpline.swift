@@ -10,13 +10,31 @@ import UIKit
 
 struct CubicSplineNode {
     var value:CGFloat = 0.0
-    
     var delta:CGFloat = 0.0
     var derivative:CGFloat = 0.0
-    
     var coefA:CGFloat = 0.0
     var coefB:CGFloat = 0.0
     var coefC:CGFloat = 0.0
+    
+    func save() -> [String:AnyObject] {
+        var info = [String:AnyObject]()
+        info["value"] = Float(value)
+        info["delta"] = Float(delta)
+        info["derivative"] = Float(derivative)
+        info["coefA"] = Float(coefA)
+        info["coefB"] = Float(coefB)
+        info["coefC"] = Float(coefC)
+        return info
+    }
+    
+    mutating func load(info info:[String:AnyObject]) {
+        if let _value = info["value"] as? Float { value = CGFloat(_value) }
+        if let _delta = info["delta"] as? Float { delta = CGFloat(_delta) }
+        if let _derivative = info["derivative"] as? Float { derivative = CGFloat(_derivative) }
+        if let _coefA = info["coefA"] as? Float { coefA = CGFloat(_coefA) }
+        if let _coefB = info["coefB"] as? Float { coefB = CGFloat(_coefB) }
+        if let _coefC = info["coefC"] as? Float { coefC = CGFloat(_coefC) }
+    }
 }
 
 class CubicSpline {
@@ -219,6 +237,65 @@ class CubicSpline {
                 coord[i].coefC = 2.0 * (coord[i].value - coord[i+1].value) + coord[i].derivative + coord[i+1].derivative
             }
         }
+    }
+    
+    
+    func save() -> [String:AnyObject] {
+        
+        var info = [String:AnyObject]()
+        
+        info["closed"] = closed
+        info["linear"] = linear
+        
+        
+        //info["scale"] = Float(scale)
+        //info["rotation"] = Float(rotation)
+        
+        //CubicSplineNode
+        var splineDataX = [[String:AnyObject]]()
+        var splineDataY = [[String:AnyObject]]()
+        for i in 0..<controlPointCount {
+            splineDataX.append(x[i].save())
+            splineDataY.append(y[i].save())
+        }
+        info["coord_x"] = splineDataX
+        info["coord_y"] = splineDataY
+        
+        
+        /*
+         info["image_name"] = imageName
+         info["image_path"] = imagePath
+         
+         info["landscape"] = isLandscape
+         
+         info["size_width"] = Float(size.width)
+         info["size_height"] = Float(size.height)
+         */
+        
+        return info
+    }
+    
+    func load(info info:[String:AnyObject]) {
+        
+        clear()
+        
+        if let _closed = info["closed"] as? Bool { closed = _closed }
+        if let _linear = info["linear"] as? Bool { linear = _linear }
+        
+        if let splineDataX = info["coord_x"] as? [[String:AnyObject]],  splineDataY = info["coord_y"] as? [[String:AnyObject]] {
+            if splineDataX.count == splineDataY.count {
+                
+                for _ in 0..<splineDataX.count {
+                    add(0.0, y: 0.0)
+                }
+                
+                for i in 0..<splineDataX.count {
+                    x[i].load(info: splineDataX[i])
+                    y[i].load(info: splineDataY[i])
+                }
+            }
+        }
+        refresh = true
     }
 }
 
