@@ -9,8 +9,9 @@
 import UIKit
 import OpenGLES
 
+
+
 struct BlobGridNode {
-    
     //Base = untransformed, no Base = transformed...
     var point:CGPoint = CGPointZero
     var pointBase:CGPoint = CGPointZero
@@ -19,7 +20,6 @@ struct BlobGridNode {
     var border:Bool = false
     
     var color:UIColor = UIColor.whiteColor()
-    
 }
 
 public class Blob
@@ -31,6 +31,8 @@ public class Blob
     var spline = CubicSpline()
     
     var valid:Bool = false
+    
+    var t = [IndexTriangle]()
     
     //Base = untransformed, no Base = transformed...
     var borderBase = PointList()
@@ -122,6 +124,7 @@ public class Blob
         gG.pointDraw(point: touchPoint, size: 19.25)
         
         
+        computeMesh()
     }
     
     func computeShape() {
@@ -201,85 +204,38 @@ public class Blob
         grid = [[BlobGridNode]](count: countX, repeatedValue:[BlobGridNode](count: countY, repeatedValue: BlobGridNode()))
         
         for i in 0..<countX {
-            
             let percentX = CGFloat(Double(i) / Double(countX - 1))
             let x = leftX + (rightX - leftX) * percentX
-            
             for n in 0..<countY {
-                
                 let percentY = CGFloat(Double(n) / Double(countY - 1))
                 let y = topY + (bottomY - topY) * percentY
-                
                 grid[i][n].pointBase = CGPoint(x: x, y: y)
-                
                 if borderBase.pointInside(point: grid[i][n].pointBase) {
                     grid[i][n].color = UIColor(red: 1.0 - percentX, green: 1.0, blue: 1.0 - percentY, alpha: 1.0)
-                }
-                else {
+                } else {
                     grid[i][n].color = UIColor(red: percentX, green: 0.0, blue: percentY, alpha: 1.0)
                 }
-                
-                
-                
-                
-                
             }
         }
     }
     
+    func computeMesh() {
+        
+        
+        
+    }
     
     func computeAffine() {
-        
         needsComputeAffine = false
-        
         border.reset()
         border.add(list: borderBase)
         border.transform(scale: scale, rotation: rotation)
         border.transform(translation: center)
-        
-        
-        
         for i in 0..<grid.count {
-            
             for n in 0..<grid[i].count {
-                
                 grid[i][n].point = transformPoint(point: grid[i][n].pointBase)
-                
-                
-                
-                //gG.pointDraw(point: grid[i][n].pointBase, size: 4.0)
-                
-                //grid[i][n].pointBase = CGPoint(x: x, y: y)
-                
-                
-                
             }
         }
-        
-        
-        /*
-        if rotation == 0 {
-            for i in 0..<count {
-                data[i].x = data[i].x * scaleX
-                data[i].y = data[i].y * scaleY
-            }
-        } else {
-            for i in 0..<count {
-                var x = data[i].x * scaleX
-                var y = data[i].y * scaleY
-                var dist = x * x + y * y
-                if dist > 0.01 {
-                    dist = CGFloat(sqrtf(Float(dist)))
-                    x /= dist
-                    y /= dist
-                }
-                let pivotRotation = rotation - CGFloat(atan2f(Float(-x), Float(-y)))
-                data[i].x = CGFloat(sinf(Float(pivotRotation))) * dist
-                data[i].y = CGFloat(-cosf(Float(pivotRotation))) * dist
-            }
-        }
-        */
-        
     }
     
     internal func computeIfNeeded() {
@@ -287,79 +243,33 @@ public class Blob
         if needsComputeAffine { computeAffine() }
     }
     
-    //class func
-    
     func untransformPoint(point point:CGPoint) -> CGPoint {
         return BounceEngine.untransformPoint(point: point, translation: center, scale: scale, rotation: rotation)
     }
     
     func transformPoint(point point:CGPoint) -> CGPoint {
-        
-        //return BounceEngine.untransformPoint(point: point, translation: center, scale: scale, rotation: rotation)
-        //return BounceEngine.transformPoint(point: CGPoint(x: point.x - center.x, y: point.y - center.y), scale: scale, rotation: rotation)
-        
         return BounceEngine.transformPoint(point: point, translation: center, scale: scale, rotation: rotation)
     }
     
     
-    /*
-    
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
-        info["image_name"] = imageName
-        info["image_path"] = imagePath
-        info["landscape"] = isLandscape
-        info["size_width"] = Float(size.width)
-        info["size_height"] = Float(size.height)
-        return info
-    }
-    
-    func load(info info:[String:AnyObject]) {
-        if let _imageName = info["image_name"] as? String { imageName = _imageName }
-        if let _imagePath = info["image_path"] as? String { imagePath = _imagePath }
-        if let _isLandscape = info["landscape"] as? Bool { isLandscape = _isLandscape }
-        if let _sizeWidth = info["size_width"] as? Float { size.width = CGFloat(_sizeWidth) }
-        if let _sizeHeight = info["size_height"] as? Float { size.height = CGFloat(_sizeHeight) }
-    }
- 
-    */
-    
-    func save() -> [String:AnyObject] {
-        
-        var info = [String:AnyObject]()
-        
         info["center_x"] = Float(center.x)
         info["center_y"] = Float(center.y)
-        
         info["scale"] = Float(scale)
         info["rotation"] = Float(rotation)
-        
         info["spline"] = spline.save()
-        
-        
-        /*
-         info["image_name"] = imageName
-         info["image_path"] = imagePath
-         
-         info["landscape"] = isLandscape
-         
-         info["size_width"] = Float(size.width)
-         info["size_height"] = Float(size.height)
-         */
-        
         return info
     }
     
     func load(info info:[String:AnyObject]) {
-        
         if let _centerX = info["center_x"] as? Float { center.x = CGFloat(_centerX) }
         if let _centerY = info["center_y"] as? Float { center.y = CGFloat(_centerY) }
-        
         if let _scale = info["scale"] as? Float { scale = CGFloat(_scale) }
         if let _rotation = info["rotation"] as? Float { rotation = CGFloat(_rotation) }
-        
         if let splineInfo = info["spline"] as? [String:AnyObject] { spline.load(info: splineInfo) }
-        
+        setNeedsComputeShape()
+        setNeedsComputeAffine()
     }
 }
 

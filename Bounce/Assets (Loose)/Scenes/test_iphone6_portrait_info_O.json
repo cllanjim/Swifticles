@@ -1,0 +1,77 @@
+{
+  "test_2" : "t-2",
+  "engine" : {
+    "blobs" : [
+      {
+        "rotation" : 0.33,
+        "center_y" : 292.8333,
+        "spline" : {
+          "linear" : false,
+          "closed" : true,
+          "coord_x" : [
+            {
+              "coefA" : 75,
+              "delta" : 0,
+              "value" : 0,
+              "coefB" : 150,
+              "coefC" : -125,
+              "derivative" : 75
+            },
+            {
+              "coefA" : 0,
+              "delta" : 0.25,
+              "value" : 100,
+              "coefB" : -200,
+              "coefC" : 100,
+              "derivative" : 0
+            },
+            {
+              "coefA" : -100,
+              "delta" : -0.0625,
+              "value" : 0,
+              "coefB" : 125,
+              "coefC" : -25,
+              "derivative" : -100
+            }
+          ],
+          "coord_y" : [
+            {
+              "coefA" : -75,
+              "delta" : 0,
+              "value" : -100,
+              "coefB" : 262.987,
+              "coefC" : -87.98701,
+              "derivative" : -75
+            },
+            {
+              "coefA" : 187.013,
+              "delta" : 0.25,
+              "value" : 0,
+              "coefB" : 23.37662,
+              "coefC" : -110.3896,
+              "derivative" : 187.013
+            },
+            {
+              "coefA" : -97.4026,
+              "delta" : -0.0625,
+              "value" : 100,
+              "coefB" : -330.1948,
+              "coefC" : 227.5974,
+              "derivative" : -97.4026
+            }
+          ]
+        },
+        "scale" : 1.24,
+        "center_x" : 81.33335
+      }
+    ]
+  },
+  "scene" : {
+    "size_width" : 375,
+    "image_name" : "00004096_00002048",
+    "image_path" : "test_iphone6_portrait.png",
+    "size_height" : 667,
+    "landscape" : false
+  },
+  "test_1" : "t-1"
+}

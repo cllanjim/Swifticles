@@ -11,9 +11,10 @@ import UIKit
 
 class DrawTriangleBuffer {
     
-    private(set) var count = 0
+    var count:Int { return _count }
+    internal var _count:Int = 0
     
-    private var t = [DrawTriangle]()
+    private var data = [DrawTriangle]()
     //private var i = [IndexBufferType]()
     
     private var vertexBuffer = [GLfloat]()// = [GLfloat](count:16, repeatedValue: 0.0)
@@ -31,11 +32,7 @@ class DrawTriangleBuffer {
     }
     
     func reset() {
-        count = 0
-        //t.removeAll(keepCapacity: true)
-        //vertexBuffer.removeAll(keepCapacity: true)
-        
-        
+        _count = 0
     }
     
     func draw(texture texture:Texture?) {
@@ -57,7 +54,7 @@ class DrawTriangleBuffer {
             gG.texCoordEnable()
             gG.colorArrayEnable()
             
-            for index in 0..<count {
+            for index in 0..<_count {
             
                 
                 //var tri = t[index]
@@ -95,26 +92,47 @@ class DrawTriangleBuffer {
     
     func set(index index:Int, triangle:DrawTriangle) {
         
-        if index < 0 {
-            return
+        guard index >= 0 else { return }
+        
+        if index >= _count {
+            _count = index + 1
         }
         
-        if index >= count {
-            count = index + 1
+        if index >= data.count {
+            let newCapacity = data.count + data.count / 2 + 1
+            data.reserveCapacity(newCapacity)
             
-            let newCapacity = count * 40
-            if newCapacity > vertexBuffer.capacity {
-                print("vbuffer count \(vertexBuffer.count) cap \(vertexBuffer.capacity) newCap \(newCapacity) adjust \(newCapacity + newCapacity / 2 + 1)")
-                vertexBuffer.reserveCapacity(newCapacity + newCapacity / 2 + 1)
+            while data.count < newCapacity {
+                
+                data.append(DrawTriangle())
+                
+                //self.x.append(CubicSplineNode())
+                //self.y.append(CubicSplineNode())
             }
         }
         
-        if index >= t.count {
-            while index >= t.count {
-                t.append(DrawTriangle())
-            }
-        }
-        t[index].set(triangle: triangle)
+//        self.x[index].value = x
+//        self.y[index].value = y
+//        
+//        
+//        
+//        if index >= count {
+//            count = index + 1
+//            
+//            let newCapacity = count * 40
+//            if newCapacity > vertexBuffer.capacity {
+//                print("vbuffer count \(vertexBuffer.count) cap \(vertexBuffer.capacity) newCap \(newCapacity) adjust \(newCapacity + newCapacity / 2 + 1)")
+//                vertexBuffer.reserveCapacity(newCapacity + newCapacity / 2 + 1)
+//            }
+//        }
+//        
+//        if index >= t.count {
+//            while index >= t.count {
+//                t.append(DrawTriangle())
+//            }
+//        }
+        
+        data[index].set(triangle: triangle)
     }
 }
 

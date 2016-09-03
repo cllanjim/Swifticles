@@ -23,6 +23,7 @@ enum SceneMode: UInt32 { case Edit = 1, View = 2 }
 enum EditMode: UInt32 { case Affine = 1, Shape = 2 }
 
 
+
 class BounceEngine {
     
     var zoomMode:Bool = false {

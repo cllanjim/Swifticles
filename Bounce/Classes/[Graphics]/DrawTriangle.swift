@@ -320,7 +320,6 @@ class DrawTriangle {
         t[count +  8] = GLfloat(node1.b)
         t[count +  9] = GLfloat(node1.a)
         
-        
         t[count + 10] = GLfloat(node2.x)
         t[count + 11] = GLfloat(node2.y)
         t[count + 12] = GLfloat(node2.z)
@@ -333,7 +332,6 @@ class DrawTriangle {
         t[count + 17] = GLfloat(node2.g)
         t[count + 18] = GLfloat(node2.b)
         t[count + 19] = GLfloat(node2.a)
-        
         
         t[count + 20] = GLfloat(node3.x)
         t[count + 21] = GLfloat(node3.y)

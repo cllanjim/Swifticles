@@ -39,13 +39,8 @@ struct CubicSplineNode {
 
 class CubicSpline {
     
-    init() {
-        
-    }
-    
-    deinit {
-        
-    }
+    init() { }
+    deinit { }
     
     var x = [CubicSplineNode]()
     var y = [CubicSplineNode]()
@@ -97,14 +92,18 @@ class CubicSpline {
     func set(index:Int, x:CGFloat, y:CGFloat) {
         if index >= controlPointCount {
             _controlPointCount = index + 1
+        }
+        
+        if index >= self.x.count {
             let newCapacity = _controlPointCount + _controlPointCount / 2 + 1
             self.x.reserveCapacity(newCapacity)
             self.y.reserveCapacity(newCapacity)
-            while self.x.count <= controlPointCount {
+            while self.x.count < newCapacity {
                 self.x.append(CubicSplineNode())
                 self.y.append(CubicSplineNode())
             }
         }
+        
         self.x[index].value = x
         self.y[index].value = y
         refresh = true

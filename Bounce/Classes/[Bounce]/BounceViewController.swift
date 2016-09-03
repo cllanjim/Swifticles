@@ -606,6 +606,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 
                 setUp(scene: scene, screenRect: screenRect)
                 
+                print("______")
+                print(info["engine"])
+                print("______")
+                
                 if let engineInfo = info["engine"] as? [String:AnyObject] {
                     
                     engine.load(info: engineInfo)

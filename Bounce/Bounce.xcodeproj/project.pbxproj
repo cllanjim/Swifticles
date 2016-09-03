@@ -94,6 +94,7 @@
 		C2340AD11D71026800F8CD02 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AD01D71026800F8CD02 /* Config.swift */; };
 		C2340AE51D71094A00F8CD02 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AE41D71094A00F8CD02 /* String+File.swift */; };
 		C2391B0A1D75249100D9341F /* PointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2391B091D75249100D9341F /* PointList.swift */; };
+		C2410CE51D7A4F05007404C2 /* IndexTriangleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */; };
 		C29EC0411D713204004A6204 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EC0401D713204004A6204 /* Reader.swift */; };
 /* End PBXBuildFile section */
 
@@ -208,6 +209,7 @@
 		C2340AD01D71026800F8CD02 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C2340AE41D71094A00F8CD02 /* String+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
 		C2391B091D75249100D9341F /* PointList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointList.swift; sourceTree = "<group>"; };
+		C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexTriangleList.swift; sourceTree = "<group>"; };
 		C29EC0401D713204004A6204 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -404,6 +406,7 @@
 				C214D23F1D6E9745004069A3 /* BounceEngine.swift */,
 				C214D2401D6E9745004069A3 /* BounceViewController.swift */,
 				0D5219EA1D7015D40039598D /* BounceScene.swift */,
+				C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */,
 			);
 			path = "[Bounce]";
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				C214D2781D6E9745004069A3 /* ImageImportViewController.swift in Sources */,
 				C29EC0411D713204004A6204 /* Reader.swift in Sources */,
 				C214D26E1D6E9745004069A3 /* TBSegment.swift in Sources */,
+				C2410CE51D7A4F05007404C2 /* IndexTriangleList.swift in Sources */,
 				C214D2771D6E9745004069A3 /* HomeMenuViewController.swift in Sources */,
 				C214D2661D6E9745004069A3 /* Graphics.swift in Sources */,
 				C214D2751D6E9745004069A3 /* UIImage+Resize.swift in Sources */,
