@@ -1,9 +1,7 @@
 //
 //  DrawTriangle.swift
-//  Bounce
 //
 //  Created by Nicholas Raptis on 8/9/16.
-//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +10,8 @@ class DrawTriangle {
     
     
     deinit {
-        print("DrawTriangle.deinit()")
+        //print("DrawTriangle.deinit()")
+        
     }
     
     var node1 = DrawNode()
@@ -348,7 +347,6 @@ class DrawTriangle {
     }
     
     var buffer:[GLfloat] {
-        
         return [GLfloat](arrayLiteral: GLfloat(node1.x), GLfloat(node1.y), GLfloat(node1.z),
                          GLfloat(node1.u), GLfloat(node1.v), GLfloat(node1.w),
                          GLfloat(node1.r), GLfloat(node1.g), GLfloat(node1.b), GLfloat(node1.a),
@@ -364,33 +362,6 @@ class DrawTriangle {
     }
     
     func draw() {
-        
+        gG.triangleDraw(self)
     }
-    
-    /*
-    glClearColor(0.65, 0.65, 0.65, 1.0)
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT) | GLbitfield(GL_DEPTH_BUFFER_BIT))
-    
-    glBindVertexArrayOES(vertexArray)
-    
-    // Render the object with GLKit
-    self.effect?.prepareToDraw()
-    
-    glDrawArrays(GLenum(GL_TRIANGLES) , 0, 36)
-    
-    // Render the object again with ES2
-    glUseProgram(program)
-    
-    withUnsafePointer(&modelViewProjectionMatrix, {
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, UnsafePointer($0))
-    })
-    
-    withUnsafePointer(&normalMatrix, {
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, UnsafePointer($0))
-    })
-    
-    glDrawArrays(GLenum(GL_TRIANGLES), 0, 36)
-    */
-    
-    
 }

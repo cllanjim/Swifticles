@@ -101,37 +101,10 @@ class DrawTriangleBuffer {
         if index >= data.count {
             let newCapacity = data.count + data.count / 2 + 1
             data.reserveCapacity(newCapacity)
-            
             while data.count < newCapacity {
-                
                 data.append(DrawTriangle())
-                
-                //self.x.append(CubicSplineNode())
-                //self.y.append(CubicSplineNode())
             }
         }
-        
-//        self.x[index].value = x
-//        self.y[index].value = y
-//        
-//        
-//        
-//        if index >= count {
-//            count = index + 1
-//            
-//            let newCapacity = count * 40
-//            if newCapacity > vertexBuffer.capacity {
-//                print("vbuffer count \(vertexBuffer.count) cap \(vertexBuffer.capacity) newCap \(newCapacity) adjust \(newCapacity + newCapacity / 2 + 1)")
-//                vertexBuffer.reserveCapacity(newCapacity + newCapacity / 2 + 1)
-//            }
-//        }
-//        
-//        if index >= t.count {
-//            while index >= t.count {
-//                t.append(DrawTriangle())
-//            }
-//        }
-        
         data[index].set(triangle: triangle)
     }
 }

@@ -1,9 +1,7 @@
 //
 //  BounceEngine.swift
-//  Bounce
 //
 //  Created by Raptis, Nicholas on 8/24/16.
-//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -21,8 +19,6 @@ enum BounceNotification:String {
 
 enum SceneMode: UInt32 { case Edit = 1, View = 2 }
 enum EditMode: UInt32 { case Affine = 1, Shape = 2 }
-
-
 
 class BounceEngine {
     
@@ -187,32 +183,18 @@ class BounceEngine {
         
         let screenSize = scene.isLandscape ? CGSize(width: gDevice.landscapeWidth, height: gDevice.landscapeHeight) : CGSize(width: gDevice.portraitWidth, height: gDevice.portraitHeight)
         
-        gG.colorSet(r: 0.2, g: 0.6, b: 0.6)
-        
+        gG.colorSet(r: 0.44, g: 0.44, b: 0.44)
         gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
         
-        gG.colorSet()
+        gG.colorSet(a: 0.35)
         background.draw()
+        gG.colorSet()
         
         gG.colorSet(r: 1.0, g: 0.2, b: 0.2)
         gG.pointDraw(point: CGPoint(x: background.startX, y: background.startY))
         gG.pointDraw(point: CGPoint(x: background.startX, y: background.endY))
         gG.pointDraw(point: CGPoint(x: background.endX, y: background.startY))
         gG.pointDraw(point: CGPoint(x: background.endX, y: background.endY))
-        
-        
-        if isPanning {
-            gG.colorSet(r: 1.0, g: 0.8, b: 0.11)
-        } else {
-            gG.colorSet(r: 0.0, g: 0.8, b: 0.55)
-        }
-        
-        
-        gG.pointDraw(point: panStartPos, size: 14)
-        
-        gG.lineDraw(p1: panStartPos, p2: panPos, thickness: 2.56325453424)
-        
-        
         
         
         

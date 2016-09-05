@@ -1,9 +1,7 @@
 //
-//  DSFramework.swift
-//  OptimizeRX
+//  Device.swift
 //
 //  Created by Nicholas Raptis on 9/19/15.
-//  Copyright (c) 2015 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit

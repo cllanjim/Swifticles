@@ -48,8 +48,8 @@ class Graphics {
     private var cWhiteSprite: Sprite = Sprite()
     
     // x y z u v w r g b a (10) * 4 = 40
-    private var cRectVertexBuffer = [GLfloat](count:40, repeatedValue: 0.0)
-    private var cRectIndexBuffer = [IndexBufferType](count: 6, repeatedValue: 0)
+    var cRectVertexBuffer = [GLfloat](count:40, repeatedValue: 0.0)
+    var cRectIndexBuffer = [IndexBufferType](count: 6, repeatedValue: 0)
     
     private var cRectVertexBufferSlot:BufferIndex?
     private var cRectIndexBufferSlot:BufferIndex?
@@ -148,6 +148,76 @@ class Graphics {
     
     func pointDraw(point point:CGPoint, size: GLfloat) {
         rectDraw(x: GLfloat(point.x - CGFloat(size / 2.0)), y: GLfloat(point.y - CGFloat(size / 2.0)), width: size, height: size)
+    }
+    
+    func triangleDraw(triangle:DrawTriangle) {
+        
+        cRectVertexBuffer[ 0] = GLfloat(triangle.x1)
+        cRectVertexBuffer[ 1] = GLfloat(triangle.y1)
+        cRectVertexBuffer[ 2] = GLfloat(triangle.z1)
+        cRectVertexBuffer[ 3] = GLfloat(triangle.u1)
+        cRectVertexBuffer[ 4] = GLfloat(triangle.v1)
+        cRectVertexBuffer[ 5] = GLfloat(triangle.w1)
+        cRectVertexBuffer[ 6] = GLfloat(triangle.r1)
+        cRectVertexBuffer[ 7] = GLfloat(triangle.g1)
+        cRectVertexBuffer[ 8] = GLfloat(triangle.b1)
+        cRectVertexBuffer[ 9] = GLfloat(triangle.a1)
+        
+        cRectVertexBuffer[10] = GLfloat(triangle.x2)
+        cRectVertexBuffer[11] = GLfloat(triangle.y2)
+        cRectVertexBuffer[12] = GLfloat(triangle.z2)
+        cRectVertexBuffer[13] = GLfloat(triangle.u2)
+        cRectVertexBuffer[14] = GLfloat(triangle.v2)
+        cRectVertexBuffer[15] = GLfloat(triangle.w2)
+        cRectVertexBuffer[16] = GLfloat(triangle.r2)
+        cRectVertexBuffer[17] = GLfloat(triangle.g2)
+        cRectVertexBuffer[18] = GLfloat(triangle.b2)
+        cRectVertexBuffer[19] = GLfloat(triangle.a2)
+        
+        cRectVertexBuffer[20] = GLfloat(triangle.x3)
+        cRectVertexBuffer[21] = GLfloat(triangle.y3)
+        cRectVertexBuffer[22] = GLfloat(triangle.z3)
+        cRectVertexBuffer[23] = GLfloat(triangle.u3)
+        cRectVertexBuffer[24] = GLfloat(triangle.v3)
+        cRectVertexBuffer[25] = GLfloat(triangle.w3)
+        cRectVertexBuffer[26] = GLfloat(triangle.r3)
+        cRectVertexBuffer[27] = GLfloat(triangle.g3)
+        cRectVertexBuffer[28] = GLfloat(triangle.b3)
+        cRectVertexBuffer[29] = GLfloat(triangle.a3)
+        
+        
+        //gG.positionSetPointer(size: 3, offset: 0, stride: 10)
+        //gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        //gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        //gG.drawTriangleList(count: 3, offset: 0)
+        
+        bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: &cRectVertexBuffer, size: 30)
+        
+        positionEnable()
+        positionSetPointer(size: 3, offset: 0, stride: 10)
+        
+        texCoordEnable()
+        textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        
+        colorArrayEnable()
+        colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        
+        drawTriangleList(count: 3, offset: 0)
+        
+//
+//        , GLfloat(node1.y), GLfloat(node1.z),
+//        GLfloat(triangle.node1.u), GLfloat(node1.v), GLfloat(node1.w),
+//        GLfloat(triangle.node1.r), GLfloat(node1.g), GLfloat(node1.b), GLfloat(node1.a),
+//        
+//        GLfloat(triangle.node2.x), GLfloat(node2.y), GLfloat(node2.z),
+//        GLfloat(triangle.node2.u), GLfloat(node2.v), GLfloat(node2.w),
+//        GLfloat(triangle.node2.r), GLfloat(node2.g), GLfloat(node2.b), GLfloat(node2.a),
+//        
+//        GLfloat(triangle.node3.x), GLfloat(node3.y), GLfloat(node3.z),
+//        GLfloat(triangle.node3.u), GLfloat(node3.v), GLfloat(node3.w),
+//        GLfloat(triangle.node3.r), GLfloat(node3.g), GLfloat(node3.b), GLfloat(node3.a)
+        
+        
     }
     
     func lineDraw(p1 p1:CGPoint, p2:CGPoint, thickness:CGFloat) {

@@ -126,6 +126,38 @@ public class Sprite {
         }
     }
     
+    var startU: CGFloat {
+        get { return u1}
+        set {
+            u1 = newValue
+            u3 = newValue
+        }
+    }
+    
+    var endU: CGFloat {
+        get { return u2}
+        set {
+            u2 = newValue
+            u4 = newValue
+        }
+    }
+    
+    var startV: CGFloat {
+        get { return v1}
+        set {
+            v1 = newValue
+            v2 = newValue
+        }
+    }
+    
+    var endV: CGFloat {
+        get { return v3}
+        set {
+            v3 = newValue
+            v4 = newValue
+        }
+    }
+    
     public init() {
         vertexBuffer = [-128.0, -128.0, 0.0,    0.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
                          128.0, -128.0, 0.0,    1.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,

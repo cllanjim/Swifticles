@@ -6,7 +6,7 @@ uniform sampler2D Texture;
 
 void main(void)
 {
-    //gl_FragColor = ModulateColor * DestinationColor * texture2D(Texture, TexCoordOut);
-    gl_FragColor = ModulateColor * texture2D(Texture, TexCoordOut);
+    gl_FragColor = ModulateColor * DestinationColor * texture2D(Texture, TexCoordOut);
+    //gl_FragColor = ModulateColor * texture2D(Texture, TexCoordOut);
     
 }

@@ -1,9 +1,7 @@
 //
 //  CubicSpline.swift
-//  Bounce
 //
 //  Created by Nicholas Raptis on 8/22/16.
-//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -53,7 +51,6 @@ class CubicSpline {
         return x.count <= 1 ? 0 : (closed ? _controlPointCount : (_controlPointCount - 1))
     }
     
-    
     var controlPointCount:Int {
         return _controlPointCount
     }
@@ -68,11 +65,11 @@ class CubicSpline {
     }
     
     var closed:Bool = false {
-        didSet { refresh = true }
+        didSet { setNeedsCompute() }
     }
     
     var linear:Bool = false {
-        didSet { refresh = true }
+        didSet { setNeedsCompute() }
     }
     
     func add(x:CGFloat, y:CGFloat) {
@@ -90,10 +87,7 @@ class CubicSpline {
     }
     
     func set(index:Int, x:CGFloat, y:CGFloat) {
-        if index >= controlPointCount {
-            _controlPointCount = index + 1
-        }
-        
+        if index >= controlPointCount { _controlPointCount = index + 1 }
         if index >= self.x.count {
             let newCapacity = _controlPointCount + _controlPointCount / 2 + 1
             self.x.reserveCapacity(newCapacity)
@@ -103,23 +97,21 @@ class CubicSpline {
                 self.y.append(CubicSplineNode())
             }
         }
-        
         self.x[index].value = x
         self.y[index].value = y
-        refresh = true
+        setNeedsCompute()
     }
     
     func get(pos:CGFloat) -> CGPoint {
         var point = CGPointZero
         if controlPointCount > 1 {
-            if refresh { compute() }
+            if needsCompute { compute() }
             if pos <= 0.0 {
                 point.x = x[0].value
                 point.y = y[0].value
             } else {
                 var index:Int = Int(pos)
                 var factor = pos - CGFloat(index)
-                
                 if index < 0 {
                     index = 0
                     factor = 0.0
@@ -128,6 +120,7 @@ class CubicSpline {
                     factor = 1.0
                 }
                 
+                // c * p^3 + b * p^2 + a * p + x
                 point.x = x[index].value + (((x[index].coefC * factor) + x[index].coefB) * factor + x[index].coefA) * factor
                 point.y = y[index].value + (((y[index].coefC * factor) + y[index].coefB) * factor + y[index].coefA) * factor
             }
@@ -139,16 +132,12 @@ class CubicSpline {
     }
     
     func getClosestControlPoint(point point:CGPoint) -> (index:Int, distance:CGFloat)? {
-        
         if controlPointCount > 0 {
-            
             var diffX = point.x - x[0].value
             var diffY = point.y - y[0].value
             var bestDist = diffX * diffX + diffY * diffY
             var bestIndex = 0
-            
             for i in 1..<controlPointCount {
-                
                 diffX = x[i].value - point.x
                 diffY = y[i].value - point.y
                 let dist = diffX * diffX + diffY * diffY
@@ -164,24 +153,26 @@ class CubicSpline {
     }
     
     
-    internal var refresh:Bool = false
+    func setNeedsCompute() { needsCompute = true }
+    internal var needsCompute:Bool = true
+    //internal var refresh:Bool = false
+    
     internal var _controlPointCount:Int = 0
     
     internal func compute() {
         compute(coord: &x)
         compute(coord: &y)
-        refresh = false
+        needsCompute = false
     }
     
+    //Find cubic coefficients for a particular coordinate.
     internal func compute(inout coord coord:[CubicSplineNode]) {
-        
         guard controlPointCount >= 2 else { return }
-        
         let count = controlPointCount
         let count1 = controlPointCount - 1
         let count2 = count1 - 1
-        
         if controlPointCount == 2 || linear {
+            //Solve linear coefficients.
             var j = 0
             for i in 1..<count {
                 coord[j].coefA = coord[i].value - coord[j].value
@@ -195,7 +186,9 @@ class CubicSpline {
                 coord[count1].coefC = 0.0
             }
         } else {
+            
             if closed {
+                //compute derivatives for closed / circular natural cubic spline.
                 coord[1].delta = 0.25
                 coord[0].derivative = 0.25 * 3.0 * (coord[1].value - coord[count1].value)
                 var G = CGFloat(1.0)
@@ -219,6 +212,7 @@ class CubicSpline {
                 coord[count1].coefB = 3.0 * (coord[0].value - coord[count1].value) - 2.0 * coord[count1].derivative - coord[0].derivative
                 coord[count1].coefC = 2.0 * (coord[count1].value - coord[0].value) + coord[count1].derivative + coord[0].derivative
             } else {
+                 //compute derivatives for natural cubic spline.
                 coord[0].delta = 3.0 * (coord[1].value - coord[0].value) * 0.25
                 for i in 1..<count1 {
                     coord[i].delta = (3.0 * (coord[i+1].value - coord[i-1].value) - coord[i-1].delta) * 0.25
@@ -230,6 +224,7 @@ class CubicSpline {
                 }
             }
             
+            //Find the coefficients.
             for i in 0..<count1 {
                 coord[i].coefA = coord[i].derivative
                 coord[i].coefB = 3.0 * (coord[i+1].value - coord[i].value) - 2.0 * coord[i].derivative - coord[i+1].derivative
@@ -238,19 +233,11 @@ class CubicSpline {
         }
     }
     
-    
+    //Save to dictionary.
     func save() -> [String:AnyObject] {
-        
         var info = [String:AnyObject]()
-        
         info["closed"] = closed
         info["linear"] = linear
-        
-        
-        //info["scale"] = Float(scale)
-        //info["rotation"] = Float(rotation)
-        
-        //CubicSplineNode
         var splineDataX = [[String:AnyObject]]()
         var splineDataY = [[String:AnyObject]]()
         for i in 0..<controlPointCount {
@@ -259,42 +246,26 @@ class CubicSpline {
         }
         info["coord_x"] = splineDataX
         info["coord_y"] = splineDataY
-        
-        
-        /*
-         info["image_name"] = imageName
-         info["image_path"] = imagePath
-         
-         info["landscape"] = isLandscape
-         
-         info["size_width"] = Float(size.width)
-         info["size_height"] = Float(size.height)
-         */
-        
         return info
     }
     
+    //Load from dictionary.
     func load(info info:[String:AnyObject]) {
-        
         clear()
-        
         if let _closed = info["closed"] as? Bool { closed = _closed }
         if let _linear = info["linear"] as? Bool { linear = _linear }
-        
         if let splineDataX = info["coord_x"] as? [[String:AnyObject]],  splineDataY = info["coord_y"] as? [[String:AnyObject]] {
             if splineDataX.count == splineDataY.count {
-                
                 for _ in 0..<splineDataX.count {
                     add(0.0, y: 0.0)
                 }
-                
                 for i in 0..<splineDataX.count {
                     x[i].load(info: splineDataX[i])
                     y[i].load(info: splineDataY[i])
                 }
             }
         }
-        refresh = true
+        setNeedsCompute()
     }
 }
 

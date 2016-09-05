@@ -1,9 +1,7 @@
 //
 //  Blob.swift
-//  Bounce
 //
 //  Created by Raptis, Nicholas on 8/22/16.
-//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -15,6 +13,13 @@ struct BlobGridNode {
     //Base = untransformed, no Base = transformed...
     var point:CGPoint = CGPointZero
     var pointBase:CGPoint = CGPointZero
+    
+    
+    var texturePoint:CGPoint = CGPointZero
+    //var texU:CGFloat = 0.0
+    //var texV:CGFloat = 0.0
+    //var texW:CGFloat = 0.0
+    
     
     var inside:Bool = false
     var border:Bool = false
@@ -32,7 +37,8 @@ public class Blob
     
     var valid:Bool = false
     
-    var t = [IndexTriangle]()
+    var tri = IndexTriangleList()
+    
     
     //Base = untransformed, no Base = transformed...
     var borderBase = PointList()
@@ -61,10 +67,16 @@ public class Blob
     
     init() {
         spline.add(0.0, y: -100)
-        spline.add(100, y: 0.0)
-        spline.add(0.0, y: 100.0)
+        spline.add(50.0, y: -50)
         
-        //spline.add(-100.0, y: 0.0)
+        spline.add(100, y: 0.0)
+        spline.add(50.0, y: 50)
+        
+        spline.add(0.0, y: 100.0)
+        spline.add(-50.0, y: 50)
+        
+        spline.add(-100.0, y: 0.0)
+        spline.add(-50.0, y: -50)
         
         
         spline.linear = false
@@ -78,6 +90,12 @@ public class Blob
     }
     
     func draw() {
+        
+        guard let sprite = gApp.engine?.background else {
+            valid = false
+            return
+        }
+        
         
         computeIfNeeded()
         
@@ -124,7 +142,84 @@ public class Blob
         gG.pointDraw(point: touchPoint, size: 19.25)
         
         
-        computeMesh()
+        gG.colorSet()
+        gG.textureEnable()
+        gG.textureBind(texture: sprite.texture)
+        
+        for i in 0..<tri.count {
+            
+            var t =
+            tri.data [i]
+            
+            var drawTriangle = DrawTriangle()
+            
+            if  t.x1 >= 0 && t.x1 < grid.count && t.x2 >= 0 && t.x2 < grid.count && t.x3 >= 0 && t.x3 < grid.count &&
+                t.y1 >= 0 && t.y1 < grid[0].count && t.y2 >= 0 && t.y2 < grid[0].count && t.y3 >= 0 && t.y3 < grid[0].count {
+            
+            var x1 = grid[t.x1][t.y1].point.x
+            var y1 = grid[t.x1][t.y1].point.y
+            
+            var x2 = grid[t.x2][t.y2].point.x
+            var y2 = grid[t.x2][t.y2].point.y
+            
+            var x3 = grid[t.x3][t.y3].point.x
+            var y3 = grid[t.x3][t.y3].point.y
+            
+            //gG.lineDraw(p1: CGPoint(x: x1, y: y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
+            //gG.lineDraw(p1: CGPoint(x: x2, y: y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
+            //gG.lineDraw(p1: CGPoint(x: x3, y: y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
+            
+            drawTriangle.p1 = (x1, y1, 0.0)
+            drawTriangle.p2 = (x2, y2, 0.0)
+            drawTriangle.p3 = (x3, y3, 0.0)
+            
+                drawTriangle.u1 = grid[t.x1][t.y1].texturePoint.x
+                drawTriangle.v1 = grid[t.x1][t.y1].texturePoint.y
+                
+                
+                drawTriangle.u2 = grid[t.x2][t.y2].texturePoint.x
+                drawTriangle.v2 = grid[t.x2][t.y2].texturePoint.y
+                
+                drawTriangle.u3 = grid[t.x3][t.y3].texturePoint.x
+                drawTriangle.v3 = grid[t.x3][t.y3].texturePoint.y
+                
+                //drawTriangle.c1 = (0.5, 0.5, 1.0, 1.0)
+                //drawTriangle.c2 = (1.0, 1.0, 0.5, 1.0)
+                
+                
+                
+                //drawTriangle.u1 = 0.0
+                //drawTriangle.v1 = 0.0
+                
+                //drawTriangle.u2 = 1.0
+                //drawTriangle.v2 = 0.5
+                
+                //drawTriangle.u3 = 0.5
+                //drawTriangle.v3 = 1.0
+                
+                
+                
+                
+
+                
+                
+            drawTriangle.draw()
+            
+            }
+            
+            //drawTriangle.p1 = (grid[t.x1][t.y1].point.x, grid[t.x1][t.y1].point.y)
+
+            
+            
+            
+            //t.x1
+            
+            
+            
+        }
+        
+        //computeMesh()
+        
     }
     
     func computeShape() {
@@ -134,20 +229,35 @@ public class Blob
         
         computeBorder()
         
-        guard borderBase.count > 4 else {
+        guard borderBase.count > 4 && valid == true else {
             valid = false
             return
         }
         
         boundingBox = borderBase.getBoundingBox(padding: 5.0)
         
-        guard boundingBox.size.width > 10.0 && boundingBox.size.height > 10.0 else {
+        guard boundingBox.size.width > 10.0 && boundingBox.size.height > 10.0 && valid == true else {
             valid = false
             return
         }
         
-        computeGrid()
+        computeGridPoints()
         
+        guard grid.count >= 3 else {
+            valid = false
+            return
+        }
+        guard grid[0].count >= 3 && valid == true else {
+            valid = false
+            return
+        }
+        
+        computeMesh()
+        
+        guard valid == true else { return }
+        
+        //computeGridTextureCoords()
+        //guard valid == true else { return }
         
         computeAffine()
     }
@@ -180,11 +290,9 @@ public class Blob
         }
     }
     
-    func computeGrid() {
-        
+    func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
         let stepSize = minSize / 10.0
-        //if stepSize >
         
         var countX = 0
         var countY = 0
@@ -209,8 +317,11 @@ public class Blob
             for n in 0..<countY {
                 let percentY = CGFloat(Double(n) / Double(countY - 1))
                 let y = topY + (bottomY - topY) * percentY
-                grid[i][n].pointBase = CGPoint(x: x, y: y)
-                if borderBase.pointInside(point: grid[i][n].pointBase) {
+                let point = CGPoint(x: x, y: y)
+                grid[i][n].pointBase = point
+                grid[i][n].inside = borderBase.pointInside(point: point)
+                
+                if grid[i][n].inside {
                     grid[i][n].color = UIColor(red: 1.0 - percentX, green: 1.0, blue: 1.0 - percentY, alpha: 1.0)
                 } else {
                     grid[i][n].color = UIColor(red: percentX, green: 0.0, blue: percentY, alpha: 1.0)
@@ -219,7 +330,41 @@ public class Blob
         }
     }
     
+    
+    
     func computeMesh() {
+        
+        tri.reset()
+        
+        
+        
+        //First handle all the easy cases, where the entire
+        //quad is on the inside.
+        for i in 1..<grid.count {
+            for n in 1..<grid[i].count {
+                let top = n - 1
+                let left = i - 1
+                
+                //All 4 tri's IN
+                if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
+                    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
+                    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                } else if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside {
+                    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
+                } else if grid[left][top].inside && grid[i][top].inside && grid[i][n].inside {
+                    tri.add(x1: left, y1: top, x2: i, y2: top, x3: i, y3: n)
+                } else if grid[left][top].inside && grid[left][n].inside && grid[i][n].inside {
+                    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: n)
+                } else if grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
+                    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                }
+                
+                
+                
+            }
+        }
+        
+        
         
         
         
@@ -227,6 +372,9 @@ public class Blob
     
     func computeAffine() {
         needsComputeAffine = false
+        
+        guard valid == true else { return }
+        
         border.reset()
         border.add(list: borderBase)
         border.transform(scale: scale, rotation: rotation)
@@ -234,6 +382,54 @@ public class Blob
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
                 grid[i][n].point = transformPoint(point: grid[i][n].pointBase)
+            }
+        }
+        
+        computeGridTextureCoords()
+        
+    }
+    
+    internal func computeGridTextureCoords() {
+        
+        guard let sceneRect = gApp.engine?.sceneRect else {
+            valid = false
+            return
+        }
+        
+        guard let sprite = gApp.engine?.background else {
+            valid = false
+            return
+        }
+        
+        //sprite
+        let startU = Double(sprite.startU)
+        let spanU = Double(sprite.endU) - startU
+        let startV = Double(sprite.startV)
+        let spanV = Double(sprite.endV) - startV
+        
+        let startX = Double(sceneRect.origin.x)
+        let spanX = Double(sceneRect.size.width)
+        let startY = Double(sceneRect.origin.y)
+        let spanY = Double(sceneRect.size.height)
+        
+        guard spanX > 32.0 && spanY > 32.0 && spanU > 0.05 && spanV > 0.05 else {
+            valid = false
+            return
+        }
+        
+        for i in 0..<grid.count {
+            for n in 0..<grid[i].count {
+                
+                let x = Double(grid[i][n].point.x)
+                let y = Double(grid[i][n].point.y)
+                
+                let percentX = (x - startX) / spanX
+                let percentY = (y - startY) / spanY
+                
+                let u = startU + spanU * percentX
+                let v = startV + spanV * percentY
+                
+                grid[i][n].texturePoint = CGPoint(x: CGFloat(u), y: CGFloat(v))
             }
         }
     }
