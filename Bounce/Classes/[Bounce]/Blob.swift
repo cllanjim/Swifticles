@@ -40,6 +40,10 @@ public class Blob
     var tri = IndexTriangleList()
     
     
+    var linesBase = [LineSegment]()
+    var lines = [LineSegment]()
+    
+    
     //Base = untransformed, no Base = transformed...
     var borderBase = PointList()
     var border = PointList()
@@ -67,17 +71,13 @@ public class Blob
     
     init() {
         spline.add(0.0, y: -100)
-        spline.add(50.0, y: -50)
-        
+        //spline.add(50.0, y: -50)
         spline.add(100, y: 0.0)
-        spline.add(50.0, y: 50)
-        
+        //spline.add(50.0, y: 50)
         spline.add(0.0, y: 100.0)
         spline.add(-50.0, y: 50)
-        
         spline.add(-100.0, y: 0.0)
-        spline.add(-50.0, y: -50)
-        
+        //spline.add(-50.0, y: -50)
         
         spline.linear = false
         spline.closed = true
@@ -149,30 +149,30 @@ public class Blob
         for i in 0..<tri.count {
             
             var t =
-            tri.data [i]
+                tri.data [i]
             
             var drawTriangle = DrawTriangle()
             
             if  t.x1 >= 0 && t.x1 < grid.count && t.x2 >= 0 && t.x2 < grid.count && t.x3 >= 0 && t.x3 < grid.count &&
                 t.y1 >= 0 && t.y1 < grid[0].count && t.y2 >= 0 && t.y2 < grid[0].count && t.y3 >= 0 && t.y3 < grid[0].count {
-            
-            var x1 = grid[t.x1][t.y1].point.x
-            var y1 = grid[t.x1][t.y1].point.y
-            
-            var x2 = grid[t.x2][t.y2].point.x
-            var y2 = grid[t.x2][t.y2].point.y
-            
-            var x3 = grid[t.x3][t.y3].point.x
-            var y3 = grid[t.x3][t.y3].point.y
-            
-            //gG.lineDraw(p1: CGPoint(x: x1, y: y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
-            //gG.lineDraw(p1: CGPoint(x: x2, y: y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
-            //gG.lineDraw(p1: CGPoint(x: x3, y: y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
-            
-            drawTriangle.p1 = (x1, y1, 0.0)
-            drawTriangle.p2 = (x2, y2, 0.0)
-            drawTriangle.p3 = (x3, y3, 0.0)
-            
+                
+                var x1 = grid[t.x1][t.y1].point.x
+                var y1 = grid[t.x1][t.y1].point.y
+                
+                var x2 = grid[t.x2][t.y2].point.x
+                var y2 = grid[t.x2][t.y2].point.y
+                
+                var x3 = grid[t.x3][t.y3].point.x
+                var y3 = grid[t.x3][t.y3].point.y
+                
+                //gG.lineDraw(p1: CGPoint(x: x1, y: y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
+                //gG.lineDraw(p1: CGPoint(x: x2, y: y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
+                //gG.lineDraw(p1: CGPoint(x: x3, y: y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
+                
+                drawTriangle.p1 = (x1, y1, 0.0)
+                drawTriangle.p2 = (x2, y2, 0.0)
+                drawTriangle.p3 = (x3, y3, 0.0)
+                
                 drawTriangle.u1 = grid[t.x1][t.y1].texturePoint.x
                 drawTriangle.v1 = grid[t.x1][t.y1].texturePoint.y
                 
@@ -200,25 +200,66 @@ public class Blob
                 
                 
                 
-
                 
                 
-            drawTriangle.draw()
+                
+                drawTriangle.draw()
+                
+            }
+        }
+        
+        
+        
+        
+        var ls = LineSegment()
+        ls.p1 = CGPoint(x: 500.0, y: 120)
+        ls.p2 = CGPoint(x: 500.0, y: 350.0)
+        
+        gG.colorSet(r: 1.0, g: 1.0, b: 1.0)
+        
+        gG.lineDraw(p1: ls.p1, p2: ls.p2, thickness: 3)
+        
+        var planeDir = ls.direction
+        var planeX = ls.x1
+        var planeY = ls.x2
+        
+        
+        for segment in lines {
             
+            if LineSegment.SegmentsIntersect(l1: segment, l2: ls) {
+            let result = LineSegment.LinePlaneIntersection(line: segment, planeX: planeX, planeY: planeY, planeDirX: planeDir.x, planeDirY: planeDir.y)
+            
+            if result.intersects {
+                gG.colorSet(r: 1.0, g: 0.2, b: 0.2)
+                
+                gG.pointDraw(point: result.point, size: 14.0)
+                
+            } else {
+                gG.colorSet(r: 0.2, g: 1.0, b: 0.7)
+            }
+                
             }
             
-            //drawTriangle.p1 = (grid[t.x1][t.y1].point.x, grid[t.x1][t.y1].point.y)
-
+            //if result.
             
             
+            /*
+            if LineSegment.SegmentsIntersect(l1: segment, l2: ls) {
+                gG.colorSet(r: 1.0, g: 0.2, b: 0.2)
+            } else {
+                gG.colorSet(r: 0.2, g: 1.0, b: 0.7)
+            }
+            */
             
-            //t.x1
-            
+            gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 2)
             
             
         }
         
-        //computeMesh()
+        //var linesBase = [LineSegment]()
+        //var lines = [LineSegment]()
+        
+        computeMesh()
         
     }
     
@@ -288,8 +329,27 @@ public class Blob
                 prevPoint = point
             }
         }
+        
+        
+        while linesBase.count < borderBase.count {
+            linesBase.append(LineSegment())
+            lines.append(LineSegment())
+        }
+        
+        guard borderBase.count >= 1 else {
+            valid = false
+            return
+        }
+        
+        var prev = borderBase.data[borderBase.count - 1]
+        for i in 0..<borderBase.count {
+            let point = borderBase.data[i]
+            linesBase[i].p1 = CGPoint(x: prev.x, y: prev.y)
+            linesBase[i].p2 = CGPoint(x: point.x, y: point.y)
+            prev = point
+        }
     }
-    
+ 
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
         let stepSize = minSize / 10.0
@@ -334,9 +394,9 @@ public class Blob
     
     func computeMesh() {
         
+        guard valid else { return }
+        
         tri.reset()
-        
-        
         
         //First handle all the easy cases, where the entire
         //quad is on the inside.
@@ -348,27 +408,85 @@ public class Blob
                 //All 4 tri's IN
                 if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
                     tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
-                    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                //    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
                 } else if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside {
-                    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
+                //    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
                 } else if grid[left][top].inside && grid[i][top].inside && grid[i][n].inside {
-                    tri.add(x1: left, y1: top, x2: i, y2: top, x3: i, y3: n)
+                //    tri.add(x1: left, y1: top, x2: i, y2: top, x3: i, y3: n)
                 } else if grid[left][top].inside && grid[left][n].inside && grid[i][n].inside {
-                    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: n)
+                //    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: n)
                 } else if grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
-                    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                //    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                }
+                
+            }
+        }
+        
+        
+        for i in 1..<(grid.count - 1) {
+            for n in 1..<(grid[i].count - 1) {
+                let top = n - 1
+                let left = i - 1
+                let right = i
+                let bottom = n
+                
+                
+                gG.colorSet(r: 0.25, g: 1.0, b: 1.0)
+                if grid[left][top].inside == false && grid[right][top].inside == true {
+                    
+                    let point = closestBorderPointLeft(point: grid[right][top].pointBase)
+                    
+                    gG.lineDraw(p1: grid[right][top].pointBase, p2: point, thickness: 3.0)
+                    
+                    
                 }
                 
                 
                 
             }
         }
+    }
+    
+    func closestBorderPointLeft(point point:CGPoint) -> CGPoint {
+        let segment = LineSegment()
+        segment.p1 = CGPoint(x: point.x, y: point.y)
+        segment.p2 = CGPoint(x: point.x - 512.0, y: point.y)
+        return closestBorderPoint(segment: segment)
+    }
+    
+    func closestBorderPoint(segment segment:LineSegment) -> CGPoint {
+        
+        var result = CGPoint(x: segment.x1, y: segment.y1)
+        
+        var bestDist:CGFloat?
+        
+        var planeX = segment.x1
+        var planeY = segment.y1
+        var planeDir = segment.direction
+        
+        for line in linesBase {
+            
+            if LineSegment.SegmentsIntersect(l1: segment, l2: line) {
+                
+                var intersection = LineSegment.LinePlaneIntersection(line: line, planeX: planeX, planeY: planeY, planeDirX: planeDir.x, planeDirY: planeDir.y)
+                
+                if intersection.intersects {
+                    
+                    if bestDist == nil || (intersection.distance < bestDist) {
+                        
+                        bestDist = intersection.distance
+                        result = intersection.point
+                    }
+                }
+            }
+        }
         
         
         
-        
+        return result
         
     }
+    
     
     func computeAffine() {
         needsComputeAffine = false
@@ -386,6 +504,21 @@ public class Blob
         }
         
         computeGridTextureCoords()
+
+        
+        
+        guard border.count >= 1 else {
+            valid = false
+            return
+        }
+        
+        var prev = border.data[border.count - 1]
+        for i in 0..<border.count {
+            let point = border.data[i]
+            lines[i].p1 = CGPoint(x: prev.x, y: prev.y)
+            lines[i].p2 = CGPoint(x: point.x, y: point.y)
+            prev = point
+        }
         
     }
     
@@ -432,6 +565,12 @@ public class Blob
                 grid[i][n].texturePoint = CGPoint(x: CGFloat(u), y: CGFloat(v))
             }
         }
+        
+        
+        
+        //lines
+        
+        
     }
     
     internal func computeIfNeeded() {
