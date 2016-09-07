@@ -55,6 +55,11 @@ class GLViewController: GLKViewController {
         super.didReceiveMemoryWarning()
         
         if self.isViewLoaded() && (self.view.window != nil) {
+            
+            print("**********************")
+            print("***  GL - SUICIDE!!!")
+            print("**********************")
+            /*
             self.view = nil
             
             self.tearDownGL()
@@ -63,6 +68,7 @@ class GLViewController: GLKViewController {
                 EAGLContext.setCurrentContext(nil)
             }
             self.context = nil
+            */
         }
     }
     

@@ -418,8 +418,8 @@ public class Blob
                 //All 4 tri's IN
                 if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
                     tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
-                }//    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
-                // else if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside {
+                    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                } // else if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside {
                 //    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
                 //} else if grid[left][top].inside && grid[i][top].inside && grid[i][n].inside {
                 //    tri.add(x1: left, y1: top, x2: i, y2: top, x3: i, y3: n)
@@ -450,32 +450,69 @@ public class Blob
                 let right = i
                 let bottom = n
                 
-                
-                //gG.colorSet(r: 0.25, g: 1.0, b: 0.5)
-                //if grid[left][top].inside == false && grid[right][top].inside == true {
-                //    let point = closestBorderPointLeft(point: grid[right][top].pointBase)
-                //    gG.lineDraw(p1: transformPoint(point: grid[right][top].pointBase), p2: transformPoint(point: point), thickness: 2.0)
-                //}
-                
-                if grid[left][top].inside == false && grid[left][bottom].inside == true {
-                    //let point = closestBorderPointUp(point: grid[left][bottom].pointBase)
-                    //gG.lineDraw(p1: transformPoint(point: grid[left][bottom].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                gG.colorSet(r: 0.35, g: 0.55, b: 0.77, a: 0.75)
+                if grid[left][bottom].inside == true && grid[left][top].inside == false {
+                    let point = closestBorderPointUp(point: grid[left][bottom].pointBase)
+                    gG.lineDraw(p1: transformPoint(point: grid[left][bottom].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                    grid[left][bottom].edgeU = true
+                    grid[left][bottom].edgePointBaseU = point
                 }
                 
-                gG.colorSet(r: 0.25, g: 1.0, b: 0.5, a: 0.5)
+                if grid[right][bottom].inside == true && grid[right][top].inside == false {
+                    let point = closestBorderPointUp(point: grid[right][bottom].pointBase)
+                    gG.lineDraw(p1: transformPoint(point: grid[right][bottom].pointBase), p2: transformPoint(point: point), thickness: 1.5)
+                    grid[right][bottom].edgeU = true
+                    grid[right][bottom].edgePointBaseU = point
+                }
+                
+                gG.colorSet(r: 0.65, g: 0.25, b: 0.27, a: 0.75)
                 if grid[left][bottom].inside == false && grid[left][top].inside == true {
-                    //let point = closestBorderPointDown(point: grid[left][top].pointBase)
-                    //gG.lineDraw(p1: transformPoint(point: grid[left][top].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                    let point = closestBorderPointDown(point: grid[left][top].pointBase)
+                    gG.lineDraw(p1: transformPoint(point: grid[left][top].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                    
+                    grid[left][top].edgeD = true
+                    grid[left][top].edgePointBaseD = point
+                    
                 }
                 
-                gG.colorSet(r: 1.0, g: 0.25, b: 0.5, a: 0.5)
+                gG.colorSet(r: 0.65, g: 0.25, b: 0.27, a: 0.75)
                 if grid[right][bottom].inside == false && grid[right][top].inside == true {
                     let point = closestBorderPointDown(point: grid[right][top].pointBase)
-                    gG.lineDraw(p1: transformPoint(point: grid[right][top].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                    grid[right][top].edgeD = true
+                    grid[right][top].edgePointBaseD = point
+                    gG.lineDraw(p1: transformPoint(point: grid[right][top].pointBase), p2: transformPoint(point: point), thickness: 1.0)
                 }
                 
+                gG.colorSet(r: 1.0, g: 0.1, b: 0.34, a: 0.75)
+                if grid[left][top].inside == false && grid[right][top].inside == true {
+                    let point = closestBorderPointLeft(point: grid[right][top].pointBase)
+                    grid[right][top].edgeL = true
+                    grid[right][top].edgePointBaseL = point
+                    gG.lineDraw(p1: transformPoint(point: grid[right][top].pointBase), p2: transformPoint(point: point), thickness: 1.0)
+                }
                 
+                if grid[left][bottom].inside == false && grid[right][bottom].inside == true {
+                    let point = closestBorderPointLeft(point: grid[right][bottom].pointBase)
+                    grid[right][bottom].edgeL = true
+                    grid[right][bottom].edgePointBaseL = point
+                    gG.lineDraw(p1: transformPoint(point: grid[right][bottom].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                }
                 
+                gG.colorSet(r: 0.05, g: 0.3, b: 0.67, a: 0.75)
+                if grid[left][top].inside == true && grid[right][top].inside == false {
+                    let point = closestBorderPointRight(point: grid[left][top].pointBase)
+                    grid[left][top].edgeR = true
+                    grid[left][top].edgePointBaseR = point
+                    gG.lineDraw(p1: transformPoint(point: grid[left][top].pointBase), p2: transformPoint(point: point), thickness: 1.0)
+                }
+                
+                gG.colorSet(r: 0.05, g: 0.3, b: 0.67, a: 0.75)
+                if grid[left][bottom].inside == true && grid[right][bottom].inside == false {
+                    let point = closestBorderPointRight(point: grid[left][bottom].pointBase)
+                    grid[left][bottom].edgeR = true
+                    grid[left][bottom].edgePointBaseR = point
+                    gG.lineDraw(p1: transformPoint(point: grid[left][bottom].pointBase), p2: transformPoint(point: point), thickness: 1.0)
+                }
             }
         }
     }

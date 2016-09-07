@@ -159,7 +159,7 @@ class PointList
     func drawPoints() {
         for i in 0..<count {
             let point = data[i]
-            gG.pointDraw(point: CGPoint(x: point.x, y: point.y))
+            gG.pointDraw(point: CGPoint(x: point.x, y: point.y), size: 4.0)
         }
     }
     
