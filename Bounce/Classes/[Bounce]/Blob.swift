@@ -14,6 +14,15 @@ struct BlobGridNode {
     var point:CGPoint = CGPointZero
     var pointBase:CGPoint = CGPointZero
     
+    var edgeU:Bool = false
+    var edgeR:Bool = false
+    var edgeD:Bool = false
+    var edgeL:Bool = false
+    
+    var edgePointBaseU:CGPoint = CGPointZero
+    var edgePointBaseR:CGPoint = CGPointZero
+    var edgePointBaseD:CGPoint = CGPointZero
+    var edgePointBaseL:CGPoint = CGPointZero
     
     var texturePoint:CGPoint = CGPointZero
     //var texU:CGFloat = 0.0
@@ -49,8 +58,9 @@ public class Blob
     var border = PointList()
     
     var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { needsComputeAffine = true } }
-    var scale:CGFloat = 1.24 { didSet { needsComputeAffine = true } }
-    var rotation:CGFloat = 0.33 { didSet { needsComputeAffine = true } }
+    var scale:CGFloat = 1.0 { didSet { needsComputeAffine = true } }
+    var rotation:CGFloat = 0.0 { didSet { needsComputeAffine = true } }
+    
     
     func setNeedsComputeShape() { needsComputeShape = true }
     internal var needsComputeShape:Bool = true
@@ -251,7 +261,7 @@ public class Blob
             }
             */
             
-            gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 2)
+            gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.66)
             
             
         }
@@ -408,43 +418,89 @@ public class Blob
                 //All 4 tri's IN
                 if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
                     tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
-                //    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
-                } else if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside {
+                }//    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                // else if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside {
                 //    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
-                } else if grid[left][top].inside && grid[i][top].inside && grid[i][n].inside {
+                //} else if grid[left][top].inside && grid[i][top].inside && grid[i][n].inside {
                 //    tri.add(x1: left, y1: top, x2: i, y2: top, x3: i, y3: n)
-                } else if grid[left][top].inside && grid[left][n].inside && grid[i][n].inside {
+                //} else if grid[left][top].inside && grid[left][n].inside && grid[i][n].inside {
                 //    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: n)
-                } else if grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
+                //} else if grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
                 //    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
-                }
-                
+                //}
+            }
+        }
+        
+        for i in 0..<grid.count {
+            for n in 1..<grid[i].count {
+                grid[i][n].edgeU = false
+                grid[i][n].edgeR = false
+                grid[i][n].edgeD = false
+                grid[i][n].edgeL = false
             }
         }
         
         
-        for i in 1..<(grid.count - 1) {
-            for n in 1..<(grid[i].count - 1) {
+        //
+        
+        for i in 1..<grid.count {
+            for n in 1..<grid[i].count {
                 let top = n - 1
                 let left = i - 1
                 let right = i
                 let bottom = n
                 
                 
-                gG.colorSet(r: 0.25, g: 1.0, b: 1.0)
-                if grid[left][top].inside == false && grid[right][top].inside == true {
-                    
-                    let point = closestBorderPointLeft(point: grid[right][top].pointBase)
-                    
-                    gG.lineDraw(p1: grid[right][top].pointBase, p2: point, thickness: 3.0)
-                    
-                    
+                //gG.colorSet(r: 0.25, g: 1.0, b: 0.5)
+                //if grid[left][top].inside == false && grid[right][top].inside == true {
+                //    let point = closestBorderPointLeft(point: grid[right][top].pointBase)
+                //    gG.lineDraw(p1: transformPoint(point: grid[right][top].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                //}
+                
+                if grid[left][top].inside == false && grid[left][bottom].inside == true {
+                    //let point = closestBorderPointUp(point: grid[left][bottom].pointBase)
+                    //gG.lineDraw(p1: transformPoint(point: grid[left][bottom].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                }
+                
+                gG.colorSet(r: 0.25, g: 1.0, b: 0.5, a: 0.5)
+                if grid[left][bottom].inside == false && grid[left][top].inside == true {
+                    //let point = closestBorderPointDown(point: grid[left][top].pointBase)
+                    //gG.lineDraw(p1: transformPoint(point: grid[left][top].pointBase), p2: transformPoint(point: point), thickness: 2.0)
+                }
+                
+                gG.colorSet(r: 1.0, g: 0.25, b: 0.5, a: 0.5)
+                if grid[right][bottom].inside == false && grid[right][top].inside == true {
+                    let point = closestBorderPointDown(point: grid[right][top].pointBase)
+                    gG.lineDraw(p1: transformPoint(point: grid[right][top].pointBase), p2: transformPoint(point: point), thickness: 2.0)
                 }
                 
                 
                 
             }
         }
+    }
+    
+    
+    
+    func closestBorderPointUp(point point:CGPoint) -> CGPoint {
+        let segment = LineSegment()
+        segment.p1 = CGPoint(x: point.x, y: point.y)
+        segment.p2 = CGPoint(x: point.x, y: point.y - 512.0)
+        return closestBorderPoint(segment: segment)
+    }
+    
+    func closestBorderPointRight(point point:CGPoint) -> CGPoint {
+        let segment = LineSegment()
+        segment.p1 = CGPoint(x: point.x, y: point.y)
+        segment.p2 = CGPoint(x: point.x + 512.0, y: point.y)
+        return closestBorderPoint(segment: segment)
+    }
+    
+    func closestBorderPointDown(point point:CGPoint) -> CGPoint {
+        let segment = LineSegment()
+        segment.p1 = CGPoint(x: point.x, y: point.y)
+        segment.p2 = CGPoint(x: point.x, y: point.y + 512.0)
+        return closestBorderPoint(segment: segment)
     }
     
     func closestBorderPointLeft(point point:CGPoint) -> CGPoint {
@@ -455,36 +511,23 @@ public class Blob
     }
     
     func closestBorderPoint(segment segment:LineSegment) -> CGPoint {
-        
         var result = CGPoint(x: segment.x1, y: segment.y1)
-        
         var bestDist:CGFloat?
-        
-        var planeX = segment.x1
-        var planeY = segment.y1
-        var planeDir = segment.direction
-        
+        let planeX = segment.x1
+        let planeY = segment.y1
+        let planeDir = segment.direction
         for line in linesBase {
-            
             if LineSegment.SegmentsIntersect(l1: segment, l2: line) {
-                
-                var intersection = LineSegment.LinePlaneIntersection(line: line, planeX: planeX, planeY: planeY, planeDirX: planeDir.x, planeDirY: planeDir.y)
-                
+                let intersection = LineSegment.LinePlaneIntersection(line: line, planeX: planeX, planeY: planeY, planeDirX: planeDir.x, planeDirY: planeDir.y)
                 if intersection.intersects {
-                    
                     if bestDist == nil || (intersection.distance < bestDist) {
-                        
                         bestDist = intersection.distance
                         result = intersection.point
                     }
                 }
             }
         }
-        
-        
-        
         return result
-        
     }
     
     
@@ -504,8 +547,6 @@ public class Blob
         }
         
         computeGridTextureCoords()
-
-        
         
         guard border.count >= 1 else {
             valid = false
