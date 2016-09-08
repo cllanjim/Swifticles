@@ -13,17 +13,6 @@ struct LineIntersection {
     var point = CGPointZero
     var distance:CGFloat = 0.0
 }
-//
-//struct Plane {
-//    var x:CGFloat = 0.0
-//    var y:CGFloat = 0.0
-//    var dirX:CGFloat = 0.0
-//    var dirY:CGFloat = -1.0
-//}
-
-//struct var x1:CGFloat = 0.0
-//var y1:CGFloat = 0.0
-
 
 class LineSegment
 {
@@ -134,41 +123,12 @@ class LineSegment
     
     
     class func SegmentSegmentIntersection(l1 l1:LineSegment, l2:LineSegment) -> LineIntersection {
-        
-        var result = LineIntersection()
-        
-        /*
-         
-         
-         float aPlaneX = pL_2_x1;
-         float aPlaneY = pL_2_y1;
-         
-         float aPlaneDirX = pL_2_x2 - pL_2_x1;
-         float aPlaneDirY = pL_2_y2 - pL_2_y1;
-         
-         float aPlaneLength = (aPlaneDirX * aPlaneDirX) + (aPlaneDirY * aPlaneDirY);
-         
-         if(aPlaneLength >= 0.1f)
-         {
-         aPlaneLength = sqrtf(aPlaneLength);
-         
-         aPlaneDirX /= aPlaneLength;
-         aPlaneDirY /= aPlaneLength;
-         }
-         
-         bool aReturn = false;
-         
-         if(SegmentPlaneIntersection(pL_1_x1, pL_1_y1, pL_2_x2, pL_2_y2, aPlaneX, aPlaneY, aPlaneDirX, aPlaneDirY, pCollideX, pCollideY, pCollideDistance))
-         {
-         aReturn = true;
-         }
-         
-         return aReturn;
-         
-         
-         */
-        
-        return result
+        if LineSegment.SegmentsIntersect(l1: l1, l2: l2) {
+            let planeOrigin = l2.p1
+            let planeDir = l2.direction
+            return LineSegment.LinePlaneIntersection(line: l1, planeX: planeOrigin.x, planeY: planeOrigin.y, planeDirX: planeDir.x, planeDirY: planeDir.y)
+        }
+        return LineIntersection()
     }
     
     class func LinePlaneIntersection(line line:LineSegment, planeX:CGFloat, planeY:CGFloat, planeDirX:CGFloat, planeDirY:CGFloat) -> LineIntersection {

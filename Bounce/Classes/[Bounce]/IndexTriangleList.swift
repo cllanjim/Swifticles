@@ -7,14 +7,14 @@
 import Foundation
 
 struct IndexTriangle {
-    var x1:Int = 0
-    var y1:Int = 0
+    var i1:Int = 0
+    //var y1:Int = 0
     
-    var x2:Int = 0
-    var y2:Int = 0
+    var i2:Int = 0
+    //var y2:Int = 0
     
-    var x3:Int = 0
-    var y3:Int = 0
+    var i3:Int = 0
+    //var y3:Int = 0
 }
 
 class IndexTriangleList {
@@ -30,12 +30,10 @@ class IndexTriangleList {
         _count = 0
     }
     
-    func add(x1 x1:Int, y1:Int, x2:Int, y2:Int, x3:Int, y3:Int) {
-        
+    func add(i1 i1:Int, i2:Int, i3:Int) {
         if _count >= data.count {
             let newCapacity = _count + _count / 2 + 2
             data.reserveCapacity(newCapacity)
-            
             while data.count <= newCapacity {
                 
                 data.append(IndexTriangle())
@@ -43,12 +41,12 @@ class IndexTriangleList {
             }
         }
         
-        data[_count].x1 = Int(x1)
-        data[_count].y1 = Int(y1)
-        data[_count].x2 = Int(x2)
-        data[_count].y2 = Int(y2)
-        data[_count].x3 = Int(x3)
-        data[_count].y3 = Int(y3)
+        data[_count].i1 = i1
+        data[_count].i2 = i1
+        data[_count].i3 = i1
+        //data[_count].y2 = Int(y2)
+        //data[_count].x3 = Int(x3)
+        //data[_count].y3 = Int(y3)
         
         _count += 1
     }

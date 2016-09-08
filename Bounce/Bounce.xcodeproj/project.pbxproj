@@ -97,6 +97,8 @@
 		C2391B0A1D75249100D9341F /* PointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2391B091D75249100D9341F /* PointList.swift */; };
 		C2410CE51D7A4F05007404C2 /* IndexTriangleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */; };
 		C29EC0411D713204004A6204 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EC0401D713204004A6204 /* Reader.swift */; };
+		C2BC0B4E1D80DDBF00EB4075 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */; };
+		C2BC0B501D80EC0700EB4075 /* LineSegmentBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +215,8 @@
 		C2391B091D75249100D9341F /* PointList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointList.swift; sourceTree = "<group>"; };
 		C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexTriangleList.swift; sourceTree = "<group>"; };
 		C29EC0401D713204004A6204 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
+		C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
+		C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineSegmentBuffer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +430,8 @@
 				C214D2491D6E9745004069A3 /* Texture.swift */,
 				C2391B091D75249100D9341F /* PointList.swift */,
 				0D8BE3941D7D2CB500ACDBFC /* LineSegment.swift */,
+				C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */,
+				C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */,
 			);
 			path = "[Graphics]";
 			sourceTree = "<group>";
@@ -522,7 +528,7 @@
 				TargetAttributes = {
 					0DD20F4C1D581262006DDDAB = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 2GG555KD5G;
+						DevelopmentTeam = LCBDY3U9B4;
 					};
 					0DD20F601D581263006DDDAB = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -645,6 +651,7 @@
 				C214D2661D6E9745004069A3 /* Graphics.swift in Sources */,
 				0D8BE3951D7D2CB500ACDBFC /* LineSegment.swift in Sources */,
 				C214D2751D6E9745004069A3 /* UIImage+Resize.swift in Sources */,
+				C2BC0B4E1D80DDBF00EB4075 /* DrawNodeBuffer.swift in Sources */,
 				C214D2731D6E9745004069A3 /* CubicSpline.swift in Sources */,
 				C214D2761D6E9745004069A3 /* Math.swift in Sources */,
 				C214D26A1D6E9745004069A3 /* RRButton.swift in Sources */,
@@ -660,6 +667,7 @@
 				C214D2651D6E9745004069A3 /* GLViewController.swift in Sources */,
 				C214D2601D6E9745004069A3 /* BounceEngine.swift in Sources */,
 				C2340AE51D71094A00F8CD02 /* String+File.swift in Sources */,
+				C2BC0B501D80EC0700EB4075 /* LineSegmentBuffer.swift in Sources */,
 				C214D2741D6E9745004069A3 /* EditAffineViewController.swift in Sources */,
 				C214D2641D6E9745004069A3 /* DrawTriangleBuffer.swift in Sources */,
 				C214D25E1D6E9745004069A3 /* FileUtils.swift in Sources */,

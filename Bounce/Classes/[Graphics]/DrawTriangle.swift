@@ -8,65 +8,14 @@ import UIKit
 
 class DrawTriangle {
     
-    
-    deinit {
-        //print("DrawTriangle.deinit()")
-        
-    }
-    
     var node1 = DrawNode()
     var node2 = DrawNode()
     var node3 = DrawNode()
     
     func set(triangle triangle:DrawTriangle) {
-        
-        p1 = triangle.p1
-        p2 = triangle.p2
-        p3 = triangle.p3
-        
-        t1 = triangle.t1
-        t2 = triangle.t2
-        t3 = triangle.t3
-        
-        c1 = triangle.c1
-        c2 = triangle.c2
-        c3 = triangle.c3
-        
-        /*
-        x1 = triangle.x1
-        y1 = triangle.y1
-        z1 = triangle.z1
-        u1 = triangle.u1
-        v1 = triangle.v1
-        w1 = triangle.w1
-        r1 = triangle.r1
-        g1 = triangle.g1
-        b1 = triangle.b1
-        a1 = triangle.a1
-        
-        x2 = triangle.x2
-        y2 = triangle.y2
-        z2 = triangle.z2
-        u2 = triangle.u2
-        v2 = triangle.v2
-        w2 = triangle.w2
-        r2 = triangle.r2
-        g2 = triangle.g2
-        b2 = triangle.b2
-        a2 = triangle.a2
-        
-        x3 = triangle.x3
-        y3 = triangle.y3
-        z3 = triangle.z3
-        u3 = triangle.u3
-        v3 = triangle.v3
-        w3 = triangle.w3
-        r3 = triangle.r3
-        g3 = triangle.g3
-        b3 = triangle.b3
-        a3 = triangle.a3
-        */
-        
+        node1.set(triangle.node1)
+        node2.set(triangle.node2)
+        node3.set(triangle.node3)
     }
     
     var p1:(x:CGFloat, y:CGFloat, z:CGFloat) {

@@ -17,4 +17,9 @@ class DrawNode {
     var g:CGFloat = 1.0
     var b:CGFloat = 1.0
     var a:CGFloat = 1.0
+    func set(node:DrawNode) {
+        x = node.x;y = node.y;z = node.z
+        u = node.u;v = node.v;w = node.w
+        r = node.r;g = node.g;b = node.b;a = node.a
+    }
 }

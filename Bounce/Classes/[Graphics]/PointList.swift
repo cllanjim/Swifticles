@@ -10,7 +10,7 @@ import UIKit
 
 class PointList
 {
-    var data = [(x:CGFloat, y:CGFloat)]()
+    var data = [CGPoint]()
     
     var count:Int { return _count }
     internal var _count:Int = 0
@@ -40,10 +40,11 @@ class PointList
             let newCapacity = _count + _count / 2 + 1
             data.reserveCapacity(newCapacity)
             while data.count <= _count {
-                data.append((0.0, 0.0))
+                data.append(CGPointZero)
             }
         }
-        data[index] = (x, y)
+        data[index].x = x
+        data[index].y = y
     }
     
     
