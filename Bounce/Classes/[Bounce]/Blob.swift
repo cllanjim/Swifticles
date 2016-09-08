@@ -13,7 +13,6 @@ struct BlobGridNode {
     //Base = untransformed, no Base = transformed...
     var point:CGPoint = CGPointZero
     var pointBase:CGPoint = CGPointZero
-    
     var meshIndex:Int?
     
     var edgeU:Bool = false
@@ -21,6 +20,10 @@ struct BlobGridNode {
     var edgeD:Bool = false
     var edgeL:Bool = false
     
+    var meshIndexEdgeU:Int?
+    var meshIndexEdgeR:Int?
+    var meshIndexEdgeD:Int?
+    var meshIndexEdgeL:Int?
     
     var edgePointBaseU:CGPoint = CGPointZero
     var edgePointBaseR:CGPoint = CGPointZero
@@ -87,8 +90,8 @@ public class Blob
         //spline.add(50.0, y: 50)
         spline.add(0.0, y: 100.0)
         spline.add(-50.0, y: 50)
-        spline.add(-100.0, y: 0.0)
-        //spline.add(-50.0, y: -50)
+        //spline.add(-100.0, y: 0.0)
+        spline.add(-50.0, y: -150)
         
         spline.linear = false
         spline.closed = true
@@ -153,85 +156,36 @@ public class Blob
         
         for i in 0..<tri.count {
             
-            var t = tri.data [i]
+            let t = tri.data [i]
             
-            var drawTriangle = DrawTriangle()
+            let drawTriangle = DrawTriangle()
             
-            var x1 = meshNodes.data[t.i1].x
-            var y1 = meshNodes.data[t.i1].y
+            let x1 = meshNodes.data[t.i1].x
+            let y1 = meshNodes.data[t.i1].y
             
-            var x2 = meshNodes.data[t.i2].x
-            var y2 = meshNodes.data[t.i2].y
+            let x2 = meshNodes.data[t.i2].x
+            let y2 = meshNodes.data[t.i2].y
             
-            var x3 = meshNodes.data[t.i3].x
-            var y3 = meshNodes.data[t.i3].y
-            
-            //gG.lineDraw(p1: CGPoint(x: x1, y: y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
-            //gG.lineDraw(p1: CGPoint(x: x2, y: y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
-            //gG.lineDraw(p1: CGPoint(x: x3, y: y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
+            let x3 = meshNodes.data[t.i3].x
+            let y3 = meshNodes.data[t.i3].y
             
             drawTriangle.p1 = (x1, y1, 0.0)
             drawTriangle.p2 = (x2, y2, 0.0)
             drawTriangle.p3 = (x3, y3, 0.0)
             
+            drawTriangle.u1 = meshNodes.data[t.i1].u
+            drawTriangle.v1 = meshNodes.data[t.i1].v
             
+            drawTriangle.u2 = meshNodes.data[t.i2].u
+            drawTriangle.v2 = meshNodes.data[t.i2].v
+            drawTriangle.u3 = meshNodes.data[t.i3].u
+            drawTriangle.v3 = meshNodes.data[t.i3].v
+            
+            drawTriangle.a1 = 0.88
+            drawTriangle.a2 = 0.85
+            drawTriangle.a3 = 0.85
+
             drawTriangle.draw()
-            
-            /*
-            if  t.x1 >= 0 && t.x1 < grid.count && t.x2 >= 0 && t.x2 < grid.count && t.x3 >= 0 && t.x3 < grid.count &&
-                t.y1 >= 0 && t.y1 < grid[0].count && t.y2 >= 0 && t.y2 < grid[0].count && t.y3 >= 0 && t.y3 < grid[0].count {
-                
-                var x1 = grid[t.x1][t.y1].point.x
-                var y1 = grid[t.x1][t.y1].point.y
-                
-                var x2 = grid[t.x2][t.y2].point.x
-                var y2 = grid[t.x2][t.y2].point.y
-                
-                var x3 = grid[t.x3][t.y3].point.x
-                var y3 = grid[t.x3][t.y3].point.y
-                
-                //gG.lineDraw(p1: CGPoint(x: x1, y: y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
-                //gG.lineDraw(p1: CGPoint(x: x2, y: y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
-                //gG.lineDraw(p1: CGPoint(x: x3, y: y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
-                
-                drawTriangle.p1 = (x1, y1, 0.0)
-                drawTriangle.p2 = (x2, y2, 0.0)
-                drawTriangle.p3 = (x3, y3, 0.0)
-                
-                drawTriangle.u1 = grid[t.x1][t.y1].texturePoint.x
-                drawTriangle.v1 = grid[t.x1][t.y1].texturePoint.y
-                
-                
-                drawTriangle.u2 = grid[t.x2][t.y2].texturePoint.x
-                drawTriangle.v2 = grid[t.x2][t.y2].texturePoint.y
-                
-                drawTriangle.u3 = grid[t.x3][t.y3].texturePoint.x
-                drawTriangle.v3 = grid[t.x3][t.y3].texturePoint.y
-                
-                //drawTriangle.c1 = (0.5, 0.5, 1.0, 1.0)
-                //drawTriangle.c2 = (1.0, 1.0, 0.5, 1.0)
-                
-                
-                
-                //drawTriangle.u1 = 0.0
-                //drawTriangle.v1 = 0.0
-                
-                //drawTriangle.u2 = 1.0
-                //drawTriangle.v2 = 0.5
-                
-                //drawTriangle.u3 = 0.5
-                //drawTriangle.v3 = 1.0
-                
-                
-                
-                
-                
-                
-                
-                drawTriangle.draw()
-                
-            }
-            */
         }
  
         
@@ -244,51 +198,12 @@ public class Blob
                 gG.pointDraw(point: grid[i][n].point, size: 2.0)
             }
         }
-        
-        
-        var ls = LineSegment()
-        ls.p1 = CGPoint(x: 500.0, y: 120)
-        ls.p2 = CGPoint(x: 500.0, y: 350.0)
-        
-        gG.colorSet(r: 1.0, g: 1.0, b: 1.0)
-        
-        gG.lineDraw(p1: ls.p1, p2: ls.p2, thickness: 3)
-        
-        var planeDir = ls.direction
-        var planeX = ls.x1
-        var planeY = ls.x2
-        
+
         
         for i in 0..<lines.count {
             
-            var segment = lines.data[i]
-        //for segment in lines {
-            
-            if LineSegment.SegmentsIntersect(l1: segment, l2: ls) {
-            let result = LineSegment.LinePlaneIntersection(line: segment, planeX: planeX, planeY: planeY, planeDirX: planeDir.x, planeDirY: planeDir.y)
-            
-            if result.intersects {
-                gG.colorSet(r: 1.0, g: 0.2, b: 0.2)
-                
-                gG.pointDraw(point: result.point, size: 14.0)
-                
-            } else {
-                gG.colorSet(r: 0.2, g: 1.0, b: 0.7)
-            }
-                
-            }
-            
-            //if result.
-            
-            
-            /*
-            if LineSegment.SegmentsIntersect(l1: segment, l2: ls) {
-                gG.colorSet(r: 1.0, g: 0.2, b: 0.2)
-            } else {
-                gG.colorSet(r: 0.2, g: 1.0, b: 0.7)
-            }
-            */
-            
+            let segment = lines.data[i]
+
             gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.66)
             
             
@@ -413,7 +328,7 @@ public class Blob
  
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
-        let stepSize = minSize / 10.0
+        let stepSize = minSize / 6.0
         var countX = 0
         var countY = 0
         let leftX = boundingBox.origin.x
@@ -519,11 +434,54 @@ public class Blob
         }
     }
     
-        
-    //var meshNodes = DrawNodeBuffer()
-    //var meshNodesBase = DrawNodeBuffer()
+    func meshIndexEdgeU(gridX: Int, _ gridY: Int) -> Int {
+        if (grid[gridX][gridY].meshIndexEdgeU != nil) {
+            return grid[gridX][gridY].meshIndexEdgeU!
+        } else {
+            let index = meshNodesBase.count
+            grid[gridX][gridY].meshIndexEdgeU = meshNodesBase.count
+            let point = grid[gridX][gridY].edgePointBaseU
+            meshNodesBase.setXY(index, x: point.x, y: point.y)
+            return index
+        }
+    }
     
-        
+    func meshIndexEdgeR(gridX: Int, _ gridY: Int) -> Int {
+        if (grid[gridX][gridY].meshIndexEdgeR != nil) {
+            return grid[gridX][gridY].meshIndexEdgeR!
+        } else {
+            let index = meshNodesBase.count
+            grid[gridX][gridY].meshIndexEdgeR = meshNodesBase.count
+            let point = grid[gridX][gridY].edgePointBaseR
+            meshNodesBase.setXY(index, x: point.x, y: point.y)
+            return index
+        }
+    }
+    
+    func meshIndexEdgeD(gridX: Int, _ gridY: Int) -> Int {
+        if (grid[gridX][gridY].meshIndexEdgeD != nil) {
+            return grid[gridX][gridY].meshIndexEdgeD!
+        } else {
+            let index = meshNodesBase.count
+            grid[gridX][gridY].meshIndexEdgeD = meshNodesBase.count
+            let point = grid[gridX][gridY].edgePointBaseD
+            meshNodesBase.setXY(index, x: point.x, y: point.y)
+            return index
+        }
+    }
+    
+    func meshIndexEdgeL(gridX: Int, _ gridY: Int) -> Int {
+        if (grid[gridX][gridY].meshIndexEdgeL != nil) {
+            return grid[gridX][gridY].meshIndexEdgeL!
+        } else {
+            let index = meshNodesBase.count
+            grid[gridX][gridY].meshIndexEdgeL = meshNodesBase.count
+            let point = grid[gridX][gridY].edgePointBaseL
+            meshNodesBase.setXY(index, x: point.x, y: point.y)
+            return index
+        }
+    }
+    
     func meshIndex(gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndex != nil) {
             return grid[gridX][gridY].meshIndex!
@@ -536,53 +494,89 @@ public class Blob
         }
     }
     
+    func addTriangle(x1 x1:Int, y1:Int, x2:Int, y2:Int, x3:Int, y3:Int) {
+        let i1 = meshIndex(x1, y1)
+        let i2 = meshIndex(x2, y2)
+        let i3 = meshIndex(x3, y3)
+        tri.add(i1: i1, i2: i2, i3: i3)
+    }
+    
+    //tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
+    
+    
     func computeMesh() {
         
         guard valid else { return }
         
         computeGridEdges()
-        
         for i in 0..<grid.count {
             for n in 1..<grid[i].count {
                 grid[i][n].meshIndex = nil
-                
+                grid[i][n].meshIndexEdgeU = nil
+                grid[i][n].meshIndexEdgeR = nil
+                grid[i][n].meshIndexEdgeD = nil
+                grid[i][n].meshIndexEdgeL = nil
             }
         }
         
         tri.reset()
-        meshNodes.reset()
+        meshNodesBase.reset()
         
-        //First handle all the easy cases, where the entire
-        //quad is on the inside.
         for i in 1..<grid.count {
             for n in 1..<grid[i].count {
                 let top = n - 1
                 let left = i - 1
+                let right = i
+                let bottom = n
+                
+                let U_L = grid[left][top]
+                let D_L = grid[left][bottom]
+                let U_R = grid[right][top]
+                let D_R = grid[right][bottom]
                 
                 //All 4 tri's IN
-                if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
-                    tri.add(i1: meshIndex(left, top), i2: meshIndex(left, n), i3: meshIndex(i, top))
+                if  (U_L.inside == true) &&
+                    (U_R.inside == true) &&
+                    (D_L.inside == true) &&
+                    (D_R.inside == true) {
                     
-                    //tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
-                    //tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
+                    let t1_i1 = meshIndex(left, top)
+                    let t1_i2 = meshIndex(left, bottom)
+                    let t1_i3 = meshIndex(right, top)
+                    //tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
                     
+                    let t2_i1 = meshIndex(left, bottom)
+                    let t2_i2 = meshIndex(right, top)
+                    let t2_i3 = meshIndex(right, bottom)
+                    //tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
                 }
                 
-                //meshIndex
+                //Upper-Left in (Corner)
+                if  (U_L.inside == true) && (U_R.inside == false) && (D_L.inside == false) && (D_R.inside == false) {
+                    if U_L.edgeR && U_L.edgeD {
+                        let t1_i1 = meshIndex(left, top)
+                        let t1_i2 = meshIndexEdgeD(left, top)
+                        let t1_i3 = meshIndexEdgeR(left, top)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
+                    }
+                }
                 
-                // else if grid[left][top].inside && grid[i][top].inside && grid[left][n].inside {
-                //    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
-                //} else if grid[left][top].inside && grid[i][top].inside && grid[i][n].inside {
-                //    tri.add(x1: left, y1: top, x2: i, y2: top, x3: i, y3: n)
-                //} else if grid[left][top].inside && grid[left][n].inside && grid[i][n].inside {
-                //    tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: n)
-                //} else if grid[i][top].inside && grid[left][n].inside && grid[i][n].inside {
-                //    tri.add(x1: left, y1: n, x2: i, y2: top, x3: i, y3: n)
-                //}
+                //Bottom-Right in (Corner)
+                if  (U_L.inside == false) && (U_R.inside == false) && (D_L.inside == false) && (D_R.inside == true) {
+                    if D_R.edgeL && D_R.edgeU {
+                        let t1_i1 = meshIndexEdgeU(right, bottom)
+                        let t1_i2 = meshIndexEdgeL(right, bottom)
+                        let t1_i3 = meshIndex(right, bottom)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                    }
+                }
+                
+                
             }
         }
         
-        
+        meshNodesBase.printData()
         
         
         //meshNodesBase
@@ -625,9 +619,7 @@ public class Blob
         let planeX = segment.x1
         let planeY = segment.y1
         let planeDir = segment.direction
-        
         for i in 0..<linesBase.count {
-        //for line in linesBase {
             let line = linesBase.data[i]
             if LineSegment.SegmentsIntersect(l1: segment, l2: line) {
                 let intersection = LineSegment.LinePlaneIntersection(line: line, planeX: planeX, planeY: planeY, planeDirX: planeDir.x, planeDirY: planeDir.y)
@@ -664,18 +656,12 @@ public class Blob
             let node = meshNodesBase.data[i]
             meshNodes.set(index: i, node: node)
             
-            var point = transformPoint(point: CGPoint(x: meshNodes.data[i].x, y: meshNodes.data[i].y))
+            let point = transformPoint(point: CGPoint(x: node.x, y: node.y))
             meshNodes.data[i].x = point.x
             meshNodes.data[i].y = point.y
-            
         }
         
-        computeGridTextureCoords()
-        
-        for i in 0..<meshNodesBase.count {
-            let node = meshNodesBase.data[i]
-            meshNodes.set(index: i, node: node)
-        }
+        computeTextureCoords()
         
         guard border.count >= 1 else {
             valid = false
@@ -693,7 +679,7 @@ public class Blob
         
     }
     
-    internal func computeGridTextureCoords() {
+    internal func computeTextureCoords() {
         
         guard let sceneRect = gApp.engine?.sceneRect else {
             valid = false
@@ -705,7 +691,6 @@ public class Blob
             return
         }
         
-        //sprite
         let startU = Double(sprite.startU)
         let spanU = Double(sprite.endU) - startU
         let startV = Double(sprite.startV)
@@ -721,27 +706,18 @@ public class Blob
             return
         }
         
-        for i in 0..<grid.count {
-            for n in 0..<grid[i].count {
-                
-                let x = Double(grid[i][n].point.x)
-                let y = Double(grid[i][n].point.y)
-                
-                let percentX = (x - startX) / spanX
-                let percentY = (y - startY) / spanY
-                
-                let u = startU + spanU * percentX
-                let v = startV + spanV * percentY
-                
-                grid[i][n].texturePoint = CGPoint(x: CGFloat(u), y: CGFloat(v))
-            }
+        for i in 0..<meshNodes.count {
+            let node = meshNodes.data[i]
+            
+            let x = Double(node.x)
+            let y = Double(node.y)
+            
+            let percentX = (x - startX) / spanX
+            let percentY = (y - startY) / spanY
+            
+            node.u = CGFloat(startU + spanU * percentX)
+            node.v = CGFloat(startV + spanV * percentY)
         }
-        
-        
-        
-        //lines
-        
-        
     }
     
     internal func computeIfNeeded() {

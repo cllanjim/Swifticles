@@ -32,22 +32,15 @@ class IndexTriangleList {
     
     func add(i1 i1:Int, i2:Int, i3:Int) {
         if _count >= data.count {
-            let newCapacity = _count + _count / 2 + 2
+            let newCapacity = _count + _count / 2 + 1
             data.reserveCapacity(newCapacity)
             while data.count <= newCapacity {
-                
                 data.append(IndexTriangle())
-                
             }
         }
-        
         data[_count].i1 = i1
-        data[_count].i2 = i1
-        data[_count].i3 = i1
-        //data[_count].y2 = Int(y2)
-        //data[_count].x3 = Int(x3)
-        //data[_count].y3 = Int(y3)
-        
+        data[_count].i2 = i2
+        data[_count].i3 = i3
         _count += 1
     }
 }

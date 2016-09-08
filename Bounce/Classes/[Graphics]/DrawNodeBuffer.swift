@@ -37,10 +37,7 @@ class DrawNodeBuffer {
         
         guard index >= 0 else { return }
         ensureCapacity(index)
-        
-        if index >= _count {
-            _count = index + 1
-        }
+        if index >= _count { _count = index + 1 }
         data[index].set(node)
     }
     
@@ -51,7 +48,23 @@ class DrawNodeBuffer {
     func setXYZ(index:Int, x:CGFloat, y:CGFloat, z:CGFloat) {
         guard index >= 0 else { return }
         ensureCapacity(index)
+        if index >= _count { _count = index + 1 }
         data[index].x = x;data[index].y = y;data[index].z = z
+    }
+    
+    func printData() {
+        
+        print("DrawNodeBuffer [\(count)] Elements [\(data.count)] Size [\(data.capacity)] Capacity\n*** *** ***")
+        
+        for i in 0..<count {
+            
+            let d = data[i]
+            print("Node[\(i)] xyz(\(d.x),\(d.y),\(d.z)")
+            
+        }
+        
+        print("*** *** ***")
+        
     }
     
 }
