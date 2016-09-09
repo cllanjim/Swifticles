@@ -153,7 +153,6 @@ public class Blob
         gG.textureEnable()
         gG.textureBind(texture: sprite.texture)
         
-        
         for i in 0..<tri.count {
             
             let t = tri.data [i]
@@ -188,6 +187,25 @@ public class Blob
             drawTriangle.draw()
         }
  
+        for i in 0..<tri.count {
+            
+            let t = tri.data [i]
+            
+            let drawTriangle = DrawTriangle()
+            
+            let x1 = meshNodes.data[t.i1].x
+            let y1 = meshNodes.data[t.i1].y
+            
+            let x2 = meshNodes.data[t.i2].x
+            let y2 = meshNodes.data[t.i2].y
+            
+            let x3 = meshNodes.data[t.i3].x
+            let y3 = meshNodes.data[t.i3].y
+            
+            gG.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.65)
+            gG.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.65)
+            gG.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.65)
+        }
         
         
         for i in 0..<grid.count {
@@ -328,7 +346,7 @@ public class Blob
  
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
-        let stepSize = minSize / 6.0
+        let stepSize = minSize / 10.0
         var countX = 0
         var countY = 0
         let leftX = boundingBox.origin.x
@@ -536,16 +554,15 @@ public class Blob
                 
                 //All 4 tri's IN
                 if (U_L.inside == true) && (U_R.inside == true) && (D_L.inside == true) && (D_R.inside == true) {
-                    
                     let t1_i1 = meshIndex(left, top)
                     let t1_i2 = meshIndex(left, bottom)
                     let t1_i3 = meshIndex(right, top)
-                    //tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                    tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
                     
                     let t2_i1 = meshIndex(left, bottom)
                     let t2_i2 = meshIndex(right, top)
                     let t2_i3 = meshIndex(right, bottom)
-                    //tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
+                    tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
                 }
                 
                 //Upper-Left in (Corner)
@@ -568,7 +585,7 @@ public class Blob
                     }
                 }
                 
-                //Bottom-Left (Corner)
+                //Bottom-Left in (Corner)
                 if (U_L.inside == false) && (U_R.inside == false) && (D_L.inside == true) && (D_R.inside == false) {
                     if D_L.edgeR && D_L.edgeU {
                         let t1_i1 = meshIndex(left, bottom)
@@ -591,14 +608,15 @@ public class Blob
                 //Up in (Side)
                 if (U_L.inside == true) && (U_R.inside == true) && (D_L.inside == false) && (D_R.inside == false) {
                     if U_L.edgeD && U_R.edgeD {
-                        //let t1_i1 = meshIndexEdgeL(right, top)
-                        //let t1_i2 = meshIndexEdgeL(right, bottom)
-                        //let t1_i3 = meshIndex(right, top)
-                        //tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
-                        //let t2_i1 = meshIndexEdgeL(right, bottom)
-                        //let t2_i2 = meshIndex(right, top)
-                        //let t2_i3 = meshIndex(right, bottom)
-                        //tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
+                        let t1_i1 = meshIndex(left, top)
+                        let t1_i2 = meshIndexEdgeD(left, top)
+                        let t1_i3 = meshIndexEdgeD(right, top)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
+                        let t2_i1 = meshIndex(left, top)
+                        let t2_i2 = meshIndex(right, top)
+                        let t2_i3 = meshIndexEdgeD(right, top)
+                        tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
                     }
                 }
                 
@@ -609,13 +627,28 @@ public class Blob
                         let t1_i2 = meshIndexEdgeL(right, bottom)
                         let t1_i3 = meshIndex(right, top)
                         tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
                         let t2_i1 = meshIndexEdgeL(right, bottom)
                         let t2_i2 = meshIndex(right, top)
                         let t2_i3 = meshIndex(right, bottom)
                         tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
                     }
                 }
-                
+                //Down in (Side)
+                if (U_L.inside == false) && (U_R.inside == false) && (D_L.inside == true) && (D_R.inside == true) {
+                    if D_L.edgeU && D_R.edgeU {
+                        let t1_i1 = meshIndexEdgeU(left, bottom)
+                        let t1_i2 = meshIndex(left, bottom)
+                        let t1_i3 = meshIndexEdgeU(right, bottom)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
+                        let t2_i1 = meshIndex(left, bottom)
+                        let t2_i2 = meshIndexEdgeU(right, bottom)
+                        let t2_i3 = meshIndex(right, bottom)
+                        tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
+                    
+                    }
+                }
                 //Left in (Side)
                 if (U_L.inside == true) && (U_R.inside == false) && (D_L.inside == true) && (D_R.inside == false) {
                     if U_L.edgeR && D_L.edgeR {
@@ -623,13 +656,93 @@ public class Blob
                         let t1_i2 = meshIndexEdgeR(left, top)
                         let t1_i3 = meshIndexEdgeR(left, bottom)
                         tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
                         let t2_i1 = meshIndexEdgeR(left, bottom)
                         let t2_i2 = meshIndex(left, top)
                         let t2_i3 = meshIndex(left, bottom)
                         tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
                     }
                 }
+ 
+                //Upper-Left out (Elbow)
+                if (U_L.inside == false) && (U_R.inside == true) && (D_L.inside == true) && (D_R.inside == true) {
+                    if U_R.edgeL && D_L.edgeU {
+                        let t1_i1 = meshIndexEdgeU(left, bottom)
+                        let t1_i2 = meshIndexEdgeL(right, top)
+                        let t1_i3 = meshIndex(right, bottom)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
+                        let t2_i1 = meshIndexEdgeU(left, bottom)
+                        let t2_i2 = meshIndex(left, bottom)
+                        let t2_i3 = meshIndex(right, bottom)
+                        tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
+                        
+                        let t3_i1 = meshIndexEdgeL(right, top)
+                        let t3_i2 = meshIndex(right, top)
+                        let t3_i3 = meshIndex(right, bottom)
+                        tri.add(i1: t3_i1, i2: t3_i2, i3: t3_i3)
+                    }
+                }
                 
+                //Upper-Right out (Elbow)
+                if (U_L.inside == true) && (U_R.inside == false) && (D_L.inside == true) && (D_R.inside == true) {
+                    if U_L.edgeR && D_R.edgeU {
+                        let t1_i1 = meshIndex(left, bottom)
+                        let t1_i2 = meshIndexEdgeR(left, top)
+                        let t1_i3 = meshIndexEdgeU(right, bottom)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
+                        let t2_i1 = meshIndex(left, top)
+                        let t2_i2 = meshIndex(left, bottom)
+                        let t2_i3 = meshIndexEdgeR(left, top)
+                        tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
+                        
+                        let t3_i1 = meshIndex(left, bottom)
+                        let t3_i2 = meshIndexEdgeU(right, bottom)
+                        let t3_i3 = meshIndex(right, bottom)
+                        tri.add(i1: t3_i1, i2: t3_i2, i3: t3_i3)
+                    }
+                }
+                
+                //Bottom-Left out (Elbow)
+                if (U_L.inside == true) && (U_R.inside == true) && (D_L.inside == false) && (D_R.inside == true) {
+                    if U_L.edgeD && D_R.edgeL {
+                        let t1_i1 = meshIndexEdgeD(left, top)
+                        let t1_i2 = meshIndex(right, top)
+                        let t1_i3 = meshIndexEdgeL(right, bottom)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
+                        let t2_i1 = meshIndex(left, top)
+                        let t2_i2 = meshIndexEdgeD(left, top)
+                        let t2_i3 = meshIndex(right, top)
+                        tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
+                        
+                        let t3_i1 = meshIndexEdgeL(right, bottom)
+                        let t3_i2 = meshIndex(right, top)
+                        let t3_i3 = meshIndex(right, bottom)
+                        tri.add(i1: t3_i1, i2: t3_i2, i3: t3_i3)
+                    }
+                }
+                
+                //Bottom-Right out (Elbow)
+                if (U_L.inside == true) && (U_R.inside == true) && (D_L.inside == true) && (D_R.inside == false) {
+                    if U_R.edgeD && D_L.edgeR {
+                        let t1_i1 = meshIndex(left, top)
+                        let t1_i2 = meshIndexEdgeD(right, top)
+                        let t1_i3 = meshIndexEdgeR(left, bottom)
+                        tri.add(i1: t1_i1, i2: t1_i2, i3: t1_i3)
+                        
+                        let t2_i1 = meshIndex(left, top)
+                        let t2_i2 = meshIndex(left, bottom)
+                        let t2_i3 = meshIndexEdgeR(left, bottom)
+                        tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
+                        
+                        let t3_i1 = meshIndex(left, top)
+                        let t3_i2 = meshIndex(right, top)
+                        let t3_i3 = meshIndexEdgeD(right, top)
+                        tri.add(i1: t3_i1, i2: t3_i2, i3: t3_i3)
+                    }
+                }
             }
         }
         
