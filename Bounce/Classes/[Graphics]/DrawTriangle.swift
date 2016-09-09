@@ -13,9 +13,9 @@ class DrawTriangle {
     var node3 = DrawNode()
     
     func set(triangle triangle:DrawTriangle) {
-        node1.set(triangle.node1)
-        node2.set(triangle.node2)
-        node3.set(triangle.node3)
+        node1.set(drawNode: triangle.node1)
+        node2.set(drawNode: triangle.node2)
+        node3.set(drawNode: triangle.node3)
     }
     
     var p1:(x:CGFloat, y:CGFloat, z:CGFloat) {

@@ -41,8 +41,8 @@ public class Blob
 {
     var grid = [[BlobGridNode]]()
     
-    var meshNodes = DrawNodeBuffer()
-    var meshNodesBase = DrawNodeBuffer()
+    var meshNodes = BlobMeshBuffer()
+    var meshNodesBase = BlobMeshBuffer()
     
     
     weak var touch:UITouch?
@@ -52,6 +52,15 @@ public class Blob
     var valid:Bool = false
     
     var tri = IndexTriangleList()
+    
+    var testAngle1:CGFloat = 0.0
+    var testAngle2:CGFloat = 180.0
+    var testAngle3:CGFloat = 360.0
+    
+    var testSin1:CGFloat = 0.0
+    var testSin2:CGFloat = 0.0
+    var testSin3:CGFloat = 0.0
+    
     
     
     var linesBase = LineSegmentBuffer()//[LineSegment]()
@@ -101,6 +110,28 @@ public class Blob
     
     func update() {
         
+        testAngle1 += 2.0
+        if testAngle1 > 360.0 { testAngle1 -= 360.0 }
+        
+        testAngle2 -= 1.5
+        if testAngle2 < 0.0 { testAngle2 += 360.0 }
+        
+        testAngle3 += 3.25
+        if testAngle3 > 360.0 { testAngle3 -= 360.0 }
+        
+        testSin1 = Math.sind(testAngle1)
+        testSin2 = Math.sind(testAngle2)
+        testSin3 = Math.sind(testAngle3)
+        
+        
+        //var testAngle1 = 0.0
+        //var testAngle2 = 180.0
+        //var testAngle3 = 360.0
+        
+        //var testSin1 = 0.0
+        //var testSin2 = 0.0
+        //var testSin3 = 0.0
+        
     }
     
     func draw() {
@@ -117,13 +148,8 @@ public class Blob
         gG.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
         
         
-        
-        gG.colorSet(r: 1.0, g: 0.0, b: 0.0)
-        borderBase.drawEdges(closed: false)
-        border.drawEdges(closed: true)
-        
-        gG.colorSet(r: 0.25, g: 0.88, b: 0.89)
-        border.drawPoints()
+        //gG.colorSet(r: 0.25, g: 0.88, b: 0.89)
+        //border.drawPoints()
         
         //gG.colorSet(r: 0.25, g: 0.15, b: 0.88, a: 0.22)
         //gG.rectDraw(border.getBoundingBox(padding: 5.0))
@@ -132,6 +158,13 @@ public class Blob
         gG.colorSet(r: 0.25, g: 1.0, b: 1.0, a: 1.0)
         
         
+        
+        for i in 0..<lines.count {
+            
+            let segment = lines.data[i]
+            
+            gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.5)
+        }
         
         
         gG.colorSet(r: 1.0, g: 0.0, b: 0.5)
@@ -160,13 +193,17 @@ public class Blob
             let drawTriangle = DrawTriangle()
             
             let x1 = meshNodes.data[t.i1].x
-            let y1 = meshNodes.data[t.i1].y
+            var y1 = meshNodes.data[t.i1].y
             
             let x2 = meshNodes.data[t.i2].x
-            let y2 = meshNodes.data[t.i2].y
+            var y2 = meshNodes.data[t.i2].y
             
             let x3 = meshNodes.data[t.i3].x
-            let y3 = meshNodes.data[t.i3].y
+            var y3 = meshNodes.data[t.i3].y
+            
+            y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
+            y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
+            y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
             
             drawTriangle.p1 = (x1, y1, 0.0)
             drawTriangle.p2 = (x2, y2, 0.0)
@@ -187,6 +224,7 @@ public class Blob
             drawTriangle.draw()
         }
  
+        gG.colorSet(a: 0.25)
         for i in 0..<tri.count {
             
             let t = tri.data [i]
@@ -194,20 +232,34 @@ public class Blob
             let drawTriangle = DrawTriangle()
             
             let x1 = meshNodes.data[t.i1].x
-            let y1 = meshNodes.data[t.i1].y
+            var y1 = meshNodes.data[t.i1].y
             
             let x2 = meshNodes.data[t.i2].x
-            let y2 = meshNodes.data[t.i2].y
+            var y2 = meshNodes.data[t.i2].y
             
             let x3 = meshNodes.data[t.i3].x
-            let y3 = meshNodes.data[t.i3].y
+            var y3 = meshNodes.data[t.i3].y
             
-            gG.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.65)
-            gG.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.65)
-            gG.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.65)
+            y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
+            y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
+            y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
+            
+            gG.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
+            gG.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
+            gG.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
         }
         
         
+        for nodeIndex in 0..<meshNodes.count {
+            let node = meshNodes.data[nodeIndex]
+            
+            gG.colorSet(r: Float(node.edgePercent), g: 0.0, b: 0.0)
+            gG.pointDraw(point: CGPoint(x: node.x, y: node.y), size: 3.0)
+            
+        }
+        
+        
+        /*
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
                 
@@ -216,17 +268,12 @@ public class Blob
                 gG.pointDraw(point: grid[i][n].point, size: 2.0)
             }
         }
+        */
 
         
-        for i in 0..<lines.count {
-            
-            let segment = lines.data[i]
-
-            gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.66)
-            
-            
-        }
         
+        
+        /*
         //Draw the border grid egdes..
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
@@ -251,7 +298,7 @@ public class Blob
                 }
             }
         }
-        
+        */
         
         //var linesBase = [LineSegment]()
         //var lines = [LineSegment]()
@@ -291,10 +338,13 @@ public class Blob
         
         computeGridInside()
         
+        computeGridEdges()
         //deformGridH()
         //computeGridInside()
         
         computeMesh()
+        
+        computeMeshEdgeFactors()
         
         guard valid == true else { return }
         
@@ -526,7 +576,7 @@ public class Blob
         
         guard valid else { return }
         
-        computeGridEdges()
+        
         for i in 0..<grid.count {
             for n in 1..<grid[i].count {
                 grid[i][n].meshIndex = nil
@@ -649,6 +699,7 @@ public class Blob
                     
                     }
                 }
+                
                 //Left in (Side)
                 if (U_L.inside == true) && (U_R.inside == false) && (D_L.inside == true) && (D_R.inside == false) {
                     if U_L.edgeR && D_L.edgeR {
@@ -745,15 +796,8 @@ public class Blob
                 }
             }
         }
-        
         meshNodesBase.printData()
-        
-        
-        //meshNodesBase
-        
-        
     }
-    
     
     func closestBorderPointUp(point point:CGPoint) -> CGPoint {
         let segment = LineSegment()
@@ -804,6 +848,53 @@ public class Blob
         return result
     }
     
+    func computeMeshEdgeFactors() {
+        
+        guard linesBase.count > 1 && valid else {
+            valid = false
+            return
+        }
+        
+        
+        var largestDist:CGFloat = 0.0
+        
+        for nodeIndex in 0..<meshNodesBase.count {
+            let node = meshNodesBase.data[nodeIndex]
+            let point = CGPoint(x: node.x, y: node.y)
+            
+            var closestDist:CGFloat = 100000000.0
+            //var bestPoint = CGPoint(x: point.x, y: point.y)
+            for segmentIndex in 0..<linesBase.count {
+                let line = linesBase.data[segmentIndex]
+                
+                let closestPoint = LineSegment.SegmentClosestPoint(line: line, point: point)
+                
+                let diffX = closestPoint.x - point.x
+                let diffY = closestPoint.y - point.y
+                let dist = diffX * diffX + diffY * diffY
+                
+                if (dist < closestDist) {
+                    closestDist = dist
+                }
+            }
+            
+            if closestDist > Math.epsilon { closestDist = CGFloat(sqrtf(Float(closestDist))) }
+            if closestDist > largestDist { largestDist = closestDist }
+            node.edgeDistance = closestDist
+        }
+        
+        guard largestDist > Math.epsilon else {
+            valid = false
+            return
+        }
+        
+        for nodeIndex in 0..<meshNodesBase.count {
+            let node = meshNodesBase.data[nodeIndex]
+            node.edgePercent = node.edgeDistance / largestDist
+        }
+        //edgePercent
+        
+    }
     
     func computeAffine() {
         needsComputeAffine = false
@@ -819,7 +910,6 @@ public class Blob
                 grid[i][n].point = transformPoint(point: grid[i][n].pointBase)
             }
         }
-        
         
         for i in 0..<meshNodesBase.count {
             

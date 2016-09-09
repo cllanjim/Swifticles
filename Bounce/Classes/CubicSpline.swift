@@ -146,7 +146,7 @@ class CubicSpline {
                     bestIndex = i
                 }
             }
-            if bestDist > 0.01 { bestDist = CGFloat(sqrtf(Float(bestDist))) }
+            if bestDist > Math.epsilon { bestDist = CGFloat(sqrtf(Float(bestDist))) }
             return (bestIndex, bestDist)
         }
         return nil

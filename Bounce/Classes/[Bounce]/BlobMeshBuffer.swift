@@ -1,26 +1,21 @@
 //
-//  DrawNodeBuffer.swift
+//  BlobMeshBuffer.swift
 //  Bounce
 //
-//  Created by Raptis, Nicholas on 9/7/16.
+//  Created by Raptis, Nicholas on 9/9/16.
 //  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
 
-class DrawNodeBuffer {
-    
+class BlobMeshBuffer {
     var count:Int { return _count }
     internal var _count:Int = 0
     
-    var data = [DrawNode]()
+    var data = [BlobMeshNode]()
     
     func reset() {
         _count = 0
-    }
-    
-    func add(node node:DrawNode) {
-        set(index: count, node: node)
     }
     
     func ensureCapacity(capacity: Int) {
@@ -28,27 +23,38 @@ class DrawNodeBuffer {
             let newCapacity = capacity + capacity / 2 + 1
             data.reserveCapacity(newCapacity)
             while data.count < newCapacity {
-                data.append(DrawNode())
+                data.append(BlobMeshNode())
             }
         }
     }
     
-    func set(index index:Int, node:DrawNode) {
+    func set(index index:Int, node:BlobMeshNode) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }
-        data[index].set(drawNode: node)
+        data[index].set(meshNode:node)
     }
     
     func setXY(index:Int, x:CGFloat, y:CGFloat) {
-        setXYZ(index, x: x, y: y, z: 0.0)
-    }
-    
-    func setXYZ(index:Int, x:CGFloat, y:CGFloat, z:CGFloat) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }
-        data[index].x = x;data[index].y = y;data[index].z = z
+        data[index].x = x
+        data[index].y = y;
+    }
+    
+    func setZ(index:Int, z:CGFloat) {
+        guard index >= 0 else { return }
+        ensureCapacity(index)
+        if index >= _count { _count = index + 1 }
+        data[index].z = z
+    }
+    
+    func setEdgeDistance(index:Int, edgeDistance:CGFloat) {
+        guard index >= 0 else { return }
+        ensureCapacity(index)
+        if index >= _count { _count = index + 1 }
+        data[index].edgeDistance = edgeDistance
     }
     
     func printData() {
@@ -61,9 +67,7 @@ class DrawNodeBuffer {
             print("Node[\(i)] xyz(\(d.x),\(d.y),\(d.z)")
             
         }
-        
         print("*** *** ***")
-        
     }
     
 }

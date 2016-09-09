@@ -18,6 +18,14 @@ class Math {
     
     static let epsilon:CGFloat = 0.01
     
+    class func sind(degrees:CGFloat) -> CGFloat {
+        return CGFloat(sin(Double(degrees * D_R)))
+    }
+    
+    class func cosd(degrees:CGFloat) -> CGFloat {
+        return CGFloat(cos(Double(degrees * D_R)))
+    }
+    
     class func dist(p1 p1:CGPoint, p2:CGPoint) -> CGFloat {
         let diffX = p1.x - p2.x
         let diffY = p1.y - p2.y
