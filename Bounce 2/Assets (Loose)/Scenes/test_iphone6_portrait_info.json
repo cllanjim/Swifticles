@@ -1,0 +1,201 @@
+ {
+  "test_2" : "t-2",
+  "engine" : {
+    "blobs" : [
+      {
+        "rotation" : 3.030141,
+        "center_y" : 180.305,
+        "spline" : {
+          "linear" : false,
+          "closed" : true,
+          "coord_x" : [
+            {
+              "coefA" : 67.18083,
+              "delta" : 0,
+              "value" : -2.481932,
+              "coefB" : 78.09937,
+              "coefC" : -82.95228,
+              "derivative" : 67.18083
+            },
+            {
+              "coefA" : -25.47727,
+              "delta" : 0.25,
+              "value" : 59.84599,
+              "coefB" : -155.087,
+              "coefC" : 90.98985,
+              "derivative" : -25.47727
+            },
+            {
+              "coefA" : -62.68177,
+              "delta" : -0.0625,
+              "value" : -29.72846,
+              "coefB" : 139.9223,
+              "coefC" : -49.99398,
+              "derivative" : -62.68177
+            }
+          ],
+          "coord_y" : [
+            {
+              "coefA" : -88.02962,
+              "delta" : 0,
+              "value" : -138.71,
+              "coefB" : 384.3937,
+              "coefC" : -142.3226,
+              "derivative" : -88.02962
+            },
+            {
+              "coefA" : 253.79,
+              "delta" : 0.25,
+              "value" : 15.33154,
+              "coefB" : -4.944936,
+              "coefC" : -131.4723,
+              "derivative" : 253.79
+            },
+            {
+              "coefA" : -150.5166,
+              "delta" : -0.0625,
+              "value" : 132.7044,
+              "coefB" : -425.1801,
+              "coefC" : 304.2824,
+              "derivative" : -150.5166
+            }
+          ]
+        },
+        "scale" : 1.156274,
+        "center_x" : 318.636
+      },
+      {
+        "rotation" : 1.597411,
+        "center_y" : 569.6998,
+        "spline" : {
+          "linear" : false,
+          "closed" : true,
+          "coord_x" : [
+            {
+              "coefA" : 73.97903,
+              "delta" : 0,
+              "value" : 1.548238,
+              "coefB" : 144.761,
+              "coefC" : -121.6496,
+              "derivative" : 73.97903
+            },
+            {
+              "coefA" : -1.447703,
+              "delta" : 0.25,
+              "value" : 98.6387,
+              "coefB" : -195.9101,
+              "coefC" : 98.71913,
+              "derivative" : -1.447703
+            },
+            {
+              "coefA" : -97.11057,
+              "delta" : -0.0625,
+              "value" : 0,
+              "coefB" : 124.8868,
+              "coefC" : -26.22802,
+              "derivative" : -97.11057
+            }
+          ],
+          "coord_y" : [
+            {
+              "coefA" : -80.49944,
+              "delta" : 0,
+              "value" : -148.3811,
+              "coefB" : 351.8919,
+              "coefC" : -130.344,
+              "derivative" : -80.49944
+            },
+            {
+              "coefA" : 232.2524,
+              "delta" : 0.25,
+              "value" : -7.332583,
+              "coefB" : -4.684364,
+              "coefC" : -120.2355,
+              "derivative" : 232.2524
+            },
+            {
+              "coefA" : -137.8228,
+              "delta" : -0.0625,
+              "value" : 100,
+              "coefB" : -388.9983,
+              "coefC" : 278.44,
+              "derivative" : -137.8228
+            }
+          ]
+        },
+        "scale" : 0.990953,
+        "center_x" : 170.807
+      },
+      {
+        "rotation" : 6.267013,
+        "center_y" : 165.0676,
+        "spline" : {
+          "linear" : false,
+          "closed" : true,
+          "coord_x" : [
+            {
+              "coefA" : 66.81033,
+              "delta" : 0,
+              "value" : -9.52385,
+              "coefB" : 247.7283,
+              "coefC" : -170.1985,
+              "derivative" : 66.81033
+            },
+            {
+              "coefA" : 51.67139,
+              "delta" : 0.25,
+              "value" : 134.8163,
+              "coefB" : -226.9616,
+              "coefC" : 86.20981,
+              "derivative" : 51.67139
+            },
+            {
+              "coefA" : -143.6225,
+              "delta" : -0.0625,
+              "value" : 45.73584,
+              "coefB" : 54.65555,
+              "coefC" : 33.70723,
+              "derivative" : -143.6225
+            }
+          ],
+          "coord_y" : [
+            {
+              "coefA" : -132.3733,
+              "delta" : 0,
+              "value" : -78.01205,
+              "coefB" : 85.91613,
+              "coefC" : 39.77724,
+              "derivative" : -132.3733
+            },
+            {
+              "coefA" : 158.7907,
+              "delta" : 0.25,
+              "value" : -84.69199,
+              "coefB" : 203.0265,
+              "coefC" : -185.3195,
+              "derivative" : 158.7907
+            },
+            {
+              "coefA" : 8.885363,
+              "delta" : -0.0625,
+              "value" : 91.80576,
+              "coefB" : -394.8509,
+              "coefC" : 216.1477,
+              "derivative" : 8.885363
+            }
+          ]
+        },
+        "scale" : 1.310741,
+        "center_x" : 44.2396
+      }
+    ]
+  },
+  "scene" : {
+    "size_width" : 375,
+    "image_name" : "00004080_00002048",
+    "image_path" : "test_iphone6_portrait.png",
+    "size_height" : 667,
+    "landscape" : false
+  },
+  "test_1" : "t-1"
+}

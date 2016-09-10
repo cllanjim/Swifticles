@@ -10,21 +10,21 @@ import UIKit
 import Foundation
 import GLKit
 
-public class Sprite {
+open class Sprite {
     
     var texture:Texture? = nil
     
     //"Single Source of Truth" doesn't necessarily apply
     //because a sprite can be only a slice of a texture...
-    var size:CGSize = CGSizeZero
+    var size:CGSize = CGSize.zero
     
-    private var vertexBuffer:[GLfloat] = [GLfloat](count:40, repeatedValue: 0.0)
-    private var indexBuffer:[IndexBufferType] = [IndexBufferType](count: 6, repeatedValue: 0)
+    fileprivate var vertexBuffer:[GLfloat] = [GLfloat](repeating: 0.0, count: 40)
+    fileprivate var indexBuffer:[IndexBufferType] = [IndexBufferType](repeating: 0, count: 6)
     
-    private var vertexBufferSlot:BufferIndex?
-    private var indexBufferSlot:BufferIndex?
+    fileprivate var vertexBufferSlot:BufferIndex?
+    fileprivate var indexBufferSlot:BufferIndex?
     
-    private var needsRefresh = true
+    fileprivate var needsRefresh = true
     
     var x1: CGFloat {
         get { return CGFloat(vertexBuffer[ 0])}
@@ -181,7 +181,7 @@ public class Sprite {
     }
     
     func clear() {
-        size = CGSizeZero
+        size = CGSize.zero
         texture = nil
         
         gG.bufferDelete(bufferIndex: vertexBufferSlot)
@@ -191,23 +191,23 @@ public class Sprite {
         indexBufferSlot = nil
     }
     
-    public func load(path path: String?) {
+    open func load(path: String?) {
         load(texture: Texture(path: path))
     }
     
-    public func load(texture t: Texture?) {
+    open func load(texture t: Texture?) {
         clear()
-        if let newTexture = t where newTexture.bindIndex != nil {// && newTexture.width > 0 && newTexture.height > 0 {
+        if let newTexture = t , newTexture.bindIndex != nil {// && newTexture.width > 0 && newTexture.height > 0 {
             load(texture: newTexture, rect: CGRect(x: CGFloat(-newTexture.width) / 2.0, y: CGFloat(-newTexture.height) / 2.0, width: CGFloat(newTexture.width), height: CGFloat(newTexture.height)))
         }
         
         
     }
     
-    public func load(texture t: Texture?, rect:CGRect) {
+    open func load(texture t: Texture?, rect:CGRect) {
         
         clear()
-        if let newTexture = t where newTexture.bindIndex != nil && newTexture.width > 0 && newTexture.height > 0 {
+        if let newTexture = t , newTexture.bindIndex != nil && newTexture.width > 0 && newTexture.height > 0 {
             
             texture = newTexture
             
@@ -227,7 +227,7 @@ public class Sprite {
         }
     }
     
-    public func draw() {
+    open func draw() {
         
         if needsRefresh {
             refreshVB()
@@ -253,7 +253,7 @@ public class Sprite {
         gG.drawElementsTriangle(count:6, offset: 0)
     }
     
-    public func drawCentered(pos pos:CGPoint) {
+    open func drawCentered(pos:CGPoint) {
         
         
         
@@ -281,7 +281,7 @@ public class Sprite {
         draw()
     }
     
-    public func drawCentered(pos pos:CGPoint, scale:CGFloat, rot: CGFloat) {
+    open func drawCentered(pos:CGPoint, scale:CGFloat, rot: CGFloat) {
         
 
         draw()

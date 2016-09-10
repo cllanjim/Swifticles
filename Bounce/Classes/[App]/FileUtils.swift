@@ -6,39 +6,39 @@
 
 import UIKit
 
-public class FileUtils
+open class FileUtils
 {
     required public init() {
         //Do something AMAZING!
     }
     
-    public class var bundleDir: String {
+    open class var bundleDir: String {
         var result:String! = nil
-        result = NSBundle.mainBundle().resourcePath
-        result = result.stringByAppendingString("/")
+        result = Bundle.main.resourcePath
+        result = result + "/"
         return result
     }
     
-    public class var docsDir: String {
-        var result:String! = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        result = result.stringByAppendingString("/")
+    open class var docsDir: String {
+        var result:String! = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        result = result + "/"
         return result
     }
     
-    public class func getDocsPath(filePath filePath:String?) -> String {
+    open class func getDocsPath(filePath:String?) -> String {
         var result = FileUtils.docsDir
-        if let path = filePath { result = result.stringByAppendingString(path) }
+        if let path = filePath { result = result + path }
         return result
     }
     
-    public class func getBundlePath(filePath filePath:String?) -> String {
+    open class func getBundlePath(filePath:String?) -> String {
         var result = FileUtils.bundleDir
-        if let path = filePath { result = result.stringByAppendingString(path) }
+        if let path = filePath { result = result + path }
         return result
     }
     
-    public class func findAbsolutePath(filePath filePath:String?) -> String? {
-        if let path = filePath where path.characters.count > 0 {
+    open class func findAbsolutePath(filePath:String?) -> String? {
+        if let path = filePath , path.characters.count > 0 {
             if fileExists(filePath: path) {
                 return path
             }
@@ -54,18 +54,18 @@ public class FileUtils
         return nil
     }
     
-    class func fileExists(filePath filePath:String?) -> Bool {
-        if let path = filePath where path.characters.count > 0 {
-            return NSFileManager.defaultManager().fileExistsAtPath(path)
+    class func fileExists(filePath:String?) -> Bool {
+        if let path = filePath , path.characters.count > 0 {
+            return FileManager.default.fileExists(atPath: path)
         }
         return false
     }
     
-    public class func saveData(inout data data:NSData?, filePath:String?) -> Bool {
+    open class func saveData(data:inout Data?, filePath:String?) -> Bool {
         if let checkData = data {
             if let path = filePath {
                 do {
-                    try checkData.writeToFile(path, options: .AtomicWrite)
+                    try checkData.write(to: URL(fileURLWithPath: path), options: .atomicWrite)
                     return true
                 } catch {
                     print("Unable to save Data [\(filePath)]")
@@ -75,15 +75,15 @@ public class FileUtils
         return false
     }
     
-    public class func loadData(filePath:String?) -> NSData? {
+    open class func loadData(_ filePath:String?) -> Data? {
         if let path = FileUtils.findAbsolutePath(filePath: filePath) {
-            return NSData(contentsOfFile: path)
+            return (try? Data(contentsOf: URL(fileURLWithPath: path)))
         }
         return nil
     }
     
-    public class func saveImagePNG(image image:UIImage?, filePath:String?) ->Bool {
-        if let checkImage = image where checkImage.size.width >= 1.0 && checkImage.size.height >= 1.0 {
+    open class func saveImagePNG(image:UIImage?, filePath:String?) ->Bool {
+        if let checkImage = image , checkImage.size.width >= 1.0 && checkImage.size.height >= 1.0 {
             var imageData = UIImagePNGRepresentation(checkImage)
             
             if FileUtils.saveData(data: &imageData, filePath: filePath) {

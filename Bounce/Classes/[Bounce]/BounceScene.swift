@@ -25,15 +25,15 @@ class BounceScene
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
-        info["image_name"] = imageName
-        info["image_path"] = imagePath
-        info["landscape"] = isLandscape
-        info["size_width"] = Float(size.width)
-        info["size_height"] = Float(size.height)
+        info["image_name"] = imageName as AnyObject?
+        info["image_path"] = imagePath as AnyObject?
+        info["landscape"] = isLandscape as AnyObject?
+        info["size_width"] = Float(size.width) as AnyObject?
+        info["size_height"] = Float(size.height) as AnyObject?
         return info
     }
     
-    func load(info info:[String:AnyObject]) {
+    func load(info:[String:AnyObject]) {
         if let _imageName = info["image_name"] as? String { imageName = _imageName }
         if let _imagePath = info["image_path"] as? String { imagePath = _imagePath }
         if let _isLandscape = info["landscape"] as? Bool { isLandscape = _isLandscape }

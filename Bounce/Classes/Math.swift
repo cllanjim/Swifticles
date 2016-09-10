@@ -18,15 +18,15 @@ class Math {
     
     static let epsilon:CGFloat = 0.01
     
-    class func sind(degrees:CGFloat) -> CGFloat {
+    class func sind(_ degrees:CGFloat) -> CGFloat {
         return CGFloat(sin(Double(degrees * D_R)))
     }
     
-    class func cosd(degrees:CGFloat) -> CGFloat {
+    class func cosd(_ degrees:CGFloat) -> CGFloat {
         return CGFloat(cos(Double(degrees * D_R)))
     }
     
-    class func dist(p1 p1:CGPoint, p2:CGPoint) -> CGFloat {
+    class func dist(p1:CGPoint, p2:CGPoint) -> CGFloat {
         let diffX = p1.x - p2.x
         let diffY = p1.y - p2.y
         var dist = diffX * diffX + diffY * diffY
@@ -36,19 +36,19 @@ class Math {
         return dist
     }
     
-    class func dotProduct(p1 p1:CGPoint, p2:CGPoint) -> CGFloat {
+    class func dotProduct(p1:CGPoint, p2:CGPoint) -> CGFloat {
         return p1.x * p2.x + p1.y * p2.y
     }
     
-    class func crossProduct(p1 p1:CGPoint, p2:CGPoint) -> CGFloat {
+    class func crossProduct(p1:CGPoint, p2:CGPoint) -> CGFloat {
         return p1.x * p2.y - p2.x * p1.y
     }
     
-    class func dotProduct(x1 x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat) -> CGFloat {
+    class func dotProduct(x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat) -> CGFloat {
         return x1 * x2 + y1 * y2
     }
     
-    class func crossProduct(x1 x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat) -> CGFloat {
+    class func crossProduct(x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat) -> CGFloat {
         return x1 * y2 - x2 * y1
     }
     

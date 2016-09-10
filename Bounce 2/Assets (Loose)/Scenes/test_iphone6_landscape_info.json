@@ -1,0 +1,14 @@
+{
+  "test_2" : "t-2",
+  "engine" : {
+
+  },
+  "scene" : {
+    "size_width" : 667,
+    "image_name" : "00004080_00002048",
+    "image_path" : "test_iphone6_landscape.png",
+    "size_height" : 375,
+    "landscape" : true
+  },
+  "test_1" : "t-1"
+}

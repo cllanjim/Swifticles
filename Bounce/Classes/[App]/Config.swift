@@ -9,16 +9,16 @@ import Foundation
 class Config
 {
     
-    private var _uniqueIndex1:Int = 4096
-    private var _uniqueIndex2:Int = 2048
+    fileprivate var _uniqueIndex1:Int = 4096
+    fileprivate var _uniqueIndex2:Int = 2048
     
     var uniqueString:String {
         
         var str1 = String(_uniqueIndex1)
         var str2 = String(_uniqueIndex2)
         
-        while str1.characters.count < 8 { str1 = String("0").stringByAppendingString(str1) }
-        while str2.characters.count < 8 { str2 = String("0").stringByAppendingString(str2) }
+        while str1.characters.count < 8 { str1 = String("0") + str1 }
+        while str2.characters.count < 8 { str2 = String("0") + str2 }
         
         _uniqueIndex1 -= 16
         if _uniqueIndex1 < 1280 {
@@ -29,7 +29,7 @@ class Config
             }
         }
         
-        return str1.stringByAppendingString("_").stringByAppendingString(str2)
+        return (str1 + "_") + str2
     }
     
     

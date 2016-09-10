@@ -11,7 +11,7 @@ import OpenGLES
 
 class Matrix {
     
-    var m:[GLfloat] = [GLfloat](count:16, repeatedValue: 0.0)
+    var m:[GLfloat] = [GLfloat](repeating: 0.0, count: 16)
     
     init() {
         reset()
@@ -32,7 +32,7 @@ class Matrix {
         return Matrix(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9], m[10], m[11], m[12], m[13], m[14], m[15])
     }
     
-    func set(matrix:Matrix) {
+    func set(_ matrix:Matrix) {
         m[0]=matrix.m[0];m[1]=matrix.m[1];m[2]=matrix.m[2];m[3]=matrix.m[3];
         m[4]=matrix.m[4];m[5]=matrix.m[5];m[6]=matrix.m[6];m[7]=matrix.m[7];
         m[8]=matrix.m[8];m[9]=matrix.m[9];m[10]=matrix.m[10];m[11]=matrix.m[11];
@@ -46,23 +46,23 @@ class Matrix {
         m[12]=0.0;m[13]=0.0;m[14]=0.0;m[15]=1.0
     }
     
-    func scale(scaleFactor:GLfloat) {
+    func scale(_ scaleFactor:GLfloat) {
         scale(scaleFactor, scaleFactor, scaleFactor)
     }
     
-    func scale(scaleX:GLfloat, _ scaleY:GLfloat, _ scaleZ:GLfloat) {
+    func scale(_ scaleX:GLfloat, _ scaleY:GLfloat, _ scaleZ:GLfloat) {
         m[0] *= scaleX;m[1] *= scaleX;m[2] *= scaleX;m[3] *= scaleX;
         m[4] *= scaleY;m[5] *= scaleY;m[6] *= scaleY;m[7] *= scaleY;
         m[8] *= scaleZ;m[9] *= scaleZ;m[10] *= scaleZ;m[11] *= scaleZ;
     }
     
-    func translate(tx:GLfloat, _ ty:GLfloat, _ tz:GLfloat) {
+    func translate(_ tx:GLfloat, _ ty:GLfloat, _ tz:GLfloat) {
         let mat = Matrix(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9], m[10], m[11], m[0] * tx + m[4] * ty + m[8] * tz + m[12], m[1] * tx + m[5] * ty + m[9] * tz + m[13], m[2] * tx + m[6] * ty + m[10] * tz + m[14], m[15])
         set(mat)
     }
     
     
-    class func createOrtho(left left:GLfloat, right:GLfloat, bottom:GLfloat, top:GLfloat, nearZ:GLfloat, farZ:GLfloat) -> Matrix {
+    class func createOrtho(left:GLfloat, right:GLfloat, bottom:GLfloat, top:GLfloat, nearZ:GLfloat, farZ:GLfloat) -> Matrix {
         let ral = right + left;
         let rsl = right - left;
         let tab = top + bottom;

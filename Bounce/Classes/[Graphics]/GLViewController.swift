@@ -21,15 +21,15 @@ class GLViewController: GLKViewController {
     deinit {
         print("GLViewController.deinit()")
         self.tearDownGL()
-        if EAGLContext.currentContext() === self.context {
-            EAGLContext.setCurrentContext(nil)
+        if EAGLContext.current() === self.context {
+            EAGLContext.setCurrent(nil)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.context = EAGLContext(API: .OpenGLES2)
+        self.context = EAGLContext(api: .openGLES2)
         
         if !(self.context != nil) {
             print("Failed to create ES context")
@@ -37,15 +37,15 @@ class GLViewController: GLKViewController {
         
         let view = self.view as! GLKView
         view.context = self.context!
-        view.drawableDepthFormat = .Format24
+        view.drawableDepthFormat = .format24
         
-        view.multipleTouchEnabled = true
-        view.userInteractionEnabled = true
-        view.exclusiveTouch = false
+        view.isMultipleTouchEnabled = true
+        view.isUserInteractionEnabled = true
+        view.isExclusiveTouch = false
         
         self.setupGL()
         
-        self.performSelectorOnMainThread(#selector(load), withObject: nil, waitUntilDone: true)
+        self.performSelector(onMainThread: #selector(load), with: nil, waitUntilDone: true)
         
         //self.load()
         
@@ -54,7 +54,7 @@ class GLViewController: GLKViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-        if self.isViewLoaded() && (self.view.window != nil) {
+        if self.isViewLoaded && (self.view.window != nil) {
             
             print("**********************")
             print("***  GL - SUICIDE!!!")
@@ -73,13 +73,13 @@ class GLViewController: GLKViewController {
     }
     
     func setupGL() {
-        EAGLContext.setCurrentContext(self.context)
+        EAGLContext.setCurrent(self.context)
         self.loadShaders()
         gG.create()
     }
     
     func tearDownGL() {
-        EAGLContext.setCurrentContext(self.context)
+        EAGLContext.setCurrent(self.context)
         gG.dispose()
         if program != 0 {
             glDeleteProgram(program)
@@ -87,7 +87,7 @@ class GLViewController: GLKViewController {
         }
     }
     
-    override func glkView(view: GLKView, drawInRect rect: CGRect) {
+    override func glkView(_ view: GLKView, drawIn rect: CGRect) {
         gG.clear()
         gG.colorSet()
         gG.blendEnable()
@@ -105,14 +105,14 @@ class GLViewController: GLKViewController {
         program = glCreateProgram()
         
         // Create and compile vertex shader.
-        vertShaderPathname = NSBundle.mainBundle().pathForResource("VertexShader", ofType: "glsl")!
+        vertShaderPathname = Bundle.main.path(forResource: "VertexShader", ofType: "glsl")!
         if self.compileShader(&vertShader, type: GLenum(GL_VERTEX_SHADER), file: vertShaderPathname) == false {
             print("Failed to compile vertex shader")
             return false
         }
         
         // Create and compile fragment shader.
-        fragShaderPathname = NSBundle.mainBundle().pathForResource("FragmentShader", ofType: "glsl")!
+        fragShaderPathname = Bundle.main.path(forResource: "FragmentShader", ofType: "glsl")!
         if !self.compileShader(&fragShader, type: GLenum(GL_FRAGMENT_SHADER), file: fragShaderPathname) {
             print("Failed to compile fragment shader")
             return false
@@ -165,16 +165,17 @@ class GLViewController: GLKViewController {
         return true
     }
     
-    func compileShader(inout shader: GLuint, type: GLenum, file: String) -> Bool {
+    func compileShader(_ shader: inout GLuint, type: GLenum, file: String) -> Bool {
         var status: GLint = 0
         var source: UnsafePointer<Int8>
         do {
-            source = try NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding).UTF8String
+            source = try NSString(contentsOfFile: file, encoding: String.Encoding.utf8.rawValue).utf8String!
         } catch {
             print("Failed to load vertex shader")
             return false
         }
-        var castSource = UnsafePointer<GLchar>(source)
+        //var castSource = UnsafePointer<GLchar>(source)
+        var castSource: UnsafePointer<GLchar>? = UnsafePointer<GLchar>(source)
         
         shader = glCreateShader(type)
         glShaderSource(shader, 1, &castSource, nil)
@@ -188,7 +189,7 @@ class GLViewController: GLKViewController {
         return true
     }
     
-    func linkProgram(prog: GLuint) -> Bool {
+    func linkProgram(_ prog: GLuint) -> Bool {
         print("GLViewController.linkProgram()")
         
         var status: GLint = 0
@@ -201,14 +202,14 @@ class GLViewController: GLKViewController {
         return true
     }
     
-    func validateProgram(prog: GLuint) -> Bool {
+    func validateProgram(_ prog: GLuint) -> Bool {
         var logLength: GLsizei = 0
         var status: GLint = 0
         
         glValidateProgram(prog)
         glGetProgramiv(prog, GLenum(GL_INFO_LOG_LENGTH), &logLength)
         if logLength > 0 {
-            var log: [GLchar] = [GLchar](count: Int(logLength), repeatedValue: 0)
+            var log: [GLchar] = [GLchar](repeating: 0, count: Int(logLength))
             glGetProgramInfoLog(prog, logLength, &logLength, &log)
             print("Program validate log: \n\(log)")
         }

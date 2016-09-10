@@ -12,7 +12,7 @@ class DrawTriangle {
     var node2 = DrawNode()
     var node3 = DrawNode()
     
-    func set(triangle triangle:DrawTriangle) {
+    func set(triangle:DrawTriangle) {
         node1.set(drawNode: triangle.node1)
         node2.set(drawNode: triangle.node2)
         node3.set(drawNode: triangle.node3)
@@ -252,7 +252,7 @@ class DrawTriangle {
         set {node3.a = newValue}
     }
     
-    func writeToTriangleList(inout t:[GLfloat]) {
+    func writeToTriangleList(_ t:inout [GLfloat]) {
         
         let count = t.count
         t[count +  0] = GLfloat(node1.x)

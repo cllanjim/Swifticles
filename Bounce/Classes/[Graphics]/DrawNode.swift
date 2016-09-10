@@ -17,7 +17,7 @@ class DrawNode {
     var g:CGFloat = 1.0
     var b:CGFloat = 1.0
     var a:CGFloat = 1.0
-    func set(drawNode drawNode:DrawNode) {
+    func set(drawNode:DrawNode) {
         x = drawNode.x;y = drawNode.y;z = drawNode.z
         u = drawNode.u;v = drawNode.v;w = drawNode.w
         r = drawNode.r;g = drawNode.g;b = drawNode.b;a = drawNode.a

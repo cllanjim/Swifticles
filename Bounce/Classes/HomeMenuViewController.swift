@@ -22,7 +22,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var importImage: UIImage?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         gApp.navigationController.setNavigationBarHidden(true, animated: true)
         
@@ -33,12 +33,12 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     
-    func showImagePicker(sender:UIButton) {
+    func showImagePicker(_ sender:UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: {})
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        present(imagePicker, animated: true, completion: {})
     }
     
     //func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool)
@@ -48,7 +48,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     //func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning?
     //func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?
     
-    internal func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         for (key, obj) in info {
             print("key = \(key)")
@@ -59,90 +59,90 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         
         print("cond-1 \(pickerImage?.size.width)x\(pickerImage?.size.height)")
         
-        guard let image = pickerImage where image.size.width > 32.0 && image.size.height > 32.0 else {
+        guard let image = pickerImage , image.size.width > 32.0 && image.size.height > 32.0 else {
             print("FAIL-SAUCE!!!")
-            self.dismissViewControllerAnimated(true) { }
+            self.dismiss(animated: true) { }
             return
         }
         
         importImage = image
         
-        self.dismissViewControllerAnimated(true) { [weak weakSelf = self] in
-            weakSelf?.performSegueWithIdentifier("import_image", sender: nil)
+        self.dismiss(animated: true) { [weak weakSelf = self] in
+            weakSelf?.performSegue(withIdentifier: "import_image", sender: nil)
         }
         
     }
     
-    internal func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismissViewControllerAnimated(true) { //[weak ws = self] in
+    internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true) { //[weak ws = self] in
             print("Finished Dismissing Image Picker")
         }
     }
     
-    @IBAction func testPush(sender: UIButton) {
+    @IBAction func testPush(_ sender: UIButton) {
         
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "import_image" {
             if let image = importImage {
-                if let importer = segue.destinationViewController as? ImageImportViewController {
+                if let importer = segue.destination as? ImageImportViewController {
                     importer.setUp(importImage: image, screenSize: self.view.bounds.size)
                     importImage = nil
                 }
             }
         }
         if segue.identifier == "test_bounce" {
-            if let bounce = segue.destinationViewController as? BounceViewController {
+            if let bounce = segue.destination as? BounceViewController {
                 bounce.loadScene(filePath: loadPath)
             }
         }
     }
     
-    @IBAction func clickCreate(sender: UIButton) {
+    @IBAction func clickCreate(_ sender: UIButton) {
         showImagePicker(sender)
     }
     
-    @IBAction func clickLoad(sender: AnyObject) {
+    @IBAction func clickLoad(_ sender: AnyObject) {
         loadPath = "test_ipad_portrait_info.json"
-        performSegueWithIdentifier("test_bounce", sender: nil)
+        performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickUpgrade(sender: AnyObject) {
+    @IBAction func clickUpgrade(_ sender: AnyObject) {
         loadPath = "test_ipad_landscape_info.json"
-        performSegueWithIdentifier("test_bounce", sender: nil)
+        performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickImport(sender: RRButton) {
+    @IBAction func clickImport(_ sender: RRButton) {
         importImage = UIImage(named: "test_card.jpg")
-        self.performSegueWithIdentifier("import_image", sender: nil)
+        self.performSegue(withIdentifier: "import_image", sender: nil)
     }
     
     
     
     
-    @IBAction func clickTest1(sender: RRButton) {
+    @IBAction func clickTest1(_ sender: RRButton) {
         loadPath = "test_iphone5_landscape_info.json"
-        performSegueWithIdentifier("test_bounce", sender: nil)
+        performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickTest2(sender: RRButton) {
+    @IBAction func clickTest2(_ sender: RRButton) {
         loadPath = "test_iphone5_portrait_info.json"
-        performSegueWithIdentifier("test_bounce", sender: nil)
+        performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickTest3(sender: RRButton) {
+    @IBAction func clickTest3(_ sender: RRButton) {
         loadPath = "test_iphone6_portrait_info.json"
-        performSegueWithIdentifier("test_bounce", sender: nil)
+        performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickTest4(sender: RRButton) {
+    @IBAction func clickTest4(_ sender: RRButton) {
         loadPath = "test_iphone6_landscape_info.json"
-        performSegueWithIdentifier("test_bounce", sender: nil)
+        performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
     deinit {

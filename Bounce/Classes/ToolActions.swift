@@ -21,7 +21,7 @@ class ToolActions {
             transition.duration = 0.54
             transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             transition.type = kCATransitionReveal
-            nc.view.layer.addAnimation(transition, forKey: nil)
+            nc.view.layer.add(transition, forKey: nil)
             
             gApp.navigationController.setViewControllers([home], animated: true)
             gApp.navigationController.setNavigationBarHidden(false, animated: true)

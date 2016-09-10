@@ -11,15 +11,15 @@ import UIKit
 class ApplicationController
 {
     var storyboard:UIStoryboard {
-        return UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        return UIStoryboard(name: "Main", bundle: Bundle.main)
     }
     
-    func getStoryboardVC(name:String) -> UIViewController {
-        return storyboard.instantiateViewControllerWithIdentifier(name)
+    func getStoryboardVC(_ name:String) -> UIViewController {
+        return storyboard.instantiateViewController(withIdentifier: name)
     }
     
     var appDelegate:AppDelegate {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate)
+        return (UIApplication.shared.delegate as! AppDelegate)
     }
     
     var navigationController:UINavigationController {
@@ -29,7 +29,7 @@ class ApplicationController
     
     var bounce:BounceViewController? {
         for vc:UIViewController in navigationController.viewControllers {
-            if vc.isKindOfClass(BounceViewController) {
+            if vc.isKind(of: BounceViewController.self) {
                 if let bounce = vc as? BounceViewController {
                     return bounce
                 }

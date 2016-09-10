@@ -10,23 +10,17 @@ import UIKit
 
 class BlobMeshNode : DrawNode
 {
+    var index:Int = 0
+    
     var edgeDistance: CGFloat = 0.0
     var edgePercent: CGFloat = 0.0
     
-    
-    //var edgeDistance: CGFloat
-    
-    
-    //var x:CGFloat = 0.0
-    //var y:CGFloat = 0.0
-    //var z:CGFloat = 0.0
-    
-    func set(meshNode meshNode:BlobMeshNode) {
+    func set(meshNode:BlobMeshNode) {
         
         set(drawNode: meshNode)
-        //x = meshNode.x;y = meshNode.y;z = meshNode.z
-        //u = meshNode.u;v = meshNode.v;w = meshNode.w
-        //r = meshNode.r;g = meshNode.g;b = meshNode.b;a = meshNode.a
+        
+        index = meshNode.index
+        
         edgeDistance = meshNode.edgeDistance
         edgePercent = meshNode.edgePercent
     }

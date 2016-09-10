@@ -18,7 +18,7 @@ class BlobMeshBuffer {
         _count = 0
     }
     
-    func ensureCapacity(capacity: Int) {
+    func ensureCapacity(_ capacity: Int) {
         if capacity >= data.count {
             let newCapacity = capacity + capacity / 2 + 1
             data.reserveCapacity(newCapacity)
@@ -28,14 +28,14 @@ class BlobMeshBuffer {
         }
     }
     
-    func set(index index:Int, node:BlobMeshNode) {
+    func set(index:Int, node:BlobMeshNode) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }
         data[index].set(meshNode:node)
     }
     
-    func setXY(index:Int, x:CGFloat, y:CGFloat) {
+    func setXY(_ index:Int, x:CGFloat, y:CGFloat) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }
@@ -43,14 +43,14 @@ class BlobMeshBuffer {
         data[index].y = y;
     }
     
-    func setZ(index:Int, z:CGFloat) {
+    func setZ(_ index:Int, z:CGFloat) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }
         data[index].z = z
     }
     
-    func setEdgeDistance(index:Int, edgeDistance:CGFloat) {
+    func setEdgeDistance(_ index:Int, edgeDistance:CGFloat) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }

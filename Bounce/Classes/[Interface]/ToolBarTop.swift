@@ -49,32 +49,32 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
         
     }
     
-    @IBAction func clickMenu(sender: AnyObject) {
+    @IBAction func clickMenu(_ sender: AnyObject) {
         
         ToolActions.menu()
     }
     
-    @IBAction func clickAddBlob(sender: AnyObject) {
+    @IBAction func clickAddBlob(_ sender: AnyObject) {
         
         ToolActions.addBlob()
     }
     
-    func segmentSelected(segment:TBSegment, index: Int) {
+    func segmentSelected(_ segment:TBSegment, index: Int) {
         print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
         
         if segment === segEditMode {
             
             if segEditMode.selectedIndex == 0 {
-                gApp.engine?.editMode = .Affine
+                gApp.engine?.editMode = .affine
             } else {
-                gApp.engine?.editMode = .Shape
+                gApp.engine?.editMode = .shape
             }
             
         }
         
     }
     
-    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
+    func checkBoxToggled(_ checkBox:TBCheckBox, checked: Bool) {
         
         if checkBox == checkBoxZoom {
             

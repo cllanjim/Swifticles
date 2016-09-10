@@ -6,13 +6,24 @@
 
 import UIKit
 import OpenGLES
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 
 
 struct BlobGridNode {
     //Base = untransformed, no Base = transformed...
-    var point:CGPoint = CGPointZero
-    var pointBase:CGPoint = CGPointZero
+    var point:CGPoint = CGPoint.zero
+    var pointBase:CGPoint = CGPoint.zero
     var meshIndex:Int?
     
     var edgeU:Bool = false
@@ -25,19 +36,19 @@ struct BlobGridNode {
     var meshIndexEdgeD:Int?
     var meshIndexEdgeL:Int?
     
-    var edgePointBaseU:CGPoint = CGPointZero
-    var edgePointBaseR:CGPoint = CGPointZero
-    var edgePointBaseD:CGPoint = CGPointZero
-    var edgePointBaseL:CGPoint = CGPointZero
+    var edgePointBaseU:CGPoint = CGPoint.zero
+    var edgePointBaseR:CGPoint = CGPoint.zero
+    var edgePointBaseD:CGPoint = CGPoint.zero
+    var edgePointBaseL:CGPoint = CGPoint.zero
     
-    var texturePoint:CGPoint = CGPointZero
+    var texturePoint:CGPoint = CGPoint.zero
     
     var inside:Bool = false
     
-    var color:UIColor = UIColor.whiteColor()
+    var color:UIColor = UIColor.white
 }
 
-public class Blob
+open class Blob
 {
     var grid = [[BlobGridNode]]()
     
@@ -61,14 +72,15 @@ public class Blob
     var testSin2:CGFloat = 0.0
     var testSin3:CGFloat = 0.0
     
-    
+    fileprivate var vertexBufferSlot:BufferIndex?
+    fileprivate var indexBufferSlot:BufferIndex?
     
     var linesBase = LineSegmentBuffer()//[LineSegment]()
     var lines = LineSegmentBuffer()//[LineSegment]()
     
     //Base = untransformed, no Base = transformed...
-    var borderBase = PointList()
-    var border = PointList()
+    fileprivate var borderBase = PointList()
+    fileprivate var border = PointList()
     
     var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { needsComputeAffine = true } }
     var scale:CGFloat = 1.0 { didSet { needsComputeAffine = true } }
@@ -80,9 +92,7 @@ public class Blob
     func setNeedsComputeAffine() { needsComputeAffine = true }
     internal var needsComputeAffine:Bool = true
     
-    internal var boundingBox:CGRect = CGRectZero
-    
-    var touchPoint:CGPoint = CGPointZero
+    internal var boundingBox:CGRect = CGRect.zero
     
     var enabled: Bool {
         return true
@@ -93,6 +103,10 @@ public class Blob
     }
     
     init() {
+        
+        //vertexBufferSlot = gG.bufferVertexGenerate(data: &vertexBuffer, size: 40)
+        //indexBufferSlot = gG.bufferIndexGenerate(data: &indexBuffer, size: 6)
+        
         spline.add(0.0, y: -100)
         //spline.add(50.0, y: -50)
         spline.add(100, y: 0.0)
@@ -106,6 +120,14 @@ public class Blob
         spline.closed = true
         
         computeShape()
+    }
+    
+    deinit {
+        gG.bufferDelete(bufferIndex: vertexBufferSlot)
+        vertexBufferSlot = nil
+        
+        gG.bufferDelete(bufferIndex: indexBufferSlot)
+        indexBufferSlot = nil
     }
     
     func update() {
@@ -166,20 +188,14 @@ public class Blob
             gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.5)
         }
         
-        
         gG.colorSet(r: 1.0, g: 0.0, b: 0.5)
         for i in 0..<spline.controlPointCount {
-            
             var controlPoint = spline.getControlPoint(i)
-            
             controlPoint = transformPoint(point: controlPoint)
-            
             gG.rectDraw(x: Float(controlPoint.x - 5), y: Float(controlPoint.y - 5), width: 11, height: 11)
         }
         
         
-        gG.colorSet(color: UIColor.yellowColor())
-        gG.pointDraw(point: touchPoint, size: 19.25)
         
         
         gG.colorSet()
@@ -224,6 +240,7 @@ public class Blob
             drawTriangle.draw()
         }
  
+        /*
         gG.colorSet(a: 0.25)
         for i in 0..<tri.count {
             
@@ -248,6 +265,7 @@ public class Blob
             gG.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
             gG.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
         }
+ 
         
         
         for nodeIndex in 0..<meshNodes.count {
@@ -259,7 +277,6 @@ public class Blob
         }
         
         
-        /*
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
                 
@@ -270,7 +287,6 @@ public class Blob
         }
         */
 
-        
         
         
         /*
@@ -357,8 +373,8 @@ public class Blob
     internal func computeBorder() {
         borderBase.reset()
         
-        var threshDist = CGFloat(12.0)
-        if gDevice.tablet { threshDist = 18 }
+        var threshDist = CGFloat(4.0)
+        if gDevice.tablet { threshDist = 7.0 }
         
         threshDist = (threshDist * threshDist)
         
@@ -367,7 +383,7 @@ public class Blob
         let lastPoint = spline.get(spline.maxPos)
         
         borderBase.add(x: prevPoint.x, y: prevPoint.y)
-        for pos:CGFloat in step.stride(to: CGFloat(spline.maxPos), by: step) {
+        for pos:CGFloat in stride(from: step, to: CGFloat(spline.maxPos), by: step) {
             let point = spline.get(pos)
             let diffX1 = point.x - prevPoint.x
             let diffY1 = point.y - prevPoint.y
@@ -386,6 +402,7 @@ public class Blob
             return
         }
         
+        linesBase.reset()
         var prev = borderBase.data[borderBase.count - 1]
         for i in 0..<borderBase.count {
             let point = borderBase.data[i]
@@ -396,22 +413,22 @@ public class Blob
  
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
-        let stepSize = minSize / 10.0
+        let stepSize = minSize / 20.0
         var countX = 0
         var countY = 0
         let leftX = boundingBox.origin.x
         let rightX = leftX + boundingBox.size.width
-        for _ in leftX.stride(to: rightX, by: stepSize) {
+        for _ in stride(from: leftX, to: rightX, by: stepSize) {
             countX += 1
         }
         
         let topY = boundingBox.origin.y
         let bottomY = topY + boundingBox.size.height
-        for _ in topY.stride(to: bottomY, by: stepSize) {
+        for _ in stride(from: topY, to: bottomY, by: stepSize) {
             countY += 1
         }
         
-        grid = [[BlobGridNode]](count: countX, repeatedValue:[BlobGridNode](count: countY, repeatedValue: BlobGridNode()))
+        grid = [[BlobGridNode]](repeating: [BlobGridNode](repeating: BlobGridNode(), count: countY), count: countX)
         
         for i in 0..<countX {
             let percentX = CGFloat(Double(i) / Double(countX - 1))
@@ -502,7 +519,7 @@ public class Blob
         }
     }
     
-    func meshIndexEdgeU(gridX: Int, _ gridY: Int) -> Int {
+    func meshIndexEdgeU(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeU != nil) {
             return grid[gridX][gridY].meshIndexEdgeU!
         } else {
@@ -514,7 +531,7 @@ public class Blob
         }
     }
     
-    func meshIndexEdgeR(gridX: Int, _ gridY: Int) -> Int {
+    func meshIndexEdgeR(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeR != nil) {
             return grid[gridX][gridY].meshIndexEdgeR!
         } else {
@@ -526,7 +543,7 @@ public class Blob
         }
     }
     
-    func meshIndexEdgeD(gridX: Int, _ gridY: Int) -> Int {
+    func meshIndexEdgeD(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeD != nil) {
             return grid[gridX][gridY].meshIndexEdgeD!
         } else {
@@ -538,7 +555,7 @@ public class Blob
         }
     }
     
-    func meshIndexEdgeL(gridX: Int, _ gridY: Int) -> Int {
+    func meshIndexEdgeL(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeL != nil) {
             return grid[gridX][gridY].meshIndexEdgeL!
         } else {
@@ -550,7 +567,7 @@ public class Blob
         }
     }
     
-    func meshIndex(gridX: Int, _ gridY: Int) -> Int {
+    func meshIndex(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndex != nil) {
             return grid[gridX][gridY].meshIndex!
         } else {
@@ -562,7 +579,7 @@ public class Blob
         }
     }
     
-    func addTriangle(x1 x1:Int, y1:Int, x2:Int, y2:Int, x3:Int, y3:Int) {
+    func addTriangle(x1:Int, y1:Int, x2:Int, y2:Int, x3:Int, y3:Int) {
         let i1 = meshIndex(x1, y1)
         let i2 = meshIndex(x2, y2)
         let i3 = meshIndex(x3, y3)
@@ -799,35 +816,35 @@ public class Blob
         meshNodesBase.printData()
     }
     
-    func closestBorderPointUp(point point:CGPoint) -> CGPoint {
+    func closestBorderPointUp(point:CGPoint) -> CGPoint {
         let segment = LineSegment()
         segment.p1 = CGPoint(x: point.x, y: point.y)
-        segment.p2 = CGPoint(x: point.x, y: point.y - 512.0)
+        segment.p2 = CGPoint(x: point.x, y: point.y - 2048.0)
         return closestBorderPoint(segment: segment)
     }
     
-    func closestBorderPointRight(point point:CGPoint) -> CGPoint {
+    func closestBorderPointRight(point:CGPoint) -> CGPoint {
         let segment = LineSegment()
         segment.p1 = CGPoint(x: point.x, y: point.y)
-        segment.p2 = CGPoint(x: point.x + 512.0, y: point.y)
+        segment.p2 = CGPoint(x: point.x + 2048.0, y: point.y)
         return closestBorderPoint(segment: segment)
     }
     
-    func closestBorderPointDown(point point:CGPoint) -> CGPoint {
+    func closestBorderPointDown(point:CGPoint) -> CGPoint {
         let segment = LineSegment()
         segment.p1 = CGPoint(x: point.x, y: point.y)
-        segment.p2 = CGPoint(x: point.x, y: point.y + 512.0)
+        segment.p2 = CGPoint(x: point.x, y: point.y + 2048.0)
         return closestBorderPoint(segment: segment)
     }
     
-    func closestBorderPointLeft(point point:CGPoint) -> CGPoint {
+    func closestBorderPointLeft(point:CGPoint) -> CGPoint {
         let segment = LineSegment()
         segment.p1 = CGPoint(x: point.x, y: point.y)
-        segment.p2 = CGPoint(x: point.x - 512.0, y: point.y)
+        segment.p2 = CGPoint(x: point.x - 2048.0, y: point.y)
         return closestBorderPoint(segment: segment)
     }
     
-    func closestBorderPoint(segment segment:LineSegment) -> CGPoint {
+    func closestBorderPoint(segment:LineSegment) -> CGPoint {
         var result = CGPoint(x: segment.x1, y: segment.y1)
         var bestDist:CGFloat?
         let planeX = segment.x1
@@ -911,11 +928,10 @@ public class Blob
             }
         }
         
+        meshNodes.reset()
         for i in 0..<meshNodesBase.count {
-            
             let node = meshNodesBase.data[i]
             meshNodes.set(index: i, node: node)
-            
             let point = transformPoint(point: CGPoint(x: node.x, y: node.y))
             meshNodes.data[i].x = point.x
             meshNodes.data[i].y = point.y
@@ -985,26 +1001,26 @@ public class Blob
         if needsComputeAffine { computeAffine() }
     }
     
-    func untransformPoint(point point:CGPoint) -> CGPoint {
+    func untransformPoint(point:CGPoint) -> CGPoint {
         return BounceEngine.untransformPoint(point: point, translation: center, scale: scale, rotation: rotation)
     }
     
-    func transformPoint(point point:CGPoint) -> CGPoint {
+    func transformPoint(point:CGPoint) -> CGPoint {
         return BounceEngine.transformPoint(point: point, translation: center, scale: scale, rotation: rotation)
     }
     
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
-        info["center_x"] = Float(center.x)
-        info["center_y"] = Float(center.y)
-        info["scale"] = Float(scale)
-        info["rotation"] = Float(rotation)
-        info["spline"] = spline.save()
+        info["center_x"] = Float(center.x) as AnyObject?
+        info["center_y"] = Float(center.y) as AnyObject?
+        info["scale"] = Float(scale) as AnyObject?
+        info["rotation"] = Float(rotation) as AnyObject?
+        info["spline"] = spline.save() as AnyObject?
         return info
     }
     
-    func load(info info:[String:AnyObject]) {
+    func load(info:[String:AnyObject]) {
         if let _centerX = info["center_x"] as? Float { center.x = CGFloat(_centerX) }
         if let _centerY = info["center_y"] as? Float { center.y = CGFloat(_centerY) }
         if let _scale = info["scale"] as? Float { scale = CGFloat(_scale) }

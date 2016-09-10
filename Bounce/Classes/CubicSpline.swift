@@ -16,16 +16,16 @@ struct CubicSplineNode {
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
-        info["value"] = Float(value)
-        info["delta"] = Float(delta)
-        info["derivative"] = Float(derivative)
-        info["coefA"] = Float(coefA)
-        info["coefB"] = Float(coefB)
-        info["coefC"] = Float(coefC)
+        info["value"] = Float(value) as AnyObject?
+        info["delta"] = Float(delta) as AnyObject?
+        info["derivative"] = Float(derivative) as AnyObject?
+        info["coefA"] = Float(coefA) as AnyObject?
+        info["coefB"] = Float(coefB) as AnyObject?
+        info["coefC"] = Float(coefC) as AnyObject?
         return info
     }
     
-    mutating func load(info info:[String:AnyObject]) {
+    mutating func load(info:[String:AnyObject]) {
         if let _value = info["value"] as? Float { value = CGFloat(_value) }
         if let _delta = info["delta"] as? Float { delta = CGFloat(_delta) }
         if let _derivative = info["derivative"] as? Float { derivative = CGFloat(_derivative) }
@@ -55,8 +55,8 @@ class CubicSpline {
         return _controlPointCount
     }
     
-    func getControlPoint(index:Int) ->CGPoint {
-        var point = CGPointZero
+    func getControlPoint(_ index:Int) ->CGPoint {
+        var point = CGPoint.zero
         if index >= 0 && index < x.count {
             point.x = x[index].value
             point.y = y[index].value
@@ -72,7 +72,7 @@ class CubicSpline {
         didSet { setNeedsCompute() }
     }
     
-    func add(x:CGFloat, y:CGFloat) {
+    func add(_ x:CGFloat, y:CGFloat) {
         set(_controlPointCount, x: x, y: y)
     }
     
@@ -86,7 +86,7 @@ class CubicSpline {
         y.removeAll()
     }
     
-    func set(index:Int, x:CGFloat, y:CGFloat) {
+    func set(_ index:Int, x:CGFloat, y:CGFloat) {
         if index >= controlPointCount { _controlPointCount = index + 1 }
         if index >= self.x.count {
             let newCapacity = _controlPointCount + _controlPointCount / 2 + 1
@@ -102,8 +102,8 @@ class CubicSpline {
         setNeedsCompute()
     }
     
-    func get(pos:CGFloat) -> CGPoint {
-        var point = CGPointZero
+    func get(_ pos:CGFloat) -> CGPoint {
+        var point = CGPoint.zero
         if controlPointCount > 1 {
             if needsCompute { compute() }
             if pos <= 0.0 {
@@ -131,7 +131,7 @@ class CubicSpline {
         return point
     }
     
-    func getClosestControlPoint(point point:CGPoint) -> (index:Int, distance:CGFloat)? {
+    func getClosestControlPoint(point:CGPoint) -> (index:Int, distance:CGFloat)? {
         if controlPointCount > 0 {
             var diffX = point.x - x[0].value
             var diffY = point.y - y[0].value
@@ -166,7 +166,7 @@ class CubicSpline {
     }
     
     //Find cubic coefficients for a particular coordinate.
-    internal func compute(inout coord coord:[CubicSplineNode]) {
+    internal func compute(coord:inout [CubicSplineNode]) {
         guard controlPointCount >= 2 else { return }
         let count = controlPointCount
         let count1 = controlPointCount - 1
@@ -205,7 +205,7 @@ class CubicSpline {
                 coord[count1].derivative = F - (G + 1.0) * coord[count2].derivative
                 coord[count1].derivative = coord[count1].derivative / H
                 coord[count2].derivative = coord[count2].derivative - (0.25 + coord[count1].delta) * coord[count1].derivative
-                for i in (count1-2).stride(to: 0, by: -1) {
+                for i in stride(from: (count1-2), to: 0, by: -1) {
                     coord[i].derivative = coord[i].derivative - 0.25 * coord[i + 1].derivative - coord[i + 1].delta * coord[count1].derivative
                 }
                 coord[count1].coefA = coord[count1].derivative
@@ -219,7 +219,7 @@ class CubicSpline {
                 }
                 coord[count1].delta = (3.0 * (coord[count1].value - coord[count2].value) - coord[count2].delta) * 0.25
                 coord[count1].derivative = coord[count1].delta
-                for i in (count2).stride(to: 0, by: -1) {
+                for i in stride(from: (count2), to: 0, by: -1) {
                     coord[i].derivative = coord[i].delta - 0.25 * coord[i+1].derivative
                 }
             }
@@ -236,25 +236,25 @@ class CubicSpline {
     //Save to dictionary.
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
-        info["closed"] = closed
-        info["linear"] = linear
+        info["closed"] = closed as AnyObject?
+        info["linear"] = linear as AnyObject?
         var splineDataX = [[String:AnyObject]]()
         var splineDataY = [[String:AnyObject]]()
         for i in 0..<controlPointCount {
             splineDataX.append(x[i].save())
             splineDataY.append(y[i].save())
         }
-        info["coord_x"] = splineDataX
-        info["coord_y"] = splineDataY
+        info["coord_x"] = splineDataX as AnyObject?
+        info["coord_y"] = splineDataY as AnyObject?
         return info
     }
     
     //Load from dictionary.
-    func load(info info:[String:AnyObject]) {
+    func load(info:[String:AnyObject]) {
         clear()
         if let _closed = info["closed"] as? Bool { closed = _closed }
         if let _linear = info["linear"] as? Bool { linear = _linear }
-        if let splineDataX = info["coord_x"] as? [[String:AnyObject]],  splineDataY = info["coord_y"] as? [[String:AnyObject]] {
+        if let splineDataX = info["coord_x"] as? [[String:AnyObject]],  let splineDataY = info["coord_y"] as? [[String:AnyObject]] {
             if splineDataX.count == splineDataY.count {
                 for _ in 0..<splineDataX.count {
                     add(0.0, y: 0.0)

@@ -10,7 +10,7 @@ import UIKit
 
 protocol TBSegmentDelegate
 {
-    func segmentSelected(segment:TBSegment, index: Int)
+    func segmentSelected(_ segment:TBSegment, index: Int)
 }
 
 class TBSegment: UIView {
@@ -19,18 +19,18 @@ class TBSegment: UIView {
     
     var selectedIndex:Int? {
         willSet {
-            if let index = selectedIndex where index >= 0 && index < buttons.count {
+            if let index = selectedIndex , index >= 0 && index < buttons.count {
                 buttons[index].styleSetSegment()
             }
         }
         didSet {
-            if let index = selectedIndex where index >= 0 && index < buttons.count {
+            if let index = selectedIndex , index >= 0 && index < buttons.count {
                 buttons[index].styleSetSegmentSelected()
             }
         }
     }
     
-    private var buttons = [RRButton]()
+    fileprivate var buttons = [RRButton]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -42,15 +42,15 @@ class TBSegment: UIView {
         setUp()
     }
     
-    private func setUp() {
-        self.backgroundColor = UIColor.clearColor()
+    fileprivate func setUp() {
+        self.backgroundColor = UIColor.clear
     }
     
     deinit {
         print("Dealloc TBSegment!!")
     }
     
-    func clickSegment(segment:RRButton) {
+    func clickSegment(_ segment:RRButton) {
         print("clickSegment")
         
         var checkIndex:Int?
@@ -82,7 +82,7 @@ class TBSegment: UIView {
             //arrayButtons
             for button:RRButton in buttons {
                 button.removeFromSuperview()
-                button.removeTarget(self, action: #selector(clickSegment(_:)), forControlEvents: .TouchUpInside)
+                button.removeTarget(self, action: #selector(clickSegment(_:)), for: .touchUpInside)
             }
             buttons.removeAll()
             
@@ -115,7 +115,7 @@ class TBSegment: UIView {
                     }
                     
                     
-                    button.addTarget(self, action: #selector(clickSegment(_:)), forControlEvents:.TouchUpInside)
+                    button.addTarget(self, action: #selector(clickSegment(_:)), for:.touchUpInside)
                     button.styleSetSegment()
                     addSubview(button)
                 }
@@ -128,7 +128,7 @@ class TBSegment: UIView {
         
     }
     
-    private func layoutButtons() {
+    fileprivate func layoutButtons() {
         
         if segmentCount > 0 {
             

@@ -19,11 +19,11 @@ class DrawNodeBuffer {
         _count = 0
     }
     
-    func add(node node:DrawNode) {
+    func add(node:DrawNode) {
         set(index: count, node: node)
     }
     
-    func ensureCapacity(capacity: Int) {
+    func ensureCapacity(_ capacity: Int) {
         if capacity >= data.count {
             let newCapacity = capacity + capacity / 2 + 1
             data.reserveCapacity(newCapacity)
@@ -33,18 +33,18 @@ class DrawNodeBuffer {
         }
     }
     
-    func set(index index:Int, node:DrawNode) {
+    func set(index:Int, node:DrawNode) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }
         data[index].set(drawNode: node)
     }
     
-    func setXY(index:Int, x:CGFloat, y:CGFloat) {
+    func setXY(_ index:Int, x:CGFloat, y:CGFloat) {
         setXYZ(index, x: x, y: y, z: 0.0)
     }
     
-    func setXYZ(index:Int, x:CGFloat, y:CGFloat, z:CGFloat) {
+    func setXYZ(_ index:Int, x:CGFloat, y:CGFloat, z:CGFloat) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }

@@ -10,7 +10,7 @@ import UIKit
 import CoreGraphics
 import OpenGLES
 
-public class Texture {
+open class Texture {
     
     var bindIndex: BufferIndex?
     
@@ -39,43 +39,44 @@ public class Texture {
         bindIndex = nil
     }
     
-    public func load(image image:UIImage?) {
+    open func load(image:UIImage?) {
         clear()
         if let loadImage = image {
             var textureWidth:GLsizei = 0
             var textureHeight:GLsizei = 0
             var scaledWidth:GLsizei = 0
             var scaledHeight:GLsizei = 0
-            let imageData = Texture.Load(image:loadImage, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
+            if let imageData = Texture.Load(image:loadImage, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight) {
             defer { free(imageData) }
             width = Int(textureWidth)
             height = Int(textureHeight)
             bindIndex = gG.textureGenerate(width: Int(scaledWidth), height: Int(scaledHeight), data: imageData)
+            }
             
         }
     }
     
-    public func load(path path:String?) {
+    open func load(path:String?) {
         clear()
-        if let texturePath = path where texturePath.characters.count > 0 {
+        if let texturePath = path , texturePath.characters.count > 0 {
             load(image: UIImage(named: texturePath))
         }
     }
     
-    private class func Load(image image:UIImage?, inout textureWidth: GLsizei, inout textureHeight: GLsizei, inout scaledWidth: GLsizei, inout scaledHeight: GLsizei) -> UnsafeMutablePointer<()> {
-        if let loadImage = image where loadImage.size.width > 0 && loadImage.size.height > 0 {
+    fileprivate class func Load(image:UIImage?, textureWidth: inout GLsizei, textureHeight: inout GLsizei, scaledWidth: inout GLsizei, scaledHeight: inout GLsizei) -> UnsafeMutableRawPointer? {
+        if let loadImage = image , loadImage.size.width > 0 && loadImage.size.height > 0 {
             textureWidth = GLsizei(loadImage.size.width)
             textureHeight = GLsizei(loadImage.size.height)
             scaledWidth = GLsizei(loadImage.size.width * loadImage.scale)
             scaledHeight = GLsizei(loadImage.size.height * loadImage.scale)
-            let cgImage = loadImage.CGImage;
-            let imageData: UnsafeMutablePointer<()> = malloc(Int(scaledWidth * scaledHeight * 4))
+            let cgImage = loadImage.cgImage;
+            let imageData: UnsafeMutableRawPointer = malloc(Int(scaledWidth * scaledHeight * 4))
             let colorSpace = CGColorSpaceCreateDeviceRGB()
-            let context = CGBitmapContextCreate(imageData, Int(scaledWidth), Int(scaledHeight), 8, Int(scaledWidth * 4), colorSpace, CGImageAlphaInfo.PremultipliedLast.rawValue)
+            let context = CGContext(data: imageData, width: Int(scaledWidth), height: Int(scaledHeight), bitsPerComponent: 8, bytesPerRow: Int(scaledWidth * 4), space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
             let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(Int(scaledWidth)), height: CGFloat(Int(scaledHeight)))
-            CGContextSetBlendMode(context, CGBlendMode.Copy)
-            CGContextClearRect(context, rect)
-            CGContextDrawImage(context, rect, cgImage)
+            context?.setBlendMode(CGBlendMode.copy)
+            context?.clear(rect)
+            context?.draw(cgImage!, in: rect)
             return imageData
         }
         return nil

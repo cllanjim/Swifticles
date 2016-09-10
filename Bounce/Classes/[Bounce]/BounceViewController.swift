@@ -24,26 +24,26 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     var zoomGestureCancelTimer:Int = 0
     
-    var gestureTouchCenter:CGPoint = CGPointZero
+    var gestureTouchCenter:CGPoint = CGPoint.zero
     
     var screenTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
     var screenScale:CGFloat = 1.0
     
-    var gestureStartTranslate:CGPoint = CGPointZero
+    var gestureStartTranslate:CGPoint = CGPoint.zero
     var gestureStartScale:CGFloat = 1.0
     
-    var gestureStartScreenTouch:CGPoint = CGPointZero
-    var gestureStartImageTouch:CGPoint = CGPointZero
+    var gestureStartScreenTouch:CGPoint = CGPoint.zero
+    var gestureStartImageTouch:CGPoint = CGPoint.zero
     
     var screenRect:CGRect {
         return CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: view.bounds.size.height)
     }
     
-    func setUpNew(image image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
+    func setUpNew(image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
         let scene = BounceScene()
         
         scene.imageName = gConfig.uniqueString
-        scene.imagePath = String(scene.imageName).stringByAppendingString(".png")
+        scene.imagePath = String(scene.imageName) + ".png"
         FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
         
         scene.image = image
@@ -53,35 +53,37 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         setUp(scene: scene, screenRect: screenRect)
     }
     
-    internal func setUp(scene scene:BounceScene, screenRect:CGRect) {
+    internal func setUp(scene:BounceScene, screenRect:CGRect) {
         
-        let orientation = UIApplication.sharedApplication().statusBarOrientation
-        if orientation == .LandscapeLeft || orientation == .LandscapeRight {
+        let orientation = UIApplication.shared.statusBarOrientation
+        if orientation == .landscapeLeft || orientation == .landscapeRight {
             if scene.isLandscape == false {
-                gDevice.setOrientation(orientation: .Portrait)
+                gDevice.setOrientation(orientation: .portrait)
             }
         } else {
             if scene.isLandscape {
-                gDevice.setOrientation(orientation: .LandscapeLeft)
+                gDevice.setOrientation(orientation: .landscapeLeft)
             }
             
         }
         
         engine.setUp(scene: scene)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleZoomModeChange),
-                                                         name: String(BounceNotification.ZoomModeChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleSceneModeChanged),
-                                                         name: String(BounceNotification.SceneModeChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleEditModeChanged), name: String(BounceNotification.EditModeChanged), object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleViewModeChanged),
-                                                         name: String(BounceNotification.ViewModeChanged), object: nil)
+        /*
+        NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
+                                                         name: NSNotification.Name(String(BounceNotification.ZoomModeChanged)), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSceneModeChanged),
+                                                         name: NSNotification.Name(String(BounceNotification.SceneModeChanged)), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged), name: NSNotification.Name(BounceNotification.EditModeChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleViewModeChanged),
+                                                         name: NSNotification.Name(BounceNotification.ViewModeChanged), object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobSelectionChanged),
-                                                         name: String(BounceNotification.BlobSelectionChanged), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBlobSelectionChanged),
+                                                         name: NSNotification.Name(BounceNotification.BlobSelectionChanged), object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleBlobAdded),
-                                                         name: String(BounceNotification.BlobAdded), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
+                                                         name: NSNotification.Name(BounceNotification.BlobAdded), object: nil)
+        */
         
         //...
         scene.image = nil
@@ -126,32 +128,32 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         engine.cancelAllGestures()
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return false
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
         if engine.scene.isLandscape {
-            return [.LandscapeRight, .LandscapeLeft]
+            return [.landscapeRight, .landscapeLeft]
         } else {
-            return [.Portrait, .PortraitUpsideDown]
+            return [.portrait, .portraitUpsideDown]
         }
     }
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
         if engine.scene.isLandscape {
-            return UIInterfaceOrientation.LandscapeLeft
+            return UIInterfaceOrientation.landscapeLeft
         } else {
-            return UIInterfaceOrientation.Portrait
+            return UIInterfaceOrientation.portrait
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         saveScene()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
@@ -178,9 +180,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         if zoomGestureCancelTimer > 0 {
             zoomGestureCancelTimer = zoomGestureCancelTimer - 1
             if zoomGestureCancelTimer <= 0 {
-                panRecognizer.enabled = true
-                pinchRecognizer.enabled = true
-                rotRecognizer.enabled = true
+                panRecognizer.isEnabled = true
+                pinchRecognizer.isEnabled = true
+                rotRecognizer.isEnabled = true
             }
         }
         engine.update()
@@ -227,16 +229,16 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         gG.matrixProjectionSet(screenMat)
     }
     
-    func transformPointToImage(point:CGPoint) -> CGPoint {
+    func transformPointToImage(_ point:CGPoint) -> CGPoint {
         return CGPoint(x: (point.x - screenTranslation.x) / screenScale, y: (point.y - screenTranslation.y) / screenScale)
     }
     
-    func transformPointToScreen(point:CGPoint) -> CGPoint {
+    func transformPointToScreen(_ point:CGPoint) -> CGPoint {
         return CGPoint(x: point.x * screenScale + screenTranslation.x, y: point.y * screenScale + screenTranslation.y)
     }
     
     //MARK: Gesture stuff, pan, pinch, etc
-    private var _allowZoomGestures:Bool {
+    fileprivate var _allowZoomGestures:Bool {
         if zoomGestureCancelTimer > 0 {
             return false
         }
@@ -244,38 +246,38 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     func updateTransform() {
-        screenTranslation = CGPointZero
+        screenTranslation = CGPoint.zero
         let gestureStart = transformPointToScreen(gestureStartImageTouch)
         screenTranslation.x = (gestureTouchCenter.x - gestureStart.x)
         screenTranslation.y = (gestureTouchCenter.y - gestureStart.y)
     }
     
-    func gestureBegan(pos:CGPoint) {
+    func gestureBegan(_ pos:CGPoint) {
         gestureStartScreenTouch = pos
         gestureStartImageTouch = transformPointToImage(pos)
         pinchRecognizer.scale = 1.0
-        panRecognizer.setTranslation(CGPointZero, inView: view)
+        panRecognizer.setTranslation(CGPoint.zero, in: view)
         gestureStartTranslate = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
         gestureStartScale = screenScale
         rotRecognizer.rotation = 0.0
     }
     
-    func didPanMainThread(gr:UIPanGestureRecognizer) -> Void {
-        gestureTouchCenter = gr.locationInView(self.view)
+    func didPanMainThread(_ gr:UIPanGestureRecognizer) -> Void {
+        gestureTouchCenter = gr.location(in: self.view)
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
                 return
             }
             switch gr.state {
-            case .Began:
+            case .began:
                 gestureBegan(gestureTouchCenter)
-                panRecognizerTouchCount = gr.numberOfTouches()
+                panRecognizerTouchCount = gr.numberOfTouches
                 break
-            case .Changed:
-                if panRecognizerTouchCount != gr.numberOfTouches() {
-                    if gr.numberOfTouches() > panRecognizerTouchCount {
-                        panRecognizerTouchCount = gr.numberOfTouches()
+            case .changed:
+                if panRecognizerTouchCount != gr.numberOfTouches {
+                    if gr.numberOfTouches > panRecognizerTouchCount {
+                        panRecognizerTouchCount = gr.numberOfTouches
                         gestureBegan(gestureTouchCenter)
                     }
                     else {
@@ -292,22 +294,22 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             }
         } else {
             let panPos = transformPointToImage(gestureTouchCenter)
-            var panVelocity = gr.velocityInView(self.view)
+            var panVelocity = gr.velocity(in: self.view)
             panVelocity = CGPoint(x: panVelocity.x / screenScale, y: panVelocity.y / screenScale)
             switch gr.state {
-            case .Began:
-                panRecognizerTouchCount = gr.numberOfTouches()
+            case .began:
+                panRecognizerTouchCount = gr.numberOfTouches
                 engine.panBegin(pos: panPos)
                 break
-            case .Changed:
-                if panRecognizerTouchCount != gr.numberOfTouches() {
-                    if gr.numberOfTouches() > panRecognizerTouchCount {
-                        panRecognizerTouchCount = gr.numberOfTouches()
+            case .changed:
+                if panRecognizerTouchCount != gr.numberOfTouches {
+                    if gr.numberOfTouches > panRecognizerTouchCount {
+                        panRecognizerTouchCount = gr.numberOfTouches
                         engine.panBegin(pos: panPos)
                         engine.pan(pos: panPos)
                     }
                     else {
-                        engine.panEnd(pos: panPos, velocity: CGPointZero)
+                        engine.panEnd(pos: panPos, velocity: CGPoint.zero)
                         engine.cancelAllGestures()
                     }
                 } else {
@@ -315,30 +317,30 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 }
                 break
             default:
-                engine.panEnd(pos: panPos, velocity: CGPointZero)
+                engine.panEnd(pos: panPos, velocity: CGPoint.zero)
                 engine.cancelAllGestures()
                 break
             }
         }
     }
     
-    func didPinchMainThread(gr:UIPinchGestureRecognizer) -> Void {
-        gestureTouchCenter = gr.locationInView(self.view)
+    func didPinchMainThread(_ gr:UIPinchGestureRecognizer) -> Void {
+        gestureTouchCenter = gr.location(in: self.view)
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
                 return
             }
             switch gr.state {
-            case .Began:
+            case .began:
                 gestureBegan(gestureTouchCenter)
                 gestureStartScale = screenScale
-                pinchRecognizerTouchCount = gr.numberOfTouches()
+                pinchRecognizerTouchCount = gr.numberOfTouches
                 break
-            case .Changed:
-                if pinchRecognizerTouchCount != gr.numberOfTouches() {
-                    if gr.numberOfTouches() > pinchRecognizerTouchCount {
-                        pinchRecognizerTouchCount = gr.numberOfTouches()
+            case .changed:
+                if pinchRecognizerTouchCount != gr.numberOfTouches {
+                    if gr.numberOfTouches > pinchRecognizerTouchCount {
+                        pinchRecognizerTouchCount = gr.numberOfTouches
                         gestureBegan(gestureTouchCenter)
                     }
                     else {
@@ -358,14 +360,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             let pinchPos = transformPointToImage(gestureTouchCenter)
             let pinchScale = gr.scale
             switch gr.state {
-            case .Began:
-                pinchRecognizerTouchCount = gr.numberOfTouches()
+            case .began:
+                pinchRecognizerTouchCount = gr.numberOfTouches
                 engine.pinchBegin(pos: pinchPos, scale: pinchScale)
                 break
-            case .Changed:
-                if pinchRecognizerTouchCount != gr.numberOfTouches() {
-                    if gr.numberOfTouches() > pinchRecognizerTouchCount {
-                        pinchRecognizerTouchCount = gr.numberOfTouches()
+            case .changed:
+                if pinchRecognizerTouchCount != gr.numberOfTouches {
+                    if gr.numberOfTouches > pinchRecognizerTouchCount {
+                        pinchRecognizerTouchCount = gr.numberOfTouches
                         gr.scale = 1.0
                         engine.pinchBegin(pos: pinchPos, scale: 1.0)
                     }
@@ -386,22 +388,22 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func didRotateMainThread(gr:UIRotationGestureRecognizer) -> Void {
-        gestureTouchCenter = gr.locationInView(self.view)
+    func didRotateMainThread(_ gr:UIRotationGestureRecognizer) -> Void {
+        gestureTouchCenter = gr.location(in: self.view)
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
                 return
             }
             switch gr.state {
-            case .Began:
+            case .began:
                 gestureBegan(gestureTouchCenter)
-                rotRecognizerTouchCount = gr.numberOfTouches()
+                rotRecognizerTouchCount = gr.numberOfTouches
                 break
-            case .Changed:
-                if rotRecognizerTouchCount != gr.numberOfTouches() {
-                    if gr.numberOfTouches() > rotRecognizerTouchCount {
-                        rotRecognizerTouchCount = gr.numberOfTouches()
+            case .changed:
+                if rotRecognizerTouchCount != gr.numberOfTouches {
+                    if gr.numberOfTouches > rotRecognizerTouchCount {
+                        rotRecognizerTouchCount = gr.numberOfTouches
                         gestureBegan(gestureTouchCenter)
                     }
                     else {
@@ -420,14 +422,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             let rotPos = transformPointToImage(gestureTouchCenter)
             let rot = gr.rotation
             switch gr.state {
-            case .Began:
-                rotRecognizerTouchCount = gr.numberOfTouches()
+            case .began:
+                rotRecognizerTouchCount = gr.numberOfTouches
                 engine.rotateBegin(pos: rotPos, radians: rot)
                 break
-            case .Changed:
-                if rotRecognizerTouchCount != gr.numberOfTouches() {
-                    if gr.numberOfTouches() > rotRecognizerTouchCount {
-                        rotRecognizerTouchCount = gr.numberOfTouches()
+            case .changed:
+                if rotRecognizerTouchCount != gr.numberOfTouches {
+                    if gr.numberOfTouches > rotRecognizerTouchCount {
+                        rotRecognizerTouchCount = gr.numberOfTouches
                         gr.rotation = 0.0
                         engine.rotateBegin(pos: rotPos, radians: 0.0)
                     }
@@ -451,37 +453,37 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     func cancelAllGestureRecognizers() {
         zoomGestureCancelTimer = 3
-        panRecognizer.enabled = false
-        pinchRecognizer.enabled = false
-        rotRecognizer.enabled = false
+        panRecognizer.isEnabled = false
+        pinchRecognizer.isEnabled = false
+        rotRecognizer.isEnabled = false
     }
     
-    func didPan(gr:UIPanGestureRecognizer) -> Void {
-        self.performSelectorOnMainThread(#selector(ImageImportViewController.didPanMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
+    func didPan(_ gr:UIPanGestureRecognizer) -> Void {
+        self.performSelector(onMainThread: #selector(ImageImportViewController.didPanMainThread(_:)), with: gr, waitUntilDone: true, modes: [RunLoopMode.commonModes.rawValue])
     }
     
-    func didPinch(gr:UIPinchGestureRecognizer) -> Void {
-        self.performSelectorOnMainThread(#selector(didPinchMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
+    func didPinch(_ gr:UIPinchGestureRecognizer) -> Void {
+        self.performSelector(onMainThread: #selector(didPinchMainThread(_:)), with: gr, waitUntilDone: true, modes: [RunLoopMode.commonModes.rawValue])
     }
     
-    func didRotate(gr:UIRotationGestureRecognizer) -> Void {
-        self.performSelectorOnMainThread(#selector(didRotateMainThread(_:)), withObject: gr, waitUntilDone: true, modes: [NSRunLoopCommonModes])
+    func didRotate(_ gr:UIRotationGestureRecognizer) -> Void {
+        self.performSelector(onMainThread: #selector(didRotateMainThread(_:)), with: gr, waitUntilDone: true, modes: [RunLoopMode.commonModes.rawValue])
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if engine.zoomMode == false {
             for var touch:UITouch in touches {
-                if touch.phase == .Began {
-                    let location = touch.locationInView(view)
+                if touch.phase == .began {
+                    let location = touch.location(in: view)
                     engine.touchDown(&touch, point: transformPointToImage(location))
                 }
             }
@@ -490,11 +492,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if engine.zoomMode == false {
             for var touch:UITouch in touches {
-                if touch.phase == .Moved {
-                    let location = touch.locationInView(view)
+                if touch.phase == .moved {
+                    let location = touch.location(in: view)
                     engine.touchMove(&touch, point: transformPointToImage(location))
                 }
             }
@@ -503,11 +505,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if engine.zoomMode == false {
             for var touch:UITouch in touches {
-                if touch.phase == .Ended || touch.phase == .Cancelled {
-                    let location = touch.locationInView(view)
+                if touch.phase == .ended || touch.phase == .cancelled {
+                    let location = touch.location(in: view)
                     engine.touchUp(&touch, point: transformPointToImage(location))
                 }
             }
@@ -522,7 +524,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         print("************\nBounceEngine.save()")
         
         if engine.scene.scenePath == nil {
-            engine.scene.scenePath = engine.scene.imageName.stringByAppendingString("_info.json")
+            engine.scene.scenePath = engine.scene.imageName + "_info.json"
         }
         
         saveScene(filePath: engine.scene.scenePath)
@@ -539,24 +541,24 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     
-    func saveScene(filePath filePath:String?) {
+    func saveScene(filePath:String?) {
         print("************\nBounceEngine.save(\(filePath))")
         
-        if let path = filePath where path.characters.count > 0 {
+        if let path = filePath , path.characters.count > 0 {
             
             var info = [String:AnyObject]()
             
-            info["scene"] = engine.scene.save()
-            info["engine"] = engine.save()
+            info["scene"] = engine.scene.save() as AnyObject?
+            info["engine"] = engine.save() as AnyObject?
             
-            info["test_1"] = "t-1"
-            info["test_2"] = "t-2"
+            info["test_1"] = "t-1" as AnyObject?
+            info["test_2"] = "t-2" as AnyObject?
             
             print("Save\(info)")
             
             do {
-                var fileData:NSData?
-                try fileData = NSJSONSerialization.dataWithJSONObject(info, options: .PrettyPrinted)
+                var fileData:Data?
+                try fileData = JSONSerialization.data(withJSONObject: info, options: .prettyPrinted)
                 if fileData != nil {
                     FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
                 }
@@ -570,15 +572,15 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
     }
     
-    func loadScene(filePath filePath:String?) {
+    func loadScene(filePath:String?) {
         print("************\nBounceEngine.load()")
         
         if let fileData = FileUtils.loadData(filePath) {
             
             var parsedInfo:[String:AnyObject]?
             do {
-                var jsonData:AnyObject?
-                jsonData = try NSJSONSerialization.JSONObjectWithData(fileData, options:.MutableLeaves)
+                var jsonData:Any?
+                jsonData = try JSONSerialization.jsonObject(with: fileData, options:.mutableLeaves)
                 parsedInfo = jsonData as? [String:AnyObject]
             }
             catch {

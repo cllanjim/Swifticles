@@ -10,7 +10,7 @@ import UIKit
 
 struct LineIntersection {
     var intersects = false
-    var point = CGPointZero
+    var point = CGPoint.zero
     var distance:CGFloat = 0.0
 }
 
@@ -70,7 +70,7 @@ class LineSegment
     }
     
     //This one never misses...
-    class func SegmentsIntersect(l1 l1:LineSegment, l2:LineSegment) -> Bool {
+    class func SegmentsIntersect(l1:LineSegment, l2:LineSegment) -> Bool {
         let area1 = TriangleArea(x1: l1.x1, y1: l1.y1, x2: l1.x2, y2: l1.y2, x3: l2.x1, y3: l2.y1)
         if(area1 == 0)
         {
@@ -109,11 +109,11 @@ class LineSegment
         return (((area1 > 0) != (area2 > 0)) && ((area3 > 0) != (area4 > 0)))
     }
     
-    internal class func TriangleArea(x1 x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat, x3:CGFloat, y3:CGFloat) -> CGFloat {
+    internal class func TriangleArea(x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat, x3:CGFloat, y3:CGFloat) -> CGFloat {
         return (x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)
     }
     
-    internal class func Between(x1 x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat, x3:CGFloat, y3:CGFloat) -> Bool {
+    internal class func Between(x1:CGFloat, y1:CGFloat, x2:CGFloat, y2:CGFloat, x3:CGFloat, y3:CGFloat) -> Bool {
         if x1 != x2 {
             return (((x1 <= x3) && (x3 <= x2)) || ((x1 >= x3) && (x3 >= x2)))
         } else {
@@ -122,7 +122,7 @@ class LineSegment
     }
     
     
-    class func SegmentSegmentIntersection(l1 l1:LineSegment, l2:LineSegment) -> LineIntersection {
+    class func SegmentSegmentIntersection(l1:LineSegment, l2:LineSegment) -> LineIntersection {
         if LineSegment.SegmentsIntersect(l1: l1, l2: l2) {
             let planeOrigin = l2.p1
             let planeDir = l2.direction
@@ -131,7 +131,7 @@ class LineSegment
         return LineIntersection()
     }
     
-    class func LinePlaneIntersection(line line:LineSegment, planeX:CGFloat, planeY:CGFloat, planeDirX:CGFloat, planeDirY:CGFloat) -> LineIntersection {
+    class func LinePlaneIntersection(line:LineSegment, planeX:CGFloat, planeY:CGFloat, planeDirX:CGFloat, planeDirY:CGFloat) -> LineIntersection {
         var result = LineIntersection()
         var lineDirX = line.deltaX
         var lineDirY = line.deltaY
@@ -157,7 +157,7 @@ class LineSegment
         return result
     }
     
-    class func SegmentClosestPoint(line line:LineSegment, point:CGPoint) -> CGPoint {
+    class func SegmentClosestPoint(line:LineSegment, point:CGPoint) -> CGPoint {
         //var result = LineIntersection()
         //result.point.x = line.x1;
         //result.point.y = line.y1;

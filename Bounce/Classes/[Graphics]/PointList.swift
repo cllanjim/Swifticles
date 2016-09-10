@@ -24,23 +24,23 @@ class PointList
         data.removeAll()
     }
     
-    func add(x x:CGFloat, y:CGFloat) {
+    func add(x:CGFloat, y:CGFloat) {
         set(_count, x: x, y: y)
     }
     
-    func add(list list:PointList) {
+    func add(list:PointList) {
         for i in 0..<list.count {
             add(x: list.data[i].x, y: list.data[i].y)
         }
     }
     
-    func set(index:Int, x:CGFloat, y:CGFloat) {
+    func set(_ index:Int, x:CGFloat, y:CGFloat) {
         if index >= _count {
             _count = index + 1
             let newCapacity = _count + _count / 2 + 1
             data.reserveCapacity(newCapacity)
             while data.count <= _count {
-                data.append(CGPointZero)
+                data.append(CGPoint.zero)
             }
         }
         data[index].x = x
@@ -48,7 +48,7 @@ class PointList
     }
     
     
-    func transform(scaleX scaleX:CGFloat, scaleY:CGFloat, rotation:CGFloat) {
+    func transform(scaleX:CGFloat, scaleY:CGFloat, rotation:CGFloat) {
         if rotation == 0 {
             for i in 0..<count {
                 data[i].x = data[i].x * scaleX
@@ -71,11 +71,11 @@ class PointList
         }
     }
     
-    func transform(scale scale:CGFloat, rotation:CGFloat) {
+    func transform(scale:CGFloat, rotation:CGFloat) {
         transform(scaleX: scale, scaleY: scale, rotation: rotation)
     }
     
-    func transform(translation translation:CGPoint) {
+    func transform(translation:CGPoint) {
         for i in 0..<count {
             data[i].x = data[i].x + translation.x
             data[i].y = data[i].y + translation.y
@@ -119,7 +119,7 @@ class PointList
         return bottom
     }
     
-    func getBoundingBox(padding padding:CGFloat)->CGRect {
+    func getBoundingBox(padding:CGFloat)->CGRect {
         let left = getMinX()
         let top = getMinY()
         return CGRect(x: (left - padding),
@@ -128,7 +128,7 @@ class PointList
                       height: ((getMaxY() - top) + padding * 2))
     }
     
-    func pointInside(point point:CGPoint)->Bool {
+    func pointInside(point:CGPoint)->Bool {
         var result = false
         var index2 = count - 1
         for index1 in 0..<count {
@@ -142,7 +142,7 @@ class PointList
         return result
     }
     
-    func drawEdges(closed closed:Bool) {
+    func drawEdges(closed:Bool) {
         guard count >= 2 else { return }
         var prev = data[0]
         var startIndex = 1

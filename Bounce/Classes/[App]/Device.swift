@@ -9,11 +9,11 @@ import UIKit
 class Device
 {
     var width:CGFloat {
-        return UIScreen.mainScreen().bounds.size.width
+        return UIScreen.main.bounds.size.width
     }
     
     var height:CGFloat {
-        return UIScreen.mainScreen().bounds.size.height
+        return UIScreen.main.bounds.size.height
     }
     
     //if(updateTimer != nil){updateTimer.invalidate();}
@@ -25,7 +25,7 @@ class Device
     
     
     var scale:CGFloat {
-        return UIScreen.mainScreen().scale
+        return UIScreen.main.scale
     }
     
     var importScale:CGFloat {
@@ -66,7 +66,7 @@ class Device
     
     
     var versionString:String {
-        if let text = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String {
+        if let text = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             print(text)
             return text
         }
@@ -74,21 +74,21 @@ class Device
     }
     
     var statusBarHeight:CGFloat {
-        return UIApplication.sharedApplication().statusBarFrame.size.height
+        return UIApplication.shared.statusBarFrame.size.height
     }
     
     var isPortrait: Bool {
-        let device = UIDevice.currentDevice()
-        return device.orientation == .Portrait || device.orientation == .PortraitUpsideDown
+        let device = UIDevice.current
+        return device.orientation == .portrait || device.orientation == .portraitUpsideDown
     }
     
     var isLandscape: Bool {
-        let device = UIDevice.currentDevice()
-        return device.orientation == .LandscapeLeft || device.orientation == .LandscapeRight
+        let device = UIDevice.current
+        return device.orientation == .landscapeLeft || device.orientation == .landscapeRight
     }
     
-    func setOrientation(orientation orientation: UIInterfaceOrientation) {
-        UIDevice.currentDevice().setValue(orientation.rawValue, forKey: "orientation")
+    func setOrientation(orientation: UIInterfaceOrientation) {
+        UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
     }
     
 }

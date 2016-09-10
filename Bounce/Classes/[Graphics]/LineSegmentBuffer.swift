@@ -19,19 +19,19 @@ class LineSegmentBuffer {
         _count = 0
     }
     
-    func add(line line:LineSegment) {
+    func add(line:LineSegment) {
         set(index: count, p1: line.p1, p2: line.p2)
     }
     
-    func set(index index:Int, line:LineSegment) {
+    func set(index:Int, line:LineSegment) {
         set(index: index, p1: line.p1, p2: line.p2)
     }
     
-    func add(p1 p1:CGPoint, p2:CGPoint) {
+    func add(p1:CGPoint, p2:CGPoint) {
         set(index: count, p1:p1, p2:p2)
     }
     
-    func set(index index:Int, p1:CGPoint, p2:CGPoint) {
+    func set(index:Int, p1:CGPoint, p2:CGPoint) {
         guard index >= 0 else { return }
         if index >= _count {
             _count = index + 1
