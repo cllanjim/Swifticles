@@ -14,13 +14,13 @@ class DrawTriangleBuffer {
     var count:Int { return _count }
     internal var _count:Int = 0
     
-    fileprivate var data = [DrawTriangle]()
+    var data = [DrawTriangle]()
     //private var i = [IndexBufferType]()
     
-    fileprivate var vertexBuffer = [GLfloat]()// = [GLfloat](count:16, repeatedValue: 0.0)
+    var vertexBuffer = [GLfloat]()// = [GLfloat](count:16, repeatedValue: 0.0)
     //private var indexBuffer = [IndexBufferType]()// = [IndexBufferType](count: 6, repeatedValue: 0)
     
-    fileprivate var vertexBufferSlot:BufferIndex?
+    private var vertexBufferSlot:BufferIndex?
     //private var indexBufferSlot:BufferIndex?
     
     init() {
@@ -35,12 +35,28 @@ class DrawTriangleBuffer {
         _count = 0
     }
     
+    subscript(index:Int) -> DrawTriangle {
+        get {
+            return data[index]
+        }
+        set(element) {
+            set(index: index, triangle: element)
+            //set(index: index, node1: element.node1, node2: element.node2, node3: element.node3)
+        }
+    }
+    
     func ensureCapacity(_ capacity: Int) {
         if capacity >= data.count {
-            let newCapacity = capacity + capacity / 2 + 1
+            var newCapacity = capacity + capacity / 2 + 1
             data.reserveCapacity(newCapacity)
             while data.count < newCapacity {
                 data.append(DrawTriangle())
+            }
+            
+            newCapacity = newCapacity * 30 + 30
+            vertexBuffer.reserveCapacity(newCapacity)
+            while vertexBuffer.count < newCapacity {
+                vertexBuffer.append(0.0)
             }
         }
     }
@@ -108,44 +124,18 @@ class DrawTriangleBuffer {
     }
     
     func set(index:Int, triangle:DrawTriangle) {
-        
         set(index: index, node1: triangle.node1, node2: triangle.node2, node3: triangle.node3)
-        
-//        guard index >= 0 else { return }
-//        if index >= _count {
-//            _count = index + 1
-//        }
-//        if index >= data.count {
-//            let newCapacity = data.count + data.count / 2 + 1
-//            data.reserveCapacity(newCapacity)
-//            while data.count < newCapacity {
-//                data.append(DrawTriangle())
-//            }
-//        }
-//        data[index].set(triangle: triangle)
     }
     
     func set(index:Int, node1:DrawNode, node2:DrawNode, node3:DrawNode) {
         guard index >= 0 else { return }
         ensureCount(index)
-        
-        /*
-        if index >= _count {
-            _count = index + 1
-        }
-        if index >= data.count {
-            let newCapacity = data.count + data.count / 2 + 1
-            data.reserveCapacity(newCapacity)
-            while data.count < newCapacity {
-                data.append(DrawTriangle())
-            }
-        }
-        */
-        
         data[index].node1.set(drawNode: node1)
-        data[index].node2.set(drawNode: node1)
-        data[index].node3.set(drawNode: node1)
+        data[index].node2.set(drawNode: node2)
+        data[index].node3.set(drawNode: node3)
         
+        data[index].writeToTriangleList(&vertexBuffer, index: index * 30)
+        //vertexBuffer
     }
     
     

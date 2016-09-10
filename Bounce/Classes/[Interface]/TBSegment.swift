@@ -30,7 +30,7 @@ class TBSegment: UIView {
         }
     }
     
-    fileprivate var buttons = [RRButton]()
+    private var buttons = [RRButton]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -42,7 +42,7 @@ class TBSegment: UIView {
         setUp()
     }
     
-    fileprivate func setUp() {
+    private func setUp() {
         self.backgroundColor = UIColor.clear
     }
     
@@ -128,7 +128,7 @@ class TBSegment: UIView {
         
     }
     
-    fileprivate func layoutButtons() {
+    private func layoutButtons() {
         
         if segmentCount > 0 {
             

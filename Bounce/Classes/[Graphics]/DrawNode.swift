@@ -22,4 +22,17 @@ class DrawNode {
         u = drawNode.u;v = drawNode.v;w = drawNode.w
         r = drawNode.r;g = drawNode.g;b = drawNode.b;a = drawNode.a
     }
+    func writeToTriangleList(_ t:inout [GLfloat], index:Int) {
+        //let count = t.count
+        t[index +  0] = GLfloat(x)
+        t[index +  1] = GLfloat(y)
+        t[index +  2] = GLfloat(z)
+        t[index +  3] = GLfloat(u)
+        t[index +  4] = GLfloat(v)
+        t[index +  5] = GLfloat(w)
+        t[index +  6] = GLfloat(r)
+        t[index +  7] = GLfloat(g)
+        t[index +  8] = GLfloat(b)
+        t[index +  9] = GLfloat(a)
+    }
 }

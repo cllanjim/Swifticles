@@ -9,8 +9,8 @@ import Foundation
 class Config
 {
     
-    fileprivate var _uniqueIndex1:Int = 4096
-    fileprivate var _uniqueIndex2:Int = 2048
+    private var _uniqueIndex1:Int = 4096
+    private var _uniqueIndex2:Int = 2048
     
     var uniqueString:String {
         

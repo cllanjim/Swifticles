@@ -63,7 +63,7 @@ open class Texture {
         }
     }
     
-    fileprivate class func Load(image:UIImage?, textureWidth: inout GLsizei, textureHeight: inout GLsizei, scaledWidth: inout GLsizei, scaledHeight: inout GLsizei) -> UnsafeMutableRawPointer? {
+    private class func Load(image:UIImage?, textureWidth: inout GLsizei, textureHeight: inout GLsizei, scaledWidth: inout GLsizei, scaledHeight: inout GLsizei) -> UnsafeMutableRawPointer? {
         if let loadImage = image , loadImage.size.width > 0 && loadImage.size.height > 0 {
             textureWidth = GLsizei(loadImage.size.width)
             textureHeight = GLsizei(loadImage.size.height)

@@ -252,47 +252,38 @@ class DrawTriangle {
         set {node3.a = newValue}
     }
     
-    func writeToTriangleList(_ t:inout [GLfloat]) {
-        
-        let count = t.count
-        t[count +  0] = GLfloat(node1.x)
-        t[count +  1] = GLfloat(node1.y)
-        t[count +  2] = GLfloat(node1.z)
-        
-        t[count +  3] = GLfloat(node1.u)
-        t[count +  4] = GLfloat(node1.v)
-        t[count +  5] = GLfloat(node1.w)
-        
-        t[count +  6] = GLfloat(node1.r)
-        t[count +  7] = GLfloat(node1.g)
-        t[count +  8] = GLfloat(node1.b)
-        t[count +  9] = GLfloat(node1.a)
-        
-        t[count + 10] = GLfloat(node2.x)
-        t[count + 11] = GLfloat(node2.y)
-        t[count + 12] = GLfloat(node2.z)
-        
-        t[count + 13] = GLfloat(node2.u)
-        t[count + 14] = GLfloat(node2.v)
-        t[count + 15] = GLfloat(node2.w)
-        
-        t[count + 16] = GLfloat(node2.r)
-        t[count + 17] = GLfloat(node2.g)
-        t[count + 18] = GLfloat(node2.b)
-        t[count + 19] = GLfloat(node2.a)
-        
-        t[count + 20] = GLfloat(node3.x)
-        t[count + 21] = GLfloat(node3.y)
-        t[count + 22] = GLfloat(node3.z)
-        
-        t[count + 23] = GLfloat(node3.u)
-        t[count + 24] = GLfloat(node3.v)
-        t[count + 25] = GLfloat(node3.w)
-        
-        t[count + 26] = GLfloat(node3.r)
-        t[count + 27] = GLfloat(node3.g)
-        t[count + 28] = GLfloat(node3.b)
-        t[count + 29] = GLfloat(node3.a)
+    func writeToTriangleList(_ t:inout [GLfloat], index:Int) {
+        //let count = t.count
+        t[index +  0] = GLfloat(node1.x)
+        t[index +  1] = GLfloat(node1.y)
+        t[index +  2] = GLfloat(node1.z)
+        t[index +  3] = GLfloat(node1.u)
+        t[index +  4] = GLfloat(node1.v)
+        t[index +  5] = GLfloat(node1.w)
+        t[index +  6] = GLfloat(node1.r)
+        t[index +  7] = GLfloat(node1.g)
+        t[index +  8] = GLfloat(node1.b)
+        t[index +  9] = GLfloat(node1.a)
+        t[index + 10] = GLfloat(node2.x)
+        t[index + 11] = GLfloat(node2.y)
+        t[index + 12] = GLfloat(node2.z)
+        t[index + 13] = GLfloat(node2.u)
+        t[index + 14] = GLfloat(node2.v)
+        t[index + 15] = GLfloat(node2.w)
+        t[index + 16] = GLfloat(node2.r)
+        t[index + 17] = GLfloat(node2.g)
+        t[index + 18] = GLfloat(node2.b)
+        t[index + 19] = GLfloat(node2.a)
+        t[index + 20] = GLfloat(node3.x)
+        t[index + 21] = GLfloat(node3.y)
+        t[index + 22] = GLfloat(node3.z)
+        t[index + 23] = GLfloat(node3.u)
+        t[index + 24] = GLfloat(node3.v)
+        t[index + 25] = GLfloat(node3.w)
+        t[index + 26] = GLfloat(node3.r)
+        t[index + 27] = GLfloat(node3.g)
+        t[index + 28] = GLfloat(node3.b)
+        t[index + 29] = GLfloat(node3.a)
     }
     
     var buffer:[GLfloat] {

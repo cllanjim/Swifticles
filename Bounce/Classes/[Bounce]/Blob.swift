@@ -6,7 +6,9 @@
 
 import UIKit
 import OpenGLES
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+
+/*
+private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -16,7 +18,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     return false
   }
 }
-
+*/
 
 
 
@@ -63,6 +65,7 @@ open class Blob
     var valid:Bool = false
     
     var tri = IndexTriangleList()
+    var vertexBuffer = [GLfloat]()
     
     var testAngle1:CGFloat = 0.0
     var testAngle2:CGFloat = 180.0
@@ -72,15 +75,15 @@ open class Blob
     var testSin2:CGFloat = 0.0
     var testSin3:CGFloat = 0.0
     
-    fileprivate var vertexBufferSlot:BufferIndex?
-    fileprivate var indexBufferSlot:BufferIndex?
+    private var vertexBufferSlot:BufferIndex?
+    private var indexBufferSlot:BufferIndex?
     
     var linesBase = LineSegmentBuffer()//[LineSegment]()
     var lines = LineSegmentBuffer()//[LineSegment]()
     
     //Base = untransformed, no Base = transformed...
-    fileprivate var borderBase = PointList()
-    fileprivate var border = PointList()
+    private var borderBase = PointList()
+    private var border = PointList()
     
     var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { needsComputeAffine = true } }
     var scale:CGFloat = 1.0 { didSet { needsComputeAffine = true } }
@@ -104,16 +107,19 @@ open class Blob
     
     init() {
         
+        vertexBufferSlot = gG.bufferGenerate()
+        indexBufferSlot = gG.bufferGenerate()
+        
         //vertexBufferSlot = gG.bufferVertexGenerate(data: &vertexBuffer, size: 40)
         //indexBufferSlot = gG.bufferIndexGenerate(data: &indexBuffer, size: 6)
         
         spline.add(0.0, y: -100)
-        //spline.add(50.0, y: -50)
+        spline.add(50.0, y: -50)
         spline.add(100, y: 0.0)
-        //spline.add(50.0, y: 50)
+        spline.add(50.0, y: 50)
         spline.add(0.0, y: 100.0)
         spline.add(-50.0, y: 50)
-        //spline.add(-100.0, y: 0.0)
+        spline.add(-100.0, y: 0.0)
         spline.add(-50.0, y: -150)
         
         spline.linear = false
@@ -163,8 +169,8 @@ open class Blob
             return
         }
         
-        
         computeIfNeeded()
+        
         
         gG.colorSet(r: 0.5, g: 0.8, b: 0.05)
         gG.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
@@ -195,13 +201,44 @@ open class Blob
             gG.rectDraw(x: Float(controlPoint.x - 5), y: Float(controlPoint.y - 5), width: 11, height: 11)
         }
         
-        
-        
+
         
         gG.colorSet()
         gG.textureEnable()
         gG.textureBind(texture: sprite.texture)
         
+        
+        let indexBufferCount = tri.count * 3
+        let vertexBufferCount = meshNodes.count * 30
+        if vertexBuffer.count < vertexBufferCount {
+            vertexBuffer.reserveCapacity(vertexBufferCount)
+            while(vertexBuffer.count < vertexBufferCount) {
+                vertexBuffer.append(0.0)
+            }
+        }
+        
+        var vertexIndex:Int = 0
+        for nodeIndex in 0..<meshNodes.count {
+            let node = meshNodes.data[nodeIndex]
+            node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
+            vertexIndex += 10
+        }
+        
+        gG.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
+        gG.positionEnable()
+        gG.positionSetPointer(size: 3, offset: 0, stride: 10)
+        
+        gG.texCoordEnable()
+        gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        
+        gG.colorArrayEnable()
+        gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        
+        gG.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
+        gG.drawElementsTriangle(count:indexBufferCount, offset: 0)
+        
+        
+        /*
         for i in 0..<tri.count {
             
             let t = tri.data [i]
@@ -239,6 +276,7 @@ open class Blob
 
             drawTriangle.draw()
         }
+        */
  
         /*
         gG.colorSet(a: 0.25)
@@ -360,7 +398,7 @@ open class Blob
         
         computeMesh()
         
-        computeMeshEdgeFactors()
+        //computeMeshEdgeFactors()
         
         guard valid == true else { return }
         
@@ -813,7 +851,6 @@ open class Blob
                 }
             }
         }
-        meshNodesBase.printData()
     }
     
     func closestBorderPointUp(point:CGPoint) -> CGPoint {
@@ -855,7 +892,10 @@ open class Blob
             if LineSegment.SegmentsIntersect(l1: segment, l2: line) {
                 let intersection = LineSegment.LinePlaneIntersection(line: line, planeX: planeX, planeY: planeY, planeDirX: planeDir.x, planeDirY: planeDir.y)
                 if intersection.intersects {
-                    if bestDist == nil || (intersection.distance < bestDist) {
+                    if bestDist == nil {
+                        bestDist = intersection.distance
+                        result = intersection.point
+                    } else if (intersection.distance < bestDist!) {
                         bestDist = intersection.distance
                         result = intersection.point
                     }

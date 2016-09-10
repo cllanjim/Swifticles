@@ -39,20 +39,20 @@ extension GLKMatrix4 {
 
 class Graphics {
     
-    fileprivate var cTestProjectionMatrix = [Float]()
-    fileprivate var cTestModelViewMatrix = [Float]()
+    private var cTestProjectionMatrix = [Float]()
+    private var cTestModelViewMatrix = [Float]()
     
-    fileprivate var cProjectionMatrix = Matrix()
-    fileprivate var cModelViewMatrix = Matrix()
+    private var cProjectionMatrix = Matrix()
+    private var cModelViewMatrix = Matrix()
     
-    fileprivate var cWhiteSprite: Sprite = Sprite()
+    private var cWhiteSprite: Sprite = Sprite()
     
     // x y z u v w r g b a (10) * 4 = 40
     var cRectVertexBuffer = [GLfloat](repeating: 0.0, count: 40)
     var cRectIndexBuffer = [IndexBufferType](repeating: 0, count: 6)
     
-    fileprivate var cRectVertexBufferSlot:BufferIndex?
-    fileprivate var cRectIndexBufferSlot:BufferIndex?
+    private var cRectVertexBufferSlot:BufferIndex?
+    private var cRectIndexBufferSlot:BufferIndex?
     
     init() {
         print("Graphics.init()")

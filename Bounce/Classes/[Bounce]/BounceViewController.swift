@@ -238,7 +238,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     //MARK: Gesture stuff, pan, pinch, etc
-    fileprivate var _allowZoomGestures:Bool {
+    private var _allowZoomGestures:Bool {
         if zoomGestureCancelTimer > 0 {
             return false
         }

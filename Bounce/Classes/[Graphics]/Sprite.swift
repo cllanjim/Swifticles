@@ -18,13 +18,13 @@ open class Sprite {
     //because a sprite can be only a slice of a texture...
     var size:CGSize = CGSize.zero
     
-    fileprivate var vertexBuffer:[GLfloat] = [GLfloat](repeating: 0.0, count: 40)
-    fileprivate var indexBuffer:[IndexBufferType] = [IndexBufferType](repeating: 0, count: 6)
+    private var vertexBuffer:[GLfloat] = [GLfloat](repeating: 0.0, count: 40)
+    private var indexBuffer:[IndexBufferType] = [IndexBufferType](repeating: 0, count: 6)
     
-    fileprivate var vertexBufferSlot:BufferIndex?
-    fileprivate var indexBufferSlot:BufferIndex?
+    private var vertexBufferSlot:BufferIndex?
+    private var indexBufferSlot:BufferIndex?
     
-    fileprivate var needsRefresh = true
+    private var needsRefresh = true
     
     var x1: CGFloat {
         get { return CGFloat(vertexBuffer[ 0])}
