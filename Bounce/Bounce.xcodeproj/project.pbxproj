@@ -98,6 +98,7 @@
 		C2340AE51D71094A00F8CD02 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AE41D71094A00F8CD02 /* String+File.swift */; };
 		C2391B0A1D75249100D9341F /* PointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2391B091D75249100D9341F /* PointList.swift */; };
 		C2410CE51D7A4F05007404C2 /* IndexTriangleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */; };
+		C296B61B1D876ECA0041CE94 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C296B61A1D876ECA0041CE94 /* BottomMenu.swift */; };
 		C29EC0411D713204004A6204 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EC0401D713204004A6204 /* Reader.swift */; };
 		C2BC0B4E1D80DDBF00EB4075 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */; };
 		C2BC0B501D80EC0700EB4075 /* LineSegmentBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */; };
@@ -218,6 +219,7 @@
 		C2340AE41D71094A00F8CD02 /* String+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
 		C2391B091D75249100D9341F /* PointList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointList.swift; sourceTree = "<group>"; };
 		C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexTriangleList.swift; sourceTree = "<group>"; };
+		C296B61A1D876ECA0041CE94 /* BottomMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		C29EC0401D713204004A6204 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
 		C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineSegmentBuffer.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				C214D2501D6E9745004069A3 /* ToolBarBottom.swift */,
 				C214D2511D6E9745004069A3 /* ToolBarTop.swift */,
 				C214D2521D6E9745004069A3 /* TopMenuViewController.swift */,
+				C296B61A1D876ECA0041CE94 /* BottomMenu.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -529,7 +532,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Darkswarm LLC";
 				TargetAttributes = {
 					0DD20F4C1D581262006DDDAB = {
@@ -687,6 +690,7 @@
 				C214D25C1D6E9745004069A3 /* ApplicationController.swift in Sources */,
 				C2340AD11D71026800F8CD02 /* Config.swift in Sources */,
 				C214D25D1D6E9745004069A3 /* Device.swift in Sources */,
+				C296B61B1D876ECA0041CE94 /* BottomMenu.swift in Sources */,
 				C214D2721D6E9745004069A3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -747,6 +751,7 @@
 		0DD20F731D581263006DDDAB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -758,15 +763,16 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -796,6 +802,7 @@
 		0DD20F741D581263006DDDAB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -807,15 +814,16 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -830,6 +838,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

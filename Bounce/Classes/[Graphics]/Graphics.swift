@@ -27,16 +27,6 @@ var gGLSlotTexCoord:GLint = 0
 var gGLSlotColor:GLint = 0
 var gGLSlotNormal:GLint = 0
 
-/*
-extension GLKMatrix4 {
-    var array: [Float] {
-        return (0..<16).map { i in
-            self[i]
-        }
-    }
-}
-*/
-
 class Graphics {
     
     private var cTestProjectionMatrix = [Float]()
@@ -64,9 +54,6 @@ class Graphics {
     //Interesting note - we ALWAYS are using textures,
     //no matter WHAT!!!
     func create() {
-        
-        print("Graphics.create()")
-        
         cWhiteSprite.load(path: "white_square")
         
         cRectVertexBuffer = [-128.0, -128.0, 0.0,    0.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
@@ -185,12 +172,6 @@ class Graphics {
         cRectVertexBuffer[28] = GLfloat(triangle.b3)
         cRectVertexBuffer[29] = GLfloat(triangle.a3)
         
-        
-        //gG.positionSetPointer(size: 3, offset: 0, stride: 10)
-        //gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
-        //gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
-        //gG.drawTriangleList(count: 3, offset: 0)
-        
         bufferVertexSetData(bufferIndex: cRectVertexBufferSlot, data: &cRectVertexBuffer, size: 30)
         
         positionEnable()
@@ -203,21 +184,6 @@ class Graphics {
         colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
         drawTriangleList(count: 3, offset: 0)
-        
-//
-//        , GLfloat(node1.y), GLfloat(node1.z),
-//        GLfloat(triangle.node1.u), GLfloat(node1.v), GLfloat(node1.w),
-//        GLfloat(triangle.node1.r), GLfloat(node1.g), GLfloat(node1.b), GLfloat(node1.a),
-//        
-//        GLfloat(triangle.node2.x), GLfloat(node2.y), GLfloat(node2.z),
-//        GLfloat(triangle.node2.u), GLfloat(node2.v), GLfloat(node2.w),
-//        GLfloat(triangle.node2.r), GLfloat(node2.g), GLfloat(node2.b), GLfloat(node2.a),
-//        
-//        GLfloat(triangle.node3.x), GLfloat(node3.y), GLfloat(node3.z),
-//        GLfloat(triangle.node3.u), GLfloat(node3.v), GLfloat(node3.w),
-//        GLfloat(triangle.node3.r), GLfloat(node3.g), GLfloat(node3.b), GLfloat(node3.a)
-        
-        
     }
     
     func lineDraw(p1:CGPoint, p2:CGPoint, thickness:CGFloat) {

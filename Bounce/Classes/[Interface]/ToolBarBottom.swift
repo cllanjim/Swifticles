@@ -6,4 +6,22 @@
 //  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ToolBarBottom : UIView
+{
+    
+    @IBOutlet weak var buttonExpand:TBButton! {
+        didSet {
+            //buttonExpand.styleSetSegment()
+            
+        }
+    }
+    
+    @IBAction func clickExpand(_ sender: AnyObject) {
+        ToolActions.bottomMenuToggleExpand()
+    }
+    
+}
+
+

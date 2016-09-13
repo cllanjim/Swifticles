@@ -45,6 +45,11 @@ class ApplicationController
         return nil
     }
     
+    var bottomMenu:BottomMenu? {
+        return bounce?.bottomMenu
+    }
+    
+    
 }
 
 let gApp = ApplicationController()

@@ -7,21 +7,6 @@
 import UIKit
 import OpenGLES
 
-/*
-private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-*/
-
-
-
 struct BlobGridNode {
     //Base = untransformed, no Base = transformed...
     var point:CGPoint = CGPoint.zero
@@ -50,7 +35,7 @@ struct BlobGridNode {
     var color:UIColor = UIColor.white
 }
 
-open class Blob
+class Blob
 {
     var grid = [[BlobGridNode]]()
     
@@ -906,30 +891,22 @@ open class Blob
     }
     
     func computeMeshEdgeFactors() {
-        
         guard linesBase.count > 1 && valid else {
             valid = false
             return
         }
         
-        
         var largestDist:CGFloat = 0.0
-        
         for nodeIndex in 0..<meshNodesBase.count {
             let node = meshNodesBase.data[nodeIndex]
             let point = CGPoint(x: node.x, y: node.y)
-            
             var closestDist:CGFloat = 100000000.0
-            //var bestPoint = CGPoint(x: point.x, y: point.y)
             for segmentIndex in 0..<linesBase.count {
                 let line = linesBase.data[segmentIndex]
-                
                 let closestPoint = LineSegment.SegmentClosestPoint(line: line, point: point)
-                
                 let diffX = closestPoint.x - point.x
                 let diffY = closestPoint.y - point.y
                 let dist = diffX * diffX + diffY * diffY
-                
                 if (dist < closestDist) {
                     closestDist = dist
                 }
@@ -949,8 +926,6 @@ open class Blob
             let node = meshNodesBase.data[nodeIndex]
             node.edgePercent = node.edgeDistance / largestDist
         }
-        //edgePercent
-        
     }
     
     func computeAffine() {

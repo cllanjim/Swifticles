@@ -10,9 +10,9 @@ import OpenGLES
 
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
-    let engine = BounceEngine()
+    var bottomMenu:BottomMenu?
     
-    //internal var scene = BounceScene()
+    let engine = BounceEngine()
     
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
@@ -189,42 +189,24 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     override func draw() {
-        
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
-        
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
-        
         gG.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
-        
         gG.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
-        
         gG.matrixProjectionSet(screenMat)
         gG.colorSet(r: 0.25, g: 0.15, b: 0.33)
         gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
-        
         
         let viewMat = screenMat.clone()
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
         viewMat.scale(Float(screenScale))
         gG.matrixProjectionSet(viewMat)
-        
-        
-        
-        //var m = Matrix()
-        //gG.matrixModelViewSet(m)
-        
         gG.blendEnable()
         gG.blendSetAlpha()
-        
         gG.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         gG.textureEnable()
-        
-        
-        
-        //background.drawCentered(pos: CGPoint(x: screenRect.midX, y: screenRect.midY))
         engine.draw()
-        
         
         gG.matrixProjectionSet(screenMat)
     }
@@ -519,6 +501,16 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     }
     
     
+    //embed_bottom_menu
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "embed_bottom_menu" {
+            if let bm = segue.destination as? BottomMenu {
+                bottomMenu = bm
+            }
+        }
+        
+    }
     
     func saveScene() {
         print("************\nBounceEngine.save()")
@@ -618,8 +610,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             }
         }
     }
-    
-    
     
     deinit {
         print("Deinit \(self)")

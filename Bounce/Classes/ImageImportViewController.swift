@@ -27,8 +27,6 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     var cropViewOutsideD = UIView(frame: CGRect.zero)
     var cropViewOutsideL = UIView(frame: CGRect.zero)
     
-    
-    
     var allowGestures:Bool = true
     
     var panRecognizer:UIPanGestureRecognizer!;
@@ -285,6 +283,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         if let image = importImage , screenSize.width > 64 && screenSize.height > 64 {
             if let image = self.constrainImageToImportSize(importImage: image, screenSize: screenSize) {
                 
+                loadViewIfNeeded()
+                view.layoutIfNeeded()
                 
                 gApp.navigationController.setNavigationBarHidden(false, animated: true)
                 

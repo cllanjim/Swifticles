@@ -82,7 +82,7 @@ open class FileUtils
         return nil
     }
     
-    open class func saveImagePNG(image:UIImage?, filePath:String?) ->Bool {
+    open class func saveImagePNG(image:UIImage?, filePath:String?) -> Bool {
         if let checkImage = image , checkImage.size.width >= 1.0 && checkImage.size.height >= 1.0 {
             var imageData = UIImagePNGRepresentation(checkImage)
             

@@ -14,15 +14,12 @@ class ToolActions {
         print("ToolActions.menu()")
         
         if let home = gApp.getStoryboardVC("home_menu") as? HomeMenuViewController {
-            
             let nc = gApp.navigationController
-            
             let transition = CATransition()
             transition.duration = 0.54
             transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             transition.type = kCATransitionReveal
             nc.view.layer.add(transition, forKey: nil)
-            
             gApp.navigationController.setViewControllers([home], animated: true)
             gApp.navigationController.setNavigationBarHidden(false, animated: true)
         }
@@ -36,10 +33,19 @@ class ToolActions {
         gApp.engine?.zoomMode = zm
     }
     
+    class func bottomMenuToggleExpand() {
+        
+        if let menu = gApp.bottomMenu {
+            if menu.expanded {
+                menu.collapse()
+            } else {
+                menu.expand()
+            }
+        }
+        
+    }
     
     //class func set
-    
-    
     
 }
 

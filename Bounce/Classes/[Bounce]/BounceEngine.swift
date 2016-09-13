@@ -419,12 +419,10 @@ class BounceEngine {
     
     func postNotification(_ notification: BounceNotification) {
         //NotificationCenter.default.post(Notification(name: String(notification), object: self))
-        
     }
     
     func postNotification(_ notification: BounceNotification, object: AnyObject?) {
         //NotificationCenter.default.post(Notification(name: String(notification), object: object))
-    
     }
     
     func addBlob() -> Blob {
@@ -459,16 +457,11 @@ class BounceEngine {
     
     func selectBlobAtPoint(_ pos:CGPoint) -> Blob? {
         var result:Blob?
-        
         result = blobClosestToPoint(pos)
-        
         return result
     }
     
-    
-    
     func gestureUpdateAffine() {
-        
         if let blob = affineSelectedBlob , sceneMode == .edit && editMode == .affine {
             if isPanning {
                 let x = affineSelectionStartCenter.x + (panPos.x - panStartPos.x)
@@ -491,7 +484,6 @@ class BounceEngine {
                                   y: blob.center.y + (affineGestureCenter.y - startCenter.y))
         }
     }
-    
     
     class func transformPoint(point:CGPoint, scale: CGFloat, rotation:CGFloat) -> CGPoint {
         var x = point.x
@@ -540,17 +532,8 @@ class BounceEngine {
         for blob in blobs {
             blobData.append(blob.save())
         }
-        info["blobs"] = blobData as AnyObject?
         
-        /*
-         info["image_name"] = imageName
-         info["image_path"] = imagePath
-         
-         info["landscape"] = isLandscape
-         
-         info["size_width"] = Float(size.width)
-         info["size_height"] = Float(size.height)
-         */
+        info["blobs"] = blobData as AnyObject?
         
         return info
     }
@@ -559,7 +542,6 @@ class BounceEngine {
         
         deleteAllBlobs()
         
-        
         if let blobData = info["blobs"] as? [[String:AnyObject]] {
             for i in 0..<blobData.count {
                 let blob = Blob()
@@ -567,12 +549,6 @@ class BounceEngine {
                 blobs.append(blob)
             }
         }
-        
-        //info["blobs"] = blobData
-        
-        
-        print("************\nBounceEngine.load()")
-        
     }
     
     
