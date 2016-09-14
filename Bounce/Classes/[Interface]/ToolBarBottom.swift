@@ -8,10 +8,18 @@
 
 import UIKit
 
-class ToolBarBottom : UIView
+class ToolBarBottom : UIView, TBSegmentDelegate, TBCheckBoxDelegate
 {
     
-    @IBOutlet weak var buttonExpand:TBButton! {
+    @IBInspectable @IBOutlet weak var segmentMode: TBSegment!{
+        didSet {
+            segmentMode.segmentCount = 2
+            segmentMode.delegate = self
+        }
+    }
+    
+    
+    @IBInspectable @IBOutlet weak var buttonExpand:TBButton! {
         didSet {
             //buttonExpand.styleSetSegment()
             
@@ -22,6 +30,14 @@ class ToolBarBottom : UIView
         ToolActions.bottomMenuToggleExpand()
     }
     
+    func segmentSelected(_ segment:TBSegment, index: Int) {
+        print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
+        
+    }
+    
+    func checkBoxToggled(_ checkBox:TBCheckBox, checked: Bool) {
+        
+    }
+    
 }
-
 

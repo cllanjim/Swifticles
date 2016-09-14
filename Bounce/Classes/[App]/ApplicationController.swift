@@ -38,6 +38,16 @@ class ApplicationController
         return nil
     }
     
+    var width:CGFloat {
+        if let result = bounce?.screenRect.size.width { return result }
+        return 320.0
+    }
+    
+    var height:CGFloat {
+        if let result = bounce?.screenRect.size.height { return result }
+        return 320.0
+    }
+    
     var engine:BounceEngine? {
         if let checkBounce = bounce {
             return checkBounce.engine

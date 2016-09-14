@@ -10,7 +10,7 @@ import OpenGLES
 
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
-    var bottomMenu:BottomMenu?
+    @IBOutlet weak var bottomMenu:BottomMenu!
     
     let engine = BounceEngine()
     
@@ -504,11 +504,13 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     //embed_bottom_menu
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        /*
         if segue.identifier == "embed_bottom_menu" {
             if let bm = segue.destination as? BottomMenu {
                 bottomMenu = bm
             }
         }
+        */
         
     }
     

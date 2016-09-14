@@ -8,8 +8,11 @@
 
 import UIKit
 
-class BottomMenu: UIViewController
+class BottomMenu: UIView
 {
+    
+    @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
+    
     var expanded:Bool = true
     
     @IBOutlet weak var toolBar: ToolBarBottom! {
@@ -24,8 +27,26 @@ class BottomMenu: UIViewController
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUp()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUp()
+    }
+    
+    override func awakeFromNib() {
+        setUp()
+    }
+    
+    func setUp() {
+        print("func setUp() {")
+        
+        clipsToBounds = false
+        isMultipleTouchEnabled = false
+        
         
     }
     
@@ -37,7 +58,26 @@ class BottomMenu: UIViewController
             
             expanded = true
             
-            self.view.frame.size.height = 88.0 //= CGRect(x: self.view.frame.origin.x, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
+            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.15, options: .curveEaseInOut, animations: { [weakSelf = self] in
+                
+                weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height + weakSelf.toolMenuContainer.height
+                
+                }, completion: { b in
+                    
+            })
+            
+            
+            //toolBar: ToolBarBottom! {
+            //    didSet {
+                    
+            //    }
+            //}
+            
+            //@IBOutlet weak var toolMenuContainer
+            
+            
+            //gApp.bounce?.screenRect.
+            
             
         }
         
@@ -50,8 +90,16 @@ class BottomMenu: UIViewController
             
             expanded = false
             
-            self.view.frame.size.height = 44.0 //= CGRect(x: self.view.frame.origin.x, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
-            
+            UIView.animate(withDuration: 0.6, animations: { [weakSelf = self] in
+                
+                weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height
+                
+                //weakSelf.menuHeightConstraint.constant = 30.0
+                //self.view.frame.size.height = weakSelf.toolBar.bounds.size.height
+                //self.view.frame.origin.y = gApp.height - self.view.frame.size.height
+                }, completion: { b in
+                    
+            })
         }
     }
     

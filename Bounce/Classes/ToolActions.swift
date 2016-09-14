@@ -26,7 +26,7 @@ class ToolActions {
     }
     
     class func addBlob() {
-        gApp.engine?.addBlob()
+        _ = gApp.engine?.addBlob()
     }
     
     class func setZoomMode(zoomMode zm:Bool) {

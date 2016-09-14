@@ -102,6 +102,7 @@
 		C29EC0411D713204004A6204 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EC0401D713204004A6204 /* Reader.swift */; };
 		C2BC0B4E1D80DDBF00EB4075 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */; };
 		C2BC0B501D80EC0700EB4075 /* LineSegmentBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */; };
+		C2EA791B1D88E4C6008C7EF4 /* UIView+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EA791A1D88E4C6008C7EF4 /* UIView+Extras.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 		C29EC0401D713204004A6204 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
 		C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineSegmentBuffer.swift; sourceTree = "<group>"; };
+		C2EA791A1D88E4C6008C7EF4 /* UIView+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extras.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -465,6 +467,7 @@
 			children = (
 				C214D2571D6E9745004069A3 /* UIImage+Resize.swift */,
 				C2340AE41D71094A00F8CD02 /* String+File.swift */,
+				C2EA791A1D88E4C6008C7EF4 /* UIView+Extras.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				C214D2611D6E9745004069A3 /* BounceViewController.swift in Sources */,
 				C2036F741D83333D0052DCCB /* BlobMeshBuffer.swift in Sources */,
 				C214D26C1D6E9745004069A3 /* TBButton.swift in Sources */,
+				C2EA791B1D88E4C6008C7EF4 /* UIView+Extras.swift in Sources */,
 				C214D2781D6E9745004069A3 /* ImageImportViewController.swift in Sources */,
 				C29EC0411D713204004A6204 /* Reader.swift in Sources */,
 				C214D26E1D6E9745004069A3 /* TBSegment.swift in Sources */,

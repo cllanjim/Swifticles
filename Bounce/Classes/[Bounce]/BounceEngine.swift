@@ -167,7 +167,7 @@ class BounceEngine {
             }
         }
         
-        addBlob()
+        _ = addBlob()
         
     }
     
