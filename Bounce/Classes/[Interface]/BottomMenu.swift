@@ -50,58 +50,28 @@ class BottomMenu: UIView
         isMultipleTouchEnabled = false
         
         
+        //loadViewIfNeeded()
+        //layoutIfNeeded()
+        
+        //menuHeightConstraint.constant = toolBar.height + toolMenuContainer.height
+        //setNeedsUpdateConstraints()
+        //superview?.setNeedsUpdateConstraints()
     }
     
     func expand() {
         print("EXPAND")
         
         if expanded == false {
-            
-            
             expanded = true
             
-            
-            //self.layoutIfNeeded()
-            print("Expand Rect Start [\(x), \(y) \(width), \(height)]")
-            
-            
-            menuHeightConstraint.constant = 88//toolBar.height + toolMenuContainer.height
+            menuHeightConstraint.constant = toolBar.height + toolMenuContainer.height
             setNeedsUpdateConstraints()
+            superview?.setNeedsUpdateConstraints()
             
-            UIView.animate(withDuration: 4.6, animations: {
+            UIView.animate(withDuration: 0.4, animations: {
                 [weakSelf = self] in
-                weakSelf.layoutIfNeeded()
-                
-                print("Expand Rect End [\(weakSelf.x), \(weakSelf.y) \(weakSelf.width), \(weakSelf.height)]")
-                
-                }, completion: {b in
-            
-                    print("Expand Rect 2 End [\(self.frame.origin.x), \(self.frame.origin.y) \(self.frame.size.width), \(self.frame.size.height)]")
-                    
-            })
-            
-            /*
-            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.15, options: .curveEaseInOut, animations: { [weakSelf = self] in
-                
-                weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height + weakSelf.toolMenuContainer.height
-                self.layoutIfNeeded()
-                }, completion: { b in
-                    
-            })
-            */
-            
-            //toolBar: ToolBarBottom! {
-            //    didSet {
-                    
-            //    }
-            //}
-            
-            //@IBOutlet weak var toolMenuContainer
-            
-            
-            //gApp.bounce?.screenRect.
-            
-            
+                weakSelf.superview?.layoutIfNeeded()
+                }, completion: nil)
         }
         
     }
@@ -110,42 +80,16 @@ class BottomMenu: UIView
         print("COLLAPSE")
         if expanded == true {
             
-            
             expanded = false
-            
-            
-            //self.layoutIfNeeded()
-            
-            print("Collapse Rect Start [\(frame.origin.x), \(frame.origin.y) \(frame.size.width), \(frame.size.height)]")
-            
             
             menuHeightConstraint.constant = toolBar.height
             setNeedsUpdateConstraints()
+            superview?.setNeedsUpdateConstraints()
             
-            
-            //UIViewAnimationOptionLayoutSubviews and/or UIViewAnimationOptionBeginFromCurrentState
-            
-            UIView.animate(withDuration: 4.6, delay: 0.0, options: [.beginFromCurrentState], animations: {
+            UIView.animate(withDuration: 0.4, animations: {
                 [weakSelf = self] in
-                //weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height
-                weakSelf.layoutIfNeeded()
-                
-                print("Collapse Rect End [\(weakSelf.frame.origin.x), \(weakSelf.frame.origin.y) \(weakSelf.frame.size.width), \(weakSelf.frame.size.height)]")
-                
-                
-                
-                }, completion: {b in
-            
-                    print("Collapse Rect End 2 [\(self.frame.origin.x), \(self.frame.origin.y) \(self.frame.size.width), \(self.frame.size.height)]")
-                    
-            
-            })
-            
-            //UIView.animate(withDuration: 4.6, animations: {
-              //  [weakSelf = self] in
-                //weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height
-                //weakSelf.layoutIfNeeded()
-                //}, completion: nil)
+                weakSelf.superview?.layoutIfNeeded()
+                }, completion: nil)
         }
     }
     

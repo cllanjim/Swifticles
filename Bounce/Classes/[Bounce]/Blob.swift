@@ -396,8 +396,8 @@ class Blob
     internal func computeBorder() {
         borderBase.reset()
         
-        var threshDist = CGFloat(4.0)
-        if gDevice.tablet { threshDist = 7.0 }
+        var threshDist = CGFloat(8.0)
+        if gDevice.tablet { threshDist = 12.0 }
         
         threshDist = (threshDist * threshDist)
         
@@ -436,7 +436,7 @@ class Blob
  
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
-        let stepSize = minSize / 20.0
+        let stepSize = minSize / 30.0
         var countX = 0
         var countY = 0
         let leftX = boundingBox.origin.x
