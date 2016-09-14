@@ -10,6 +10,14 @@ import UIKit
 
 extension UIView {
     
+    var x:CGFloat {
+        return frame.origin.x
+    }
+    
+    var y:CGFloat {
+        return frame.origin.y
+    }
+    
     var width:CGFloat {
         return bounds.size.width
     }

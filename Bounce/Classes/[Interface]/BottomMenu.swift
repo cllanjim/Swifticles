@@ -62,7 +62,7 @@ class BottomMenu: UIView
             
             
             //self.layoutIfNeeded()
-            print("Expand Rect Start [\(frame.origin.x), \(frame.origin.y) \(frame.size.width), \(frame.size.height)]")
+            print("Expand Rect Start [\(x), \(y) \(width), \(height)]")
             
             
             menuHeightConstraint.constant = 88//toolBar.height + toolMenuContainer.height
@@ -72,7 +72,7 @@ class BottomMenu: UIView
                 [weakSelf = self] in
                 weakSelf.layoutIfNeeded()
                 
-                print("Expand Rect End [\(weakSelf.frame.origin.x), \(weakSelf.frame.origin.y) \(weakSelf.frame.size.width), \(weakSelf.frame.size.height)]")
+                print("Expand Rect End [\(weakSelf.x), \(weakSelf.y) \(weakSelf.width), \(weakSelf.height)]")
                 
                 }, completion: {b in
             
