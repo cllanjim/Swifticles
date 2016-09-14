@@ -58,14 +58,24 @@ class BottomMenu: UIView
             
             expanded = true
             
-            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.15, options: .curveEaseInOut, animations: { [weakSelf = self] in
+            
+            UIView.animate(withDuration: 0.6, animations: {
+                [weakSelf = self] in
                 
                 weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height + weakSelf.toolMenuContainer.height
                 
+                self.layoutIfNeeded()
+                }, completion: nil)
+            
+            /*
+            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.15, options: .curveEaseInOut, animations: { [weakSelf = self] in
+                
+                weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height + weakSelf.toolMenuContainer.height
+                self.layoutIfNeeded()
                 }, completion: { b in
                     
             })
-            
+            */
             
             //toolBar: ToolBarBottom! {
             //    didSet {
@@ -90,16 +100,11 @@ class BottomMenu: UIView
             
             expanded = false
             
-            UIView.animate(withDuration: 0.6, animations: { [weakSelf = self] in
-                
+            UIView.animate(withDuration: 0.6, animations: {
+                [weakSelf = self] in
                 weakSelf.menuHeightConstraint.constant = weakSelf.toolBar.height
-                
-                //weakSelf.menuHeightConstraint.constant = 30.0
-                //self.view.frame.size.height = weakSelf.toolBar.bounds.size.height
-                //self.view.frame.origin.y = gApp.height - self.view.frame.size.height
-                }, completion: { b in
-                    
-            })
+                self.layoutIfNeeded()
+                }, completion: nil)
         }
     }
     
