@@ -18,6 +18,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     var pinchRecognizer:UIPinchGestureRecognizer!
     var rotRecognizer:UIRotationGestureRecognizer!;
     
+    @IBAction func cleeek(_ sender: AnyObject) {
+        ToolActions.bottomMenuToggleExpand()
+    }
+    
     var panRecognizerTouchCount:Int = 0
     var pinchRecognizerTouchCount:Int = 0
     var rotRecognizerTouchCount:Int = 0

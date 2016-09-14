@@ -353,7 +353,7 @@
                                                 <state key="normal" title="Zoom"/>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.8529633620689655" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.19575996517027863" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="GOv-G3-9bE"/>
                                             <constraint firstItem="VSV-wF-bZ5" firstAttribute="height" secondItem="cpv-rW-iyl" secondAttribute="height" id="HYX-1n-PpM"/>
@@ -406,7 +406,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="0.50196081400000003" alpha="0.84579741379310347" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="0.50196081400000003" alpha="0.1110354168890787" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="sJC-8m-x7T" secondAttribute="bottom" id="761-HR-TYG"/>
                                             <constraint firstAttribute="height" constant="52" id="7Rw-Cx-R86"/>
@@ -453,7 +453,7 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="0.44396263379204892" blue="0.21882167431192662" alpha="0.76633852554179571" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="cpv-rW-iyl" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="4vS-2k-tLl"/>
                                     <constraint firstAttribute="trailing" secondItem="LEj-da-9Od" secondAttribute="trailing" id="BOU-xs-zC0"/>
@@ -475,9 +475,9 @@
                         <constraints>
                             <constraint firstItem="27M-R0-Bg7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0Uw-nu-EBq"/>
                             <constraint firstAttribute="trailing" secondItem="ikJ-du-UKY" secondAttribute="trailing" constant="4" id="5VX-pc-5Lz"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="bottom" constant="4" id="8jG-a1-ra3"/>
                             <constraint firstItem="27M-R0-Bg7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="IuA-Jz-M1A"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="bottom" constant="540" id="KnQ-Ii-oTq"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="bottom" constant="51" id="bjj-NY-n3f"/>
                             <constraint firstItem="27M-R0-Bg7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="euI-8U-Sz0"/>
                             <constraint firstItem="ikJ-du-UKY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="4" id="hng-Za-oRs"/>
                             <constraint firstItem="27M-R0-Bg7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ioP-8o-Wa6"/>
