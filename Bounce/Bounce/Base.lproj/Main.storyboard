@@ -19,21 +19,23 @@
                         <viewControllerLayoutGuide type="bottom" id="l55-up-fKj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QJR-Vx-Ban">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqn-WP-CYZ"/>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5SI-QI-Vw9">
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTg-Pp-k0U" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTg-Pp-k0U" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Build One"/>
+                                        <state key="normal" title="Build One">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="clickCreate:" destination="7WL-lm-GZy" eventType="touchUpInside" id="Fmd-Vi-Nfy"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkZ-1b-r2s" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkZ-1b-r2s" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Load"/>
@@ -41,31 +43,37 @@
                                             <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="3zL-Hw-7YQ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ia-Z6-wwE" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ia-Z6-wwE" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Import Test"/>
+                                        <state key="normal" title="Import Test">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="clickImport:" destination="7WL-lm-GZy" eventType="touchUpInside" id="AFM-lO-j3g"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIH-FF-IOa" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIH-FF-IOa" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Cloud Test"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bQ-dm-Sot" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bQ-dm-Sot" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Continue"/>
+                                        <state key="normal" title="Continue">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="7E7-Wf-Uuc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-3M-ndH" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-3M-ndH" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                                        <state key="normal" title="Upgrade"/>
+                                        <state key="normal" title="Upgrade">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="clickUpgrade:" destination="7WL-lm-GZy" eventType="touchUpInside" id="b6v-Fv-Mv5"/>
                                         </connections>
@@ -83,7 +91,7 @@
                                     <constraint firstItem="lkZ-1b-r2s" firstAttribute="leading" secondItem="5SI-QI-Vw9" secondAttribute="leading" constant="8" id="Htn-Ic-gcM"/>
                                     <constraint firstItem="vTg-Pp-k0U" firstAttribute="width" secondItem="5SI-QI-Vw9" secondAttribute="width" multiplier="0.94" id="Iqy-YS-s5Z"/>
                                     <constraint firstAttribute="width" secondItem="5SI-QI-Vw9" secondAttribute="height" multiplier="1:1" id="LRs-IK-O8t"/>
-                                    <constraint firstItem="KTO-3M-ndH" firstAttribute="height" secondItem="vTg-Pp-k0U" secondAttribute="height" multiplier="2" id="LWB-0a-aMT"/>
+                                    <constraint firstItem="KTO-3M-ndH" firstAttribute="height" secondItem="vTg-Pp-k0U" secondAttribute="height" multiplier="1.8" id="LWB-0a-aMT"/>
                                     <constraint firstItem="JIH-FF-IOa" firstAttribute="leading" secondItem="lkZ-1b-r2s" secondAttribute="leading" id="Luk-HD-hCi"/>
                                     <constraint firstItem="1Ia-Z6-wwE" firstAttribute="height" secondItem="JIH-FF-IOa" secondAttribute="height" id="PFx-f0-B3G"/>
                                     <constraint firstAttribute="trailing" secondItem="vTg-Pp-k0U" secondAttribute="trailing" constant="8" id="UM3-Bo-1ak"/>
@@ -118,7 +126,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avy-g3-bzv" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avy-g3-bzv" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="WW0-AK-E5S"/>
@@ -130,7 +138,7 @@
                                     <action selector="clickTest1:" destination="7WL-lm-GZy" eventType="touchUpInside" id="Lfd-1i-fk0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taE-g4-sOD" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taE-g4-sOD" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="131-5Z-vea"/>
@@ -142,7 +150,7 @@
                                     <action selector="clickTest2:" destination="7WL-lm-GZy" eventType="touchUpInside" id="xXy-vT-0tP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2c-mG-end" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2c-mG-end" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="69A-yc-eA7"/>
@@ -154,7 +162,7 @@
                                     <action selector="clickTest3:" destination="7WL-lm-GZy" eventType="touchUpInside" id="b8I-qi-6Nr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRJ-Tc-W5X" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRJ-Tc-W5X" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="CGd-Da-BhC"/>
@@ -183,6 +191,7 @@
                             <constraint firstItem="avy-g3-bzv" firstAttribute="leading" secondItem="QJR-Vx-Ban" secondAttribute="leadingMargin" constant="-20" id="M7I-R0-Unc"/>
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="centerX" secondItem="QJR-Vx-Ban" secondAttribute="centerX" id="So4-sP-o5G"/>
                             <constraint firstItem="Aqn-WP-CYZ" firstAttribute="height" secondItem="QJR-Vx-Ban" secondAttribute="height" id="WFb-tc-sA7"/>
+                            <constraint firstItem="5SI-QI-Vw9" firstAttribute="width" secondItem="QJR-Vx-Ban" secondAttribute="width" multiplier="0.6" id="Wzo-ix-CLj"/>
                             <constraint firstItem="avy-g3-bzv" firstAttribute="top" secondItem="dEv-MO-A9a" secondAttribute="bottom" constant="8" id="ew0-Rd-SGs"/>
                             <constraint firstItem="nRJ-Tc-W5X" firstAttribute="top" secondItem="S2c-mG-end" secondAttribute="bottom" constant="8" id="geE-hc-PqY"/>
                             <constraint firstItem="5SI-QI-Vw9" firstAttribute="centerX" secondItem="QJR-Vx-Ban" secondAttribute="centerX" id="ufI-6x-aN1"/>
@@ -192,12 +201,13 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="2ef-Rc-aZy"/>
-                                <exclude reference="CHz-qI-dpn"/>
                                 <exclude reference="2ag-Cy-ZLQ"/>
                                 <exclude reference="4Ip-ko-zco"/>
                                 <exclude reference="ACS-hf-5cX"/>
                                 <exclude reference="Hck-ZP-9S9"/>
+                                <exclude reference="2ef-Rc-aZy"/>
+                                <exclude reference="CHz-qI-dpn"/>
+                                <exclude reference="Wzo-ix-CLj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
@@ -209,6 +219,11 @@
                             <mask key="constraints">
                                 <exclude reference="2ef-Rc-aZy"/>
                                 <include reference="CHz-qI-dpn"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="Wzo-ix-CLj"/>
                             </mask>
                         </variation>
                     </view>
@@ -238,7 +253,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GLKView">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
@@ -496,7 +511,7 @@
                         <viewControllerLayoutGuide type="bottom" id="db2-5h-Unk"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="wQN-W4-IBZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">

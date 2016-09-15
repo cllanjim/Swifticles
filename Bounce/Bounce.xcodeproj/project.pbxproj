@@ -52,6 +52,7 @@
 		0D37EA6F1D73E364009DF16A /* test_iphone6_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA6B1D73E364009DF16A /* test_iphone6_landscape.png */; };
 		0D37EA701D73E364009DF16A /* test_iphone6_portrait_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA6C1D73E364009DF16A /* test_iphone6_portrait_info.json */; };
 		0D37EA711D73E364009DF16A /* test_iphone6_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA6D1D73E364009DF16A /* test_iphone6_portrait.png */; };
+		0D4C5A471D8A681900D6F241 /* HMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C5A461D8A681900D6F241 /* HMButton.swift */; };
 		0D5219EB1D7015D40039598D /* BounceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5219EA1D7015D40039598D /* BounceScene.swift */; };
 		0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */; };
 		0D665E721D58239800558EA0 /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E701D58239800558EA0 /* FragmentShader.glsl */; };
@@ -171,6 +172,7 @@
 		0D37EA6B1D73E364009DF16A /* test_iphone6_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_iphone6_landscape.png; sourceTree = "<group>"; };
 		0D37EA6C1D73E364009DF16A /* test_iphone6_portrait_info.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_iphone6_portrait_info.json; sourceTree = "<group>"; };
 		0D37EA6D1D73E364009DF16A /* test_iphone6_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_iphone6_portrait.png; sourceTree = "<group>"; };
+		0D4C5A461D8A681900D6F241 /* HMButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMButton.swift; sourceTree = "<group>"; };
 		0D5219EA1D7015D40039598D /* BounceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceScene.swift; sourceTree = "<group>"; };
 		0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewControllerTests.swift; sourceTree = "<group>"; };
 		0D665E701D58239800558EA0 /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				C25281EB1D89F609000A0072 /* ToolRowBottomEdit.swift */,
 				C25281ED1D89F614000A0072 /* ToolRowBottomView.swift */,
 				C25281EF1D89F96E000A0072 /* ToolView.swift */,
+				0D4C5A461D8A681900D6F241 /* HMButton.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 			files = (
 				0D5219EB1D7015D40039598D /* BounceScene.swift in Sources */,
 				C214D2701D6E9745004069A3 /* ToolBarTop.swift in Sources */,
+				0D4C5A471D8A681900D6F241 /* HMButton.swift in Sources */,
 				C25281F01D89F96E000A0072 /* ToolView.swift in Sources */,
 				C214D2791D6E9745004069A3 /* ToolActions.swift in Sources */,
 				C214D2611D6E9745004069A3 /* BounceViewController.swift in Sources */,

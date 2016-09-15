@@ -12,7 +12,7 @@ class RRButton: UIButton {
     
     //var fill =
     
-    var maxHeight: CGFloat? = 40.0
+    var maxHeight: CGFloat?
     
     var cornerUL = true { didSet { setNeedsDisplay() } }
     var cornerUR = false { didSet { setNeedsDisplay() } }
@@ -187,6 +187,7 @@ class RRButton: UIButton {
         strokeDown = true
         fillColor = styleColorSegmentFill
         strokeColor = styleColorSegmentStroke
+        maxHeight = 38.0
     }
     
     func styleSetSegmentSelected() {
@@ -196,6 +197,7 @@ class RRButton: UIButton {
         strokeDown = false
         fillColor = styleColorSegmentFillSelected
         strokeColor = styleColorSegmentStrokeSelected
+        maxHeight = 38.0
     }
     
     func styleSetToolbarButton() {
@@ -208,6 +210,20 @@ class RRButton: UIButton {
         fillColorDown = styleColorToolbarButtonFillPressed
         strokeColor = styleColorSegmentStroke
         //strokeColorDown = UIColor.clear
+        maxHeight = 42.0
+    }
+    
+    func styleSetHomeMenuButton() {
+        fill = true
+        fillDown = true
+        stroke = false
+        strokeDown = true
+        strokeWidth = 2.0
+        fillColor = styleColorHomeMenuButtonBack
+        fillColorDown = styleColorHomeMenuButtonBackDown
+        strokeColor = styleColorSegmentStroke
+        strokeColorDown = styleColorSegmentStroke
+        maxHeight = nil
     }
     
 }

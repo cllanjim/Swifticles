@@ -11,10 +11,19 @@ import UIKit
 let styleColorToolbarButtonFillPressed = UIColor(red: 55.0 / 255.0, green: 98.0 / 255.0, blue: 195.0 / 255.0, alpha: 1.0)
 
 let styleColorSegmentFill = UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 1.0)
+//let styleColorSegmentFillDown //= //UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 1.0)
+
 let styleColorSegmentFillSelected = styleColorToolbarButtonFillPressed
 
 let styleColorSegmentStroke = styleColorToolbarButtonFillPressed
 let styleColorSegmentStrokeSelected = styleColorToolbarButtonFillPressed
+
+let styleColorHomeMenuButtonBack = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0)
+let styleColorHomeMenuButtonBackDown = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.0)
+
+//let styleColorSegmentStrokeSelected = styleColorToolbarButtonFillPressed
+
+
 
 //RGB(55,98,195)
 //let

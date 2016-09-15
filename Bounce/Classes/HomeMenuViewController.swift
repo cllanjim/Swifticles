@@ -8,15 +8,16 @@
 
 import UIKit
 
+@IBDesignable
 class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var imageViewBackground: UIImageView!
-    @IBOutlet weak var buttonCreate: RRButton!
-    @IBOutlet weak var buttonLoad: RRButton!
-    @IBOutlet weak var buttonContinue: RRButton!
-    @IBOutlet weak var buttonUpgrade: RRButton!
-    @IBOutlet weak var cloudTest: RRButton!
-    @IBOutlet weak var glTest: RRButton!
+    @IBOutlet weak var buttonCreate: HMButton!
+    @IBOutlet weak var buttonLoad: HMButton!
+    @IBOutlet weak var buttonContinue: HMButton!
+    @IBOutlet weak var buttonUpgrade: HMButton!
+    @IBOutlet weak var cloudTest: HMButton!
+    @IBOutlet weak var glTest: HMButton!
     
     var loadPath:String? = "test_ipad_info.plist"
     
@@ -29,7 +30,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     override func viewDidLoad() {
-        //self.clickImport(RRButton())
+        //self.clickImport(HMButton())
     }
     
     
@@ -117,7 +118,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickImport(_ sender: RRButton) {
+    @IBAction func clickImport(_ sender: HMButton) {
         importImage = UIImage(named: "test_card.jpg")
         self.performSegue(withIdentifier: "import_image", sender: nil)
     }
@@ -125,22 +126,22 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     
-    @IBAction func clickTest1(_ sender: RRButton) {
+    @IBAction func clickTest1(_ sender: HMButton) {
         loadPath = "test_iphone5_landscape_info.json"
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickTest2(_ sender: RRButton) {
+    @IBAction func clickTest2(_ sender: HMButton) {
         loadPath = "test_iphone5_portrait_info.json"
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickTest3(_ sender: RRButton) {
+    @IBAction func clickTest3(_ sender: HMButton) {
         loadPath = "test_iphone6_portrait_info.json"
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
-    @IBAction func clickTest4(_ sender: RRButton) {
+    @IBAction func clickTest4(_ sender: HMButton) {
         loadPath = "test_iphone6_landscape_info.json"
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
