@@ -12,23 +12,27 @@ class RRButton: UIButton {
     
     //var fill =
     
+    var maxHeight: CGFloat? = 40.0
+    
     var cornerUL = true { didSet { setNeedsDisplay() } }
     var cornerUR = false { didSet { setNeedsDisplay() } }
     var cornerDR = true { didSet { setNeedsDisplay() } }
     var cornerDL = true { didSet { setNeedsDisplay() } }
     
     var fill:Bool = true { didSet { setNeedsDisplay() } }
+    var fillDown:Bool = true { didSet { setNeedsDisplay() } }
+    
     var fillColor:UIColor = UIColor(red: 0.45, green: 0.45, blue: 1.0, alpha: 1.0) { didSet { setNeedsDisplay() } }
     var fillColorDown:UIColor = UIColor(red: 0.65, green: 0.65, blue: 1.0, alpha: 1.0) { didSet { setNeedsDisplay() } }
     
     var stroke:Bool = true { didSet { setNeedsDisplay() } }
-    var strokeColor:UIColor = UIColor(red: 1.0, green: 1.0, blue: 0.75, alpha: 1.0) { didSet { setNeedsDisplay() } }
-    var strokeColorDown:UIColor = UIColor(red: 0.86, green: 0.86, blue: 0.72, alpha: 1.0) { didSet { setNeedsDisplay() } }
-    var strokeWidth:CGFloat = 3.0 { didSet { setNeedsDisplay() } }
+    var strokeDown:Bool = true { didSet { setNeedsDisplay() } }
+    
+    var strokeColor:UIColor = UIColor(red: 1.0, green: 1.0, blue: 0.75, alpha: 0.5) { didSet { setNeedsDisplay() } }
+    var strokeColorDown:UIColor = UIColor(red: 0.86, green: 0.86, blue: 0.72, alpha: 0.5) { didSet { setNeedsDisplay() } }
+    var strokeWidth:CGFloat = 4.0 { didSet { setNeedsDisplay() } }
     
     var cornerRadius:CGFloat = 6.0 { didSet { setNeedsDisplay() } }
-    
-    
     
     var isPressed:Bool { return isTouchInside && isTracking }
     
@@ -73,36 +77,98 @@ class RRButton: UIButton {
         
         //super.drawRect(rect)
         
+        var drawStroke:Bool = false
+        var drawFill:Bool = false
+        
+        if isPressed {
+            if strokeDown { drawStroke = true }
+            if fillDown { drawFill = true }
+        } else {
+            if stroke { drawStroke = true }
+            if fill { drawFill = true }
+        }
+        if strokeWidth <= 0.0 { drawStroke = false }
+        
         
         let context: CGContext = UIGraphicsGetCurrentContext()!
         context.saveGState()
         
+        var rect = CGRect(x: 0.0, y: 0.0, width: self.width, height: self.height)
         
-        if fill {
-        let rect = CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
-        let clipPath = UIBezierPath(roundedRect: rect,
-                                    byRoundingCorners: getCornerType(ul: cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL),
-                                        cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+        context.setFillColor(UIColor.brown.cgColor)
+        context.fill(rect)
         
-        context.beginPath()
-        context.addPath(clipPath)
-        context.setFillColor(isPressed ? fillColorDown.cgColor : fillColor.cgColor)
-        context.closePath()
-        context.fillPath()
+        if let max = maxHeight, rect.height > max {
+            rect.size.height = max
+            rect.origin.y = CGFloat(Int(self.height / 2.0 - max / 2.0))
         }
         
-        if stroke {
-        let rect = CGRect(x: strokeWidth / 2.0, y: strokeWidth / 2.0, width: self.frame.size.width - strokeWidth, height: self.frame.size.height - strokeWidth)
-            let clipPath = UIBezierPath(roundedRect: rect, byRoundingCorners: getCornerType(ul: cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL), cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
-        
-        context.beginPath()
-        context.addPath(clipPath)
-        context.setStrokeColor((isPressed ? strokeColorDown : strokeColor).cgColor)
-        context.setLineWidth(strokeWidth)
-        context.closePath()
-        context.strokePath()
+        if drawStroke {
+            //let rect = CGRect(x: strokeWidth / 2.0, y: strokeWidth / 2.0, width: self.frame.size.width - strokeWidth, height: self.frame.size.height - strokeWidth)
             
+            
+            /*
+            context.beginPath()
+            context.addPath(clipPath)
+            context.setStrokeColor((isPressed ? strokeColorDown : strokeColor).cgColor)
+            context.setLineWidth(strokeWidth)
+            context.closePath()
+            context.strokePath()
+            */
+            
+            if drawFill {
+                let clipPath = UIBezierPath(roundedRect: rect, byRoundingCorners: getCornerType(ul: cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL), cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+                
+            context.beginPath()
+            context.addPath(clipPath)
+            context.setFillColor((isPressed ? strokeColorDown : strokeColor).cgColor)
+            context.closePath()
+            context.fillPath()
+            
+            
+                let inset = strokeWidth / 2.0
+                rect = rect.insetBy(dx: inset, dy: inset)
+                
+            //rect.origin.x = rect.origin.x + inset
+            //rect.origin.y = rect.origin.y + inset
+            //rect.size.width = rect.size.width - inset * 2
+            //rect.size.height = rect.size.height - inset * 2
+            } else {
+                
+                let inset = strokeWidth / 2.0
+                rect = rect.insetBy(dx: inset, dy: inset)
+                
+                let clipPath = UIBezierPath(roundedRect: rect, byRoundingCorners: getCornerType(ul: cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL), cornerRadii: CGSize(width: cornerRadius - inset, height: cornerRadius - inset)).cgPath
+                
+                context.beginPath()
+                context.addPath(clipPath)
+                context.setStrokeColor((isPressed ? strokeColorDown : strokeColor).cgColor)
+                context.setLineWidth(strokeWidth)
+                context.closePath()
+                context.strokePath()
+            }
         }
+        
+        if drawFill {
+            //let rect = rectBase //CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
+            
+            
+            
+            //if let max = maxHeight, rect
+            
+            
+            let clipPath = UIBezierPath(roundedRect: rect,
+                                        byRoundingCorners: getCornerType(ul: cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL),
+                                        cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+            
+            context.beginPath()
+            context.addPath(clipPath)
+            context.setFillColor(isPressed ? fillColorDown.cgColor : fillColor.cgColor)
+            context.closePath()
+            context.fillPath()
+        }
+        
+        
         
         context.restoreGState()
     }
@@ -112,24 +178,36 @@ class RRButton: UIButton {
     }
     
     func didClick() {
-    
+        
     }
     
     func styleSetSegment() {
         fill = true
         stroke = true
+        strokeDown = true
         fillColor = styleColorSegmentFill
         strokeColor = styleColorSegmentStroke
     }
     
     func styleSetSegmentSelected() {
         fill = true
+        fillDown = true
         stroke = false
+        strokeDown = false
         fillColor = styleColorSegmentFillSelected
         strokeColor = styleColorSegmentStrokeSelected
     }
     
-    
-    
+    func styleSetToolbarButton() {
+        fill = false
+        fillDown = true
+        stroke = true
+        strokeDown = false
+        strokeWidth = 4.0
+        //fillColor = UIColor.clear
+        fillColorDown = styleColorToolbarButtonFillPressed
+        strokeColor = styleColorSegmentStroke
+        //strokeColorDown = UIColor.clear
+    }
     
 }

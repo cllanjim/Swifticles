@@ -59,7 +59,7 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
         ToolActions.addBlob()
     }
     
-    func segmentSelected(_ segment:TBSegment, index: Int) {
+    func segmentSelected(segment:TBSegment, index: Int) {
         print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
         
         if segment === segEditMode {
@@ -74,7 +74,7 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
         
     }
     
-    func checkBoxToggled(_ checkBox:TBCheckBox, checked: Bool) {
+    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
         if checkBox == checkBoxZoom {
             

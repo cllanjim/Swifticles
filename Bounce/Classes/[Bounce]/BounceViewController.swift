@@ -73,21 +73,19 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         engine.setUp(scene: scene)
         
-        /*
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
-                                                         name: NSNotification.Name(String(BounceNotification.ZoomModeChanged)), object: nil)
+                                               name: NSNotification.Name(BounceNotification.ZoomModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleSceneModeChanged),
-                                                         name: NSNotification.Name(String(BounceNotification.SceneModeChanged)), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged), name: NSNotification.Name(BounceNotification.EditModeChanged), object: nil)
+                                               name: NSNotification.Name(BounceNotification.SceneModeChanged.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged),
+                                               name: NSNotification.Name(BounceNotification.EditModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewModeChanged),
-                                                         name: NSNotification.Name(BounceNotification.ViewModeChanged), object: nil)
-        
+                                               name: NSNotification.Name(BounceNotification.ViewModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobSelectionChanged),
-                                                         name: NSNotification.Name(BounceNotification.BlobSelectionChanged), object: nil)
-        
+                                               name: NSNotification.Name(BounceNotification.BlobSelectionChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
-                                                         name: NSNotification.Name(BounceNotification.BlobAdded), object: nil)
-        */
+                                               name: NSNotification.Name(BounceNotification.BlobAdded.rawValue), object: nil)
         
         //...
         scene.image = nil

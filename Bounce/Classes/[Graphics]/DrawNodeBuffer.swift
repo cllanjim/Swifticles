@@ -40,11 +40,11 @@ class DrawNodeBuffer {
         data[index].set(drawNode: node)
     }
     
-    func setXY(_ index:Int, x:CGFloat, y:CGFloat) {
-        setXYZ(index, x: x, y: y, z: 0.0)
+    func setXY(index:Int, x:CGFloat, y:CGFloat) {
+        setXYZ(index:index, x: x, y: y, z: 0.0)
     }
     
-    func setXYZ(_ index:Int, x:CGFloat, y:CGFloat, z:CGFloat) {
+    func setXYZ(index:Int, x:CGFloat, y:CGFloat, z:CGFloat) {
         guard index >= 0 else { return }
         ensureCapacity(index)
         if index >= _count { _count = index + 1 }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol TBSegmentDelegate
 {
-    func segmentSelected(_ segment:TBSegment, index: Int)
+    func segmentSelected(segment:TBSegment, index: Int)
 }
 
 class TBSegment: UIView {
@@ -46,30 +46,21 @@ class TBSegment: UIView {
         self.backgroundColor = UIColor.clear
     }
     
-    deinit {
-        print("Dealloc TBSegment!!")
-    }
+    deinit { }
     
     func clickSegment(_ segment:RRButton) {
-        print("clickSegment")
-        
         var checkIndex:Int?
         
         for i in 0..<buttons.count {
             if segment == buttons[i] {
-                print("Click Seg Index \(i)")
                 checkIndex = i
             }
         }
         
-        if let index = checkIndex {
-            
+        if let index = checkIndex, index != selectedIndex {
             selectedIndex = index
-            delegate?.segmentSelected(self, index: index)
+            delegate?.segmentSelected(segment: self, index: index)
         }
-        
-        //delegate
-        
     }
     
     var segmentCount:Int {

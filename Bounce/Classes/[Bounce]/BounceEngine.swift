@@ -46,34 +46,6 @@ class BounceEngine {
         for blob:Blob in temp { deleteBlob(blob) }
     }
     
-    var deletedBlobs = [Blob]()
-    
-    func deleteBlob(_ blob:Blob?) {
-        
-        if let deleteBlob = blob {
-            
-            deletedBlobs.append(deleteBlob)
-            
-            if affineSelectedBlob === deleteBlob {
-                affineSelectedBlob = nil
-                affineSelectionTouch = nil
-            }
-            if shapeSelectedBlob === deleteBlob {
-                shapeSelectedBlob = nil
-                shapeSelectionTouch = nil
-            }
-            var deleteIndex:Int?
-            for i in 0..<blobs.count {
-                if blobs[i] === deleteBlob {
-                    deleteIndex = i
-                }
-            }
-            if let index = deleteIndex {
-                blobs.remove(at: index)
-            }
-        }
-    }
-    
     //For the affine transformations only..
     weak var affineSelectedBlob:Blob?
     weak var affineSelectionTouch:UITouch?
@@ -110,10 +82,38 @@ class BounceEngine {
             handleModeChange()
             postNotification(BounceNotification.SceneModeChanged) }
     }
+    
     var editMode:EditMode = .affine {
         didSet {
             handleModeChange()
             postNotification(BounceNotification.EditModeChanged)
+        }
+    }
+    
+    var deletedBlobs = [Blob]()
+    func deleteBlob(_ blob:Blob?) {
+        
+        if let deleteBlob = blob {
+            
+            deletedBlobs.append(deleteBlob)
+            
+            if affineSelectedBlob === deleteBlob {
+                affineSelectedBlob = nil
+                affineSelectionTouch = nil
+            }
+            if shapeSelectedBlob === deleteBlob {
+                shapeSelectedBlob = nil
+                shapeSelectionTouch = nil
+            }
+            var deleteIndex:Int?
+            for i in 0..<blobs.count {
+                if blobs[i] === deleteBlob {
+                    deleteIndex = i
+                }
+            }
+            if let index = deleteIndex {
+                blobs.remove(at: index)
+            }
         }
     }
     
@@ -168,7 +168,6 @@ class BounceEngine {
         }
         
         _ = addBlob()
-        
     }
     
     
@@ -417,11 +416,14 @@ class BounceEngine {
         affineSelectionTouch = nil
     }
     
-    func postNotification(_ notification: BounceNotification) {
-        //NotificationCenter.default.post(Notification(name: String(notification), object: self))
+    func postNotification(_ notificationName: BounceNotification) {
+        let notification = Notification(name: Notification.Name(notificationName.rawValue), object: nil, userInfo: nil)
+        NotificationCenter.default.post(notification)
     }
     
-    func postNotification(_ notification: BounceNotification, object: AnyObject?) {
+    func postNotification(_ notificationName: BounceNotification, object: AnyObject?) {
+        let notification = Notification(name: Notification.Name(notificationName.rawValue), object: object, userInfo: nil)
+        NotificationCenter.default.post(notification)
         //NotificationCenter.default.post(Notification(name: String(notification), object: object))
     }
     
@@ -526,8 +528,6 @@ class BounceEngine {
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
         
-        
-        //[String:AnyObject]
         var blobData = [[String:AnyObject]]()
         for blob in blobs {
             blobData.append(blob.save())
@@ -539,9 +539,7 @@ class BounceEngine {
     }
     
     func load(info:[String:AnyObject]) {
-        
         deleteAllBlobs()
-        
         if let blobData = info["blobs"] as? [[String:AnyObject]] {
             for i in 0..<blobData.count {
                 let blob = Blob()
@@ -550,7 +548,5 @@ class BounceEngine {
             }
         }
     }
-    
-    
     
 }

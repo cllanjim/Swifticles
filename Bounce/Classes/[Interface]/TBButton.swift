@@ -9,5 +9,9 @@
 import UIKit
 
 class TBButton: RRButton {
+    override func setUp() {
+        super.setUp()
+        styleSetToolbarButton()
+    }
     
 }

@@ -16,8 +16,6 @@ let styleColorSegmentFillSelected = styleColorToolbarButtonFillPressed
 let styleColorSegmentStroke = styleColorToolbarButtonFillPressed
 let styleColorSegmentStrokeSelected = styleColorToolbarButtonFillPressed
 
-
-
 //RGB(55,98,195)
 //let
 

@@ -84,7 +84,6 @@
 		C214D26E1D6E9745004069A3 /* TBSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D24F1D6E9745004069A3 /* TBSegment.swift */; };
 		C214D26F1D6E9745004069A3 /* ToolBarBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2501D6E9745004069A3 /* ToolBarBottom.swift */; };
 		C214D2701D6E9745004069A3 /* ToolBarTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2511D6E9745004069A3 /* ToolBarTop.swift */; };
-		C214D2711D6E9745004069A3 /* TopMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2521D6E9745004069A3 /* TopMenuViewController.swift */; };
 		C214D2721D6E9745004069A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2531D6E9745004069A3 /* AppDelegate.swift */; };
 		C214D2731D6E9745004069A3 /* CubicSpline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2541D6E9745004069A3 /* CubicSpline.swift */; };
 		C214D2741D6E9745004069A3 /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2551D6E9745004069A3 /* EditAffineViewController.swift */; };
@@ -98,6 +97,10 @@
 		C2340AE51D71094A00F8CD02 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AE41D71094A00F8CD02 /* String+File.swift */; };
 		C2391B0A1D75249100D9341F /* PointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2391B091D75249100D9341F /* PointList.swift */; };
 		C2410CE51D7A4F05007404C2 /* IndexTriangleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */; };
+		C25281EA1D89F59F000A0072 /* ToolRowZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25281E91D89F59F000A0072 /* ToolRowZoom.swift */; };
+		C25281EC1D89F609000A0072 /* ToolRowBottomEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25281EB1D89F609000A0072 /* ToolRowBottomEdit.swift */; };
+		C25281EE1D89F614000A0072 /* ToolRowBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25281ED1D89F614000A0072 /* ToolRowBottomView.swift */; };
+		C25281F01D89F96E000A0072 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25281EF1D89F96E000A0072 /* ToolView.swift */; };
 		C296B61B1D876ECA0041CE94 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C296B61A1D876ECA0041CE94 /* BottomMenu.swift */; };
 		C29EC0411D713204004A6204 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EC0401D713204004A6204 /* Reader.swift */; };
 		C2BC0B4E1D80DDBF00EB4075 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */; };
@@ -206,7 +209,6 @@
 		C214D24F1D6E9745004069A3 /* TBSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBSegment.swift; sourceTree = "<group>"; };
 		C214D2501D6E9745004069A3 /* ToolBarBottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarBottom.swift; sourceTree = "<group>"; };
 		C214D2511D6E9745004069A3 /* ToolBarTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarTop.swift; sourceTree = "<group>"; };
-		C214D2521D6E9745004069A3 /* TopMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMenuViewController.swift; sourceTree = "<group>"; };
 		C214D2531D6E9745004069A3 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C214D2541D6E9745004069A3 /* CubicSpline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicSpline.swift; sourceTree = "<group>"; };
 		C214D2551D6E9745004069A3 /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +222,10 @@
 		C2340AE41D71094A00F8CD02 /* String+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
 		C2391B091D75249100D9341F /* PointList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointList.swift; sourceTree = "<group>"; };
 		C2410CE41D7A4F05007404C2 /* IndexTriangleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexTriangleList.swift; sourceTree = "<group>"; };
+		C25281E91D89F59F000A0072 /* ToolRowZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowZoom.swift; sourceTree = "<group>"; };
+		C25281EB1D89F609000A0072 /* ToolRowBottomEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomEdit.swift; sourceTree = "<group>"; };
+		C25281ED1D89F614000A0072 /* ToolRowBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomView.swift; sourceTree = "<group>"; };
+		C25281EF1D89F96E000A0072 /* ToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
 		C296B61A1D876ECA0041CE94 /* BottomMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		C29EC0401D713204004A6204 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
@@ -456,8 +462,11 @@
 				C214D24F1D6E9745004069A3 /* TBSegment.swift */,
 				C214D2501D6E9745004069A3 /* ToolBarBottom.swift */,
 				C214D2511D6E9745004069A3 /* ToolBarTop.swift */,
-				C214D2521D6E9745004069A3 /* TopMenuViewController.swift */,
 				C296B61A1D876ECA0041CE94 /* BottomMenu.swift */,
+				C25281E91D89F59F000A0072 /* ToolRowZoom.swift */,
+				C25281EB1D89F609000A0072 /* ToolRowBottomEdit.swift */,
+				C25281ED1D89F614000A0072 /* ToolRowBottomView.swift */,
+				C25281EF1D89F96E000A0072 /* ToolView.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -655,8 +664,10 @@
 			files = (
 				0D5219EB1D7015D40039598D /* BounceScene.swift in Sources */,
 				C214D2701D6E9745004069A3 /* ToolBarTop.swift in Sources */,
+				C25281F01D89F96E000A0072 /* ToolView.swift in Sources */,
 				C214D2791D6E9745004069A3 /* ToolActions.swift in Sources */,
 				C214D2611D6E9745004069A3 /* BounceViewController.swift in Sources */,
+				C25281EE1D89F614000A0072 /* ToolRowBottomView.swift in Sources */,
 				C2036F741D83333D0052DCCB /* BlobMeshBuffer.swift in Sources */,
 				C214D26C1D6E9745004069A3 /* TBButton.swift in Sources */,
 				C2EA791B1D88E4C6008C7EF4 /* UIView+Extras.swift in Sources */,
@@ -676,10 +687,10 @@
 				C214D2631D6E9745004069A3 /* DrawTriangle.swift in Sources */,
 				C214D26F1D6E9745004069A3 /* ToolBarBottom.swift in Sources */,
 				C214D25F1D6E9745004069A3 /* Blob.swift in Sources */,
-				C214D2711D6E9745004069A3 /* TopMenuViewController.swift in Sources */,
 				C2391B0A1D75249100D9341F /* PointList.swift in Sources */,
 				C214D26D1D6E9745004069A3 /* TBCheckBox.swift in Sources */,
 				C214D2681D6E9745004069A3 /* Sprite.swift in Sources */,
+				C25281EC1D89F609000A0072 /* ToolRowBottomEdit.swift in Sources */,
 				C214D2691D6E9745004069A3 /* Texture.swift in Sources */,
 				C214D26B1D6E9745004069A3 /* Style.swift in Sources */,
 				C214D2651D6E9745004069A3 /* GLViewController.swift in Sources */,
@@ -688,6 +699,7 @@
 				C2BC0B501D80EC0700EB4075 /* LineSegmentBuffer.swift in Sources */,
 				C214D2741D6E9745004069A3 /* EditAffineViewController.swift in Sources */,
 				C214D2641D6E9745004069A3 /* DrawTriangleBuffer.swift in Sources */,
+				C25281EA1D89F59F000A0072 /* ToolRowZoom.swift in Sources */,
 				C214D25E1D6E9745004069A3 /* FileUtils.swift in Sources */,
 				C214D2671D6E9745004069A3 /* Matrix.swift in Sources */,
 				C214D2621D6E9745004069A3 /* DrawNode.swift in Sources */,

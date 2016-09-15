@@ -8,12 +8,16 @@
 
 import UIKit
 
-class BottomMenu: UIView
+class BottomMenu: ToolView
 {
+    var toolRows = [ToolView]()
+    var currentToolRow: ToolView?
+    
+    @IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit!
+    @IBOutlet weak internal var toolRowView: ToolRowBottomView!
     
     @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
-    
+    //@IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     
     var expanded:Bool = true
     
@@ -29,22 +33,19 @@ class BottomMenu: UIView
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setUp()
     }
     
     override func awakeFromNib() {
-        setUp()
+        super.awakeFromNib()
+        
+        print("BottomMenu.awakeFromNib()")
+        
     }
     
-    func setUp() {
-        print("func setUp() {")
+    override func setUp() {
+        super.setUp()
         
         clipsToBounds = false
         isMultipleTouchEnabled = false
@@ -63,11 +64,9 @@ class BottomMenu: UIView
         
         if expanded == false {
             expanded = true
-            
             menuHeightConstraint.constant = toolBar.height + toolMenuContainer.height
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            
             UIView.animate(withDuration: 0.4, animations: {
                 [weakSelf = self] in
                 weakSelf.superview?.layoutIfNeeded()
@@ -79,13 +78,10 @@ class BottomMenu: UIView
     func collapse() {
         print("COLLAPSE")
         if expanded == true {
-            
             expanded = false
-            
             menuHeightConstraint.constant = toolBar.height
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            
             UIView.animate(withDuration: 0.4, animations: {
                 [weakSelf = self] in
                 weakSelf.superview?.layoutIfNeeded()

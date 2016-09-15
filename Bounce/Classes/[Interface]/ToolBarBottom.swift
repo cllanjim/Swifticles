@@ -11,10 +11,10 @@ import UIKit
 class ToolBarBottom : UIView, TBSegmentDelegate, TBCheckBoxDelegate
 {
     
-    @IBInspectable @IBOutlet weak var segmentMode: TBSegment!{
+    @IBInspectable @IBOutlet weak var segMode:TBSegment! {
         didSet {
-            segmentMode.segmentCount = 2
-            segmentMode.delegate = self
+            segMode.segmentCount = 2
+            segMode.delegate = self
         }
     }
     
@@ -26,16 +26,26 @@ class ToolBarBottom : UIView, TBSegmentDelegate, TBCheckBoxDelegate
         }
     }
     
-    @IBAction func clickExpand(_ sender: AnyObject) {
+    @IBAction func clickExpand(sender: AnyObject) {
         ToolActions.bottomMenuToggleExpand()
     }
     
-    func segmentSelected(_ segment:TBSegment, index: Int) {
+    func segmentSelected(segment:TBSegment, index: Int) {
         print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
+        
+        if segment === segMode {
+            
+            if segMode.selectedIndex == 0 {
+                gApp.engine?.sceneMode = .edit
+            } else {
+                gApp.engine?.sceneMode = .view
+            }
+            
+        }
         
     }
     
-    func checkBoxToggled(_ checkBox:TBCheckBox, checked: Bool) {
+    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
     }
     

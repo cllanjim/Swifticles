@@ -10,7 +10,7 @@ import UIKit
 
 protocol TBCheckBoxDelegate
 {
-    func checkBoxToggled(_ checkBox:TBCheckBox, checked: Bool)
+    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool)
 }
 
 class TBCheckBox: RRButton {
@@ -70,7 +70,7 @@ class TBCheckBox: RRButton {
     
     override func didClick() {
         checked = !checked
-        delegate?.checkBoxToggled(self, checked: checked)
+        delegate?.checkBoxToggled(checkBox: self, checked: checked)
     }
     
 }
