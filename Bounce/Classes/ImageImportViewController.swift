@@ -255,7 +255,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func constrainImageToImportSize(importImage:UIImage, screenSize:CGSize) -> UIImage? {
-        let importScale = gDevice.importScale
+        let importScale = gApp.importScale
         
         let importMaxWidth = Double(screenSize.width) * Double(importScale)
         let importMaxHeight = Double(screenSize.height) * Double(importScale)

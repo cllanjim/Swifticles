@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToolBarBottom : UIView, TBSegmentDelegate, TBCheckBoxDelegate
+class ToolBarBottom : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
 {
     
     @IBInspectable @IBOutlet weak var segMode:TBSegment! {
@@ -26,6 +26,28 @@ class ToolBarBottom : UIView, TBSegmentDelegate, TBCheckBoxDelegate
         }
     }
     
+    override func handleSceneReady() {
+        print("ToolBarBottom.handleSceneReady()")
+        
+        /*
+        switch gr.state {
+        case .began:
+            gestureBegan(gestureTouchCenter)
+            panRecognizerTouchCount = gr.numberOfTouches
+            break
+        case .changed:
+            */
+        
+        switch gApp.sceneMode {
+            case .edit :
+                segMode.selectedIndex = 0
+                break
+            case .view:
+                segMode.selectedIndex = 1
+                break
+            }
+    }
+    
     @IBAction func clickExpand(sender: AnyObject) {
         ToolActions.bottomMenuToggleExpand()
     }
@@ -36,9 +58,9 @@ class ToolBarBottom : UIView, TBSegmentDelegate, TBCheckBoxDelegate
         if segment === segMode {
             
             if segMode.selectedIndex == 0 {
-                gApp.engine?.sceneMode = .edit
+                gApp.sceneMode = .edit
             } else {
-                gApp.engine?.sceneMode = .view
+                gApp.sceneMode = .view
             }
             
         }

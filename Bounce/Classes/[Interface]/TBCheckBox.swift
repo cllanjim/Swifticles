@@ -19,7 +19,7 @@ class TBCheckBox: RRButton {
     var checked:Bool = false { didSet { setNeedsDisplay() } }
     
     deinit {
-        print("Deinit RRCheckBox")
+        
     }
     
     override func setUp() {

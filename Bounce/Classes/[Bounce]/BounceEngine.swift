@@ -9,22 +9,26 @@ import UIKit
 import Foundation
 
 enum BounceNotification:String {
+    
+    case SceneReady = "BounceNotification.SceneReady"
     case ZoomModeChanged = "BounceNotification.ZoomModeChanged"
     case SceneModeChanged = "BounceNotification.SceneModeChanged"
     case EditModeChanged = "BounceNotification.EditModeChanged"
     case ViewModeChanged = "BounceNotification.ViewModeChanged"
     case BlobAdded = "BounceNotification.BlobAdded"
     case BlobSelectionChanged = "BounceNotification.BlobSelectionChanged"
+    case HistoryStackChanged = "BounceNotification.HistoryStackChanged"
 }
 
 enum SceneMode: UInt32 { case edit = 1, view = 2 }
 enum EditMode: UInt32 { case affine = 1, shape = 2 }
+enum ViewMode: UInt32 { case standard = 1, animation = 2 }
 
 class BounceEngine {
     
     var zoomMode:Bool = false {
         didSet {
-            postNotification(BounceNotification.ZoomModeChanged)
+            BounceEngine.postNotification(BounceNotification.ZoomModeChanged)
         }
     }
     
@@ -35,7 +39,7 @@ class BounceEngine {
         willSet { previousSelectedBlob = selectedBlob }
         didSet {
             if previousSelectedBlob === selectedBlob {
-                postNotification(BounceNotification.BlobSelectionChanged, object: selectedBlob)
+                BounceEngine.postNotification(BounceNotification.BlobSelectionChanged, object: selectedBlob)
             }
         }
     }
@@ -80,13 +84,13 @@ class BounceEngine {
     var sceneMode:SceneMode = .edit {
         didSet {
             handleModeChange()
-            postNotification(BounceNotification.SceneModeChanged) }
+            BounceEngine.postNotification(BounceNotification.SceneModeChanged) }
     }
     
     var editMode:EditMode = .affine {
         didSet {
             handleModeChange()
-            postNotification(BounceNotification.EditModeChanged)
+            BounceEngine.postNotification(BounceNotification.EditModeChanged)
         }
     }
     
@@ -416,25 +420,23 @@ class BounceEngine {
         affineSelectionTouch = nil
     }
     
-    func postNotification(_ notificationName: BounceNotification) {
+    class func postNotification(_ notificationName: BounceNotification) {
         let notification = Notification(name: Notification.Name(notificationName.rawValue), object: nil, userInfo: nil)
         NotificationCenter.default.post(notification)
     }
     
-    func postNotification(_ notificationName: BounceNotification, object: AnyObject?) {
+    class func postNotification(_ notificationName: BounceNotification, object: AnyObject?) {
         let notification = Notification(name: Notification.Name(notificationName.rawValue), object: object, userInfo: nil)
         NotificationCenter.default.post(notification)
-        //NotificationCenter.default.post(Notification(name: String(notification), object: object))
     }
     
-    func addBlob() -> Blob {
+    func addBlob() {
         let blob = Blob()
         blobs.append(blob)
         selectedBlob = blob
         blob.center.x = sceneRect.origin.x + 50
         blob.center.y = sceneRect.origin.y + sceneRect.size.height / 2.0
-        postNotification(.BlobAdded)
-        return blob
+        BounceEngine.postNotification(.BlobAdded)
     }
     
     func blobClosestToPoint(_ pos:CGPoint) -> Blob? {

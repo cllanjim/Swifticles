@@ -93,6 +93,7 @@
 		C214D2771D6E9745004069A3 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D2591D6E9745004069A3 /* HomeMenuViewController.swift */; };
 		C214D2781D6E9745004069A3 /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D25A1D6E9745004069A3 /* ImageImportViewController.swift */; };
 		C214D2791D6E9745004069A3 /* ToolActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D25B1D6E9745004069A3 /* ToolActions.swift */; };
+		C2160E2F1D8B799B00D5DF45 /* ToolRowBottomZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2160E2E1D8B799B00D5DF45 /* ToolRowBottomZoom.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
 		C2340AD11D71026800F8CD02 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AD01D71026800F8CD02 /* Config.swift */; };
 		C2340AE51D71094A00F8CD02 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2340AE41D71094A00F8CD02 /* String+File.swift */; };
@@ -219,6 +220,7 @@
 		C214D2591D6E9745004069A3 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
 		C214D25A1D6E9745004069A3 /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
 		C214D25B1D6E9745004069A3 /* ToolActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolActions.swift; sourceTree = "<group>"; };
+		C2160E2E1D8B799B00D5DF45 /* ToolRowBottomZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomZoom.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
 		C2340AD01D71026800F8CD02 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C2340AE41D71094A00F8CD02 /* String+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				C25281ED1D89F614000A0072 /* ToolRowBottomView.swift */,
 				C25281EF1D89F96E000A0072 /* ToolView.swift */,
 				0D4C5A461D8A681900D6F241 /* HMButton.swift */,
+				C2160E2E1D8B799B00D5DF45 /* ToolRowBottomZoom.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				C214D2661D6E9745004069A3 /* Graphics.swift in Sources */,
 				0D8BE3951D7D2CB500ACDBFC /* LineSegment.swift in Sources */,
 				C214D2751D6E9745004069A3 /* UIImage+Resize.swift in Sources */,
+				C2160E2F1D8B799B00D5DF45 /* ToolRowBottomZoom.swift in Sources */,
 				C2BC0B4E1D80DDBF00EB4075 /* DrawNodeBuffer.swift in Sources */,
 				C214D2731D6E9745004069A3 /* CubicSpline.swift in Sources */,
 				C2036F721D8333350052DCCB /* BlobMeshNode.swift in Sources */,

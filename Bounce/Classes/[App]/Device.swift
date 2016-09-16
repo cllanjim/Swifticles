@@ -28,14 +28,6 @@ class Device
         return UIScreen.main.scale
     }
     
-    var importScale:CGFloat {
-        var result = scale * 2.0
-        if result > 4.0 {
-            result = 4.0
-        }
-        return result
-    }
-    
     var portraitWidth:CGFloat {
         let checkWidth = width, checkHeight = height
         return checkWidth > checkHeight ? checkHeight : checkWidth
@@ -77,19 +69,38 @@ class Device
         return UIApplication.shared.statusBarFrame.size.height
     }
     
+    var orientation:UIInterfaceOrientation {
+        get {
+            return UIApplication.shared.statusBarOrientation
+        }
+        set {
+            UIDevice.current.setValue(newValue.rawValue, forKey: "orientation")
+            //setOrientation(orientation: newValue)
+        }
+    }
+    
     var isPortrait: Bool {
-        let device = UIDevice.current
-        return device.orientation == .portrait || device.orientation == .portraitUpsideDown
+        let ori = orientation
+        if ori == .portrait || ori == .portraitUpsideDown { return true }
+        return false
+        
+        //let device = UIDevice.current
+        //return device.orientation == .portrait || device.orientation == .portraitUpsideDown
     }
     
     var isLandscape: Bool {
-        let device = UIDevice.current
-        return device.orientation == .landscapeLeft || device.orientation == .landscapeRight
+        let orientation = UIApplication.shared.statusBarOrientation
+        if orientation == .landscapeLeft || orientation == .landscapeRight { return true }
+        return false
+        
+        //let device = UIDevice.current
+        //return device.orientation == .landscapeLeft || device.orientation == .landscapeRight
     }
     
-    func setOrientation(orientation: UIInterfaceOrientation) {
-        UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
-    }
+    //func setOrientation(orientation: UIInterfaceOrientation) {
+    //    UIDevice.current.setValue(orientation.rawValue, forKey: "orientation")
+    //}
+    
     
 }
 

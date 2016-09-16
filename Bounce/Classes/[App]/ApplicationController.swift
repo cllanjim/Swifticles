@@ -27,6 +27,14 @@ class ApplicationController
         return navigationController!
     }
     
+    var importScale:CGFloat {
+        var result = gDevice.scale * 2.0
+        if result > 4.0 {
+            result = 4.0
+        }
+        return result
+    }
+    
     var bounce:BounceViewController? {
         for vc:UIViewController in navigationController.viewControllers {
             if vc.isKind(of: BounceViewController.self) {
@@ -38,14 +46,52 @@ class ApplicationController
         return nil
     }
     
+    var sceneMode:SceneMode {
+        get {
+            if let mode = engine?.sceneMode { return mode }
+            return .edit
+        }
+        set {
+            engine?.sceneMode = newValue
+        }
+    }
+    
+    var editMode:EditMode {
+        get {
+            if let mode = engine?.editMode { return mode }
+            return .affine
+        }
+        set {
+            engine?.editMode = newValue
+        }
+    }
+    
+    var zoomMode:Bool {
+        get {
+        if engine != nil { return engine!.zoomMode }
+        return true
+        }
+        set {
+            if engine != nil { engine!.zoomMode = newValue }
+        }
+    }
+    
     var width:CGFloat {
         if let result = bounce?.screenRect.size.width { return result }
-        return 320.0
+        if gDevice.isLandscape {
+            return gDevice.landscapeWidth
+        } else {
+            return gDevice.portraitWidth
+        }
     }
     
     var height:CGFloat {
         if let result = bounce?.screenRect.size.height { return result }
-        return 320.0
+        if gDevice.isLandscape {
+            return gDevice.landscapeHeight
+        } else {
+            return gDevice.portraitHeight
+        }
     }
     
     var engine:BounceEngine? {

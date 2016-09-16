@@ -47,7 +47,6 @@ class RRButton: UIButton {
     }
     
     deinit {
-        print("Deinit RRButton")
     }
     
     func setUp() {

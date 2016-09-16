@@ -10,6 +10,9 @@ import UIKit
 
 class ToolView: UIView
 {
+    
+    var index: Int = 0
+    
     @IBOutlet weak var heightConstraint: NSLayoutConstraint?
     @IBOutlet weak var widthConstraint: NSLayoutConstraint?
     
@@ -28,49 +31,31 @@ class ToolView: UIView
     }
     
     func setUp() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
-                                               name: NSNotification.Name(BounceNotification.ZoomModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleSceneModeChanged),
-                                               name: NSNotification.Name(BounceNotification.SceneModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged),
-                                               name: NSNotification.Name(BounceNotification.EditModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewModeChanged),
-                                               name: NSNotification.Name(BounceNotification.ViewModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleBlobSelectionChanged),
-                                               name: NSNotification.Name(BounceNotification.BlobSelectionChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
-                                               name: NSNotification.Name(BounceNotification.BlobAdded.rawValue), object: nil)
+        addObserver(selector: #selector(handleSceneReady), notification: .SceneReady)
+        addObserver(selector: #selector(handleZoomModeChange), notification: .ZoomModeChanged)
+        addObserver(selector: #selector(handleSceneModeChanged), notification: .SceneModeChanged)
+        addObserver(selector: #selector(handleEditModeChanged), notification: .EditModeChanged)
+        addObserver(selector: #selector(handleViewModeChanged), notification: .ViewModeChanged)
+        addObserver(selector: #selector(handleBlobSelectionChanged), notification: .BlobSelectionChanged)
+    }
+    
+    func addObserver(selector:Selector, notification:BounceNotification) {
+        NotificationCenter.default.addObserver(self,
+                                               selector: selector,
+                                               name: NSNotification.Name(notification.rawValue),
+                                               object: nil)
     }
     
     deinit {
         
     }
     
-    func handleZoomModeChange() {
-        print("handleZoomModeChange()")
-        
-    }
-    
-    func handleSceneModeChanged() {
-        print("handleSceneModeChanged()")
-        
-    }
-    
-    func handleEditModeChanged() {
-        print("handleEditModeChanged()")
-    }
-    
-    func handleViewModeChanged() {
-        print("handleViewModeChanged()")
-    }
-    
-    func handleBlobAdded() {
-        print("handleBlobAdded()")
-    }
-    
-    func handleBlobSelectionChanged() {
-        print("handleBlobSelectionChanged()")
-    }
-    
+    func handleSceneReady() { }
+    func handleZoomModeChange() { }
+    func handleSceneModeChanged() { }
+    func handleEditModeChanged() { }
+    func handleViewModeChanged() { }
+    func handleBlobAdded() { }
+    func handleBlobSelectionChanged() { }
 }
 
