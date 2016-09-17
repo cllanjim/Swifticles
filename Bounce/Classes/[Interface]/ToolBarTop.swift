@@ -76,7 +76,7 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
     
     func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
-        if checkBox == checkBoxZoom {
+        if checkBox === checkBoxZoom {
             
             ToolActions.setZoomMode(zoomMode: checked)
         }

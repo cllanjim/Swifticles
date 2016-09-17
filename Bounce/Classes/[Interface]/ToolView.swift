@@ -27,7 +27,10 @@ class ToolView: UIView
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUp()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.065) { [weak weakSelf = self] in
+            weakSelf?.setUp()
+        }
+        
     }
     
     func setUp() {

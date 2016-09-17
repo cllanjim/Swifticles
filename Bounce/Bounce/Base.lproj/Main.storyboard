@@ -479,8 +479,8 @@
                                                     <constraint firstItem="q4W-Mh-eDM" firstAttribute="top" secondItem="J0s-W5-s5Y" secondAttribute="top" constant="12" id="sMZ-PO-und"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="leftConstraint" destination="ttN-PF-YXg" id="Rm4-9U-dDJ"/>
-                                                    <outlet property="topConstraint" destination="cOK-DH-lkM" id="v6j-rs-u9X"/>
+                                                    <outlet property="leftConstraint" destination="3z7-aV-Xcj" id="f4e-Wb-xC3"/>
+                                                    <outlet property="topConstraint" destination="IU3-qO-4tw" id="phq-lB-VRe"/>
                                                 </connections>
                                             </view>
                                         </subviews>

@@ -68,8 +68,8 @@ class ApplicationController
     
     var zoomMode:Bool {
         get {
-        if engine != nil { return engine!.zoomMode }
-        return true
+            if engine != nil { return engine!.zoomMode }
+            return true
         }
         set {
             if engine != nil { engine!.zoomMode = newValue }

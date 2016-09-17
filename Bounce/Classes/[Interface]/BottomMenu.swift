@@ -127,6 +127,9 @@ class BottomMenu: ToolView
                 }
                 sendOnScreen(_currentToolRow!)
                 
+                layoutIfNeeded()
+                
+                
             //Initial case, snap everything into place.
             } else if _currentToolRow == nil && previousToolRow != nil {
                 print("***UNUSED CASE***)")
@@ -164,13 +167,30 @@ class BottomMenu: ToolView
                     [weakSelf = self] in
                     weakSelf._currentToolRow!.layoutIfNeeded()
                     previousToolRow!.layoutIfNeeded()
+                    weakSelf.layoutIfNeeded()
                     weakSelf.superview?.layoutIfNeeded()
+                    
                     }, completion: nil)
             }
             
             
-            layoutIfNeeded()
+            
+        
+            print("toolRowEdit Left C = \(toolRowEdit.leftConstraint!.constant)")
+            print("toolRowView Left C = \(toolRowView.leftConstraint!.constant)")
+            print("toolRowZoom Left C = \(toolRowZoom.leftConstraint!.constant)")
         }
+        
+        //
+        
+    
+    //@IBOutlet weak internal var : ToolRowBottomView! {
+      //  didSet { toolRows.append(toolRowView) }
+        //}
+        //@IBOutlet weak internal var : ToolRowBottomZoom! {
+        //didSet { toolRows.append(toolRowZoom) }
+        //}
+
         
     }
     
@@ -181,17 +201,32 @@ class BottomMenu: ToolView
     }
     
     func sendOnScreen(_ row:ToolView) {
-        row.leftConstraint?.constant = 0
+        
+        if row === toolRowEdit { print("EDIT - sendOnScreen") }
+        if row === toolRowView { print("VIEW - sendOnScreen") }
+        if row === toolRowZoom { print("ZOOM - sendOnScreen") }
+        
+        row.leftConstraint?.constant = 0.0
         row.setNeedsLayout()
     }
     
     func sendOffScreenLeft(_ row:ToolView) {
-        row.leftConstraint?.constant = -gApp.width * 0.75
+        
+        if row === toolRowEdit { print("EDIT - sendOffScreenLeft") }
+        if row === toolRowView { print("VIEW - sendOffScreenLeft") }
+        if row === toolRowZoom { print("ZOOM - sendOffScreenLeft") }
+        
+        row.leftConstraint?.constant = CGFloat(-Int(gApp.width + 0.5))
         row.setNeedsLayout()
     }
     
     func sendOffScreenRight(_ row:ToolView) {
-        row.leftConstraint?.constant = gApp.width * 0.75
+        
+        if row === toolRowEdit { print("EDIT - sendOffScreenRight") }
+        if row === toolRowView { print("VIEW - sendOffScreenRight") }
+        if row === toolRowZoom { print("ZOOM - sendOffScreenRight") }
+        
+        row.leftConstraint?.constant = CGFloat(Int(gApp.width + 0.5))
         row.setNeedsLayout()
     }
     
