@@ -152,7 +152,7 @@ class PointList
         }
         for i in startIndex..<count {
             let point = data[i]
-            gG.lineDraw(p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y), thickness: 0.5)
+            Graphics.shared.lineDraw(p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y), thickness: 0.5)
             prev = point
         }
     }
@@ -160,7 +160,7 @@ class PointList
     func drawPoints() {
         for i in 0..<count {
             let point = data[i]
-            gG.pointDraw(point: CGPoint(x: point.x, y: point.y), size: 4.0)
+            Graphics.shared.pointDraw(point: CGPoint(x: point.x, y: point.y), size: 4.0)
         }
     }
     

@@ -22,9 +22,14 @@ class ApplicationController
         return (UIApplication.shared.delegate as! AppDelegate)
     }
     
+    weak internal var _navigationController:UINavigationController?
     var navigationController:UINavigationController {
-        let navigationController = appDelegate.window!.rootViewController as? UINavigationController
-        return navigationController!
+        if _navigationController != nil {
+            return _navigationController!
+        } else {
+            _navigationController = appDelegate.window!.rootViewController as? UINavigationController
+            return _navigationController!
+        }
     }
     
     var importScale:CGFloat {
@@ -35,15 +40,29 @@ class ApplicationController
         return result
     }
     
+    weak internal var _bounce:BounceViewController?
     var bounce:BounceViewController? {
-        for vc:UIViewController in navigationController.viewControllers {
-            if vc.isKind(of: BounceViewController.self) {
-                if let bounce = vc as? BounceViewController {
-                    return bounce
+        get {
+            return _bounce
+            /*
+            if _bounce != nil {
+                return _bounce
+            } else {
+                for vc:UIViewController in navigationController.viewControllers {
+                    if vc.isKind(of: BounceViewController.self) {
+                        if let bounce = vc as? BounceViewController {
+                            return bounce
+                        }
+                    }
                 }
+                return nil
             }
+            */
         }
-        return nil
+        set {
+            _bounce = newValue
+        }
+        
     }
     
     var sceneMode:SceneMode {
@@ -94,17 +113,27 @@ class ApplicationController
         }
     }
     
+    weak internal var _engine:BounceEngine?
     var engine:BounceEngine? {
-        if let checkBounce = bounce {
-            return checkBounce.engine
+        get {
+            return _engine
+            /*
+            if _engine != nil {
+                return _engine
+            } else {
+                return bounce?.engine
+                return nil
+            }
+            */
         }
-        return nil
+        set {
+            _engine = newValue
+        }
     }
     
     var bottomMenu:BottomMenu? {
         return bounce?.bottomMenu
     }
-    
     
 }
 

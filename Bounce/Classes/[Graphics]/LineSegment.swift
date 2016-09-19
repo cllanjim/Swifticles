@@ -121,7 +121,6 @@ class LineSegment
         }
     }
     
-    
     class func SegmentSegmentIntersection(l1:LineSegment, l2:LineSegment) -> LineIntersection {
         if LineSegment.SegmentsIntersect(l1: l1, l2: l2) {
             let planeOrigin = l2.p1
@@ -158,12 +157,7 @@ class LineSegment
     }
     
     class func SegmentClosestPoint(line:LineSegment, point:CGPoint) -> CGPoint {
-        //var result = LineIntersection()
-        //result.point.x = line.x1;
-        //result.point.y = line.y1;
-        
         var result = CGPoint(x: line.x1, y: line.y1)
-        
         let factor1X = (point.x - line.x1)
         let factor1Y = (point.y - line.y1)
         let lineDiffX = line.deltaX
@@ -179,27 +173,16 @@ class LineSegment
             if scalar < 0.0 {
                 result.x = line.x1
                 result.y = line.y1
-                //result.intersects = false
             } else if scalar > lineLength {
                 result.x = line.x2;
                 result.y = line.y2;
-                //result.intersects = false
             } else {
                 result.x = line.x1 + factor2X * scalar;
                 result.y = line.y1 + factor2Y * scalar;
-                //result.intersects = true
             }
-            
-            //var diffX = result.point.x - point.x
-            //var diffY = result.point.y - point.y
-            //var dist =
-            
-            
         }
         return result
     }
-    
-    
 }
 
 /*

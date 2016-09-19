@@ -71,21 +71,21 @@ class DrawTriangleBuffer {
     func draw(texture:Texture?) {
         
         if vertexBufferSlot == nil{
-            vertexBufferSlot = gG.bufferGenerate()
+            vertexBufferSlot = Graphics.shared.bufferGenerate()
         }
         
         //if indexBufferSlot == nil{
-        //    indexBufferSlot = gG.bufferGenerate()
+        //    indexBufferSlot = Graphics.shared.bufferGenerate()
         //}
         
         if vertexBufferSlot != nil && vertexBufferSlot != nil {
             
-            gG.bufferVertexBind(vertexBufferSlot)
-            //gG.bufferIndexBind(indexBufferSlot)
+            Graphics.shared.bufferVertexBind(vertexBufferSlot)
+            //Graphics.shared.bufferIndexBind(indexBufferSlot)
             
-            gG.positionEnable()
-            gG.texCoordEnable()
-            gG.colorArrayEnable()
+            Graphics.shared.positionEnable()
+            Graphics.shared.texCoordEnable()
+            Graphics.shared.colorArrayEnable()
             
             for index in 0..<_count {
                 
@@ -95,25 +95,25 @@ class DrawTriangleBuffer {
                 //vertexBuffer = tri.buffer //tri.buffer
                 //indexBuffer = [0, 2, 1, 1, 2, 3]
                 
-                //gG.rectDraw(x: Float(tri.x1 - 7), y: Float(tri.y1 - 2), width: 15, height: 15)
-                //gG.rectDraw(x: Float(tri.x2 - 7), y: Float(tri.y2 - 2), width: 15, height: 15)
-                //gG.rectDraw(x: Float(tri.x3 - 7), y: Float(tri.y3 - 2), width: 15, height: 15)
+                //Graphics.shared.rectDraw(x: Float(tri.x1 - 7), y: Float(tri.y1 - 2), width: 15, height: 15)
+                //Graphics.shared.rectDraw(x: Float(tri.x2 - 7), y: Float(tri.y2 - 2), width: 15, height: 15)
+                //Graphics.shared.rectDraw(x: Float(tri.x3 - 7), y: Float(tri.y3 - 2), width: 15, height: 15)
                 
                 if let checkTexture = texture {
-                    gG.textureEnable()
-                    gG.textureBind(texture: checkTexture)
+                    Graphics.shared.textureEnable()
+                    Graphics.shared.textureBind(texture: checkTexture)
                 } else {
-                    gG.textureDisable()
+                    Graphics.shared.textureDisable()
                 }
                 
                 
-                //gG.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &t[index].buffer, size: 30)
+                //Graphics.shared.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &t[index].buffer, size: 30)
                 
-                gG.positionSetPointer(size: 3, offset: 0, stride: 10)
-                gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
-                gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+                Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
+                Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+                Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
                 
-                gG.drawTriangleList(count: 3, offset: 0)
+                Graphics.shared.drawTriangleList(count: 3, offset: 0)
                 
             }
         }

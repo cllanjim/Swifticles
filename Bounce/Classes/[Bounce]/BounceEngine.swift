@@ -9,7 +9,6 @@ import UIKit
 import Foundation
 
 enum BounceNotification:String {
-    
     case SceneReady = "BounceNotification.SceneReady"
     case ZoomModeChanged = "BounceNotification.ZoomModeChanged"
     case SceneModeChanged = "BounceNotification.SceneModeChanged"
@@ -25,6 +24,14 @@ enum EditMode: UInt32 { case affine = 1, shape = 2 }
 enum ViewMode: UInt32 { case standard = 1, animation = 2 }
 
 class BounceEngine {
+    
+    required init() {
+        gApp.engine = self
+    }
+    
+    deinit {
+        gApp.engine = nil
+    }
     
     var zoomMode:Bool = false {
         didSet {
@@ -82,11 +89,23 @@ class BounceEngine {
     }
     
     var sceneMode:SceneMode = .edit {
+        
+        willSet {
+            if sceneMode != newValue {
+                if newValue == .edit {
+                    gApp.bounce?.animateScreenTransformToEdit()
+                } else if newValue == .view {
+                    gApp.bounce?.animateScreenTransformToIdentity()
+                }
+            }
+        }
+        
         didSet {
             handleModeChange()
             BounceEngine.postNotification(BounceNotification.SceneModeChanged) }
     }
     
+    //internal var previousEditMode:EditMode = .affine
     var editMode:EditMode = .affine {
         didSet {
             handleModeChange()
@@ -186,22 +205,22 @@ class BounceEngine {
         
         let screenSize = scene.isLandscape ? CGSize(width: gDevice.landscapeWidth, height: gDevice.landscapeHeight) : CGSize(width: gDevice.portraitWidth, height: gDevice.portraitHeight)
         
-        gG.colorSet(r: 0.44, g: 0.44, b: 0.44)
-        gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
+        Graphics.shared.colorSet(r: 0.44, g: 0.44, b: 0.44)
+        Graphics.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
         
-        gG.colorSet(a: 0.35)
+        Graphics.shared.colorSet(a: 0.35)
         background.draw()
-        gG.colorSet()
+        Graphics.shared.colorSet()
         
-        gG.colorSet(r: 1.0, g: 0.2, b: 0.2)
-        gG.pointDraw(point: CGPoint(x: background.startX, y: background.startY))
-        gG.pointDraw(point: CGPoint(x: background.startX, y: background.endY))
-        gG.pointDraw(point: CGPoint(x: background.endX, y: background.startY))
-        gG.pointDraw(point: CGPoint(x: background.endX, y: background.endY))
+        Graphics.shared.colorSet(r: 1.0, g: 0.2, b: 0.2)
+        Graphics.shared.pointDraw(point: CGPoint(x: background.startX, y: background.startY))
+        Graphics.shared.pointDraw(point: CGPoint(x: background.startX, y: background.endY))
+        Graphics.shared.pointDraw(point: CGPoint(x: background.endX, y: background.startY))
+        Graphics.shared.pointDraw(point: CGPoint(x: background.endX, y: background.endY))
         
         
         
-        gG.colorSet()
+        Graphics.shared.colorSet()
         
         for blob:Blob in blobs {
             if blob.enabled {
@@ -209,10 +228,10 @@ class BounceEngine {
             }
         }
         
-        gG.colorSet(r: 0.6, g: 0.8, b: 0.25)
-        gG.pointDraw(point: touchPoint)
+        Graphics.shared.colorSet(r: 0.6, g: 0.8, b: 0.25)
+        Graphics.shared.pointDraw(point: touchPoint)
         
-        gG.colorSet()
+        Graphics.shared.colorSet()
     }
     
     func touchDown(_ touch:inout UITouch, point:CGPoint) {
@@ -507,7 +526,6 @@ class BounceEngine {
             x = CGFloat(sinf(Float(pivotRotation))) * dist
             y = CGFloat(-cosf(Float(pivotRotation))) * dist
         }
-        
         return CGPoint(x: x, y: y)
     }
     

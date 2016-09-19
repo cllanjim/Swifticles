@@ -177,17 +177,17 @@ open class Sprite {
     }
     
     func bind() {
-        gG.textureBind(texture: texture)
+        Graphics.shared.textureBind(texture: texture)
     }
     
     func clear() {
         size = CGSize.zero
         texture = nil
         
-        gG.bufferDelete(bufferIndex: vertexBufferSlot)
+        Graphics.shared.bufferDelete(bufferIndex: vertexBufferSlot)
         vertexBufferSlot = nil
         
-        gG.bufferDelete(bufferIndex: indexBufferSlot)
+        Graphics.shared.bufferDelete(bufferIndex: indexBufferSlot)
         indexBufferSlot = nil
     }
     
@@ -222,8 +222,8 @@ open class Sprite {
             startY = CGFloat(-height2)
             endY = CGFloat(height2)
             
-            vertexBufferSlot = gG.bufferVertexGenerate(data: &vertexBuffer, size: 40)
-            indexBufferSlot = gG.bufferIndexGenerate(data: &indexBuffer, size: 6)
+            vertexBufferSlot = Graphics.shared.bufferVertexGenerate(data: &vertexBuffer, size: 40)
+            indexBufferSlot = Graphics.shared.bufferIndexGenerate(data: &indexBuffer, size: 6)
         }
     }
     
@@ -233,24 +233,24 @@ open class Sprite {
             refreshVB()
         }
         
-        gG.bufferVertexBind(vertexBufferSlot)
+        Graphics.shared.bufferVertexBind(vertexBufferSlot)
         
-        gG.positionEnable()
-        gG.positionSetPointer(size: 3, offset: 0, stride: 10)
+        Graphics.shared.positionEnable()
+        Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
         
-        gG.texCoordEnable()
-        gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        Graphics.shared.texCoordEnable()
+        Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
         
-        gG.colorArrayEnable()
-        gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        Graphics.shared.colorArrayEnable()
+        Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
-        gG.textureEnable()
-        gG.textureBind(texture: texture)
+        Graphics.shared.textureEnable()
+        Graphics.shared.textureBind(texture: texture)
         
         
-        gG.bufferIndexBind(indexBufferSlot)
+        Graphics.shared.bufferIndexBind(indexBufferSlot)
         
-        gG.drawElementsTriangle(count:6, offset: 0)
+        Graphics.shared.drawElementsTriangle(count:6, offset: 0)
     }
     
     open func drawCentered(pos:CGPoint) {
@@ -258,7 +258,7 @@ open class Sprite {
         
         
         
-        //var modelView = gG.matrixModelViewGet()
+        //var modelView = Graphics.shared.matrixModelViewGet()
         
         
         //print("modelView = \(modelView.m)")
@@ -272,7 +272,7 @@ open class Sprite {
         //var matrix = GLKMatrix4Translate(modelView, Float(pos.x), Float(pos.y), 0.0)
         //var matrix = GLKMatrix4MakeTranslation(Float(pos.x), Float(pos.y), 0.0)
         
-        //gG.matrixModelViewSet(matrix)
+        //Graphics.shared.matrixModelViewSet(matrix)
         
         
         //textureDisable()
@@ -292,7 +292,7 @@ open class Sprite {
     internal func refreshVB() {
         
         if let checkIndex = vertexBufferSlot {
-            gG.bufferVertexSetData(bufferIndex: checkIndex, data: &vertexBuffer, size: 40)
+            Graphics.shared.bufferVertexSetData(bufferIndex: checkIndex, data: &vertexBuffer, size: 40)
             needsRefresh = false
         }
         

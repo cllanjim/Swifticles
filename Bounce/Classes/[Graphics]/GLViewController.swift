@@ -19,7 +19,6 @@ class GLViewController: GLKViewController {
     func draw() { }
     
     deinit {
-        print("GLViewController.deinit()")
         self.tearDownGL()
         if EAGLContext.current() === self.context {
             EAGLContext.setCurrent(nil)
@@ -29,7 +28,8 @@ class GLViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.context = EAGLContext(api: .openGLES2)
+        preferredFramesPerSecond = 60
+        context = EAGLContext(api: .openGLES2)
         
         if !(self.context != nil) {
             print("Failed to create ES context")
@@ -46,9 +46,6 @@ class GLViewController: GLKViewController {
         self.setupGL()
         
         self.performSelector(onMainThread: #selector(load), with: nil, waitUntilDone: true)
-        
-        //self.load()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,9 +53,9 @@ class GLViewController: GLKViewController {
         
         if self.isViewLoaded && (self.view.window != nil) {
             
-            print("**********************")
-            print("***  GL - SUICIDE!!!")
-            print("**********************")
+            print("************************")
+            print("***  GL - SUICIDE!!! ***")
+            print("************************")
             /*
             self.view = nil
             
@@ -74,13 +71,13 @@ class GLViewController: GLKViewController {
     
     func setupGL() {
         EAGLContext.setCurrent(self.context)
-        self.loadShaders()
-        gG.create()
+        loadShaders()
+        Graphics.shared.create()
     }
     
     func tearDownGL() {
         EAGLContext.setCurrent(self.context)
-        gG.dispose()
+        Graphics.shared.dispose()
         if program != 0 {
             glDeleteProgram(program)
             program = 0
@@ -88,14 +85,14 @@ class GLViewController: GLKViewController {
     }
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
-        gG.clear()
-        gG.colorSet()
-        gG.blendEnable()
-        gG.blendSetAlpha()
+        Graphics.shared.clear()
+        Graphics.shared.colorSet()
+        Graphics.shared.blendEnable()
+        Graphics.shared.blendSetAlpha()
         draw()
     }
     
-    func loadShaders() -> Bool {
+    func loadShaders() -> Void {
         var vertShader: GLuint = 0
         var fragShader: GLuint = 0
         var vertShaderPathname: String
@@ -108,14 +105,14 @@ class GLViewController: GLKViewController {
         vertShaderPathname = Bundle.main.path(forResource: "VertexShader", ofType: "glsl")!
         if self.compileShader(&vertShader, type: GLenum(GL_VERTEX_SHADER), file: vertShaderPathname) == false {
             print("Failed to compile vertex shader")
-            return false
+            return
         }
         
         // Create and compile fragment shader.
         fragShaderPathname = Bundle.main.path(forResource: "FragmentShader", ofType: "glsl")!
         if !self.compileShader(&fragShader, type: GLenum(GL_FRAGMENT_SHADER), file: fragShaderPathname) {
             print("Failed to compile fragment shader")
-            return false
+            return
         }
         
         // Attach vertex shader to program.
@@ -139,30 +136,33 @@ class GLViewController: GLKViewController {
                 glDeleteProgram(program)
                 program = 0
             }
-            return false
+            return
         }
         
         glUseProgram(program)
         
-        gGLSlotPosition = glGetAttribLocation(program, "Position")
-        gGLSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
-        gGLSlotColor = glGetAttribLocation(program, "SourceColor")
-        gGLUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
-        gGLUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
-        gGLUniformTexture = glGetUniformLocation(program, "Texture")
-        gGLUniformColorModulate = glGetUniformLocation(program, "ModulateColor")
+        Graphics.shared.shaderSlotSlotPosition = glGetAttribLocation(program, "Position")
+        Graphics.shared.shaderSlotSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
+        Graphics.shared.shaderSlotSlotColor = glGetAttribLocation(program, "SourceColor")
+        
+        Graphics.shared.shaderSlotUniformEnableTexture = glGetUniformLocation(program, "EnableTexture")
+        Graphics.shared.shaderSlotUniformEnableModulate = glGetUniformLocation(program, "EnableModulate")
+        
+        Graphics.shared.shaderSlotUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
+        Graphics.shared.shaderSlotUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
+        Graphics.shared.shaderSlotUniformTexture = glGetUniformLocation(program, "Texture")
+        Graphics.shared.shaderSlotUniformColorModulate = glGetUniformLocation(program, "ModulateColor")
+        
         
         // Release vertex and fragment shaders.
         if vertShader != 0 {
             glDetachShader(program, vertShader)
             glDeleteShader(vertShader)
         }
-        
         if fragShader != 0 {
             glDetachShader(program, fragShader)
             glDeleteShader(fragShader)
         }
-        return true
     }
     
     func compileShader(_ shader: inout GLuint, type: GLenum, file: String) -> Bool {

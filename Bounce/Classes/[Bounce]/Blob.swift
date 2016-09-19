@@ -92,11 +92,11 @@ class Blob
     
     init() {
         
-        vertexBufferSlot = gG.bufferGenerate()
-        indexBufferSlot = gG.bufferGenerate()
+        vertexBufferSlot = Graphics.shared.bufferGenerate()
+        indexBufferSlot = Graphics.shared.bufferGenerate()
         
-        //vertexBufferSlot = gG.bufferVertexGenerate(data: &vertexBuffer, size: 40)
-        //indexBufferSlot = gG.bufferIndexGenerate(data: &indexBuffer, size: 6)
+        //vertexBufferSlot = Graphics.shared.bufferVertexGenerate(data: &vertexBuffer, size: 40)
+        //indexBufferSlot = Graphics.shared.bufferIndexGenerate(data: &indexBuffer, size: 6)
         
         spline.add(0.0, y: -100)
         spline.add(50.0, y: -50)
@@ -114,10 +114,10 @@ class Blob
     }
     
     deinit {
-        gG.bufferDelete(bufferIndex: vertexBufferSlot)
+        Graphics.shared.bufferDelete(bufferIndex: vertexBufferSlot)
         vertexBufferSlot = nil
         
-        gG.bufferDelete(bufferIndex: indexBufferSlot)
+        Graphics.shared.bufferDelete(bufferIndex: indexBufferSlot)
         indexBufferSlot = nil
     }
     
@@ -157,18 +157,18 @@ class Blob
         computeIfNeeded()
         
         
-        gG.colorSet(r: 0.5, g: 0.8, b: 0.05)
-        gG.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
+        Graphics.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
+        Graphics.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
         
         
-        //gG.colorSet(r: 0.25, g: 0.88, b: 0.89)
+        //Graphics.shared.colorSet(r: 0.25, g: 0.88, b: 0.89)
         //border.drawPoints()
         
-        //gG.colorSet(r: 0.25, g: 0.15, b: 0.88, a: 0.22)
-        //gG.rectDraw(border.getBoundingBox(padding: 5.0))
+        //Graphics.shared.colorSet(r: 0.25, g: 0.15, b: 0.88, a: 0.22)
+        //Graphics.shared.rectDraw(border.getBoundingBox(padding: 5.0))
         
         
-        gG.colorSet(r: 0.25, g: 1.0, b: 1.0, a: 1.0)
+        Graphics.shared.colorSet(r: 0.25, g: 1.0, b: 1.0, a: 1.0)
         
         
         
@@ -176,21 +176,21 @@ class Blob
             
             let segment = lines.data[i]
             
-            gG.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.5)
+            Graphics.shared.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.5)
         }
         
-        gG.colorSet(r: 1.0, g: 0.0, b: 0.5)
+        Graphics.shared.colorSet(r: 1.0, g: 0.0, b: 0.5)
         for i in 0..<spline.controlPointCount {
             var controlPoint = spline.getControlPoint(i)
             controlPoint = transformPoint(point: controlPoint)
-            gG.rectDraw(x: Float(controlPoint.x - 5), y: Float(controlPoint.y - 5), width: 11, height: 11)
+            Graphics.shared.rectDraw(x: Float(controlPoint.x - 5), y: Float(controlPoint.y - 5), width: 11, height: 11)
         }
         
 
         
-        gG.colorSet()
-        gG.textureEnable()
-        gG.textureBind(texture: sprite.texture)
+        Graphics.shared.colorSet()
+        Graphics.shared.textureEnable()
+        Graphics.shared.textureBind(texture: sprite.texture)
         
         
         let indexBufferCount = tri.count * 3
@@ -209,18 +209,18 @@ class Blob
             vertexIndex += 10
         }
         
-        gG.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
-        gG.positionEnable()
-        gG.positionSetPointer(size: 3, offset: 0, stride: 10)
+        Graphics.shared.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
+        Graphics.shared.positionEnable()
+        Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
         
-        gG.texCoordEnable()
-        gG.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        Graphics.shared.texCoordEnable()
+        Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
         
-        gG.colorArrayEnable()
-        gG.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        Graphics.shared.colorArrayEnable()
+        Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
-        gG.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
-        gG.drawElementsTriangle(count:indexBufferCount, offset: 0)
+        Graphics.shared.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
+        Graphics.shared.drawElementsTriangle(count:indexBufferCount, offset: 0)
         
         
         /*
@@ -264,7 +264,7 @@ class Blob
         */
  
         /*
-        gG.colorSet(a: 0.25)
+        Graphics.shared.colorSet(a: 0.25)
         for i in 0..<tri.count {
             
             let t = tri.data [i]
@@ -284,9 +284,9 @@ class Blob
             y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
             y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
             
-            gG.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
-            gG.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
-            gG.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
+            Graphics.shared.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
+            Graphics.shared.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
+            Graphics.shared.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
         }
  
         
@@ -294,8 +294,8 @@ class Blob
         for nodeIndex in 0..<meshNodes.count {
             let node = meshNodes.data[nodeIndex]
             
-            gG.colorSet(r: Float(node.edgePercent), g: 0.0, b: 0.0)
-            gG.pointDraw(point: CGPoint(x: node.x, y: node.y), size: 3.0)
+            Graphics.shared.colorSet(r: Float(node.edgePercent), g: 0.0, b: 0.0)
+            Graphics.shared.pointDraw(point: CGPoint(x: node.x, y: node.y), size: 3.0)
             
         }
         
@@ -303,9 +303,9 @@ class Blob
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
                 
-                gG.colorSet(color: grid[i][n].color)
-                //gG.pointDraw(point: grid[i][n].pointBase, size: 4.0)
-                gG.pointDraw(point: grid[i][n].point, size: 2.0)
+                Graphics.shared.colorSet(color: grid[i][n].color)
+                //Graphics.shared.pointDraw(point: grid[i][n].pointBase, size: 4.0)
+                Graphics.shared.pointDraw(point: grid[i][n].point, size: 2.0)
             }
         }
         */
@@ -317,23 +317,23 @@ class Blob
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
                 if grid[i][n].edgeL {
-                    gG.colorSet(color: UIColor.blueColor())
-                    gG.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseL), p2: grid[i][n].point, thickness: 1.0)
+                    Graphics.shared.colorSet(color: UIColor.blueColor())
+                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseL), p2: grid[i][n].point, thickness: 1.0)
                 }
                 
                 if grid[i][n].edgeR {
-                    gG.colorSet(color: UIColor.redColor())
-                    gG.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseR), p2: grid[i][n].point, thickness: 1.0)
+                    Graphics.shared.colorSet(color: UIColor.redColor())
+                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseR), p2: grid[i][n].point, thickness: 1.0)
                 }
                 
                 if grid[i][n].edgeU {
-                    gG.colorSet(color: UIColor.redColor())
-                    gG.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseU), p2: grid[i][n].point, thickness: 1.0)
+                    Graphics.shared.colorSet(color: UIColor.redColor())
+                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseU), p2: grid[i][n].point, thickness: 1.0)
                 }
                 
                 if grid[i][n].edgeD {
-                    gG.colorSet(color: UIColor.purpleColor())
-                    gG.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseD), p2: grid[i][n].point, thickness: 1.0)
+                    Graphics.shared.colorSet(color: UIColor.purpleColor())
+                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseD), p2: grid[i][n].point, thickness: 1.0)
                 }
             }
         }

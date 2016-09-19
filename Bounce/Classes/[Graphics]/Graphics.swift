@@ -14,20 +14,22 @@ import CoreData
 typealias IndexBufferType = GLushort
 typealias BufferIndex = GLint
 
-var gGLBufferDepth:GLuint = 0
-var gGLBufferRender:GLuint = 0
-
-var gGLUniformProjection:GLint = 0
-var gGLUniformModelView:GLint = 0
-var gGLUniformTexture:GLint = 0
-var gGLUniformColorModulate:GLint = 0
-
-var gGLSlotPosition:GLint = 0
-var gGLSlotTexCoord:GLint = 0
-var gGLSlotColor:GLint = 0
-var gGLSlotNormal:GLint = 0
-
 class Graphics {
+    var shaderSlotBufferDepth:GLuint = 0
+    var shaderSlotBufferRender:GLuint = 0
+    
+    var shaderSlotUniformEnableTexture:GLint = 0
+    var shaderSlotUniformEnableModulate:GLint = 0
+    
+    var shaderSlotUniformProjection:GLint = 0
+    var shaderSlotUniformModelView:GLint = 0
+    var shaderSlotUniformTexture:GLint = 0
+    var shaderSlotUniformColorModulate:GLint = 0
+    
+    var shaderSlotSlotPosition:GLint = 0
+    var shaderSlotSlotTexCoord:GLint = 0
+    var shaderSlotSlotColor:GLint = 0
+    var shaderSlotSlotNormal:GLint = 0
     
     private var cTestProjectionMatrix = [Float]()
     private var cTestModelViewMatrix = [Float]()
@@ -38,29 +40,77 @@ class Graphics {
     private var cWhiteSprite: Sprite = Sprite()
     
     // x y z u v w r g b a (10) * 4 = 40
-    var cRectVertexBuffer = [GLfloat](repeating: 0.0, count: 40)
+    var cRectVertexBuffer = [GLfloat](repeating: 1.0, count: 40)
     var cRectIndexBuffer = [IndexBufferType](repeating: 0, count: 6)
     
     private var cRectVertexBufferSlot:BufferIndex?
     private var cRectIndexBufferSlot:BufferIndex?
     
-    init() {
-        print("Graphics.init()")
-    }
+    static let shared = Graphics()
+    private init() { }
     
     //Expects external engine to have set up
-    //the uniforms, gGLSlotPosition etc.
+    //the uniforms, shaderSlotSlotPosition etc.
     
     //Interesting note - we ALWAYS are using textures,
     //no matter WHAT!!!
+    
+    //TODO: Can we switch textured drawing on and off using shader?!?!
+    //TODO: Load 2 programs, one for textured drawing, one for colored shape drawing..
+    //(Lower priority than finishing the app...)
     func create() {
         cWhiteSprite.load(path: "white_square")
         
-        cRectVertexBuffer = [-128.0, -128.0, 0.0,    0.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                              128.0, -128.0, 0.0,    1.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                             -128.0,  128.0, 0.0,    0.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                              128.0,  128.0, 0.0,    1.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0]
-        cRectIndexBuffer = [0, 2, 1, 1, 2, 3]
+        cRectVertexBuffer[ 0] = -128.0
+        cRectVertexBuffer[ 1] = -128.0
+        cRectVertexBuffer[ 2] = 0.0
+        cRectVertexBuffer[ 3] = 0.0
+        cRectVertexBuffer[ 4] = 0.0
+        cRectVertexBuffer[ 5] = 0.0
+        //cRectVertexBuffer[ 6] = 1.0
+        //cRectVertexBuffer[ 7] = 1.0
+        //cRectVertexBuffer[ 8] = 1.0
+        //cRectVertexBuffer[ 9] = 1.0
+        
+        cRectVertexBuffer[10] = 128.0
+        cRectVertexBuffer[11] = -128.0
+        cRectVertexBuffer[12] = 0.0
+        cRectVertexBuffer[13] = 1.0
+        cRectVertexBuffer[14] = 0.0
+        cRectVertexBuffer[15] = 0.0
+        //cRectVertexBuffer[16] = 1.0
+        //cRectVertexBuffer[17] = 1.0
+        //cRectVertexBuffer[18] = 1.0
+        //cRectVertexBuffer[19] = 1.0
+        
+        cRectVertexBuffer[20] = -128.0
+        cRectVertexBuffer[21] = 128.0
+        cRectVertexBuffer[22] = 0.0
+        cRectVertexBuffer[23] = 0.0
+        cRectVertexBuffer[24] = 1.0
+        cRectVertexBuffer[25] = 0.0
+        //cRectVertexBuffer[26] = 1.0
+        //cRectVertexBuffer[27] = 1.0
+        //cRectVertexBuffer[28] = 1.0
+        //cRectVertexBuffer[29] = 1.0
+        
+        cRectVertexBuffer[30] = 128.0
+        cRectVertexBuffer[31] = 128.0
+        cRectVertexBuffer[32] = 0.0
+        cRectVertexBuffer[33] = 1.0
+        cRectVertexBuffer[34] = 1.0
+        cRectVertexBuffer[35] = 0.0
+        //cRectVertexBuffer[36] = 1.0
+        //cRectVertexBuffer[37] = 1.0
+        //cRectVertexBuffer[38] = 1.0
+        //cRectVertexBuffer[39] = 1.0
+        
+        cRectIndexBuffer[0] = 0
+        cRectIndexBuffer[1] = 2
+        cRectIndexBuffer[2] = 1
+        cRectIndexBuffer[3] = 1
+        cRectIndexBuffer[4] = 2
+        cRectIndexBuffer[5] = 3
         
         cRectVertexBufferSlot = bufferVertexGenerate(data: &cRectVertexBuffer, size: 40)
         cRectIndexBufferSlot = bufferIndexGenerate(data: &cRectIndexBuffer, size: 6)
@@ -69,17 +119,9 @@ class Graphics {
         
         matrixModelViewSet(Matrix())
         matrixProjectionSet(Matrix())
-        
-        //cRectVertexBuffer.forEach() { value in
-        //    print("Float = \(value)")
-        //}
-        
     }
     
     func dispose() {
-        
-        print("Graphics.dispose()")
-        
         cWhiteSprite.clear()
         
         bufferDelete(bufferIndex: cRectVertexBufferSlot)
@@ -91,7 +133,6 @@ class Graphics {
     
     //Why is this slower than balls? (iPad Air)
     func quadDraw(x1:GLfloat, y1:GLfloat, x2:GLfloat, y2:GLfloat, x3:GLfloat, y3:GLfloat, x4:GLfloat, y4:GLfloat) {
-        
         cRectVertexBuffer[0] = x1
         cRectVertexBuffer[1] = y1
         cRectVertexBuffer[10] = x2
@@ -101,7 +142,6 @@ class Graphics {
         cRectVertexBuffer[30] = x4
         cRectVertexBuffer[31] = y4
         
-        //textureDisable()
         textureBind(bufferIndex: cWhiteSprite.texture?.bindIndex)
         
         bufferIndexBind(cRectIndexBufferSlot)
@@ -110,11 +150,9 @@ class Graphics {
         positionEnable()
         positionSetPointer(size: 3, offset: 0, stride: 10)
         
-        //texCoordDisable()
         texCoordEnable()
         textureCoordSetPointer(size: 3, offset: 3, stride: 10)
         
-        //colorArrayDisable()
         colorArrayEnable()
         colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
@@ -138,7 +176,6 @@ class Graphics {
     }
     
     func triangleDraw(_ triangle:DrawTriangle) {
-        
         cRectVertexBuffer[ 0] = GLfloat(triangle.x1)
         cRectVertexBuffer[ 1] = GLfloat(triangle.y1)
         cRectVertexBuffer[ 2] = GLfloat(triangle.z1)
@@ -216,7 +253,7 @@ class Graphics {
     }
     
     func colorSet(r:GLfloat, g:GLfloat, b:GLfloat, a:GLfloat) {
-        //glUniform4f(gGLUniformColorModulate, r, g, b, a)
+        //glUniform4f(shaderSlotUniformColorModulate, r, g, b, a)
         
         cRectVertexBuffer[6] = r
         cRectVertexBuffer[16] = r
@@ -256,27 +293,27 @@ class Graphics {
     }
     
     func positionEnable() {
-        glEnableVertexAttribArray(GLuint(gGLSlotPosition))
+        glEnableVertexAttribArray(GLuint(shaderSlotSlotPosition))
     }
     
     func positionDisable() {
-        glDisableVertexAttribArray(GLuint(gGLSlotPosition))
+        glDisableVertexAttribArray(GLuint(shaderSlotSlotPosition))
     }
     
     func texCoordEnable() {
-        glEnableVertexAttribArray(GLuint(gGLSlotTexCoord))
+        glEnableVertexAttribArray(GLuint(shaderSlotSlotTexCoord))
     }
     
     func texCoordDisable() {
-        glDisableVertexAttribArray(GLuint(gGLSlotTexCoord))
+        glDisableVertexAttribArray(GLuint(shaderSlotSlotTexCoord))
     }
     
     func colorArrayEnable() {
-        glEnableVertexAttribArray(GLuint(gGLSlotColor))
+        glEnableVertexAttribArray(GLuint(shaderSlotSlotColor))
     }
     
     func colorArrayDisable() {
-        glDisableVertexAttribArray(GLuint(gGLSlotColor))
+        glDisableVertexAttribArray(GLuint(shaderSlotSlotColor))
     }
     
     func blendEnable() {
@@ -364,17 +401,17 @@ class Graphics {
     
     func positionSetPointer(size:Int, offset:Int, stride:Int) {
         let ptr = UnsafeRawPointer(bitPattern: (offset << 2))
-        glVertexAttribPointer(GLenum(gGLSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
+        glVertexAttribPointer(GLenum(shaderSlotSlotPosition), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
     
     func textureCoordSetPointer(size:Int, offset:Int, stride:Int) {
         let ptr = UnsafeRawPointer(bitPattern: (offset << 2))
-        glVertexAttribPointer(GLenum(gGLSlotTexCoord), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
+        glVertexAttribPointer(GLenum(shaderSlotSlotTexCoord), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
     
     func colorArraySetPointer(size:Int, offset:Int, stride:Int) {
         let ptr = UnsafeRawPointer(bitPattern: (offset << 2))
-        glVertexAttribPointer(GLenum(gGLSlotColor), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
+        glVertexAttribPointer(GLenum(shaderSlotSlotColor), GLint(size), GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(stride << 2), ptr)
     }
     
     func drawElementsTriangle(count:Int, offset:Int) {
@@ -400,12 +437,12 @@ class Graphics {
     
     func matrixProjectionSet(_ mat:Matrix) {
         cProjectionMatrix.set(mat)
-        glUniformMatrix4fv(gGLUniformProjection, 1, 0, cProjectionMatrix.m)
+        glUniformMatrix4fv(shaderSlotUniformProjection, 1, 0, cProjectionMatrix.m)
     }
     
     func matrixModelViewSet(_ mat:Matrix) {
         cModelViewMatrix.set(mat)
-        glUniformMatrix4fv(gGLUniformModelView, 1, 0, cModelViewMatrix.m)
+        glUniformMatrix4fv(shaderSlotUniformModelView, 1, 0, cModelViewMatrix.m)
     }
     
     func matrixProjectionReset() {
@@ -485,10 +522,12 @@ class Graphics {
     
     func textureEnable() {
         glEnable(GLenum(GL_TEXTURE_2D))
+        //glUniform1ui(shaderSlotUniformEnableTexture, 1)
     }
     
     func textureDisable() {
         glDisable(GLenum(GL_TEXTURE_2D))
+        //glUniform1ui(shaderSlotUniformEnableTexture, 0)
     }
     
     func viewport(_ rect:CGRect) {
@@ -505,4 +544,5 @@ class Graphics {
     }
 }
 
-let gG:Graphics = Graphics()
+//let gG:Graphics = Graphics()
+

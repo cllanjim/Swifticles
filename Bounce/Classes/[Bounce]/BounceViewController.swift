@@ -14,6 +14,17 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     let engine = BounceEngine()
     
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        //Make sure global reference is ready for setup.
+        gApp.bounce = self
+    }
+    
+    deinit {
+        gApp.bounce = nil
+    }
+    
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
     var rotRecognizer:UIRotationGestureRecognizer!;
@@ -32,6 +43,19 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     var screenTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
     var screenScale:CGFloat = 1.0
+    
+    var screenEditTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
+    var screenEditScale:CGFloat = 1.0
+    
+    var screenAnimStartTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
+    var screenAnimStartScale:CGFloat = 1.0
+    
+    var screenAnimEndTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
+    var screenAnimEndScale:CGFloat = 1.0
+    
+    var screenAnim:Bool = false
+    var screenAnimTick:Int = 0
+    var screenAnimTime:Int = 34
     
     var gestureStartTranslate:CGPoint = CGPoint.zero
     var gestureStartScale:CGFloat = 1.0
@@ -62,19 +86,15 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         let orientation = UIApplication.shared.statusBarOrientation
         if orientation == .landscapeLeft || orientation == .landscapeRight {
             if scene.isLandscape == false {
-                //gDevice.setOrientation(orientation: .portrait)
                 gDevice.orientation = .portrait
             }
         } else {
             if scene.isLandscape {
-                //gDevice.setOrientation(orientation: .landscapeLeft)
                 gDevice.orientation = .landscapeLeft
             }
-            
         }
         
         engine.setUp(scene: scene)
-        
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
                                                name: NSNotification.Name(BounceNotification.ZoomModeChanged.rawValue), object: nil)
@@ -118,9 +138,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("viewDidLoad()")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.05) {
-            print("viewDidLoad -- DELAYED CLOSURE()")
             BounceEngine.postNotification(BounceNotification.SceneReady)
         }
     }
@@ -163,29 +181,54 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
             }
         }
         engine.update()
+        
+        
+        if screenAnim {
+            screenAnimTick += 1
+            if screenAnimTick >= screenAnimTime {
+                screenTranslation = CGPoint(x: screenAnimEndTranslation.x, y: screenAnimEndTranslation.y)
+                screenScale = screenAnimEndScale
+                screenAnim = false
+            } else {
+                var percent = CGFloat(screenAnimTick) / CGFloat(screenAnimTime)
+                percent = sin(percent * Math.PI_2)
+                
+                screenTranslation.x = screenAnimStartTranslation.x + (screenAnimEndTranslation.x - screenAnimStartTranslation.x) * percent
+                screenTranslation.y = screenAnimStartTranslation.y + (screenAnimEndTranslation.y - screenAnimStartTranslation.y) * percent
+                screenScale = screenAnimStartScale + (screenAnimEndScale - screenAnimStartScale) * percent
+            }
+        }
+        
+        // = screenScale
+        //screenAnimStartTranslation = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
+        
+        //screenAnimEndScale = scale
+        //screenAnimEndTranslation = CGPoint(x: translate.x, y: translate.y)
+        
+        
     }
     
     override func draw() {
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
-        gG.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
-        gG.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
-        gG.matrixProjectionSet(screenMat)
-        gG.colorSet(r: 0.25, g: 0.15, b: 0.33)
-        gG.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
+        Graphics.shared.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
+        Graphics.shared.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
+        Graphics.shared.matrixProjectionSet(screenMat)
+        Graphics.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
+        Graphics.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
         
         let viewMat = screenMat.clone()
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
         viewMat.scale(Float(screenScale))
-        gG.matrixProjectionSet(viewMat)
-        gG.blendEnable()
-        gG.blendSetAlpha()
-        gG.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
-        gG.textureEnable()
+        Graphics.shared.matrixProjectionSet(viewMat)
+        Graphics.shared.blendEnable()
+        Graphics.shared.blendSetAlpha()
+        Graphics.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
+        Graphics.shared.textureEnable()
         engine.draw()
         
-        gG.matrixProjectionSet(screenMat)
+        Graphics.shared.matrixProjectionSet(screenMat)
     }
     
     func handleZoomModeChange() {
@@ -244,11 +287,75 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         return true
     }
     
+    /*
+    var screenTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
+    var screenScale:CGFloat = 1.0
+    
+    var screenEditTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
+    var screenEditScale:CGFloat = 1.0
+    
+    var screenAnimStartTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
+    var screenAnimStartScale:CGFloat = 1.0
+    
+    var screenAnimEndTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
+    var screenAnimEndScale:CGFloat = 1.0
+    
+    var :Bool = false
+    var screenAnimTick:Int = 0
+    var screenAnimTime:Int = 140
+    */
+    
+    func animateScreenTransform(scale: CGFloat, translate: CGPoint) {
+        
+        if scale == screenScale && translate.equalTo(screenTranslation) {
+            //Don't do anything
+        } else {
+            
+            
+            /*
+            UIView.animate(withDuration: 0.4, animations: {
+                [weakSelf = self] in
+                
+                weakSelf.screenScale = scale
+                weakSelf.screenTranslation.x = translate.x
+                weakSelf.screenTranslation.y = translate.y
+
+                }, completion: {
+                     didFinish  in
+                    self.screenAnim = false
+                })
+            */
+            
+            
+            screenAnim = true
+            screenAnimTick = 0
+            
+            screenAnimStartScale = screenScale
+            screenAnimStartTranslation = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
+            
+            screenAnimEndScale = scale
+            screenAnimEndTranslation = CGPoint(x: translate.x, y: translate.y)
+        }
+    }
+    
+    func animateScreenTransformToEdit() {
+        animateScreenTransform(scale: screenEditScale, translate: screenEditTranslation)
+    }
+    
+    func animateScreenTransformToIdentity() {
+        animateScreenTransform(scale: 1.0, translate: CGPoint(x: 0.0, y: 0.0))
+    }
+    
+    
     func updateTransform() {
         screenTranslation = CGPoint.zero
         let gestureStart = transformPoint(gestureStartImageTouch)
         screenTranslation.x = (gestureTouchCenter.x - gestureStart.x)
         screenTranslation.y = (gestureTouchCenter.y - gestureStart.y)
+        
+        screenEditScale = screenScale
+        screenEditTranslation.x = screenTranslation.x
+        screenEditTranslation.y = screenTranslation.y
     }
     
     func gestureBegan(_ pos:CGPoint) {
@@ -613,10 +720,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 }
             }
         }
-    }
-    
-    deinit {
-        print("Deinit BounceViewController")
     }
 
 }

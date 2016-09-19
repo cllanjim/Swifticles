@@ -302,6 +302,6 @@ class DrawTriangle {
     }
     
     func draw() {
-        gG.triangleDraw(self)
+        Graphics.shared.triangleDraw(self)
     }
 }
