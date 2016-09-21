@@ -14,21 +14,29 @@ class BottomMenu: ToolView
     
     
     @IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit! {
-        didSet { toolRows.append(toolRowEdit) }
+        didSet { toolRows.append(toolRowEdit); toolRowEdit.backgroundColor = UIColor.clear }
     }
     @IBOutlet weak internal var toolRowView: ToolRowBottomView! {
-        didSet { toolRows.append(toolRowView) }
+        didSet { toolRows.append(toolRowView); toolRowView.backgroundColor = UIColor.clear }
     }
     @IBOutlet weak internal var toolRowZoom: ToolRowBottomZoom! {
-        didSet { toolRows.append(toolRowZoom) }
+        didSet { toolRows.append(toolRowZoom); toolRowZoom.backgroundColor = UIColor.clear }
+    }
+    
+    @IBOutlet weak internal var toolRowUnderlay: UIView! {
+        didSet { toolRowUnderlay.backgroundColor = styleColorToolbarRow }
     }
     
     @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
     
     var expanded:Bool = true
     
-    @IBOutlet weak var toolBar: ToolBarBottom!
-    @IBOutlet weak var toolMenuContainer: UIView!
+    @IBOutlet weak var toolBar: ToolBarBottom! {
+        didSet { toolBar.backgroundColor = styleColorToolbarMain }
+    }
+    @IBOutlet weak var toolMenuContainer: UIView! {
+        didSet { toolMenuContainer.backgroundColor = UIColor.clear }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -66,25 +74,12 @@ class BottomMenu: ToolView
         print("BottomMenu.handleSceneModeChanged()")
         
         updateToolRow()
-        
-        
-        //@IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit!
-        //@IBOutlet weak internal var toolRowView: ToolRowBottomView!
-        
-        
     }
     
     override func handleZoomModeChange() {
         print("BottomMenu.handleZoomModeChange()")
         
         updateToolRow()
-        
-        
-        
-        //
-        //if gApp
-        
-        
     }
     
     func updateToolRow() {
@@ -123,9 +118,11 @@ class BottomMenu: ToolView
                 for tr in toolRows {
                     if tr !== _currentToolRow {
                         sendOffScreenLeft(tr)
+                        tr.isHidden = true
                     }
                 }
                 sendOnScreen(_currentToolRow!)
+                _currentToolRow!.isHidden = false
                 
                 layoutIfNeeded()
                 
@@ -143,8 +140,8 @@ class BottomMenu: ToolView
                     sendOffScreenRight(_currentToolRow!)
                     sendOnScreen(previousToolRow!)
                     
-                    _currentToolRow!.layoutIfNeeded()
-                    previousToolRow!.layoutIfNeeded()
+                    _currentToolRow?.layoutIfNeeded()
+                    previousToolRow?.layoutIfNeeded()
                     layoutIfNeeded()
                     
                     sendOffScreenLeft(previousToolRow!)
@@ -154,23 +151,30 @@ class BottomMenu: ToolView
                     sendOffScreenLeft(_currentToolRow!)
                     sendOnScreen(previousToolRow!)
                     
-                    _currentToolRow!.layoutIfNeeded()
-                    previousToolRow!.layoutIfNeeded()
+                    _currentToolRow?.layoutIfNeeded()
+                    previousToolRow?.layoutIfNeeded()
                     layoutIfNeeded()
                     
                     sendOffScreenRight(previousToolRow!)
                 }
                 
+                _currentToolRow?.isHidden = false
+                previousToolRow?.isHidden = false
+                
                 sendOnScreen(_currentToolRow!)
                 
                 UIView.animate(withDuration: 0.4, animations: {
                     [weakSelf = self] in
-                    weakSelf._currentToolRow!.layoutIfNeeded()
-                    previousToolRow!.layoutIfNeeded()
+                    weakSelf._currentToolRow?.layoutIfNeeded()
+                    previousToolRow?.layoutIfNeeded()
                     weakSelf.layoutIfNeeded()
                     weakSelf.superview?.layoutIfNeeded()
                     
-                    }, completion: nil)
+                    }, completion: { [weakSelf = self] (finished:Bool) in
+                        previousToolRow?.isHidden = true
+                        weakSelf._currentToolRow!.isHidden = false
+                        
+                })
             }
             
             
@@ -180,18 +184,6 @@ class BottomMenu: ToolView
             print("toolRowView Left C = \(toolRowView.leftConstraint!.constant)")
             print("toolRowZoom Left C = \(toolRowZoom.leftConstraint!.constant)")
         }
-        
-        //
-        
-    
-    //@IBOutlet weak internal var : ToolRowBottomView! {
-      //  didSet { toolRows.append(toolRowView) }
-        //}
-        //@IBOutlet weak internal var : ToolRowBottomZoom! {
-        //didSet { toolRows.append(toolRowZoom) }
-        //}
-
-        
     }
     
     func updateToolRowConstraints() {
@@ -260,5 +252,81 @@ class BottomMenu: ToolView
                 }, completion: nil)
         }
     }
+    
+    
+    override func draw(_ rect: CGRect) {
+        
+        super.draw(rect)
+        
+        return
+        
+        let toolBarTop = toolBar.y
+        let toolBarHeight = toolBar.height
+        let toolBarBottom = toolBarTop + toolBarHeight
+        
+        let rectTop = rect.origin.y
+        let rectHeight = rect.size.height
+        let rectBottom = rectTop + rectHeight
+        
+        var rectMain = CGRect(x: rect.origin.x, y: 0.0, width: rect.width, height: 0.0)
+        var rectRow = CGRect(x: rect.origin.x, y: 0.0, width: rect.width, height: 0.0)
+        
+        /*
+        if rectTop >= toolBarBottom {
+            rectMain.origin.y = rectTop
+            rectMain.size.height = rectHeight
+        } else if rectBottom <= toolBarBottom {
+            rectRow.origin.y = rectTop
+            rectRow.size.height = rectHeight
+        } else {
+            
+            rectRow.origin.y = rectTop
+            rectRow.size.height = toolBarTop - rectTop
+            
+            rectMain.origin.y = rectRow.origin.y + rectRow.size.height
+            rectMain.size.height = rectHeight - rectRow.size.height
+        }
+        */
+        
+        rectRow.origin.y = rectTop
+        rectRow.size.height = toolBarTop - rectTop
+        
+        rectMain.origin.y = rectRow.origin.y + rectRow.size.height
+        rectMain.size.height = rectHeight - rectRow.size.height
+
+        
+        
+        
+        //let  = UIColor(red: 0.01, green: 0.01, blue: 0.04, alpha: 0.96)
+        //let styleColorToolbarRow = UIColor(red: 0.04, green: 0.04, blue: 0.06, alpha: 0.76)
+        
+        
+        //let height = self.height
+        
+        
+        let context: CGContext = UIGraphicsGetCurrentContext()!
+        context.saveGState()
+        
+        if rectRow.size.height > 0.0 {
+            
+            context.setFillColor(styleColorToolbarRow.cgColor)
+            context.fill(rectRow)
+            
+        }
+        
+        if rectMain.size.height > 0.0 {
+            
+            context.setFillColor(styleColorToolbarMain.cgColor)
+            context.fill(rectMain)
+            
+        }
+        
+        context.restoreGState()
+        
+        setNeedsDisplay()
+
+        
+    }
+    
     
 }

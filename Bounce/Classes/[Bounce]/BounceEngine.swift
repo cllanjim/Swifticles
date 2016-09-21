@@ -102,7 +102,8 @@ class BounceEngine {
         
         didSet {
             handleModeChange()
-            BounceEngine.postNotification(BounceNotification.SceneModeChanged) }
+            BounceEngine.postNotification(BounceNotification.SceneModeChanged)
+        }
     }
     
     //internal var previousEditMode:EditMode = .affine

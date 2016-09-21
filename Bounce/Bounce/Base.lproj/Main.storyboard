@@ -256,14 +256,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
+                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BU-hg-uMx" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BU-hg-uMx" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                         <constraints>
                                             <constraint firstAttribute="width" constant="47" id="6RS-en-BxT"/>
                                             <constraint firstAttribute="height" constant="26" id="xyX-FF-Dee"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Button" image="tb_btn_menu"/>
                                         <connections>
                                             <action selector="clickMenu:" destination="27M-R0-Bg7" eventType="touchUpInside" id="4xM-ra-0ol"/>
                                         </connections>
@@ -357,11 +357,14 @@
                                     <outlet property="segMode" destination="vLb-r9-sfa" id="aIz-16-dTG"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikJ-du-UKY" customClass="BottomMenu" customModule="Bounce" customModuleProvider="target">
+                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikJ-du-UKY" customClass="BottomMenu" customModule="Bounce" customModuleProvider="target">
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-rW-iyl" customClass="ToolView" customModule="Bounce" customModuleProvider="target">
+                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBh-4I-Pr7">
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-rW-iyl" customClass="ToolView" customModule="Bounce" customModuleProvider="target">
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btq-wf-4ew">
                                                         <constraints>
@@ -391,7 +394,7 @@
                                                     <outlet property="topConstraint" destination="3J8-gK-04E" id="RCK-zK-dXs"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-yM-i5p" customClass="ToolRowBottomEdit" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-yM-i5p" customClass="ToolRowBottomEdit" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7H-hr-ntw">
                                                         <constraints>
@@ -437,7 +440,7 @@
                                                     <outlet property="topConstraint" destination="cOK-DH-lkM" id="mI0-Bh-7p7"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0s-W5-s5Y" customClass="ToolRowBottomZoom" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0s-W5-s5Y" customClass="ToolRowBottomZoom" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom Mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gv-wP-0qU">
                                                         <constraints>
@@ -500,19 +503,28 @@
                                             <constraint firstItem="Vcn-Ou-uJo" firstAttribute="width" secondItem="cpv-rW-iyl" secondAttribute="width" id="zTc-hW-lte"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEj-da-9Od" customClass="ToolBarBottom" customModule="Bounce" customModuleProvider="target">
+                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEj-da-9Od" customClass="ToolBarBottom" customModule="Bounce" customModuleProvider="target">
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AA-c5-6ui" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AA-c5-6ui" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="46" id="tFC-u8-UgC"/>
+                                                    <constraint firstAttribute="width" secondItem="4AA-c5-6ui" secondAttribute="height" multiplier="1:1" id="qMd-uF-Lhp"/>
                                                 </constraints>
-                                                <state key="normal" title="Button"/>
+                                                <state key="normal" title="Button" image="tb_btn_menu"/>
+                                                <state key="highlighted" image="tb_btn_menu_down"/>
                                                 <connections>
                                                     <action selector="clickExpandWithSender:" destination="LEj-da-9Od" eventType="touchUpInside" id="4lQ-8z-pzX"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJC-8m-x7T" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJC-8m-x7T" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
+                                                        <integer key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.42282042791437308" green="0.5162700688073395" blue="0.58360980100305815" alpha="0.96011871797267001" colorSpace="calibratedRGB"/>
@@ -525,12 +537,14 @@
                                             <constraint firstItem="sJC-8m-x7T" firstAttribute="top" secondItem="LEj-da-9Od" secondAttribute="top" id="SbK-Jh-Pys"/>
                                             <constraint firstItem="sJC-8m-x7T" firstAttribute="width" secondItem="LEj-da-9Od" secondAttribute="width" multiplier="0.52" id="U3K-HL-A5r"/>
                                             <constraint firstItem="4AA-c5-6ui" firstAttribute="centerY" secondItem="LEj-da-9Od" secondAttribute="centerY" id="UdY-sO-dcG"/>
+                                            <constraint firstAttribute="height" constant="66" id="bGj-Ju-kk8"/>
                                             <constraint firstItem="4AA-c5-6ui" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="eWH-ZX-wuh"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="7Rw-Cx-R86"/>
                                                 <exclude reference="LKF-TQ-4o4"/>
+                                                <exclude reference="bGj-Ju-kk8"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
@@ -552,8 +566,9 @@
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <mask key="constraints">
-                                                <include reference="7Rw-Cx-R86"/>
+                                                <exclude reference="7Rw-Cx-R86"/>
                                                 <exclude reference="LKF-TQ-4o4"/>
+                                                <include reference="bGj-Ju-kk8"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -561,23 +576,37 @@
                                             <outlet property="segMode" destination="sJC-8m-x7T" id="u5W-oO-ZgZ"/>
                                         </connections>
                                     </view>
+                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="YY8-E9-ldf">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="6" id="FsN-MZ-NYP"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.44396263379204892" blue="0.21882167431192662" alpha="0.76633852554179571" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="cpv-rW-iyl" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="4vS-2k-tLl"/>
+                                    <constraint firstAttribute="trailing" secondItem="MBh-4I-Pr7" secondAttribute="trailing" id="6gM-jZ-Udh"/>
+                                    <constraint firstItem="MBh-4I-Pr7" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="8bg-ZT-HaI"/>
+                                    <constraint firstAttribute="top" secondItem="YY8-E9-ldf" secondAttribute="bottom" id="BEH-ro-o9z"/>
                                     <constraint firstAttribute="trailing" secondItem="LEj-da-9Od" secondAttribute="trailing" id="BOU-xs-zC0"/>
                                     <constraint firstItem="cpv-rW-iyl" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="top" id="DGx-zY-1UI"/>
+                                    <constraint firstItem="YY8-E9-ldf" firstAttribute="width" secondItem="ikJ-du-UKY" secondAttribute="width" id="FLx-t7-G90"/>
+                                    <constraint firstItem="MBh-4I-Pr7" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="top" id="Fn0-Do-ype"/>
                                     <constraint firstAttribute="bottom" secondItem="LEj-da-9Od" secondAttribute="bottom" id="L84-o2-EIa"/>
                                     <constraint firstItem="LEj-da-9Od" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="Ot5-eP-QX1"/>
-                                    <constraint firstAttribute="height" constant="120" id="SM1-54-13n"/>
+                                    <constraint firstAttribute="height" constant="192" id="SM1-54-13n"/>
+                                    <constraint firstItem="YY8-E9-ldf" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="VQr-Ba-Wl1"/>
                                     <constraint firstAttribute="trailing" secondItem="cpv-rW-iyl" secondAttribute="trailing" id="ZbM-zw-Pai"/>
+                                    <constraint firstAttribute="trailing" secondItem="YY8-E9-ldf" secondAttribute="trailing" id="d6e-mt-HQ2"/>
                                     <constraint firstItem="cpv-rW-iyl" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="geC-OW-eSx"/>
+                                    <constraint firstItem="MBh-4I-Pr7" firstAttribute="bottom" secondItem="LEj-da-9Od" secondAttribute="top" id="yKH-ra-g7G"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="menuHeightConstraint" destination="SM1-54-13n" id="dNe-Ad-h8h"/>
                                     <outlet property="toolBar" destination="LEj-da-9Od" id="vQR-m8-faf"/>
                                     <outlet property="toolMenuContainer" destination="cpv-rW-iyl" id="4Wh-ja-5er"/>
                                     <outlet property="toolRowEdit" destination="vSP-yM-i5p" id="0Pj-SS-3xA"/>
+                                    <outlet property="toolRowUnderlay" destination="MBh-4I-Pr7" id="fy8-Ix-dlO"/>
                                     <outlet property="toolRowView" destination="Vcn-Ou-uJo" id="8Ox-l6-vr5"/>
                                     <outlet property="toolRowZoom" destination="J0s-W5-s5Y" id="p85-Cp-Hgh"/>
                                 </connections>
@@ -688,6 +717,9 @@
     </scenes>
     <resources>
         <image name="background_modal_ipad.png" width="1024" height="1024"/>
+        <image name="shadow_top" width="8" height="8"/>
+        <image name="tb_btn_menu" width="64" height="64"/>
+        <image name="tb_btn_menu_down" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8KK-ae-JtT"/>

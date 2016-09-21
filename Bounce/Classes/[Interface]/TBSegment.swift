@@ -17,6 +17,7 @@ class TBSegment: UIView {
     
     var delegate:TBSegmentDelegate?
     
+    @IBInspectable
     var selectedIndex:Int? {
         willSet {
             if let index = selectedIndex , index >= 0 && index < buttons.count {
@@ -63,8 +64,8 @@ class TBSegment: UIView {
         }
     }
     
+    @IBInspectable
     var segmentCount:Int {
-        
         get {
             return buttons.count
         }
@@ -105,39 +106,27 @@ class TBSegment: UIView {
                         button.cornerDR = true
                     }
                     
-                    
                     button.addTarget(self, action: #selector(clickSegment(_:)), for:.touchUpInside)
                     button.styleSetSegment()
                     addSubview(button)
                 }
-                
             }
-            
             layoutButtons()
-            
         }
-        
     }
     
     private func layoutButtons() {
-        
         if segmentCount > 0 {
-            
             let stride = Int(Double(self.frame.size.width) / Double(segmentCount))
-            
             var left = 0.0
             var right = left + Double(stride)
-            
             for index in 0..<segmentCount {
                 let button = buttons[index]
-                
                 if index == (segmentCount - 1) {
                     right = Double(self.frame.size.width)
                 }
-                
                 button.frame = CGRect(x: CGFloat(left), y: 0, width: CGFloat(right - left), height: self.frame.size.height)
                 button.setNeedsDisplay()
-                
                 left = right
                 right += Double(stride)
             }
@@ -145,11 +134,7 @@ class TBSegment: UIView {
     }
     
     internal override func layoutSubviews() {
-        
         super.layoutSubviews()
-        
         layoutButtons()
-        
     }
-    
 }

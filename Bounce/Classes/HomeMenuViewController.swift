@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable
 class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var imageViewBackground: UIImageView!

@@ -94,8 +94,8 @@ class RRButton: UIButton {
         
         var rect = CGRect(x: 0.0, y: 0.0, width: self.width, height: self.height)
         
-        context.setFillColor(UIColor.brown.cgColor)
-        context.fill(rect)
+        //context.setFillColor(UIColor.brown.cgColor)
+        //context.fill(rect)
         
         if let max = maxHeight, rect.height > max {
             rect.size.height = max
@@ -103,35 +103,16 @@ class RRButton: UIButton {
         }
         
         if drawStroke {
-            //let rect = CGRect(x: strokeWidth / 2.0, y: strokeWidth / 2.0, width: self.frame.size.width - strokeWidth, height: self.frame.size.height - strokeWidth)
-            
-            
-            /*
-            context.beginPath()
-            context.addPath(clipPath)
-            context.setStrokeColor((isPressed ? strokeColorDown : strokeColor).cgColor)
-            context.setLineWidth(strokeWidth)
-            context.closePath()
-            context.strokePath()
-            */
-            
             if drawFill {
                 let clipPath = UIBezierPath(roundedRect: rect, byRoundingCorners: getCornerType(ul: cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL), cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+                context.beginPath()
+                context.addPath(clipPath)
+                context.setFillColor((isPressed ? strokeColorDown : strokeColor).cgColor)
+                context.closePath()
+                context.fillPath()
                 
-            context.beginPath()
-            context.addPath(clipPath)
-            context.setFillColor((isPressed ? strokeColorDown : strokeColor).cgColor)
-            context.closePath()
-            context.fillPath()
-            
-            
                 let inset = strokeWidth / 2.0
                 rect = rect.insetBy(dx: inset, dy: inset)
-                
-            //rect.origin.x = rect.origin.x + inset
-            //rect.origin.y = rect.origin.y + inset
-            //rect.size.width = rect.size.width - inset * 2
-            //rect.size.height = rect.size.height - inset * 2
             } else {
                 
                 let inset = strokeWidth / 2.0
@@ -149,26 +130,15 @@ class RRButton: UIButton {
         }
         
         if drawFill {
-            //let rect = rectBase //CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
-            
-            
-            
-            //if let max = maxHeight, rect
-            
-            
             let clipPath = UIBezierPath(roundedRect: rect,
                                         byRoundingCorners: getCornerType(ul: cornerUL, ur: cornerUR, dr: cornerDR, dl: cornerDL),
                                         cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
-            
             context.beginPath()
             context.addPath(clipPath)
             context.setFillColor(isPressed ? fillColorDown.cgColor : fillColor.cgColor)
             context.closePath()
             context.fillPath()
         }
-        
-        
-        
         context.restoreGState()
     }
     
