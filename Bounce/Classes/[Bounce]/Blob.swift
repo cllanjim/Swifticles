@@ -98,18 +98,22 @@ class Blob
         //vertexBufferSlot = Graphics.shared.bufferVertexGenerate(data: &vertexBuffer, size: 40)
         //indexBufferSlot = Graphics.shared.bufferIndexGenerate(data: &indexBuffer, size: 6)
         
-        spline.add(0.0, y: -100)
-        spline.add(50.0, y: -50)
-        spline.add(100, y: 0.0)
-        spline.add(50.0, y: 50)
-        spline.add(0.0, y: 100.0)
-        spline.add(-50.0, y: 50)
-        spline.add(-100.0, y: 0.0)
-        spline.add(-50.0, y: -150)
+        var radius = min(gApp.width, gApp.height)
+        var pointCount = 6
         
+        if gDevice.tablet {
+            pointCount = 8
+            radius = radius / 6
+        } else {
+            radius = radius / 6
+        }
+        for i in 0..<pointCount {
+            var percent = CGFloat(i) / CGFloat(pointCount)
+            var rads = percent * Math.PI2
+            spline.add(sin(rads) * radius, y: cos(rads) * radius)
+        }
         spline.linear = false
         spline.closed = true
-        
         computeShape()
     }
     

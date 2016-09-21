@@ -27,8 +27,6 @@ let styleColorToolbarRow = UIColor(red: 0.04, green: 0.04, blue: 0.04, alpha: 0.
 
 //let styleColorSegmentStrokeSelected = styleColorToolbarButtonFillPressed
 
-
-
 //RGB(55,98,195)
 //let
 
