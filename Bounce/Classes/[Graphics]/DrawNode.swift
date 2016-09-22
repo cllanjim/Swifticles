@@ -35,4 +35,6 @@ class DrawNode {
         t[index +  8] = GLfloat(b)
         t[index +  9] = GLfloat(a)
     }
+    
+    
 }

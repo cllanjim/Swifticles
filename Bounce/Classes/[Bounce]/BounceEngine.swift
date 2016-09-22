@@ -43,10 +43,21 @@ class BounceEngine {
     
     internal var previousSelectedBlob:Blob?
     var selectedBlob:Blob? {
-        willSet { previousSelectedBlob = selectedBlob }
+        willSet {
+            previousSelectedBlob = selectedBlob
+            if let blob = previousSelectedBlob {
+                blob.selected = false
+            }
+            
+            //selected
+        
+        }
         didSet {
-            if previousSelectedBlob === selectedBlob {
+            if previousSelectedBlob !== selectedBlob {
                 BounceEngine.postNotification(BounceNotification.BlobSelectionChanged, object: selectedBlob)
+            }
+            if let blob = selectedBlob {
+                blob.selected = true
             }
         }
     }
@@ -69,6 +80,7 @@ class BounceEngine {
     
     weak var shapeSelectedBlob:Blob?
     weak var shapeSelectionTouch:UITouch?
+    var shapeSelectionOffset:CGPoint = CGPoint.zero
     var shapeSelectionControlPointIndex:Int?
     
     
@@ -258,30 +270,38 @@ class BounceEngine {
         }
         
         if sceneMode == .edit && editMode == .shape {
-            
             var closest:(index:Int, distance:CGFloat)?
             var editBlob:Blob?
-            
+            var offset:CGPoint = CGPoint.zero
             for blob:Blob in blobs {
                 if blob.selectable {
                     let pointInBlob = blob.untransformPoint(point: point)
                     if let c = blob.spline.getClosestControlPoint(point: pointInBlob) {
+                        var pick:Bool = false
                         if closest == nil {
-                            closest = c
-                            editBlob = blob
+                            pick = true
                         } else if c.distance < closest!.distance {
+                            pick = true
+                        }
+                        if pick {
                             closest = c
                             editBlob = blob
+                            var controlPoint = blob.spline.getControlPoint(c.index)
+                            controlPoint = blob.transformPoint(point: controlPoint)
+                            offset.x = controlPoint.x - point.x
+                            offset.y = controlPoint.y - point.y
                         }
                     }
                 }
             }
             
             if let blob = editBlob , shapeSelectedBlob == nil {
+                selectedBlob = blob
                 if closest!.distance < 80.0 {
                     shapeSelectedBlob = blob
                     shapeSelectionTouch = touch
                     shapeSelectionControlPointIndex = closest!.index
+                    shapeSelectionOffset = offset
                 }
             }
         }
@@ -292,7 +312,9 @@ class BounceEngine {
         if sceneMode == .edit && editMode == .shape {
             if let blob = shapeSelectedBlob , touch === shapeSelectionTouch {
                 if let index = shapeSelectionControlPointIndex {
-                    let pointInBlob = blob.untransformPoint(point: point)
+                    //let pointInBlob = blob.untransformPoint(point: point)
+                    let pointInBlob = blob.untransformPoint(point: CGPoint(x: point.x + shapeSelectionOffset.x, y: point.y + shapeSelectionOffset.y))
+                    
                     blob.spline.set(index, x: pointInBlob.x, y: pointInBlob.y)
                     blob.setNeedsComputeShape()
                 }
@@ -481,7 +503,15 @@ class BounceEngine {
     
     func selectBlobAtPoint(_ pos:CGPoint) -> Blob? {
         var result:Blob?
-        result = blobClosestToPoint(pos)
+        
+        for i in stride(from: blobs.count - 1, to: -1, by: -1) {
+        //for blob:Blob in blobs {
+            let blob = blobs[i]
+            if blob.selectable, blob.border.pointInside(point: pos) {
+                result = blob
+                break
+            }
+        }
         return result
     }
     

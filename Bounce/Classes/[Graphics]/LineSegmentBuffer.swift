@@ -15,8 +15,14 @@ class LineSegmentBuffer {
     
     var data = [LineSegment]()
     
+    
+    func setNeedsCompute() { needsCompute = true }
+    internal var needsCompute:Bool = true
+    
+    
     func reset() {
         _count = 0
+        setNeedsCompute()
     }
     
     func add(line:LineSegment) {
@@ -35,6 +41,7 @@ class LineSegmentBuffer {
         guard index >= 0 else { return }
         if index >= _count {
             _count = index + 1
+            setNeedsCompute()
         }
         if index >= data.count {
             let newCapacity = data.count + data.count / 2 + 1
@@ -42,10 +49,30 @@ class LineSegmentBuffer {
             while data.count < newCapacity {
                 data.append(LineSegment())
             }
+            setNeedsCompute()
         }
-        data[index].p1 = p1
-        data[index].p2 = p2
+        
+        if data[index].p1.x != p1.x || data[index].p1.y != p1.y {
+            data[index].p1.x = p1.x
+            data[index].p1.y = p1.y
+            setNeedsCompute()
+        }
+        
+        if data[index].p2.x != p2.x || data[index].p2.y != p2.y {
+            data[index].p2.x = p2.x
+            data[index].p2.y = p2.y
+            setNeedsCompute()
+        }
+        
     }
+    
+    
+    //bool TriangleIsClockwise(float pX1, float pY1, float pX2, float pY2, float pX3, float pY3)
+    //{
+    //return (pX2-pX1)*(pY3-pY2)-(pX3-pX2)*(pY2-pY1) > 0;
+    //}
+    
+    
 }
 
 
