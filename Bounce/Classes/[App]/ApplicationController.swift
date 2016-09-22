@@ -10,6 +10,10 @@ import UIKit
 
 class ApplicationController
 {
+    
+    static let shared = ApplicationController()
+    private init() { }
+    
     var storyboard:UIStoryboard {
         return UIStoryboard(name: "Main", bundle: Bundle.main)
     }
@@ -33,7 +37,7 @@ class ApplicationController
     }
     
     var importScale:CGFloat {
-        var result = gDevice.scale * 2.0
+        var result = Device.shared.scale * 2.0
         if result > 4.0 {
             result = 4.0
         }
@@ -97,19 +101,19 @@ class ApplicationController
     
     var width:CGFloat {
         if let result = bounce?.screenRect.size.width { return result }
-        if gDevice.isLandscape {
-            return gDevice.landscapeWidth
+        if Device.shared.isLandscape {
+            return Device.shared.landscapeWidth
         } else {
-            return gDevice.portraitWidth
+            return Device.shared.portraitWidth
         }
     }
     
     var height:CGFloat {
         if let result = bounce?.screenRect.size.height { return result }
-        if gDevice.isLandscape {
-            return gDevice.landscapeHeight
+        if Device.shared.isLandscape {
+            return Device.shared.landscapeHeight
         } else {
-            return gDevice.portraitHeight
+            return Device.shared.portraitHeight
         }
     }
     
@@ -137,6 +141,7 @@ class ApplicationController
     
 }
 
-let gApp = ApplicationController()
+//let ApplicationController.shared = ApplicationController()
+
 
 

@@ -61,7 +61,6 @@ class Matrix {
         set(mat)
     }
     
-    
     class func createOrtho(left:GLfloat, right:GLfloat, bottom:GLfloat, top:GLfloat, nearZ:GLfloat, farZ:GLfloat) -> Matrix {
         let ral = right + left;
         let rsl = right - left;

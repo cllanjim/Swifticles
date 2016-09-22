@@ -83,12 +83,12 @@ class BottomMenu: ToolView
     }
     
     func updateToolRow() {
-        if gApp.zoomMode {
+        if ApplicationController.shared.zoomMode {
             toolRow = toolRowZoom
         } else {
-            if gApp.sceneMode == .edit {
+            if ApplicationController.shared.sceneMode == .edit {
                 toolRow = toolRowEdit
-            } else if gApp.sceneMode == .view {
+            } else if ApplicationController.shared.sceneMode == .view {
                 toolRow = toolRowView
             }
         }
@@ -208,7 +208,7 @@ class BottomMenu: ToolView
         if row === toolRowView { print("VIEW - sendOffScreenLeft") }
         if row === toolRowZoom { print("ZOOM - sendOffScreenLeft") }
         
-        row.leftConstraint?.constant = CGFloat(-Int(gApp.width + 0.5))
+        row.leftConstraint?.constant = CGFloat(-Int(ApplicationController.shared.width + 0.5))
         row.setNeedsLayout()
     }
     
@@ -218,7 +218,7 @@ class BottomMenu: ToolView
         if row === toolRowView { print("VIEW - sendOffScreenRight") }
         if row === toolRowZoom { print("ZOOM - sendOffScreenRight") }
         
-        row.leftConstraint?.constant = CGFloat(Int(gApp.width + 0.5))
+        row.leftConstraint?.constant = CGFloat(Int(ApplicationController.shared.width + 0.5))
         row.setNeedsLayout()
     }
     

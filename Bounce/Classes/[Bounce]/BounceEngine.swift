@@ -26,11 +26,11 @@ enum ViewMode: UInt32 { case standard = 1, animation = 2 }
 class BounceEngine {
     
     required init() {
-        gApp.engine = self
+        ApplicationController.shared.engine = self
     }
     
     deinit {
-        gApp.engine = nil
+        ApplicationController.shared.engine = nil
     }
     
     var zoomMode:Bool = false {
@@ -105,9 +105,9 @@ class BounceEngine {
         willSet {
             if sceneMode != newValue {
                 if newValue == .edit {
-                    gApp.bounce?.animateScreenTransformToEdit()
+                    ApplicationController.shared.bounce?.animateScreenTransformToEdit()
                 } else if newValue == .view {
-                    gApp.bounce?.animateScreenTransformToIdentity()
+                    ApplicationController.shared.bounce?.animateScreenTransformToIdentity()
                 }
             }
         }
@@ -163,14 +163,14 @@ class BounceEngine {
     
     func setUp(scene:BounceScene) {//, screenRect:CGRect) {
         self.scene = scene
-        let screenSize = scene.isLandscape ? CGSize(width: gDevice.landscapeWidth, height: gDevice.landscapeHeight) : CGSize(width: gDevice.portraitWidth, height: gDevice.portraitHeight)
+        let screenSize = scene.isLandscape ? CGSize(width: Device.shared.landscapeWidth, height: Device.shared.landscapeHeight) : CGSize(width: Device.shared.portraitWidth, height: Device.shared.portraitHeight)
         
         if let image = scene.image , image.size.width > 32 && image.size.height > 32 {
             
             
             //If the image is too large for the device, shrink it down.
-            let widthRatio = (Double(screenSize.width) * Double(gDevice.scale)) / Double(image.size.width)
-            let heightRatio = (Double(screenSize.height) * Double(gDevice.scale)) / Double(image.size.height)
+            let widthRatio = (Double(screenSize.width) * Double(Device.shared.scale)) / Double(image.size.width)
+            let heightRatio = (Double(screenSize.height) * Double(Device.shared.scale)) / Double(image.size.height)
             let ratio = min(widthRatio, heightRatio)
             if ratio < 0.999 {
                 //This basically means that we've imported an image from
@@ -182,7 +182,7 @@ class BounceEngine {
                 scene.image = image.resize(CGSize(width: importWidth, height: importHeight))
                 
                 //TODO: Re-save the image here?
-                //scene.imageName = gConfig.uniqueString
+                //scene.imageName = Config.shared.uniqueString
                 //scene.imagePath = String(scene.imageName).stringByAppendingString(".png")
                 //FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
             }
@@ -216,7 +216,7 @@ class BounceEngine {
     
     func draw() {
         
-        let screenSize = scene.isLandscape ? CGSize(width: gDevice.landscapeWidth, height: gDevice.landscapeHeight) : CGSize(width: gDevice.portraitWidth, height: gDevice.portraitHeight)
+        let screenSize = scene.isLandscape ? CGSize(width: Device.shared.landscapeWidth, height: Device.shared.landscapeHeight) : CGSize(width: Device.shared.portraitWidth, height: Device.shared.portraitHeight)
         
         Graphics.shared.colorSet(r: 0.44, g: 0.44, b: 0.44)
         Graphics.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))

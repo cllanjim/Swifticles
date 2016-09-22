@@ -378,9 +378,9 @@ open class Sprite {
  
  if(mBufferIndex != -1)
  {
- if(gAppBase)
+ if(ApplicationController.sharedBase)
  {
- gAppBase->BindRemove(mBufferIndex);
+ ApplicationController.sharedBase->BindRemove(mBufferIndex);
  }
  }
  }
@@ -403,7 +403,7 @@ open class Sprite {
  if(pImage->mBufferIndex > 0)
  {
  mBufferIndex = pImage->mBufferIndex;
- if(gAppBase)gAppBase->BindAdd(mBufferIndex);
+ if(ApplicationController.sharedBase)ApplicationController.sharedBase->BindAdd(mBufferIndex);
  
  mWidth = (float)pImage->mWidth;
  mHeight = (float)pImage->mHeight;

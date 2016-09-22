@@ -65,9 +65,9 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
         if segment === segEditMode {
             
             if segEditMode.selectedIndex == 0 {
-                gApp.engine?.editMode = .affine
+                ApplicationController.shared.engine?.editMode = .affine
             } else {
-                gApp.engine?.editMode = .shape
+                ApplicationController.shared.engine?.editMode = .shape
             }
             
         }

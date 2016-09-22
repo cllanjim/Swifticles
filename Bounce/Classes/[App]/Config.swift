@@ -8,6 +8,9 @@ import Foundation
 
 class Config
 {
+    static let shared = Config()
+    private init() { }
+
     
     private var _uniqueIndex1:Int = 4096
     private var _uniqueIndex2:Int = 2048
@@ -42,4 +45,5 @@ class Config
     }
 }
 
-let gConfig = Config()
+//let Config.shared = Config()
+

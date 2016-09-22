@@ -100,10 +100,10 @@ class Blob
         //vertexBufferSlot = Graphics.shared.bufferVertexGenerate(data: &vertexBuffer, size: 40)
         //indexBufferSlot = Graphics.shared.bufferIndexGenerate(data: &indexBuffer, size: 6)
         
-        var radius = min(gApp.width, gApp.height)
+        var radius = min(ApplicationController.shared.width, ApplicationController.shared.height)
         var pointCount = 6
         
-        if gDevice.tablet {
+        if Device.shared.tablet {
             pointCount = 8
             radius = radius / 6
         } else {
@@ -155,7 +155,7 @@ class Blob
     
     func draw() {
         
-        guard let sprite = gApp.engine?.background else {
+        guard let sprite = ApplicationController.shared.engine?.background else {
             valid = false
             return
         }
@@ -204,7 +204,7 @@ class Blob
         Graphics.shared.colorSet()
         
         
-        if gApp.engine?.sceneMode == .edit {
+        if ApplicationController.shared.engine?.sceneMode == .edit {
             
             Graphics.shared.textureDisable()
             Graphics.shared.textureBlankBind()
@@ -231,7 +231,7 @@ class Blob
                 vertexIndex += 10
             }
             
-        } else if gApp.engine?.sceneMode == .view {
+        } else if ApplicationController.shared.engine?.sceneMode == .view {
             
             Graphics.shared.textureEnable()
             Graphics.shared.textureBind(texture: sprite.texture)
@@ -444,7 +444,7 @@ class Blob
         borderBase.reset()
         
         var threshDist = CGFloat(8.0)
-        if gDevice.tablet { threshDist = 12.0 }
+        if Device.shared.tablet { threshDist = 12.0 }
         
         threshDist = (threshDist * threshDist)
         
@@ -1019,12 +1019,12 @@ class Blob
     
     internal func computeTextureCoords() {
         
-        guard let sceneRect = gApp.engine?.sceneRect else {
+        guard let sceneRect = ApplicationController.shared.engine?.sceneRect else {
             valid = false
             return
         }
         
-        guard let sprite = gApp.engine?.background else {
+        guard let sprite = ApplicationController.shared.engine?.background else {
             valid = false
             return
         }

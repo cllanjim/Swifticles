@@ -8,6 +8,9 @@ import UIKit
 
 class Device
 {
+    static let shared = Device()
+    private init() { }
+    
     var width:CGFloat {
         return UIScreen.main.bounds.size.width
     }
@@ -104,6 +107,7 @@ class Device
     
 }
 
-let gDevice = Device()
+//let Device.shared = Device()
+
 
 

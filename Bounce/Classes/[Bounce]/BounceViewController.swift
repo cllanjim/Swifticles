@@ -18,11 +18,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //Make sure global reference is ready for setup.
-        gApp.bounce = self
+        ApplicationController.shared.bounce = self
     }
     
     deinit {
-        gApp.bounce = nil
+        ApplicationController.shared.bounce = nil
     }
     
     var panRecognizer:UIPanGestureRecognizer!
@@ -70,7 +70,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     func setUpNew(image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
         let scene = BounceScene()
         
-        scene.imageName = gConfig.uniqueString
+        scene.imageName = Config.shared.uniqueString
         scene.imagePath = String(scene.imageName) + ".png"
         FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
         
@@ -86,11 +86,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         let orientation = UIApplication.shared.statusBarOrientation
         if orientation == .landscapeLeft || orientation == .landscapeRight {
             if scene.isLandscape == false {
-                gDevice.orientation = .portrait
+                Device.shared.orientation = .portrait
             }
         } else {
             if scene.isLandscape {
-                gDevice.orientation = .landscapeLeft
+                Device.shared.orientation = .landscapeLeft
             }
         }
         

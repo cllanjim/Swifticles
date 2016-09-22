@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         
         //for i in 0..<100000 {
-        //    print("\(gConfig.uniqueString)")
+        //    print("\(Config.shared.uniqueString)")
         //}
         //print("___")
         
@@ -100,12 +100,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         
         
-        print("device width = \(gDevice.width)\ndevice height = \(gDevice.height)")
-        print("portrait width = \(gDevice.portraitWidth)\nportrait height = \(gDevice.portraitHeight)")
-        print("landscape width = \(gDevice.landscapeWidth)\nlandscape height = \(gDevice.landscapeHeight)")
+        print("device width = \(Device.shared.width)\ndevice height = \(Device.shared.height)")
+        print("portrait width = \(Device.shared.portraitWidth)\nportrait height = \(Device.shared.portraitHeight)")
+        print("landscape width = \(Device.shared.landscapeWidth)\nlandscape height = \(Device.shared.landscapeHeight)")
         
         
-        gApp.navigationController.delegate = self
+        ApplicationController.shared.navigationController.delegate = self
         
         return true
     }

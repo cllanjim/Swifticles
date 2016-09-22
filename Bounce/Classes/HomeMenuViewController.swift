@@ -24,7 +24,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         
-        gApp.navigationController.setNavigationBarHidden(true, animated: true)
+        ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
         
     }
     

@@ -38,7 +38,7 @@ class ToolBarBottom : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
         case .changed:
             */
         
-        switch gApp.sceneMode {
+        switch ApplicationController.shared.sceneMode {
             case .edit :
                 segMode.selectedIndex = 0
                 break
@@ -58,9 +58,9 @@ class ToolBarBottom : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
         if segment === segMode {
             
             if segMode.selectedIndex == 0 {
-                gApp.sceneMode = .edit
+                ApplicationController.shared.sceneMode = .edit
             } else {
-                gApp.sceneMode = .view
+                ApplicationController.shared.sceneMode = .view
             }
             
         }

@@ -255,7 +255,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func constrainImageToImportSize(importImage:UIImage, screenSize:CGSize) -> UIImage? {
-        let importScale = gApp.importScale
+        let importScale = ApplicationController.shared.importScale
         
         let importMaxWidth = Double(screenSize.width) * Double(importScale)
         let importMaxHeight = Double(screenSize.height) * Double(importScale)
@@ -286,7 +286,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 loadViewIfNeeded()
                 view.layoutIfNeeded()
                 
-                gApp.navigationController.setNavigationBarHidden(false, animated: true)
+                ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
                 
                 
                 imageView = UIImageView(frame: CGRect(x: (-image.size.width / 2.0), y: (-image.size.height / 2.0), width: image.size.width, height: image.size.height))
@@ -359,8 +359,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func getCropRect(_ size: CGSize) -> CGRect {
-        let activeBorder = gDevice.tablet ? 24.0 : 6.0
-        let navigationBar = gApp.navigationController.navigationBar
+        let activeBorder = Device.shared.tablet ? 24.0 : 6.0
+        let navigationBar = ApplicationController.shared.navigationController.navigationBar
         let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
         let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
         let activeWidth = size.width - (CGFloat(activeBorder * 2))
@@ -400,7 +400,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 let imageCenter = imageView.convert(CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY), to: view)
                 let imageShift = CGPoint(x: imageCenter.x - cropView.frame.midX, y: imageCenter.y - cropView.frame.midY)
                 
-                let cropScale = gDevice.scale
+                let cropScale = Device.shared.scale
                 let s1 = ((view.bounds.size.width) / cropView.bounds.size.width) * cropScale
                 let s2 = ((view.bounds.size.height) / cropView.bounds.size.height) * cropScale
                 let adjustScale = max(s1, s2)
@@ -442,12 +442,12 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func clickNext(_ sender: UIBarButtonItem) {
         if let resultImage = cropImage() {
             let isPortrait = view.bounds.size.width < view.bounds.size.height
-            if let bounce = gApp.getStoryboardVC("bounce") as? BounceViewController {
+            if let bounce = ApplicationController.shared.getStoryboardVC("bounce") as? BounceViewController {
                 bounce.loadViewIfNeeded()
-                bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? gDevice.portraitWidth : gDevice.landscapeWidth, height: isPortrait ? gDevice.portraitHeight : gDevice.landscapeHeight), portraitOrientation: isPortrait)
+                bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? Device.shared.portraitWidth : Device.shared.landscapeWidth, height: isPortrait ? Device.shared.portraitHeight : Device.shared.landscapeHeight), portraitOrientation: isPortrait)
             
-                gApp.navigationController.setNavigationBarHidden(true, animated: true)
-                gApp.navigationController.setViewControllers([bounce], animated: true)
+                ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
+                ApplicationController.shared.navigationController.setViewControllers([bounce], animated: true)
             }
         }
     }
