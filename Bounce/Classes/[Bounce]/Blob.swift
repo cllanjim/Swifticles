@@ -275,9 +275,14 @@ class Blob
         
         Graphics.shared.blendEnable()
         Graphics.shared.blendSetAlpha()
-        for i in 0..<border.count {
-            let point = border.data[i];
+        
+        for i in 1..<spline.controlPointCount {
+            let point = spline.getControlPoint(i)
             ApplicationController.shared.bounce?.controlPoint.drawCentered(pos: point)
+        }
+        
+        for i in 0..<border.count {
+            
         }
         Graphics.shared.blendDisable()
         
@@ -454,11 +459,11 @@ class Blob
     internal func computeBorder() {
         borderBase.reset()
         
-        //var threshDist = CGFloat(8.0)
-        //if Device.shared.tablet { threshDist = 12.0 }
+        var threshDist = CGFloat(4.0)
+        if Device.shared.tablet { threshDist = 8.0 }
         
-        var threshDist = CGFloat(30.0)
-        if Device.shared.tablet { threshDist = 40.0 }
+        //var threshDist = CGFloat(30.0)
+        //if Device.shared.tablet { threshDist = 40.0 }
         
         threshDist = (threshDist * threshDist)
         

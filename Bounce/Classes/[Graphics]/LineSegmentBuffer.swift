@@ -15,7 +15,7 @@ class LineSegmentBuffer {
     
     var data = [LineSegment]()
     
-    var thickness: CGFloat = 0.70 {
+    var thickness: CGFloat = 1.25 {
         didSet { setNeedsCompute() }
     }
     
