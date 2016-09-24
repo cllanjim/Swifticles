@@ -8,28 +8,37 @@ import UIKit
 import OpenGLES
 
 struct BlobGridNode {
-    //Base = untransformed, no Base = transformed...
-    var point:CGPoint = CGPoint.zero
+    //Relative to (x=0, y=0).
     var pointBase:CGPoint = CGPoint.zero
+    
+    //Transformed to user's view.
+    var point:CGPoint = CGPoint.zero
+    
+    //Index in the triangle list, we only store each data point once.
     var meshIndex:Int?
     
+    //Is it an edge?
     var edgeU:Bool = false
     var edgeR:Bool = false
     var edgeD:Bool = false
     var edgeL:Bool = false
     
+    //Edge indeces in the triangle list, we only store each data point once.
     var meshIndexEdgeU:Int?
     var meshIndexEdgeR:Int?
     var meshIndexEdgeD:Int?
     var meshIndexEdgeL:Int?
     
+    //Exact points where the adjacent edges are.
     var edgePointBaseU:CGPoint = CGPoint.zero
     var edgePointBaseR:CGPoint = CGPoint.zero
     var edgePointBaseD:CGPoint = CGPoint.zero
     var edgePointBaseL:CGPoint = CGPoint.zero
     
+    //texture coordinates (u, v) of the transformed point on the background image.
     var texturePoint:CGPoint = CGPoint.zero
     
+    //Is it inside the border outline?
     var inside:Bool = false
     
     var color:UIColor = UIColor.white
@@ -65,8 +74,8 @@ class Blob
     private var vertexBufferSlot:BufferIndex?
     private var indexBufferSlot:BufferIndex?
     
-    var linesBase = LineSegmentBuffer()//[LineSegment]()
-    var lines = LineSegmentBuffer()//[LineSegment]()
+    var linesBase = LineSegmentBuffer()
+    var lines = LineSegmentBuffer()
     
     //Base = untransformed, no Base = transformed...
     private var borderBase = PointList()
@@ -75,7 +84,6 @@ class Blob
     var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { needsComputeAffine = true } }
     var scale:CGFloat = 1.0 { didSet { needsComputeAffine = true } }
     var rotation:CGFloat = 0.0 { didSet { needsComputeAffine = true } }
-    
     
     func setNeedsComputeShape() { needsComputeShape = true }
     internal var needsComputeShape:Bool = true
@@ -94,11 +102,11 @@ class Blob
     
     init() {
         
-        vertexBufferSlot = Graphics.shared.bufferGenerate()
-        indexBufferSlot = Graphics.shared.bufferGenerate()
+        vertexBufferSlot = Graphics.bufferGenerate()
+        indexBufferSlot = Graphics.bufferGenerate()
         
-        //vertexBufferSlot = Graphics.shared.bufferVertexGenerate(data: &vertexBuffer, size: 40)
-        //indexBufferSlot = Graphics.shared.bufferIndexGenerate(data: &indexBuffer, size: 6)
+        //vertexBufferSlot = Graphics.bufferVertexGenerate(data: &vertexBuffer, size: 40)
+        //indexBufferSlot = Graphics.bufferIndexGenerate(data: &indexBuffer, size: 6)
         
         var radius = min(ApplicationController.shared.width, ApplicationController.shared.height)
         var pointCount = 6
@@ -110,8 +118,8 @@ class Blob
             radius = radius / 6
         }
         for i in 0..<pointCount {
-            var percent = CGFloat(i) / CGFloat(pointCount)
-            var rads = percent * Math.PI2
+            let percent = CGFloat(i) / CGFloat(pointCount)
+            let rads = percent * Math.PI2
             spline.add(sin(rads) * radius, y: cos(rads) * radius)
         }
         spline.linear = false
@@ -120,10 +128,10 @@ class Blob
     }
     
     deinit {
-        Graphics.shared.bufferDelete(bufferIndex: vertexBufferSlot)
+        Graphics.bufferDelete(bufferIndex: vertexBufferSlot)
         vertexBufferSlot = nil
         
-        Graphics.shared.bufferDelete(bufferIndex: indexBufferSlot)
+        Graphics.bufferDelete(bufferIndex: indexBufferSlot)
         indexBufferSlot = nil
     }
     
@@ -163,30 +171,35 @@ class Blob
         computeIfNeeded()
         
         
-        Graphics.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
-        Graphics.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
+        var isEditMode = false
+        var isViewMode = false
         
-        Graphics.shared.colorSet(r: 0.25, g: 1.0, b: 1.0, a: 1.0)
+        var isEditModeAffine = false
+        var isEditModeShape = false
         
+        var shapeSelectionControlPointIndex:Int?
         
-        
-        for i in 0..<lines.count {
+        if let engine = ApplicationController.shared.engine {
+            if engine.sceneMode == .edit {
+                isEditMode = true
+                if engine.editMode == .affine { isEditModeAffine = true }
+                if engine.editMode == .shape {
+                    isEditModeShape = true
+                    if selected {
+                        shapeSelectionControlPointIndex = engine.shapeSelectionControlPointIndex
+                    }
+                }
+            }
             
-            let segment = lines.data[i]
-            
-            Graphics.shared.lineDraw(p1: segment.p1, p2: segment.p2, thickness: 0.5)
         }
         
+            
         
         
         
-        Graphics.shared.colorSet(r: 1.0, g: 0.0, b: 0.5)
-        for i in 0..<spline.controlPointCount {
-            var controlPoint = spline.getControlPoint(i)
-            controlPoint = transformPoint(point: controlPoint)
-            Graphics.shared.rectDraw(x: Float(controlPoint.x - 5), y: Float(controlPoint.y - 5), width: 11, height: 11)
-        }
         
+        //Graphics.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
+        //Graphics.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
 
         
         
@@ -206,10 +219,10 @@ class Blob
         
         if ApplicationController.shared.engine?.sceneMode == .edit {
             
-            Graphics.shared.textureDisable()
+            Graphics.textureDisable()
             Graphics.shared.textureBlankBind()
-            Graphics.shared.blendEnable()
-            Graphics.shared.blendSetAlpha()
+            Graphics.blendEnable()
+            Graphics.blendSetAlpha()
             
             var r:CGFloat = 0.05
             var g:CGFloat = 0.65
@@ -233,28 +246,22 @@ class Blob
             
         } else if ApplicationController.shared.engine?.sceneMode == .view {
             
-            Graphics.shared.textureEnable()
-            Graphics.shared.textureBind(texture: sprite.texture)
-            Graphics.shared.blendDisable()
+            Graphics.textureEnable()
+            Graphics.textureBind(texture: sprite.texture)
+            Graphics.blendDisable()
             
             var vertexIndex:Int = 0
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
-                
-                node.r = 1.0
-                node.g = 1.0
-                node.b = 1.0
-                node.a = 1.0
-                
+                node.r = 1.0;node.g = 1.0;node.b = 1.0;node.a = 1.0
                 node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
                 vertexIndex += 10
             }
-            
         }
         
         
         
-        Graphics.shared.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
+        Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
         Graphics.shared.positionEnable()
         Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
         
@@ -264,27 +271,30 @@ class Blob
         Graphics.shared.colorArrayEnable()
         Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
-        Graphics.shared.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
-        Graphics.shared.drawElementsTriangle(count:indexBufferCount, offset: 0)
+        Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
+        Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
         
-        Graphics.shared.blendDisable()
+        Graphics.blendDisable()
         
         
         lines.draw()
         
         
-        Graphics.shared.blendEnable()
-        Graphics.shared.blendSetAlpha()
+        Graphics.blendEnable()
+        Graphics.blendSetPremultiplied()
         
-        for i in 1..<spline.controlPointCount {
-            let point = spline.getControlPoint(i)
-            ApplicationController.shared.bounce?.controlPoint.drawCentered(pos: point)
-        }
         
-        for i in 0..<border.count {
+        for i in 0..<spline.controlPointCount {
+            let point = transformPoint(point: spline.getControlPoint(i))
             
+            if shapeSelectionControlPointIndex == i {
+                BounceViewController.shared?.controlPointSelected.drawCentered(pos: point)
+            } else {
+                BounceViewController.shared?.controlPoint.drawCentered(pos: point)
+            }
         }
-        Graphics.shared.blendDisable()
+        
+        Graphics.blendDisable()
         
         /*
         for i in 0..<tri.count {
@@ -372,39 +382,6 @@ class Blob
             }
         }
         */
-
-        
-        
-        /*
-        //Draw the border grid egdes..
-        for i in 0..<grid.count {
-            for n in 0..<grid[i].count {
-                if grid[i][n].edgeL {
-                    Graphics.shared.colorSet(color: UIColor.blueColor())
-                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseL), p2: grid[i][n].point, thickness: 1.0)
-                }
-                
-                if grid[i][n].edgeR {
-                    Graphics.shared.colorSet(color: UIColor.redColor())
-                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseR), p2: grid[i][n].point, thickness: 1.0)
-                }
-                
-                if grid[i][n].edgeU {
-                    Graphics.shared.colorSet(color: UIColor.redColor())
-                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseU), p2: grid[i][n].point, thickness: 1.0)
-                }
-                
-                if grid[i][n].edgeD {
-                    Graphics.shared.colorSet(color: UIColor.purpleColor())
-                    Graphics.shared.lineDraw(p1: transformPoint(point: grid[i][n].edgePointBaseD), p2: grid[i][n].point, thickness: 1.0)
-                }
-            }
-        }
-        */
-        
-        //var linesBase = [LineSegment]()
-        //var lines = [LineSegment]()
-        //computeMesh()
         
     }
     
@@ -608,6 +585,7 @@ class Blob
         }
     }
     
+    //For indexed triangle list, we will only use each grid edge point once.
     func meshIndexEdgeU(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeU != nil) {
             return grid[gridX][gridY].meshIndexEdgeU!
@@ -620,6 +598,7 @@ class Blob
         }
     }
     
+    //For indexed triangle list, we will only use each grid edge point once.
     func meshIndexEdgeR(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeR != nil) {
             return grid[gridX][gridY].meshIndexEdgeR!
@@ -632,6 +611,7 @@ class Blob
         }
     }
     
+    //For indexed triangle list, we will only use each grid edge point once.
     func meshIndexEdgeD(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeD != nil) {
             return grid[gridX][gridY].meshIndexEdgeD!
@@ -644,6 +624,7 @@ class Blob
         }
     }
     
+    //For indexed triangle list, we will only use each grid edge point once.
     func meshIndexEdgeL(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndexEdgeL != nil) {
             return grid[gridX][gridY].meshIndexEdgeL!
@@ -656,6 +637,7 @@ class Blob
         }
     }
     
+    //For indexed triangle list, we will only use each grid point once.
     func meshIndex(_ gridX: Int, _ gridY: Int) -> Int {
         if (grid[gridX][gridY].meshIndex != nil) {
             return grid[gridX][gridY].meshIndex!
@@ -678,6 +660,7 @@ class Blob
     func computeMesh() {
         guard valid else { return }
         
+        //Reset the mesh indeces.
         for i in 0..<grid.count {
             for n in 1..<grid[i].count {
                 grid[i][n].meshIndex = nil
@@ -691,6 +674,7 @@ class Blob
         tri.reset()
         meshNodesBase.reset()
         
+        //Build the mesh using level 6 magic.
         for i in 1..<grid.count {
             for n in 1..<grid[i].count {
                 let top = n - 1
@@ -952,12 +936,17 @@ class Blob
     }
     
     func computeMeshEdgeFactors() {
+        
+        //Something went very wrong.
         guard linesBase.count > 1 && valid else {
             valid = false
             return
         }
         
+        //The farthest total distance of any point to the border.
         var largestDist:CGFloat = 0.0
+        
+        //Find the closest distance from each point to anywhere on the border.
         for nodeIndex in 0..<meshNodesBase.count {
             let node = meshNodesBase.data[nodeIndex]
             let point = CGPoint(x: node.x, y: node.y)
@@ -972,17 +961,18 @@ class Blob
                     closestDist = dist
                 }
             }
-            
             if closestDist > Math.epsilon { closestDist = CGFloat(sqrtf(Float(closestDist))) }
             if closestDist > largestDist { largestDist = closestDist }
             node.edgeDistance = closestDist
         }
         
+        //Something went very wrong.
         guard largestDist > Math.epsilon else {
             valid = false
             return
         }
         
+        //Normalize all of the distances for percent [0, 1]
         for nodeIndex in 0..<meshNodesBase.count {
             let node = meshNodesBase.data[nodeIndex]
             node.edgePercent = node.edgeDistance / largestDist

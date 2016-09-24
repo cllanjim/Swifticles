@@ -35,7 +35,7 @@ open class Texture {
     func clear() {
         width = 0
         height = 0
-        Graphics.shared.textureDelete(bufferIndex: bindIndex)
+        Graphics.textureDelete(bufferIndex: bindIndex)
         bindIndex = nil
     }
     
@@ -50,7 +50,7 @@ open class Texture {
             defer { free(imageData) }
             width = Int(textureWidth)
             height = Int(textureHeight)
-            bindIndex = Graphics.shared.textureGenerate(width: Int(scaledWidth), height: Int(scaledHeight), data: imageData)
+            bindIndex = Graphics.textureGenerate(width: Int(scaledWidth), height: Int(scaledHeight), data: imageData)
             }
             
         }

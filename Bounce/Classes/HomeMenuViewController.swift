@@ -122,6 +122,13 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         self.performSegue(withIdentifier: "import_image", sender: nil)
     }
     
+    @IBAction func clickContinueRecent(_ sender: HMButton) {
+        loadPath = "recent_scene.json"
+        performSegue(withIdentifier: "test_bounce", sender: nil)
+    }
+    
+    
+    //
     
     
     

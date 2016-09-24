@@ -65,7 +65,7 @@
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickLoad:" destination="7WL-lm-GZy" eventType="touchUpInside" id="7E7-Wf-Uuc"/>
+                                            <action selector="clickContinueRecent:" destination="7WL-lm-GZy" eventType="touchUpInside" id="bs0-0c-pyE"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-3M-ndH" customClass="HMButton" customModule="Bounce" customModuleProvider="target">

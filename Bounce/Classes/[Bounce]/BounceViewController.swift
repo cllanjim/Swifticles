@@ -25,6 +25,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         ApplicationController.shared.bounce = nil
     }
     
+    class var shared:BounceViewController? {
+        return ApplicationController.shared.bounce
+    }
+    
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
     var rotRecognizer:UIRotationGestureRecognizer!;
@@ -87,16 +91,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     internal func setUp(scene:BounceScene, screenRect:CGRect) {
         
-        let orientation = UIApplication.shared.statusBarOrientation
-        if orientation == .landscapeLeft || orientation == .landscapeRight {
-            if scene.isLandscape == false {
-                Device.shared.orientation = .portrait
-            }
-        } else {
-            if scene.isLandscape {
-                Device.shared.orientation = .landscapeLeft
-            }
-        }
+        
+        
+        
+        
+        //if scene.image
         
         engine.setUp(scene: scene)
         
@@ -113,8 +112,22 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
                                                name: NSNotification.Name(BounceNotification.BlobAdded.rawValue), object: nil)
         
-        //...
-        scene.image = nil
+        
+        var recentImagePath = "recent.png"
+        FileUtils.saveImagePNG(image: scene.image, filePath: FileUtils.getDocsPath(filePath: recentImagePath))
+        
+        let orientation = UIApplication.shared.statusBarOrientation
+        if orientation == .landscapeLeft || orientation == .landscapeRight {
+            if scene.isLandscape == false {
+                Device.shared.orientation = .portrait
+            }
+        } else {
+            if scene.isLandscape {
+                Device.shared.orientation = .landscapeLeft
+            }
+        }
+        
+         scene.image = nil
     }
     
     
@@ -150,6 +163,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         saveScene()
+        saveRecentScene()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -176,7 +190,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         controlPoint.load(path: "control_point")
         controlPointSelected.load(path: "control_point_selected")
-        
     }
     
     override func update() {
@@ -220,8 +233,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
-        Graphics.shared.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
-        Graphics.shared.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
+        Graphics.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
+        Graphics.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
         Graphics.shared.matrixProjectionSet(screenMat)
         Graphics.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
         Graphics.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
@@ -233,7 +246,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         //Graphics.shared.blendEnable()
         //Graphics.shared.blendSetAlpha()
         Graphics.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
-        Graphics.shared.textureEnable()
+        Graphics.textureEnable()
         engine.draw()
         
         Graphics.shared.matrixProjectionSet(screenMat)
@@ -668,17 +681,17 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
     
     
     func saveScene(filePath:String?) {
+        
+        saveScene(filePath: filePath, scene: engine.scene)
+        
+        /*
         print("************\nBounceEngine.save(\(filePath))")
         
         if let path = filePath , path.characters.count > 0 {
-            
             var info = [String:AnyObject]()
             
             info["scene"] = engine.scene.save() as AnyObject?
             info["engine"] = engine.save() as AnyObject?
-            
-            info["test_1"] = "t-1" as AnyObject?
-            info["test_2"] = "t-2" as AnyObject?
             
             do {
                 var fileData:Data?
@@ -690,10 +703,36 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                 print("Unable to save Data [\(filePath)]")
             }
         }
+        */
+    }
+    
+    func saveRecentScene() {
+        let scene = engine.scene.clone
+        scene.image = nil
+        scene.imageName = "recent"
+        scene.imagePath = String(scene.imageName) + ".png"
+        saveScene(filePath: "recent_scene.json", scene:scene)
+    }
+    
+    func saveScene(filePath: String?, scene: BounceScene) {
+        print("************\nBounceEngine.save(\(filePath))")
         
-        
-        
-        
+        if let path = filePath , path.characters.count > 0 {
+            var info = [String:AnyObject]()
+            
+            info["scene"] = scene.save() as AnyObject?
+            info["engine"] = engine.save() as AnyObject?
+            
+            do {
+                var fileData:Data?
+                try fileData = JSONSerialization.data(withJSONObject: info, options: .prettyPrinted)
+                if fileData != nil {
+                    FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
+                }
+            } catch {
+                print("Unable to save Data [\(filePath)]")
+            }
+        }
     }
     
     func loadScene(filePath:String?) {

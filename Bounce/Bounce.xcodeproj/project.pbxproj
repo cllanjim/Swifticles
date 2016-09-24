@@ -55,8 +55,11 @@
 		0D4C5A471D8A681900D6F241 /* HMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4C5A461D8A681900D6F241 /* HMButton.swift */; };
 		0D5219EB1D7015D40039598D /* BounceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5219EA1D7015D40039598D /* BounceScene.swift */; };
 		0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */; };
-		0D665E721D58239800558EA0 /* FragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E701D58239800558EA0 /* FragmentShader.glsl */; };
-		0D665E731D58239800558EA0 /* VertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D665E711D58239800558EA0 /* VertexShader.glsl */; };
+		0D83BE921D96407600256F63 /* MeshFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE8E1D96407600256F63 /* MeshFragmentShader.glsl */; };
+		0D83BE931D96407600256F63 /* MeshVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE8F1D96407600256F63 /* MeshVertexShader.glsl */; };
+		0D83BE941D96407600256F63 /* SimpleFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE901D96407600256F63 /* SimpleFragmentShader.glsl */; };
+		0D83BE951D96407600256F63 /* SimpleVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE911D96407600256F63 /* SimpleVertexShader.glsl */; };
+		0D83BE971D9659B900256F63 /* ShaderProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D83BE961D9659B900256F63 /* ShaderProgram.swift */; };
 		0D8BE3951D7D2CB500ACDBFC /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BE3941D7D2CB500ACDBFC /* LineSegment.swift */; };
 		0DD20F561D581263006DDDAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F541D581263006DDDAB /* Main.storyboard */; };
 		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
@@ -176,8 +179,11 @@
 		0D4C5A461D8A681900D6F241 /* HMButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMButton.swift; sourceTree = "<group>"; };
 		0D5219EA1D7015D40039598D /* BounceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceScene.swift; sourceTree = "<group>"; };
 		0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewControllerTests.swift; sourceTree = "<group>"; };
-		0D665E701D58239800558EA0 /* FragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FragmentShader.glsl; sourceTree = "<group>"; };
-		0D665E711D58239800558EA0 /* VertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VertexShader.glsl; sourceTree = "<group>"; };
+		0D83BE8E1D96407600256F63 /* MeshFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MeshFragmentShader.glsl; sourceTree = "<group>"; };
+		0D83BE8F1D96407600256F63 /* MeshVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MeshVertexShader.glsl; sourceTree = "<group>"; };
+		0D83BE901D96407600256F63 /* SimpleFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragmentShader.glsl; sourceTree = "<group>"; };
+		0D83BE911D96407600256F63 /* SimpleVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertexShader.glsl; sourceTree = "<group>"; };
+		0D83BE961D9659B900256F63 /* ShaderProgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderProgram.swift; sourceTree = "<group>"; };
 		0D8BE3941D7D2CB500ACDBFC /* LineSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineSegment.swift; sourceTree = "<group>"; };
 		0DD20F4D1D581262006DDDAB /* Bounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD20F551D581263006DDDAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -332,8 +338,10 @@
 		0D665E6F1D58239800558EA0 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				0D665E701D58239800558EA0 /* FragmentShader.glsl */,
-				0D665E711D58239800558EA0 /* VertexShader.glsl */,
+				0D83BE8E1D96407600256F63 /* MeshFragmentShader.glsl */,
+				0D83BE8F1D96407600256F63 /* MeshVertexShader.glsl */,
+				0D83BE901D96407600256F63 /* SimpleFragmentShader.glsl */,
+				0D83BE911D96407600256F63 /* SimpleVertexShader.glsl */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -452,6 +460,7 @@
 				0D8BE3941D7D2CB500ACDBFC /* LineSegment.swift */,
 				C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */,
 				C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */,
+				0D83BE961D9659B900256F63 /* ShaderProgram.swift */,
 			);
 			path = "[Graphics]";
 			sourceTree = "<group>";
@@ -604,7 +613,7 @@
 				0D37EA4E1D7381DA009DF16A /* reg_btn_load_down@2x.png in Resources */,
 				0D37EA461D7381DA009DF16A /* reg_btn_clone_selected_down@2x.png in Resources */,
 				0D37EA5D1D7381DA009DF16A /* test_ipad_landscape_info.json in Resources */,
-				0D665E731D58239800558EA0 /* VertexShader.glsl in Resources */,
+				0D83BE941D96407600256F63 /* SimpleFragmentShader.glsl in Resources */,
 				0D37EA411D7381DA009DF16A /* background_modal_ipad@2x.png in Resources */,
 				0D37EA5B1D7381DA009DF16A /* seg_back_highlight@2x.png in Resources */,
 				0D37EA611D7381DA009DF16A /* test_image.jpg in Resources */,
@@ -618,9 +627,9 @@
 				0D37EA6F1D73E364009DF16A /* test_iphone6_landscape.png in Resources */,
 				0D37EA501D7381DA009DF16A /* reg_btn_paste_down@2x.png in Resources */,
 				0D37EA4D1D7381DA009DF16A /* reg_btn_load@2x.png in Resources */,
+				0D83BE921D96407600256F63 /* MeshFragmentShader.glsl in Resources */,
 				0D37EA511D7381DA009DF16A /* reg_btn_reset_center@2x.png in Resources */,
 				0D37EA3F1D7381DA009DF16A /* background_generic@2x.png in Resources */,
-				0D665E721D58239800558EA0 /* FragmentShader.glsl in Resources */,
 				0D37EA3E1D7381DA009DF16A /* background_generic.png in Resources */,
 				0D37EA531D7381DA009DF16A /* reg_btn_reset_zoom@2x.png in Resources */,
 				0D37EA551D7381DA009DF16A /* reg_btn_save@2x.png in Resources */,
@@ -637,6 +646,8 @@
 				0D37EA581D7381DA009DF16A /* reg_btn_save_down@2x.png in Resources */,
 				0D37EA691D73C2EA009DF16A /* test_iphone5_portrait.png in Resources */,
 				0D37EA4B1D7381DA009DF16A /* reg_btn_deselect@2x.png in Resources */,
+				0D83BE931D96407600256F63 /* MeshVertexShader.glsl in Resources */,
+				0D83BE951D96407600256F63 /* SimpleVertexShader.glsl in Resources */,
 				0D37EA421D7381DA009DF16A /* checkbox_back_checked@2x.png in Resources */,
 				0D37EA451D7381DA009DF16A /* reg_btn_clone_selected@2x.png in Resources */,
 				0D37EA671D73C2EA009DF16A /* test_iphone5_landscape.png in Resources */,
@@ -672,6 +683,7 @@
 				C214D2701D6E9745004069A3 /* ToolBarTop.swift in Sources */,
 				0D4C5A471D8A681900D6F241 /* HMButton.swift in Sources */,
 				C25281F01D89F96E000A0072 /* ToolView.swift in Sources */,
+				0D83BE971D9659B900256F63 /* ShaderProgram.swift in Sources */,
 				C214D2791D6E9745004069A3 /* ToolActions.swift in Sources */,
 				C214D2611D6E9745004069A3 /* BounceViewController.swift in Sources */,
 				C25281EE1D89F614000A0072 /* ToolRowBottomView.swift in Sources */,

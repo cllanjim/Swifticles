@@ -30,8 +30,6 @@ class HomeMenuViewControllerTests: XCTestCase {
     func testImagePickerExists() {
         //HomeMenuViewController.showImagePicker()
         //XCTAssert(HomeMenuViewController.imagePickerViewController != nil)
-        
-        
     }
 
 }

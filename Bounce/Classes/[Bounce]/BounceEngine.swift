@@ -33,6 +33,10 @@ class BounceEngine {
         ApplicationController.shared.engine = nil
     }
     
+    class var shared:BounceEngine? {
+        return ApplicationController.shared.engine
+    }
+    
     var zoomMode:Bool = false {
         didSet {
             BounceEngine.postNotification(BounceNotification.ZoomModeChanged)
@@ -158,7 +162,10 @@ class BounceEngine {
         cancelAllGestures()
         
         affineSelectedBlob = nil
+        affineSelectionTouch = nil
         shapeSelectedBlob = nil
+        shapeSelectionTouch = nil
+        shapeSelectionControlPointIndex = nil
     }
     
     func setUp(scene:BounceScene) {//, screenRect:CGRect) {
@@ -201,6 +208,12 @@ class BounceEngine {
                 let sceneY = CGFloat(Int(screenSize.height / 2.0 - sceneHeight / 2.0 + 0.25))
                 self.sceneRect = CGRect(x: sceneX, y: sceneY, width: sceneWidth, height: sceneHeight)
             }
+            
+            
+            
+            
+            
+            
         }
         
         _ = addBlob()

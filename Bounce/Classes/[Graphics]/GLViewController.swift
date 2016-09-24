@@ -85,10 +85,9 @@ class GLViewController: GLKViewController {
     }
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
-        Graphics.shared.clear()
-        Graphics.shared.colorSet()
-        Graphics.shared.blendEnable()
-        Graphics.shared.blendSetAlpha()
+        Graphics.clear()
+        Graphics.blendEnable()
+        Graphics.blendSetAlpha()
         draw()
     }
     
@@ -102,14 +101,14 @@ class GLViewController: GLKViewController {
         program = glCreateProgram()
         
         // Create and compile vertex shader.
-        vertShaderPathname = Bundle.main.path(forResource: "VertexShader", ofType: "glsl")!
+        vertShaderPathname = Bundle.main.path(forResource: "MeshVertexShader", ofType: "glsl")!
         if self.compileShader(&vertShader, type: GLenum(GL_VERTEX_SHADER), file: vertShaderPathname) == false {
             print("Failed to compile vertex shader")
             return
         }
         
         // Create and compile fragment shader.
-        fragShaderPathname = Bundle.main.path(forResource: "FragmentShader", ofType: "glsl")!
+        fragShaderPathname = Bundle.main.path(forResource: "MeshFragmentShader", ofType: "glsl")!
         if !self.compileShader(&fragShader, type: GLenum(GL_FRAGMENT_SHADER), file: fragShaderPathname) {
             print("Failed to compile fragment shader")
             return
@@ -141,13 +140,13 @@ class GLViewController: GLKViewController {
         
         glUseProgram(program)
         
-        Graphics.shared.shaderSlotSlotPosition = glGetAttribLocation(program, "Position")
-        Graphics.shared.shaderSlotSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
-        Graphics.shared.shaderSlotSlotColor = glGetAttribLocation(program, "SourceColor")
-        Graphics.shared.shaderSlotUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
-        Graphics.shared.shaderSlotUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
-        Graphics.shared.shaderSlotUniformTexture = glGetUniformLocation(program, "Texture")
-        Graphics.shared.shaderSlotUniformColorModulate = glGetUniformLocation(program, "ModulateColor")
+        Graphics.shared.slotSlotPosition = glGetAttribLocation(program, "Position")
+        Graphics.shared.slotSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
+        Graphics.shared.slotSlotColor = glGetAttribLocation(program, "SourceColor")
+        Graphics.shared.slotUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
+        Graphics.shared.slotUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
+        Graphics.shared.slotUniformTexture = glGetUniformLocation(program, "Texture")
+        Graphics.shared.slotUniformColorModulate = glGetUniformLocation(program, "ModulateColor")
         
         // Release vertex and fragment shaders.
         if vertShader != 0 {

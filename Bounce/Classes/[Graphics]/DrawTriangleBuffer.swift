@@ -76,26 +76,26 @@ class DrawTriangleBuffer {
     func draw(texture:Texture?) {
         
         if vertexBufferSlot == nil{
-            vertexBufferSlot = Graphics.shared.bufferGenerate()
+            vertexBufferSlot = Graphics.bufferGenerate()
         }
         
         if vertexBufferSlot != nil && count > 0 {
-            Graphics.shared.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: count * 30)
+            Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: count * 30)
             Graphics.shared.positionEnable()
             Graphics.shared.texCoordEnable()
             Graphics.shared.colorArrayEnable()
             
             if let checkTexture = texture {
-                Graphics.shared.textureEnable()
-                Graphics.shared.textureBind(texture: checkTexture)
+                Graphics.textureEnable()
+                Graphics.textureBind(texture: checkTexture)
             } else {
-                Graphics.shared.textureDisable()
+                Graphics.textureDisable()
             }
             
             Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
             Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
             Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
-            Graphics.shared.drawTriangleList(count: count * 3, offset: 0)
+            Graphics.drawTriangleList(count: count * 3, offset: 0)
         }
     }
     
@@ -117,7 +117,6 @@ class DrawTriangleBuffer {
         data[index].writeToTriangleList(&vertexBuffer, index: index * 30)
         //vertexBuffer
     }
-    
     
 }
 

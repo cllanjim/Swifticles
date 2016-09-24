@@ -200,17 +200,17 @@ open class Sprite {
     }
     
     func bind() {
-        Graphics.shared.textureBind(texture: texture)
+        Graphics.textureBind(texture: texture)
     }
     
     func clear() {
         size = CGSize.zero
         texture = nil
         
-        Graphics.shared.bufferDelete(bufferIndex: vertexBufferSlot)
+        Graphics.bufferDelete(bufferIndex: vertexBufferSlot)
         vertexBufferSlot = nil
         
-        Graphics.shared.bufferDelete(bufferIndex: indexBufferSlot)
+        Graphics.bufferDelete(bufferIndex: indexBufferSlot)
         indexBufferSlot = nil
     }
     
@@ -245,8 +245,8 @@ open class Sprite {
             startY = CGFloat(-height2)
             endY = CGFloat(height2)
             
-            vertexBufferSlot = Graphics.shared.bufferVertexGenerate(data: &vertexBuffer, size: 40)
-            indexBufferSlot = Graphics.shared.bufferIndexGenerate(data: &indexBuffer, size: 6)
+            vertexBufferSlot = Graphics.bufferVertexGenerate(data: &vertexBuffer, size: 40)
+            indexBufferSlot = Graphics.bufferIndexGenerate(data: &indexBuffer, size: 6)
         }
     }
     
@@ -256,7 +256,7 @@ open class Sprite {
             refreshVB()
         }
         
-        Graphics.shared.bufferVertexBind(vertexBufferSlot)
+        Graphics.bufferVertexBind(vertexBufferSlot)
         
         Graphics.shared.positionEnable()
         Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
@@ -267,13 +267,13 @@ open class Sprite {
         Graphics.shared.colorArrayEnable()
         Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
-        Graphics.shared.textureEnable()
-        Graphics.shared.textureBind(texture: texture)
+        Graphics.textureEnable()
+        Graphics.textureBind(texture: texture)
         
         
-        Graphics.shared.bufferIndexBind(indexBufferSlot)
+        Graphics.bufferIndexBind(indexBufferSlot)
         
-        Graphics.shared.drawElementsTriangle(count:6, offset: 0)
+        Graphics.drawElementsTriangle(count:6, offset: 0)
     }
     
     open func drawCentered(pos:CGPoint) {
@@ -323,7 +323,7 @@ open class Sprite {
     internal func refreshVB() {
         
         if let checkIndex = vertexBufferSlot {
-            Graphics.shared.bufferVertexSetData(bufferIndex: checkIndex, data: &vertexBuffer, size: 40)
+            Graphics.bufferVertexSetData(bufferIndex: checkIndex, data: &vertexBuffer, size: 40)
             needsRefresh = false
         }
         

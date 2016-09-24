@@ -22,6 +22,16 @@ class BounceScene
     
     var size:CGSize = CGSize(width: 320.0, height: 320.0)
     
+    var clone:BounceScene {
+        let scene = BounceScene()
+        scene.title = title
+        scene.scenePath = scenePath
+        scene.imagePath = imagePath
+        scene.isLandscape = isLandscape
+        scene.size = CGSize(width: size.width, height: size.height)
+        return scene
+    }
+    
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
