@@ -144,8 +144,6 @@ class GLViewController: GLKViewController {
         Graphics.shared.shaderSlotSlotPosition = glGetAttribLocation(program, "Position")
         Graphics.shared.shaderSlotSlotTexCoord = glGetAttribLocation(program, "TexCoordIn")
         Graphics.shared.shaderSlotSlotColor = glGetAttribLocation(program, "SourceColor")
-        Graphics.shared.shaderSlotUniformEnableTexture = glGetUniformLocation(program, "EnableTexture")
-        Graphics.shared.shaderSlotUniformEnableModulate = glGetUniformLocation(program, "EnableModulate")
         Graphics.shared.shaderSlotUniformProjection = glGetUniformLocation(program, "ProjectionMatrix")
         Graphics.shared.shaderSlotUniformModelView = glGetUniformLocation(program, "ModelViewMatrix")
         Graphics.shared.shaderSlotUniformTexture = glGetUniformLocation(program, "Texture")

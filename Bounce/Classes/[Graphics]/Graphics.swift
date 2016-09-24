@@ -14,12 +14,10 @@ import CoreData
 typealias IndexBufferType = GLushort
 typealias BufferIndex = GLint
 
+//enum GLProgram: UInt32 { case tcmesh = 0, shape = 1 }
+//let GLProgramCount = 2
+
 class Graphics {
-    var shaderSlotBufferDepth:GLuint = 0
-    var shaderSlotBufferRender:GLuint = 0
-    
-    var shaderSlotUniformEnableTexture:GLint = 0
-    var shaderSlotUniformEnableModulate:GLint = 0
     
     var shaderSlotUniformProjection:GLint = 0
     var shaderSlotUniformModelView:GLint = 0
@@ -30,9 +28,6 @@ class Graphics {
     var shaderSlotSlotTexCoord:GLint = 0
     var shaderSlotSlotColor:GLint = 0
     var shaderSlotSlotNormal:GLint = 0
-    
-    private var cTestProjectionMatrix = [Float]()
-    private var cTestModelViewMatrix = [Float]()
     
     private var cProjectionMatrix = Matrix()
     private var cModelViewMatrix = Matrix()
@@ -67,10 +62,6 @@ class Graphics {
         cRectVertexBuffer[ 3] = 0.0
         cRectVertexBuffer[ 4] = 0.0
         cRectVertexBuffer[ 5] = 0.0
-        //cRectVertexBuffer[ 6] = 1.0
-        //cRectVertexBuffer[ 7] = 1.0
-        //cRectVertexBuffer[ 8] = 1.0
-        //cRectVertexBuffer[ 9] = 1.0
         
         cRectVertexBuffer[10] = 128.0
         cRectVertexBuffer[11] = -128.0
@@ -78,10 +69,6 @@ class Graphics {
         cRectVertexBuffer[13] = 1.0
         cRectVertexBuffer[14] = 0.0
         cRectVertexBuffer[15] = 0.0
-        //cRectVertexBuffer[16] = 1.0
-        //cRectVertexBuffer[17] = 1.0
-        //cRectVertexBuffer[18] = 1.0
-        //cRectVertexBuffer[19] = 1.0
         
         cRectVertexBuffer[20] = -128.0
         cRectVertexBuffer[21] = 128.0
@@ -89,10 +76,6 @@ class Graphics {
         cRectVertexBuffer[23] = 0.0
         cRectVertexBuffer[24] = 1.0
         cRectVertexBuffer[25] = 0.0
-        //cRectVertexBuffer[26] = 1.0
-        //cRectVertexBuffer[27] = 1.0
-        //cRectVertexBuffer[28] = 1.0
-        //cRectVertexBuffer[29] = 1.0
         
         cRectVertexBuffer[30] = 128.0
         cRectVertexBuffer[31] = 128.0
@@ -100,10 +83,6 @@ class Graphics {
         cRectVertexBuffer[33] = 1.0
         cRectVertexBuffer[34] = 1.0
         cRectVertexBuffer[35] = 0.0
-        //cRectVertexBuffer[36] = 1.0
-        //cRectVertexBuffer[37] = 1.0
-        //cRectVertexBuffer[38] = 1.0
-        //cRectVertexBuffer[39] = 1.0
         
         cRectIndexBuffer[0] = 0
         cRectIndexBuffer[1] = 2
@@ -430,7 +409,9 @@ class Graphics {
     }
     
     func matrixProjectionGet() -> Matrix {
-        return cProjectionMatrix
+        let result = Matrix()
+        result.set(cProjectionMatrix)
+        return result
     }
     
     func matrixModelViewGet() -> Matrix {
@@ -529,7 +510,9 @@ class Graphics {
     
     func textureDisable() {
         glDisable(GLenum(GL_TEXTURE_2D))
-        //glUniform1ui(shaderSlotUniformEnableTexture, 0)
+        
+        //TEMP... JK Forever
+        textureBlankBind()
     }
     
     func viewport(_ rect:CGRect) {

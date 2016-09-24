@@ -17,6 +17,16 @@ class DrawNode {
     var g:CGFloat = 1.0
     var b:CGFloat = 1.0
     var a:CGFloat = 1.0
+    
+    var point: CGPoint {
+        get { return CGPoint(x: x, y: y)}
+        set {
+            x = newValue.x
+            y = newValue.y
+        }
+    }
+    
+    
     func set(drawNode:DrawNode) {
         x = drawNode.x;y = drawNode.y;z = drawNode.z
         u = drawNode.u;v = drawNode.v;w = drawNode.w

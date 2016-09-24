@@ -23,6 +23,11 @@ class DrawTriangleBuffer {
     private var vertexBufferSlot:BufferIndex?
     //private var indexBufferSlot:BufferIndex?
     
+    //private var _writeNode1 = DrawNode()
+    //private var _writeNode2 = DrawNode()
+    //private var _writeNode3 = DrawNode()
+    
+    
     init() {
         
     }
@@ -74,48 +79,23 @@ class DrawTriangleBuffer {
             vertexBufferSlot = Graphics.shared.bufferGenerate()
         }
         
-        //if indexBufferSlot == nil{
-        //    indexBufferSlot = Graphics.shared.bufferGenerate()
-        //}
-        
-        if vertexBufferSlot != nil && vertexBufferSlot != nil {
-            
-            Graphics.shared.bufferVertexBind(vertexBufferSlot)
-            //Graphics.shared.bufferIndexBind(indexBufferSlot)
-            
+        if vertexBufferSlot != nil && count > 0 {
+            Graphics.shared.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: count * 30)
             Graphics.shared.positionEnable()
             Graphics.shared.texCoordEnable()
             Graphics.shared.colorArrayEnable()
             
-            for index in 0..<_count {
-                
-                
-                //var tri = t[index]
-                
-                //vertexBuffer = tri.buffer //tri.buffer
-                //indexBuffer = [0, 2, 1, 1, 2, 3]
-                
-                //Graphics.shared.rectDraw(x: Float(tri.x1 - 7), y: Float(tri.y1 - 2), width: 15, height: 15)
-                //Graphics.shared.rectDraw(x: Float(tri.x2 - 7), y: Float(tri.y2 - 2), width: 15, height: 15)
-                //Graphics.shared.rectDraw(x: Float(tri.x3 - 7), y: Float(tri.y3 - 2), width: 15, height: 15)
-                
-                if let checkTexture = texture {
-                    Graphics.shared.textureEnable()
-                    Graphics.shared.textureBind(texture: checkTexture)
-                } else {
-                    Graphics.shared.textureDisable()
-                }
-                
-                
-                //Graphics.shared.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &t[index].buffer, size: 30)
-                
-                Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
-                Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
-                Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
-                
-                Graphics.shared.drawTriangleList(count: 3, offset: 0)
-                
+            if let checkTexture = texture {
+                Graphics.shared.textureEnable()
+                Graphics.shared.textureBind(texture: checkTexture)
+            } else {
+                Graphics.shared.textureDisable()
             }
+            
+            Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
+            Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+            Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+            Graphics.shared.drawTriangleList(count: count * 3, offset: 0)
         }
     }
     

@@ -18,7 +18,7 @@ open class Sprite {
     //because a sprite can be only a slice of a texture...
     var size:CGSize = CGSize.zero
     
-    private var vertexBuffer:[GLfloat] = [GLfloat](repeating: 0.0, count: 40)
+    private var vertexBuffer:[GLfloat] = [GLfloat](repeating: 1.0, count: 40)
     private var indexBuffer:[IndexBufferType] = [IndexBufferType](repeating: 0, count: 6)
     
     private var vertexBufferSlot:BufferIndex?
@@ -159,17 +159,40 @@ open class Sprite {
     }
     
     public init() {
-        vertexBuffer = [-128.0, -128.0, 0.0,    0.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                        128.0, -128.0, 0.0,    1.0, 0.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                        -128.0,  128.0, 0.0,    0.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0,
-                        128.0,  128.0, 0.0,    1.0, 1.0, 0.0,    1.0, 1.0, 1.0, 1.0]
+        vertexBuffer[ 0] = -128.0
+        vertexBuffer[ 1] = -128.0
+        vertexBuffer[ 2] = 0.0
+        vertexBuffer[ 3] = 0.0
+        vertexBuffer[ 4] = 0.0
+        vertexBuffer[ 5] = 0.0
         
-        //vertexBuffer = [-128.0, -128.0, 0.0,    0.0, 0.0, 0.0,    0.25, 0.28, 0.25, 0.5,
-        //                128.0, -128.0, 0.0,    1.0, 0.0, 0.0,    0.25, 0.28, 0.25, 0.5,
-        //                -128.0,  128.0, 0.0,    0.0, 1.0, 0.0,    0.25, 0.28, 0.25, 0.5,
-        //                128.0,  128.0, 0.0,    1.0, 1.0, 0.0,    0.25, 0.28, 0.25, 0.5]
+        vertexBuffer[10] = 128.0
+        vertexBuffer[11] = -128.0
+        vertexBuffer[12] = 0.0
+        vertexBuffer[13] = 1.0
+        vertexBuffer[14] = 0.0
+        vertexBuffer[15] = 0.0
         
-        indexBuffer = [0, 2, 1, 1, 2, 3]
+        vertexBuffer[20] = -128.0
+        vertexBuffer[21] = 128.0
+        vertexBuffer[22] = 0.0
+        vertexBuffer[23] = 0.0
+        vertexBuffer[24] = 1.0
+        vertexBuffer[25] = 0.0
+        
+        vertexBuffer[30] = 128.0
+        vertexBuffer[31] = 128.0
+        vertexBuffer[32] = 0.0
+        vertexBuffer[33] = 1.0
+        vertexBuffer[34] = 1.0
+        vertexBuffer[35] = 0.0
+        
+        indexBuffer[0] = 0
+        indexBuffer[1] = 2
+        indexBuffer[2] = 1
+        indexBuffer[3] = 1
+        indexBuffer[4] = 2
+        indexBuffer[5] = 3
     }
     
     deinit {
@@ -255,7 +278,15 @@ open class Sprite {
     
     open func drawCentered(pos:CGPoint) {
         
+        var holdMatrix = Graphics.shared.matrixProjectionGet()
         
+        var matrix = Matrix()
+        matrix.set(holdMatrix)
+        matrix.translate(GLfloat(pos.x), GLfloat(pos.y), 0.0)
+        
+        Graphics.shared.matrixProjectionSet(matrix)
+        draw()
+        Graphics.shared.matrixProjectionSet(holdMatrix)
         
         
         //var modelView = Graphics.shared.matrixModelViewGet()

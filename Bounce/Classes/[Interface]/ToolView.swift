@@ -10,12 +10,10 @@ import UIKit
 
 class ToolView: UIView
 {
-    
     var index: Int = 0
     
     @IBOutlet weak var heightConstraint: NSLayoutConstraint?
     @IBOutlet weak var widthConstraint: NSLayoutConstraint?
-    
     @IBOutlet weak var topConstraint: NSLayoutConstraint?
     @IBOutlet weak var rightConstraint: NSLayoutConstraint?
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint?

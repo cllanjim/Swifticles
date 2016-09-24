@@ -270,6 +270,17 @@ class Blob
         Graphics.shared.blendDisable()
         
         
+        lines.draw()
+        
+        
+        Graphics.shared.blendEnable()
+        Graphics.shared.blendSetAlpha()
+        for i in 0..<border.count {
+            let point = border.data[i];
+            ApplicationController.shared.bounce?.controlPoint.drawCentered(pos: point)
+        }
+        Graphics.shared.blendDisable()
+        
         /*
         for i in 0..<tri.count {
             
@@ -443,8 +454,11 @@ class Blob
     internal func computeBorder() {
         borderBase.reset()
         
-        var threshDist = CGFloat(8.0)
-        if Device.shared.tablet { threshDist = 12.0 }
+        //var threshDist = CGFloat(8.0)
+        //if Device.shared.tablet { threshDist = 12.0 }
+        
+        var threshDist = CGFloat(30.0)
+        if Device.shared.tablet { threshDist = 40.0 }
         
         threshDist = (threshDist * threshDist)
         
@@ -656,13 +670,8 @@ class Blob
         tri.add(i1: i1, i2: i2, i3: i3)
     }
     
-    //tri.add(x1: left, y1: top, x2: left, y2: n, x3: i, y3: top)
-    
-    
     func computeMesh() {
-        
         guard valid else { return }
-        
         
         for i in 0..<grid.count {
             for n in 1..<grid[i].count {

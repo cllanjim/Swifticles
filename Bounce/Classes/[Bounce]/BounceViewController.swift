@@ -33,6 +33,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         ToolActions.bottomMenuToggleExpand()
     }
     
+    var controlPoint = Sprite()
+    var controlPointSelected = Sprite()
+    
+    
     var panRecognizerTouchCount:Int = 0
     var pinchRecognizerTouchCount:Int = 0
     var rotRecognizerTouchCount:Int = 0
@@ -169,6 +173,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         rotRecognizer.delegate = self
         rotRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(rotRecognizer)
+        
+        controlPoint.load(path: "control_point")
+        controlPointSelected.load(path: "control_point_selected")
+        
     }
     
     override func update() {
