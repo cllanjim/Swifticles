@@ -81,9 +81,9 @@ class DrawTriangleBuffer {
         
         if vertexBufferSlot != nil && count > 0 {
             Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: count * 30)
-            Graphics.shared.positionEnable()
-            Graphics.shared.texCoordEnable()
-            Graphics.shared.colorArrayEnable()
+            ShaderProgramMesh.shared.positionEnable()
+            ShaderProgramMesh.shared.texCoordEnable()
+            ShaderProgramMesh.shared.colorArrayEnable()
             
             if let checkTexture = texture {
                 Graphics.textureEnable()
@@ -92,9 +92,9 @@ class DrawTriangleBuffer {
                 Graphics.textureDisable()
             }
             
-            Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
-            Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
-            Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+            ShaderProgramMesh.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
+            ShaderProgramMesh.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+            ShaderProgramMesh.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
             Graphics.drawTriangleList(count: count * 3, offset: 0)
         }
     }

@@ -257,21 +257,21 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
         Graphics.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
         Graphics.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
-        Graphics.shared.matrixProjectionSet(screenMat)
-        Graphics.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
-        Graphics.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
+        ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
+        ShaderProgramMesh.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
+        ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
         
         let viewMat = screenMat.clone()
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
         viewMat.scale(Float(screenScale))
-        Graphics.shared.matrixProjectionSet(viewMat)
-        //Graphics.shared.blendEnable()
-        //Graphics.shared.blendSetAlpha()
-        Graphics.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
+        ShaderProgramMesh.shared.matrixProjectionSet(viewMat)
+        //ShaderProgramMesh.shared.blendEnable()
+        //ShaderProgramMesh.shared.blendSetAlpha()
+        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         Graphics.textureEnable()
         engine.draw()
         
-        Graphics.shared.matrixProjectionSet(screenMat)
+        ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
     }
     
     func handleZoomModeChange() {

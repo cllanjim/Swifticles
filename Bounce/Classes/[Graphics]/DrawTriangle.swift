@@ -302,6 +302,6 @@ class DrawTriangle {
     }
     
     func draw() {
-        Graphics.shared.triangleDraw(self)
+        ShaderProgramMesh.shared.triangleDraw(self)
     }
 }

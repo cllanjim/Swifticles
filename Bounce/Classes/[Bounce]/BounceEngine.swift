@@ -231,22 +231,22 @@ class BounceEngine {
         
         let screenSize = scene.isLandscape ? CGSize(width: Device.shared.landscapeWidth, height: Device.shared.landscapeHeight) : CGSize(width: Device.shared.portraitWidth, height: Device.shared.portraitHeight)
         
-        Graphics.shared.colorSet(r: 0.44, g: 0.44, b: 0.44)
-        Graphics.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
+        ShaderProgramMesh.shared.colorSet(r: 0.44, g: 0.44, b: 0.44)
+        ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
         
-        Graphics.shared.colorSet(a: 0.35)
+        ShaderProgramMesh.shared.colorSet(a: 0.35)
         background.draw()
-        Graphics.shared.colorSet()
+        ShaderProgramMesh.shared.colorSet()
         
-        Graphics.shared.colorSet(r: 1.0, g: 0.2, b: 0.2)
-        Graphics.shared.pointDraw(point: CGPoint(x: background.startX, y: background.startY))
-        Graphics.shared.pointDraw(point: CGPoint(x: background.startX, y: background.endY))
-        Graphics.shared.pointDraw(point: CGPoint(x: background.endX, y: background.startY))
-        Graphics.shared.pointDraw(point: CGPoint(x: background.endX, y: background.endY))
+        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.2, b: 0.2)
+        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.startX, y: background.startY))
+        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.startX, y: background.endY))
+        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.endX, y: background.startY))
+        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.endX, y: background.endY))
         
         
         
-        Graphics.shared.colorSet()
+        ShaderProgramMesh.shared.colorSet()
         
         for blob:Blob in blobs {
             if blob.enabled {
@@ -254,10 +254,10 @@ class BounceEngine {
             }
         }
         
-        Graphics.shared.colorSet(r: 0.6, g: 0.8, b: 0.25)
-        Graphics.shared.pointDraw(point: touchPoint)
+        ShaderProgramMesh.shared.colorSet(r: 0.6, g: 0.8, b: 0.25)
+        ShaderProgramMesh.shared.pointDraw(point: touchPoint)
         
-        Graphics.shared.colorSet()
+        ShaderProgramMesh.shared.colorSet()
     }
     
     func touchDown(_ touch:inout UITouch, point:CGPoint) {

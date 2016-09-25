@@ -258,14 +258,14 @@ open class Sprite {
         
         Graphics.bufferVertexBind(vertexBufferSlot)
         
-        Graphics.shared.positionEnable()
-        Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
+        ShaderProgramMesh.shared.positionEnable()
+        ShaderProgramMesh.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
         
-        Graphics.shared.texCoordEnable()
-        Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        ShaderProgramMesh.shared.texCoordEnable()
+        ShaderProgramMesh.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
         
-        Graphics.shared.colorArrayEnable()
-        Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        ShaderProgramMesh.shared.colorArrayEnable()
+        ShaderProgramMesh.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
         Graphics.textureEnable()
         Graphics.textureBind(texture: texture)
@@ -278,15 +278,15 @@ open class Sprite {
     
     open func drawCentered(pos:CGPoint) {
         
-        var holdMatrix = Graphics.shared.matrixProjectionGet()
+        var holdMatrix = ShaderProgramMesh.shared.matrixModelViewGet()
         
         var matrix = Matrix()
         matrix.set(holdMatrix)
         matrix.translate(GLfloat(pos.x), GLfloat(pos.y), 0.0)
         
-        Graphics.shared.matrixProjectionSet(matrix)
+        ShaderProgramMesh.shared.matrixModelViewSet(matrix)
         draw()
-        Graphics.shared.matrixProjectionSet(holdMatrix)
+        ShaderProgramMesh.shared.matrixModelViewSet(holdMatrix)
     }
     
     open func drawCentered(pos:CGPoint, scale:CGFloat, rot: CGFloat) {

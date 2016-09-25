@@ -61,6 +61,9 @@
 		0D83BE951D96407600256F63 /* SimpleVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE911D96407600256F63 /* SimpleVertexShader.glsl */; };
 		0D83BE971D9659B900256F63 /* ShaderProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D83BE961D9659B900256F63 /* ShaderProgram.swift */; };
 		0D8BE3951D7D2CB500ACDBFC /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8BE3941D7D2CB500ACDBFC /* LineSegment.swift */; };
+		0D994A101D97BAE40072AD3F /* ShaderProgramMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D994A0F1D97BAE40072AD3F /* ShaderProgramMesh.swift */; };
+		0D994A121D97BAF40072AD3F /* ShaderProgramSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D994A111D97BAF40072AD3F /* ShaderProgramSprite.swift */; };
+		0D994A141D97BB0A0072AD3F /* ShaderProgramSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D994A131D97BB0A0072AD3F /* ShaderProgramSimple.swift */; };
 		0DD20F561D581263006DDDAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F541D581263006DDDAB /* Main.storyboard */; };
 		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
 		0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F651D581263006DDDAB /* BounceTests.swift */; };
@@ -189,6 +192,9 @@
 		0D83BE911D96407600256F63 /* SimpleVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertexShader.glsl; sourceTree = "<group>"; };
 		0D83BE961D9659B900256F63 /* ShaderProgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderProgram.swift; sourceTree = "<group>"; };
 		0D8BE3941D7D2CB500ACDBFC /* LineSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineSegment.swift; sourceTree = "<group>"; };
+		0D994A0F1D97BAE40072AD3F /* ShaderProgramMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderProgramMesh.swift; sourceTree = "<group>"; };
+		0D994A111D97BAF40072AD3F /* ShaderProgramSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderProgramSprite.swift; sourceTree = "<group>"; };
+		0D994A131D97BB0A0072AD3F /* ShaderProgramSimple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderProgramSimple.swift; sourceTree = "<group>"; };
 		0DD20F4D1D581262006DDDAB /* Bounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD20F551D581263006DDDAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0DD20F5A1D581263006DDDAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -469,6 +475,9 @@
 				C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */,
 				C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */,
 				0D83BE961D9659B900256F63 /* ShaderProgram.swift */,
+				0D994A0F1D97BAE40072AD3F /* ShaderProgramMesh.swift */,
+				0D994A111D97BAF40072AD3F /* ShaderProgramSprite.swift */,
+				0D994A131D97BB0A0072AD3F /* ShaderProgramSimple.swift */,
 			);
 			path = "[Graphics]";
 			sourceTree = "<group>";
@@ -727,6 +736,8 @@
 				C214D2681D6E9745004069A3 /* Sprite.swift in Sources */,
 				C25281EC1D89F609000A0072 /* ToolRowBottomEdit.swift in Sources */,
 				C214D2691D6E9745004069A3 /* Texture.swift in Sources */,
+				0D994A101D97BAE40072AD3F /* ShaderProgramMesh.swift in Sources */,
+				0D994A141D97BB0A0072AD3F /* ShaderProgramSimple.swift in Sources */,
 				C214D26B1D6E9745004069A3 /* Style.swift in Sources */,
 				C214D2651D6E9745004069A3 /* GLViewController.swift in Sources */,
 				C214D2601D6E9745004069A3 /* BounceEngine.swift in Sources */,
@@ -740,6 +751,7 @@
 				C214D2671D6E9745004069A3 /* Matrix.swift in Sources */,
 				C214D2621D6E9745004069A3 /* DrawNode.swift in Sources */,
 				C214D25C1D6E9745004069A3 /* ApplicationController.swift in Sources */,
+				0D994A121D97BAF40072AD3F /* ShaderProgramSprite.swift in Sources */,
 				C2340AD11D71026800F8CD02 /* Config.swift in Sources */,
 				C214D25D1D6E9745004069A3 /* Device.swift in Sources */,
 				C296B61B1D876ECA0041CE94 /* BottomMenu.swift in Sources */,

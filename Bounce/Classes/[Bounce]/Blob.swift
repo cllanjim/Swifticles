@@ -83,9 +83,9 @@ class Blob
     private var borderBase = PointList()
     var border = PointList()
     
-    var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { needsComputeAffine = true } }
-    var scale:CGFloat = 1.0 { didSet { needsComputeAffine = true } }
-    var rotation:CGFloat = 0.0 { didSet { needsComputeAffine = true } }
+    var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { setNeedsComputeAffine() } }
+    var scale:CGFloat = 1.0 { didSet { setNeedsComputeAffine() } }
+    var rotation:CGFloat = 0.0 { didSet { setNeedsComputeAffine() } }
     
     func setNeedsComputeShape() { needsComputeShape = true }
     internal var needsComputeShape:Bool = true
@@ -106,9 +106,6 @@ class Blob
         
         vertexBufferSlot = Graphics.bufferGenerate()
         indexBufferSlot = Graphics.bufferGenerate()
-        
-        //vertexBufferSlot = Graphics.bufferVertexGenerate(data: &vertexBuffer, size: 40)
-        //indexBufferSlot = Graphics.bufferIndexGenerate(data: &indexBuffer, size: 6)
         
         var radius = min(ApplicationController.shared.width, ApplicationController.shared.height)
         var pointCount = 6
@@ -138,7 +135,6 @@ class Blob
     }
     
     func update() {
-        
         testAngle1 += 2.0
         if testAngle1 > 360.0 { testAngle1 -= 360.0 }
         
@@ -151,16 +147,6 @@ class Blob
         testSin1 = Math.sind(testAngle1)
         testSin2 = Math.sind(testAngle2)
         testSin3 = Math.sind(testAngle3)
-        
-        
-        //var testAngle1 = 0.0
-        //var testAngle2 = 180.0
-        //var testAngle3 = 360.0
-        
-        //var testSin1 = 0.0
-        //var testSin2 = 0.0
-        //var testSin3 = 0.0
-        
     }
     
     func draw() {
@@ -171,7 +157,6 @@ class Blob
         }
         
         computeIfNeeded()
-        
         
         var isEditMode = false
         var isViewMode = false
@@ -200,8 +185,8 @@ class Blob
         
         
         
-        //Graphics.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
-        //Graphics.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
+        //ShaderProgramMesh.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
+        //ShaderProgramMesh.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
 
         
         
@@ -215,13 +200,13 @@ class Blob
             }
         }
         
-        Graphics.shared.colorSet()
+        ShaderProgramMesh.shared.colorSet()
         
         var vertexIndex:Int = 0
         if ApplicationController.shared.engine?.sceneMode == .edit {
             
             Graphics.textureDisable()
-            Graphics.shared.textureBlankBind()
+            ShaderProgramMesh.shared.textureBlankBind()
             Graphics.blendEnable()
             Graphics.blendSetAlpha()
             
@@ -258,14 +243,14 @@ class Blob
         //Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
         Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexIndex)
         
-        Graphics.shared.positionEnable()
-        Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
+        ShaderProgramMesh.shared.positionEnable()
+        ShaderProgramMesh.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
         
-        Graphics.shared.texCoordEnable()
-        Graphics.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+        ShaderProgramMesh.shared.texCoordEnable()
+        ShaderProgramMesh.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
         
-        Graphics.shared.colorArrayEnable()
-        Graphics.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+        ShaderProgramMesh.shared.colorArrayEnable()
+        ShaderProgramMesh.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
         
         Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
         Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
@@ -341,8 +326,8 @@ class Blob
         }
         */
         
-        
-        Graphics.shared.colorSet(a: 0.25)
+        /*
+        ShaderProgramMesh.shared.colorSet(a: 0.25)
         for i in 0..<tri.count {
             
             let t = tri.data [i]
@@ -360,10 +345,11 @@ class Blob
             y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
             y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
             
-            Graphics.shared.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
-            Graphics.shared.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
-            Graphics.shared.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
+            ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
+            ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
+            ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
         }
+        */
         
         
     }

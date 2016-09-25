@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 extension UINavigationController {
     open override var shouldAutorotate : Bool {
         if (visibleViewController as? BounceViewController) != nil {
@@ -20,10 +19,11 @@ extension UINavigationController {
     
     open override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
         if let vc = visibleViewController {
-            let supported = vc.supportedInterfaceOrientations
-            print("Supported Orientations = \(supported)")
-            return supported
+            //let supported = vc.supportedInterfaceOrientations
+            //print("Supported Orientations = \(supported)")
+            return vc.supportedInterfaceOrientations
         }
+        
         var mask = UIInterfaceOrientationMask(rawValue: 0)
         mask = mask.union(.portrait)
         mask = mask.union(.portraitUpsideDown)
