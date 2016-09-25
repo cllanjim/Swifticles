@@ -80,7 +80,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         
         scene.imageName = Config.shared.uniqueString
         scene.imagePath = String(scene.imageName) + ".png"
-        FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
+        //TODO: Instead, copy this image over on 
+        //FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
         
         scene.image = image
         scene.size = sceneRect.size
@@ -113,8 +114,29 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
                                                name: NSNotification.Name(BounceNotification.BlobAdded.rawValue), object: nil)
         
         
-        var recentImagePath = "recent.png"
-        FileUtils.saveImagePNG(image: scene.image, filePath: FileUtils.getDocsPath(filePath: recentImagePath))
+        
+        
+        
+        /*
+        //let oq = NSOperationQueue.mainQueue()
+        let oq = OperationQueue()
+        let saveOP = BlockOperation {
+            
+            print("saveOP...")
+
+            
+        }
+        
+        saveOP.completionBlock = {
+            print("saveOP COMPLETE...")
+        }
+        oq.addOperations([saveOP], waitUntilFinished: false)
+        */
+        
+        let recentImagePath = "recent.png"
+        if scene.imageName != recentImagePath {
+            FileUtils.saveImagePNG(image: scene.image, filePath: FileUtils.getDocsPath(filePath: recentImagePath))
+        }
         
         let orientation = UIApplication.shared.statusBarOrientation
         if orientation == .landscapeLeft || orientation == .landscapeRight {

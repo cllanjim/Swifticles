@@ -362,7 +362,13 @@
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBh-4I-Pr7">
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-rW-iyl" customClass="ToolView" customModule="Bounce" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoL-NO-q1m" customClass="ToolContainerBottomAccessory" customModule="Bounce" customModuleProvider="target">
+                                        <color key="backgroundColor" red="0.85583906727828751" green="0.41804042431192662" blue="0.3917478975535168" alpha="0.765358939628483" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="Z2g-vN-FCf"/>
+                                        </constraints>
+                                    </view>
+                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-rW-iyl" customClass="ToolContainerBottomMain" customModule="Bounce" customModuleProvider="target">
                                         <subviews>
                                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
@@ -487,7 +493,6 @@
                                                 </connections>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.95990953947368418" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="Vcn-Ou-uJo" firstAttribute="top" secondItem="cpv-rW-iyl" secondAttribute="top" id="3J8-gK-04E"/>
                                             <constraint firstItem="J0s-W5-s5Y" firstAttribute="leading" secondItem="cpv-rW-iyl" secondAttribute="leading" id="3z7-aV-Xcj"/>
@@ -502,6 +507,11 @@
                                             <constraint firstItem="vSP-yM-i5p" firstAttribute="leading" secondItem="cpv-rW-iyl" secondAttribute="leading" id="ttN-PF-YXg"/>
                                             <constraint firstItem="Vcn-Ou-uJo" firstAttribute="width" secondItem="cpv-rW-iyl" secondAttribute="width" id="zTc-hW-lte"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="toolRowEdit" destination="vSP-yM-i5p" id="Wbt-h6-w6Q"/>
+                                            <outlet property="toolRowView" destination="Vcn-Ou-uJo" id="0fs-c3-dQX"/>
+                                            <outlet property="toolRowZoom" destination="J0s-W5-s5Y" id="8LZ-2b-XQT"/>
+                                        </connections>
                                     </view>
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEj-da-9Od" customClass="ToolBarBottom" customModule="Bounce" customModuleProvider="target">
                                         <subviews>
@@ -526,19 +536,39 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5q-mQ-e9H" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="o5q-mQ-e9H" secondAttribute="height" multiplier="1:1" id="JC4-us-KF8"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="tb_btn_menu"/>
+                                                <state key="highlighted" image="tb_btn_menu_down"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCZ-Om-WVD" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="NCZ-Om-WVD" secondAttribute="height" multiplier="1:1" id="uBx-ii-3WN"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="tb_btn_menu"/>
+                                                <state key="highlighted" image="tb_btn_menu_down"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.42282042791437308" green="0.5162700688073395" blue="0.58360980100305815" alpha="0.96011871797267001" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="o5q-mQ-e9H" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="1Re-Nk-f3e"/>
                                             <constraint firstAttribute="bottom" secondItem="sJC-8m-x7T" secondAttribute="bottom" id="761-HR-TYG"/>
                                             <constraint firstAttribute="height" constant="52" id="7Rw-Cx-R86"/>
                                             <constraint firstAttribute="trailing" secondItem="4AA-c5-6ui" secondAttribute="trailing" constant="8" id="9n0-KW-O1l"/>
                                             <constraint firstAttribute="height" constant="42" id="LKF-TQ-4o4"/>
+                                            <constraint firstItem="o5q-mQ-e9H" firstAttribute="centerY" secondItem="LEj-da-9Od" secondAttribute="centerY" id="Pm8-Iu-har"/>
                                             <constraint firstItem="sJC-8m-x7T" firstAttribute="centerX" secondItem="LEj-da-9Od" secondAttribute="centerX" id="Qhm-zG-MEF"/>
                                             <constraint firstItem="sJC-8m-x7T" firstAttribute="top" secondItem="LEj-da-9Od" secondAttribute="top" id="SbK-Jh-Pys"/>
-                                            <constraint firstItem="sJC-8m-x7T" firstAttribute="width" secondItem="LEj-da-9Od" secondAttribute="width" multiplier="0.52" id="U3K-HL-A5r"/>
+                                            <constraint firstItem="sJC-8m-x7T" firstAttribute="width" secondItem="LEj-da-9Od" secondAttribute="width" multiplier="0.45" id="U3K-HL-A5r"/>
                                             <constraint firstItem="4AA-c5-6ui" firstAttribute="centerY" secondItem="LEj-da-9Od" secondAttribute="centerY" id="UdY-sO-dcG"/>
+                                            <constraint firstItem="NCZ-Om-WVD" firstAttribute="leading" secondItem="o5q-mQ-e9H" secondAttribute="trailing" id="VBp-pa-ebJ"/>
+                                            <constraint firstItem="NCZ-Om-WVD" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="VTX-Mp-xIa"/>
                                             <constraint firstAttribute="height" constant="66" id="bGj-Ju-kk8"/>
+                                            <constraint firstItem="o5q-mQ-e9H" firstAttribute="leading" secondItem="LEj-da-9Od" secondAttribute="leading" id="cwR-0Q-cqR"/>
                                             <constraint firstItem="4AA-c5-6ui" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="eWH-ZX-wuh"/>
+                                            <constraint firstItem="NCZ-Om-WVD" firstAttribute="centerY" secondItem="LEj-da-9Od" secondAttribute="centerY" id="im4-hP-L8T"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -587,11 +617,14 @@
                                     <constraint firstItem="cpv-rW-iyl" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="4vS-2k-tLl"/>
                                     <constraint firstAttribute="trailing" secondItem="MBh-4I-Pr7" secondAttribute="trailing" id="6gM-jZ-Udh"/>
                                     <constraint firstItem="MBh-4I-Pr7" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="8bg-ZT-HaI"/>
+                                    <constraint firstItem="IoL-NO-q1m" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="top" id="9jO-H6-0Hs"/>
                                     <constraint firstAttribute="top" secondItem="YY8-E9-ldf" secondAttribute="bottom" id="BEH-ro-o9z"/>
                                     <constraint firstAttribute="trailing" secondItem="LEj-da-9Od" secondAttribute="trailing" id="BOU-xs-zC0"/>
                                     <constraint firstItem="cpv-rW-iyl" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="top" id="DGx-zY-1UI"/>
                                     <constraint firstItem="YY8-E9-ldf" firstAttribute="width" secondItem="ikJ-du-UKY" secondAttribute="width" id="FLx-t7-G90"/>
                                     <constraint firstItem="MBh-4I-Pr7" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="top" id="Fn0-Do-ype"/>
+                                    <constraint firstItem="cpv-rW-iyl" firstAttribute="centerX" secondItem="IoL-NO-q1m" secondAttribute="centerX" id="HUc-lR-o78"/>
+                                    <constraint firstItem="IoL-NO-q1m" firstAttribute="width" secondItem="LEj-da-9Od" secondAttribute="width" id="JK8-5r-qak"/>
                                     <constraint firstAttribute="bottom" secondItem="LEj-da-9Od" secondAttribute="bottom" id="L84-o2-EIa"/>
                                     <constraint firstItem="LEj-da-9Od" firstAttribute="leading" secondItem="ikJ-du-UKY" secondAttribute="leading" id="Ot5-eP-QX1"/>
                                     <constraint firstAttribute="height" constant="192" id="SM1-54-13n"/>
@@ -599,16 +632,48 @@
                                     <constraint firstAttribute="trailing" secondItem="cpv-rW-iyl" secondAttribute="trailing" id="ZbM-zw-Pai"/>
                                     <constraint firstAttribute="trailing" secondItem="YY8-E9-ldf" secondAttribute="trailing" id="d6e-mt-HQ2"/>
                                     <constraint firstItem="cpv-rW-iyl" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="geC-OW-eSx"/>
+                                    <constraint firstItem="cpv-rW-iyl" firstAttribute="top" secondItem="IoL-NO-q1m" secondAttribute="bottom" id="kq8-bN-xPM"/>
                                     <constraint firstItem="MBh-4I-Pr7" firstAttribute="bottom" secondItem="LEj-da-9Od" secondAttribute="top" id="yKH-ra-g7G"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="IoL-NO-q1m"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="DGx-zY-1UI"/>
+                                        <exclude reference="kq8-bN-xPM"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="DGx-zY-1UI"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="kq8-bN-xPM"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="IoL-NO-q1m"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="kq8-bN-xPM"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="DGx-zY-1UI"/>
+                                        <exclude reference="kq8-bN-xPM"/>
+                                    </mask>
+                                </variation>
                                 <connections>
+                                    <outlet property="containerAccessory" destination="IoL-NO-q1m" id="8cX-bq-ijr"/>
+                                    <outlet property="containerMain" destination="cpv-rW-iyl" id="mgH-9e-RtG"/>
                                     <outlet property="menuHeightConstraint" destination="SM1-54-13n" id="dNe-Ad-h8h"/>
                                     <outlet property="toolBar" destination="LEj-da-9Od" id="vQR-m8-faf"/>
-                                    <outlet property="toolMenuContainer" destination="cpv-rW-iyl" id="4Wh-ja-5er"/>
-                                    <outlet property="toolRowEdit" destination="vSP-yM-i5p" id="0Pj-SS-3xA"/>
                                     <outlet property="toolRowUnderlay" destination="MBh-4I-Pr7" id="fy8-Ix-dlO"/>
-                                    <outlet property="toolRowView" destination="Vcn-Ou-uJo" id="8Ox-l6-vr5"/>
-                                    <outlet property="toolRowZoom" destination="J0s-W5-s5Y" id="p85-Cp-Hgh"/>
                                 </connections>
                             </view>
                         </subviews>

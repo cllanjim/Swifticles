@@ -16,7 +16,14 @@ class LineSegmentBuffer {
     var data = [LineSegment]()
     
     var thickness: CGFloat = 1.25 {
-        didSet { setNeedsCompute() }
+        
+        willSet {
+            if(newValue != thickness) {
+                setNeedsCompute()
+            }
+        }
+        
+        didSet {  }
     }
     
     private var _drawBuffer: DrawTriangleBuffer?

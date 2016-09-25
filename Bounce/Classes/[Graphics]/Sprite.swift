@@ -287,29 +287,6 @@ open class Sprite {
         Graphics.shared.matrixProjectionSet(matrix)
         draw()
         Graphics.shared.matrixProjectionSet(holdMatrix)
-        
-        
-        //var modelView = Graphics.shared.matrixModelViewGet()
-        
-        
-        //print("modelView = \(modelView.m)")
-        
-        
-        //m = GLKMatrix4Scale(m, 0.85, 0.85, 0.85)
-        
-        //print("m2 = \(m.array)")
-        
-        
-        //var matrix = GLKMatrix4Translate(modelView, Float(pos.x), Float(pos.y), 0.0)
-        //var matrix = GLKMatrix4MakeTranslation(Float(pos.x), Float(pos.y), 0.0)
-        
-        //Graphics.shared.matrixModelViewSet(matrix)
-        
-        
-        //textureDisable()
-        
-        
-        draw()
     }
     
     open func drawCentered(pos:CGPoint, scale:CGFloat, rot: CGFloat) {

@@ -142,6 +142,29 @@ class PointList
         return result
     }
     
+    func closestPointSquared(point: CGPoint) -> (point:CGPoint, distanceSquared: CGFloat)? {
+        var result: (point:CGPoint, distanceSquared: CGFloat)?
+        if count > 0 {
+            var diffX = data[0].x - point.x
+            var diffY = data[0].y - point.y
+            var dist = diffX * diffX + diffY * diffY
+            var bestDist = dist
+            result = (point:CGPoint(x: data[0].x, y: data[0].y), distanceSquared: dist)
+            for i in 1..<count {
+                let p = data[i]
+                diffX = p.x - point.x
+                diffY = p.y - point.y
+                dist = diffX * diffX + diffY * diffY
+                if dist < bestDist {
+                    bestDist = dist
+                    result!.distanceSquared = dist
+                    result!.point = p
+                }
+            }
+        }
+        return result
+    }
+    
     func drawEdges(closed:Bool) {
         guard count >= 2 else { return }
         var prev = data[0]

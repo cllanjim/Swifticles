@@ -20,7 +20,9 @@ extension UINavigationController {
     
     open override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
         if let vc = visibleViewController {
-            return vc.supportedInterfaceOrientations
+            let supported = vc.supportedInterfaceOrientations
+            print("Supported Orientations = \(supported)")
+            return supported
         }
         var mask = UIInterfaceOrientationMask(rawValue: 0)
         mask = mask.union(.portrait)

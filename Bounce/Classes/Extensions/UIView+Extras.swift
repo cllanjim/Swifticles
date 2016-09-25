@@ -26,4 +26,12 @@ extension UIView {
         return bounds.size.height
     }
     
+    var isInstalled:Bool {
+        if superview == nil {
+            return false
+        } else {
+            return true
+        }
+    }
+    
 }

@@ -26,18 +26,19 @@ class ToolBarBottom : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
         }
     }
     
+    @IBInspectable @IBOutlet weak var buttonUndo:TBButton! {
+        didSet {
+            //buttonExpand.styleSetSegment()
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var buttonRedo:TBButton! {
+        didSet {
+            //buttonExpand.styleSetSegment()
+        }
+    }
+    
     override func handleSceneReady() {
-        print("ToolBarBottom.handleSceneReady()")
-        
-        /*
-        switch gr.state {
-        case .began:
-            gestureBegan(gestureTouchCenter)
-            panRecognizerTouchCount = gr.numberOfTouches
-            break
-        case .changed:
-            */
-        
         switch ApplicationController.shared.sceneMode {
             case .edit :
                 segMode.selectedIndex = 0
@@ -53,18 +54,13 @@ class ToolBarBottom : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
     }
     
     func segmentSelected(segment:TBSegment, index: Int) {
-        print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
-        
         if segment === segMode {
-            
             if segMode.selectedIndex == 0 {
                 ApplicationController.shared.sceneMode = .edit
             } else {
                 ApplicationController.shared.sceneMode = .view
             }
-            
         }
-        
     }
     
     func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {

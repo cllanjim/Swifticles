@@ -17,7 +17,6 @@ class TBSegment: UIView {
     
     var delegate:TBSegmentDelegate?
     
-    @IBInspectable
     var selectedIndex:Int? {
         willSet {
             if let index = selectedIndex , index >= 0 && index < buttons.count {
@@ -64,7 +63,6 @@ class TBSegment: UIView {
         }
     }
     
-    @IBInspectable
     var segmentCount:Int {
         get {
             return buttons.count

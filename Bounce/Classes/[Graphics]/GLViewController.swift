@@ -18,6 +18,8 @@ class GLViewController: GLKViewController {
     func load() { }
     func draw() { }
     
+    var skipDrawCount:Int = 2
+    
     deinit {
         self.tearDownGL()
         if EAGLContext.current() === self.context {
@@ -85,6 +87,12 @@ class GLViewController: GLKViewController {
     }
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
+        
+        if skipDrawCount > 0 {
+            skipDrawCount = skipDrawCount - 1
+            return
+        }
+        
         Graphics.clear()
         Graphics.blendEnable()
         Graphics.blendSetAlpha()
@@ -184,15 +192,12 @@ class GLViewController: GLKViewController {
     }
     
     func linkProgram(_ prog: GLuint) -> Bool {
-        print("GLViewController.linkProgram()")
-        
         var status: GLint = 0
         glLinkProgram(prog)
         glGetProgramiv(prog, GLenum(GL_LINK_STATUS), &status)
         if status == 0 {
             return false
         }
-        
         return true
     }
     

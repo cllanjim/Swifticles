@@ -41,6 +41,13 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         present(imagePicker, animated: true, completion: {})
     }
     
+    func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
+        var result = UIInterfaceOrientationMask.all
+        return result
+    }
+    
+    
+    
     //func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool)
     //func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool)
     //func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask

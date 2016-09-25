@@ -21,7 +21,7 @@ enum BounceNotification:String {
 
 enum SceneMode: UInt32 { case edit = 1, view = 2 }
 enum EditMode: UInt32 { case affine = 1, shape = 2 }
-enum ViewMode: UInt32 { case standard = 1, animation = 2 }
+enum ViewMode: UInt32 { case grab = 1, animation = 2 }
 
 class BounceEngine {
     
@@ -494,37 +494,32 @@ class BounceEngine {
         BounceEngine.postNotification(.BlobAdded)
     }
     
-    func blobClosestToPoint(_ pos:CGPoint) -> Blob? {
-        var result:Blob?
-        var bestDist:CGFloat?
-        for blob:Blob in blobs {
-            if blob.selectable {
-                let dist = Math.dist(p1:pos, p2: blob.center)
-                if let checkBestDist = bestDist {
-                    if dist < checkBestDist {
-                        result = blob
-                        bestDist = dist
-                    }
-                } else {
-                    result = blob
-                    bestDist = dist
-                }
-            }
-        }
-        return result
-    }
-    
     func selectBlobAtPoint(_ pos:CGPoint) -> Blob? {
         var result:Blob?
         
         for i in stride(from: blobs.count - 1, to: -1, by: -1) {
-        //for blob:Blob in blobs {
+            //for blob:Blob in blobs {
             let blob = blobs[i]
             if blob.selectable, blob.border.pointInside(point: pos) {
                 result = blob
                 break
             }
         }
+        
+        //If we weren't exactly inside of the blob, let's try to pick one that's near.
+        if(result == nil) {
+            var bestDist:CGFloat = (45.0 * 45.0)
+            for i in 0..<blobs.count {
+                let blob = blobs[i]
+                if let c = blob.border.closestPointSquared(point: pos) {
+                    if c.distanceSquared < bestDist {
+                        bestDist = c.distanceSquared
+                        result = blob
+                    }
+                }
+            }
+        }
+        
         return result
     }
     
@@ -591,14 +586,11 @@ class BounceEngine {
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()
-        
         var blobData = [[String:AnyObject]]()
         for blob in blobs {
             blobData.append(blob.save())
         }
-        
         info["blobs"] = blobData as AnyObject?
-        
         return info
     }
     
@@ -612,5 +604,4 @@ class BounceEngine {
             }
         }
     }
-    
 }

@@ -10,8 +10,8 @@ import UIKit
 
 class BottomMenu: ToolView
 {
+    /*
     var toolRows = [ToolView]()
-    
     
     @IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit! {
         didSet { toolRows.append(toolRowEdit); toolRowEdit.backgroundColor = UIColor.clear }
@@ -23,8 +23,22 @@ class BottomMenu: ToolView
         didSet { toolRows.append(toolRowZoom); toolRowZoom.backgroundColor = UIColor.clear }
     }
     
+     @IBOutlet weak var toolMenuContainer: UIView! {
+     didSet { toolMenuContainer.backgroundColor = UIColor.clear }
+     }
+     
+    */
+    
     @IBOutlet weak internal var toolRowUnderlay: UIView! {
         didSet { toolRowUnderlay.backgroundColor = styleColorToolbarRow }
+    }
+    
+    @IBOutlet weak internal var containerMain: ToolContainerBottomMain? {
+        didSet { }
+    }
+    
+    @IBOutlet weak internal var containerAccessory: ToolContainerBottomAccessory? {
+        didSet { }
     }
     
     @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
@@ -34,9 +48,7 @@ class BottomMenu: ToolView
     @IBOutlet weak var toolBar: ToolBarBottom! {
         didSet { toolBar.backgroundColor = styleColorToolbarMain }
     }
-    @IBOutlet weak var toolMenuContainer: UIView! {
-        didSet { toolMenuContainer.backgroundColor = UIColor.clear }
-    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -52,37 +64,48 @@ class BottomMenu: ToolView
         clipsToBounds = false
         isMultipleTouchEnabled = false
         
+        /*
         for i in 0..<toolRows.count {
             toolRows[i].index = i
         }
+        */
         
         updateToolRow()
     }
     
     override func handleSceneReady() {
-        print("BottomMenu.handleSceneReady()")
-        
         if expanded {
-            menuHeightConstraint.constant = toolBar.height + toolMenuContainer.height
+            menuHeightConstraint.constant = expandedHeight
         } else {
             menuHeightConstraint.constant = toolBar.height
         }
         setNeedsUpdateConstraints()
     }
     
+    var expandedHeight: CGFloat {
+        var h = toolBar.height
+        if let containerHeight = containerMain?.height {
+            h += containerHeight
+        }
+        if let containerHeight = containerAccessory?.height, containerAccessory!.isInstalled {
+            h += containerHeight
+        }
+        return h
+    }
+    
     override func handleSceneModeChanged() {
-        print("BottomMenu.handleSceneModeChanged()")
-        
         updateToolRow()
     }
     
     override func handleZoomModeChange() {
-        print("BottomMenu.handleZoomModeChange()")
-        
         updateToolRow()
     }
     
     func updateToolRow() {
+        
+        containerMain?.updateToolRow()
+        
+        /*
         if ApplicationController.shared.zoomMode {
             toolRow = toolRowZoom
         } else {
@@ -92,8 +115,10 @@ class BottomMenu: ToolView
                 toolRow = toolRowView
             }
         }
+        */
     }
     
+    /*
     //override func handleBlobSelectionChanged() { }
     var _currentToolRow: ToolView?
     var toolRow: ToolView? {
@@ -169,28 +194,21 @@ class BottomMenu: ToolView
                     previousToolRow?.layoutIfNeeded()
                     weakSelf.layoutIfNeeded()
                     weakSelf.superview?.layoutIfNeeded()
-                    
                     }, completion: { [weakSelf = self] (finished:Bool) in
                         previousToolRow?.isHidden = true
                         weakSelf._currentToolRow!.isHidden = false
-                        
                 })
             }
-            
-            
-            
-        
-            print("toolRowEdit Left C = \(toolRowEdit.leftConstraint!.constant)")
-            print("toolRowView Left C = \(toolRowView.leftConstraint!.constant)")
-            print("toolRowZoom Left C = \(toolRowZoom.leftConstraint!.constant)")
         }
     }
+ 
     
     func updateToolRowConstraints() {
         //
         
         //_currentToolRow
     }
+ 
     
     func sendOnScreen(_ row:ToolView) {
         
@@ -221,14 +239,12 @@ class BottomMenu: ToolView
         row.leftConstraint?.constant = CGFloat(Int(ApplicationController.shared.width + 0.5))
         row.setNeedsLayout()
     }
-    
+    */
     
     func expand() {
-        print("EXPAND")
-        
         if expanded == false {
             expanded = true
-            menuHeightConstraint.constant = toolBar.height + toolMenuContainer.height
+            menuHeightConstraint.constant = expandedHeight
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
             UIView.animate(withDuration: 0.4, animations: {
@@ -240,7 +256,6 @@ class BottomMenu: ToolView
     }
     
     func collapse() {
-        print("COLLAPSE")
         if expanded == true {
             expanded = false
             menuHeightConstraint.constant = toolBar.height

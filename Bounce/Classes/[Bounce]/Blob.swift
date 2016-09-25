@@ -17,6 +17,8 @@ struct BlobGridNode {
     //Index in the triangle list, we only store each data point once.
     var meshIndex:Int?
     
+    var center = CGPoint.zero
+    
     //Is it an edge?
     var edgeU:Bool = false
     var edgeR:Bool = false
@@ -213,10 +215,9 @@ class Blob
             }
         }
         
-        
         Graphics.shared.colorSet()
         
-        
+        var vertexIndex:Int = 0
         if ApplicationController.shared.engine?.sceneMode == .edit {
             
             Graphics.textureDisable()
@@ -228,15 +229,10 @@ class Blob
             var g:CGFloat = 0.65
             var b:CGFloat = 0.05
             var a:CGFloat = 0.24
-            
             if selected {
-                r = 0.1
-                g = 1.0
-                b = 0.2
-                a = 0.525
+                r = 0.1;g = 1.0;b = 0.2;a = 0.525
             }
             
-            var vertexIndex:Int = 0
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 node.r = r;node.g = g;node.b = b;node.a = a
@@ -250,7 +246,6 @@ class Blob
             Graphics.textureBind(texture: sprite.texture)
             Graphics.blendDisable()
             
-            var vertexIndex:Int = 0
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 node.r = 1.0;node.g = 1.0;node.b = 1.0;node.a = 1.0
@@ -259,9 +254,10 @@ class Blob
             }
         }
         
+        if vertexIndex > 0 && indexBufferCount > 0 {
+        //Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
+        Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexIndex)
         
-        
-        Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
         Graphics.shared.positionEnable()
         Graphics.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
         
@@ -274,27 +270,36 @@ class Blob
         Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
         Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
         
-        Graphics.blendDisable()
-        
-        
-        lines.draw()
-        
-        
-        Graphics.blendEnable()
-        Graphics.blendSetPremultiplied()
-        
-        
-        for i in 0..<spline.controlPointCount {
-            let point = transformPoint(point: spline.getControlPoint(i))
-            
-            if shapeSelectionControlPointIndex == i {
-                BounceViewController.shared?.controlPointSelected.drawCentered(pos: point)
-            } else {
-                BounceViewController.shared?.controlPoint.drawCentered(pos: point)
-            }
         }
         
         Graphics.blendDisable()
+        
+        if isEditMode {
+            if selected {
+                lines.thickness = 1.6
+            } else {
+                lines.thickness = 0.85
+            }
+            lines.draw()
+            
+            if isEditModeShape {
+                Graphics.blendEnable()
+                Graphics.blendSetPremultiplied()
+                for i in 0..<spline.controlPointCount {
+                    let point = transformPoint(point: spline.getControlPoint(i))
+                    
+                    if shapeSelectionControlPointIndex == i {
+                        BounceViewController.shared?.controlPointSelected.drawCentered(pos: point)
+                    } else {
+                        BounceViewController.shared?.controlPoint.drawCentered(pos: point)
+                    }
+                }
+                Graphics.blendDisable()
+            }
+            
+        }
+        
+        
         
         /*
         for i in 0..<tri.count {
@@ -335,14 +340,12 @@ class Blob
             drawTriangle.draw()
         }
         */
- 
-        /*
+        
+        
         Graphics.shared.colorSet(a: 0.25)
         for i in 0..<tri.count {
             
             let t = tri.data [i]
-            
-            let drawTriangle = DrawTriangle()
             
             let x1 = meshNodes.data[t.i1].x
             var y1 = meshNodes.data[t.i1].y
@@ -361,27 +364,7 @@ class Blob
             Graphics.shared.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
             Graphics.shared.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
         }
- 
         
-        
-        for nodeIndex in 0..<meshNodes.count {
-            let node = meshNodes.data[nodeIndex]
-            
-            Graphics.shared.colorSet(r: Float(node.edgePercent), g: 0.0, b: 0.0)
-            Graphics.shared.pointDraw(point: CGPoint(x: node.x, y: node.y), size: 3.0)
-            
-        }
-        
-        
-        for i in 0..<grid.count {
-            for n in 0..<grid[i].count {
-                
-                Graphics.shared.colorSet(color: grid[i][n].color)
-                //Graphics.shared.pointDraw(point: grid[i][n].pointBase, size: 4.0)
-                Graphics.shared.pointDraw(point: grid[i][n].point, size: 2.0)
-            }
-        }
-        */
         
     }
     
@@ -416,31 +399,22 @@ class Blob
         }
         
         computeGridInside()
-        
         computeGridEdges()
-        //deformGridH()
-        //computeGridInside()
-        
         computeMesh()
-        
-        //computeMeshEdgeFactors()
-        
         guard valid == true else { return }
-        
-        //computeGridTextureCoords()
-        //guard valid == true else { return }
-        
         computeAffine()
     }
     
     internal func computeBorder() {
         borderBase.reset()
         
-        var threshDist = CGFloat(4.0)
-        if Device.shared.tablet { threshDist = 8.0 }
-        
-        //var threshDist = CGFloat(30.0)
-        //if Device.shared.tablet { threshDist = 40.0 }
+        #if DEBUG
+            var threshDist = CGFloat(10.0)
+            if Device.shared.tablet { threshDist = 28.0 }
+        #else
+            var threshDist = CGFloat(4.0)
+            if Device.shared.tablet { threshDist = 8.0 }
+        #endif
         
         threshDist = (threshDist * threshDist)
         
@@ -479,7 +453,14 @@ class Blob
  
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
-        let stepSize = minSize / 30.0
+        
+        #if DEBUG
+            let stepSize = minSize / 12.0
+        #else
+            let stepSize = minSize / 30.0
+        #endif
+        
+        
         var countX = 0
         var countY = 0
         let leftX = boundingBox.origin.x

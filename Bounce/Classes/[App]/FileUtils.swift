@@ -62,16 +62,14 @@ open class FileUtils
     }
     
     open class func saveData(data:inout Data?, filePath:String?) -> Bool {
-        if let checkData = data {
-            if let path = filePath {
+            if let path = filePath, data != nil {
                 do {
-                    try checkData.write(to: URL(fileURLWithPath: path), options: .atomicWrite)
+                    try data!.write(to: URL(fileURLWithPath: path), options: .atomicWrite)
                     return true
                 } catch {
                     print("Unable to save Data [\(filePath)]")
                 }
             }
-        }
         return false
     }
     

@@ -65,6 +65,10 @@
 		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
 		0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F651D581263006DDDAB /* BounceTests.swift */; };
 		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
+		0DE204FE1D97864E003A1B5E /* ToolRowContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE204FD1D97864E003A1B5E /* ToolRowContainer.swift */; };
+		0DE205001D978C2D003A1B5E /* ToolRowZoomAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE204FF1D978C2D003A1B5E /* ToolRowZoomAccessory.swift */; };
+		0DE205021D978DBA003A1B5E /* ToolContainerBottomMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE205011D978DBA003A1B5E /* ToolContainerBottomMain.swift */; };
+		0DE205041D978DC7003A1B5E /* ToolContainerBottomAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE205031D978DC7003A1B5E /* ToolContainerBottomAccessory.swift */; };
 		C2036F721D8333350052DCCB /* BlobMeshNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2036F711D8333350052DCCB /* BlobMeshNode.swift */; };
 		C2036F741D83333D0052DCCB /* BlobMeshBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2036F731D83333D0052DCCB /* BlobMeshBuffer.swift */; };
 		C214D25C1D6E9745004069A3 /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C214D23A1D6E9745004069A3 /* ApplicationController.swift */; };
@@ -195,6 +199,10 @@
 		0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BounceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD20F701D581263006DDDAB /* BounceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceUITests.swift; sourceTree = "<group>"; };
 		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DE204FD1D97864E003A1B5E /* ToolRowContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowContainer.swift; sourceTree = "<group>"; };
+		0DE204FF1D978C2D003A1B5E /* ToolRowZoomAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowZoomAccessory.swift; sourceTree = "<group>"; };
+		0DE205011D978DBA003A1B5E /* ToolContainerBottomMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerBottomMain.swift; sourceTree = "<group>"; };
+		0DE205031D978DC7003A1B5E /* ToolContainerBottomAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerBottomAccessory.swift; sourceTree = "<group>"; };
 		C2036F711D8333350052DCCB /* BlobMeshNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlobMeshNode.swift; sourceTree = "<group>"; };
 		C2036F731D83333D0052DCCB /* BlobMeshBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlobMeshBuffer.swift; sourceTree = "<group>"; };
 		C214D23A1D6E9745004069A3 /* ApplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
@@ -482,6 +490,10 @@
 				C25281EF1D89F96E000A0072 /* ToolView.swift */,
 				0D4C5A461D8A681900D6F241 /* HMButton.swift */,
 				C2160E2E1D8B799B00D5DF45 /* ToolRowBottomZoom.swift */,
+				0DE204FD1D97864E003A1B5E /* ToolRowContainer.swift */,
+				0DE204FF1D978C2D003A1B5E /* ToolRowZoomAccessory.swift */,
+				0DE205011D978DBA003A1B5E /* ToolContainerBottomMain.swift */,
+				0DE205031D978DC7003A1B5E /* ToolContainerBottomAccessory.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -681,12 +693,15 @@
 			files = (
 				0D5219EB1D7015D40039598D /* BounceScene.swift in Sources */,
 				C214D2701D6E9745004069A3 /* ToolBarTop.swift in Sources */,
+				0DE204FE1D97864E003A1B5E /* ToolRowContainer.swift in Sources */,
+				0DE205001D978C2D003A1B5E /* ToolRowZoomAccessory.swift in Sources */,
 				0D4C5A471D8A681900D6F241 /* HMButton.swift in Sources */,
 				C25281F01D89F96E000A0072 /* ToolView.swift in Sources */,
 				0D83BE971D9659B900256F63 /* ShaderProgram.swift in Sources */,
 				C214D2791D6E9745004069A3 /* ToolActions.swift in Sources */,
 				C214D2611D6E9745004069A3 /* BounceViewController.swift in Sources */,
 				C25281EE1D89F614000A0072 /* ToolRowBottomView.swift in Sources */,
+				0DE205041D978DC7003A1B5E /* ToolContainerBottomAccessory.swift in Sources */,
 				C2036F741D83333D0052DCCB /* BlobMeshBuffer.swift in Sources */,
 				C214D26C1D6E9745004069A3 /* TBButton.swift in Sources */,
 				C2EA791B1D88E4C6008C7EF4 /* UIView+Extras.swift in Sources */,
@@ -716,6 +731,7 @@
 				C214D2651D6E9745004069A3 /* GLViewController.swift in Sources */,
 				C214D2601D6E9745004069A3 /* BounceEngine.swift in Sources */,
 				C2340AE51D71094A00F8CD02 /* String+File.swift in Sources */,
+				0DE205021D978DBA003A1B5E /* ToolContainerBottomMain.swift in Sources */,
 				C2BC0B501D80EC0700EB4075 /* LineSegmentBuffer.swift in Sources */,
 				C214D2741D6E9745004069A3 /* EditAffineViewController.swift in Sources */,
 				C214D2641D6E9745004069A3 /* DrawTriangleBuffer.swift in Sources */,
