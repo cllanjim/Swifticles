@@ -37,7 +37,7 @@ class ApplicationController
     }
     
     var importScale:CGFloat {
-        var result = Device.shared.scale * 2.0
+        var result = Device.scale * 2.0
         if result > 4.0 {
             result = 4.0
         }
@@ -66,7 +66,13 @@ class ApplicationController
         set {
             _bounce = newValue
         }
-        
+    }
+    
+    var isSceneLandscape:Bool {
+        if let scene = engine?.scene {
+            return scene.isLandscape
+        }
+        return Device.isLandscape
     }
     
     var sceneMode:SceneMode {
@@ -101,19 +107,19 @@ class ApplicationController
     
     var width:CGFloat {
         if let result = bounce?.screenRect.size.width { return result }
-        if Device.shared.isLandscape {
-            return Device.shared.landscapeWidth
+        if Device.isLandscape {
+            return Device.landscapeWidth
         } else {
-            return Device.shared.portraitWidth
+            return Device.portraitWidth
         }
     }
     
     var height:CGFloat {
         if let result = bounce?.screenRect.size.height { return result }
-        if Device.shared.isLandscape {
-            return Device.shared.landscapeHeight
+        if Device.isLandscape {
+            return Device.landscapeHeight
         } else {
-            return Device.shared.portraitHeight
+            return Device.portraitHeight
         }
     }
     

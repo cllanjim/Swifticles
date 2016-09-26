@@ -89,11 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         oper3.addDependency(oper1)
         oper3.addDependency(oper2)
-        
-        
-        
-        
-        
+         
         //oper1.addDependency(oper1)
         
         
@@ -102,9 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         
         
-        print("device width = \(Device.shared.width)\ndevice height = \(Device.shared.height)")
-        print("portrait width = \(Device.shared.portraitWidth)\nportrait height = \(Device.shared.portraitHeight)")
-        print("landscape width = \(Device.shared.landscapeWidth)\nlandscape height = \(Device.shared.landscapeHeight)")
+        print("device width = \(Device.width)\ndevice height = \(Device.height)")
+        print("portrait width = \(Device.portraitWidth)\nportrait height = \(Device.portraitHeight)")
+        print("landscape width = \(Device.landscapeWidth)\nlandscape height = \(Device.landscapeHeight)")
         
         
         ApplicationController.shared.navigationController.delegate = self

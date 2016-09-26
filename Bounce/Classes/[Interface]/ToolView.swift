@@ -28,7 +28,7 @@ class ToolView: UIView
         //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.065) { [weak weakSelf = self] in
         //    weakSelf?.setUp()
         //}
-        setUp()
+        //setUp()
     }
     
     func setUp() {
@@ -38,6 +38,13 @@ class ToolView: UIView
         addObserver(selector: #selector(handleEditModeChanged), notification: .EditModeChanged)
         addObserver(selector: #selector(handleViewModeChanged), notification: .ViewModeChanged)
         addObserver(selector: #selector(handleBlobSelectionChanged), notification: .BlobSelectionChanged)
+        
+        for view in subviews {
+            if view.responds(to: #selector(setUp)) {
+                view.perform(#selector(setUp))
+            }
+        }
+        
     }
     
     func addObserver(selector:Selector, notification:BounceNotification) {

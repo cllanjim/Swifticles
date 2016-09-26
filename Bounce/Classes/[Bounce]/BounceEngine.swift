@@ -170,14 +170,14 @@ class BounceEngine {
     
     func setUp(scene:BounceScene) {//, screenRect:CGRect) {
         self.scene = scene
-        let screenSize = scene.isLandscape ? CGSize(width: Device.shared.landscapeWidth, height: Device.shared.landscapeHeight) : CGSize(width: Device.shared.portraitWidth, height: Device.shared.portraitHeight)
+        let screenSize = scene.isLandscape ? CGSize(width: Device.landscapeWidth, height: Device.landscapeHeight) : CGSize(width: Device.portraitWidth, height: Device.portraitHeight)
         
         if let image = scene.image , image.size.width > 32 && image.size.height > 32 {
             
             
             //If the image is too large for the device, shrink it down.
-            let widthRatio = (Double(screenSize.width) * Double(Device.shared.scale)) / Double(image.size.width)
-            let heightRatio = (Double(screenSize.height) * Double(Device.shared.scale)) / Double(image.size.height)
+            let widthRatio = (Double(screenSize.width) * Double(Device.scale)) / Double(image.size.width)
+            let heightRatio = (Double(screenSize.height) * Double(Device.scale)) / Double(image.size.height)
             let ratio = min(widthRatio, heightRatio)
             if ratio < 0.999 {
                 //This basically means that we've imported an image from
@@ -229,7 +229,7 @@ class BounceEngine {
     
     func draw() {
         
-        let screenSize = scene.isLandscape ? CGSize(width: Device.shared.landscapeWidth, height: Device.shared.landscapeHeight) : CGSize(width: Device.shared.portraitWidth, height: Device.shared.portraitHeight)
+        let screenSize = scene.isLandscape ? CGSize(width: Device.landscapeWidth, height: Device.landscapeHeight) : CGSize(width: Device.portraitWidth, height: Device.portraitHeight)
         
         ShaderProgramMesh.shared.colorSet(r: 0.44, g: 0.44, b: 0.44)
         ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))

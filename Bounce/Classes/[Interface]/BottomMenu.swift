@@ -43,6 +43,9 @@ class BottomMenu: ToolView
     
     @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var containerMainTopConstraint: NSLayoutConstraint!
+    
+    
     var expanded:Bool = true
     
     @IBOutlet weak var toolBar: ToolBarBottom! {
@@ -70,7 +73,24 @@ class BottomMenu: ToolView
         }
         */
         
+        if ApplicationController.shared.isSceneLandscape {
+            
+            layoutIfNeeded()
+            
+            let shift = containerAccessory!.height
+            print("SHIFT = \(shift)")
+            
+            containerAccessory!.isHidden = true
+            containerMainTopConstraint.constant = -containerAccessory!.height
+            containerAccessory!.setNeedsLayout()
+            containerMain!.setNeedsLayout()
+            setNeedsLayout()
+        }
+        
+        
         updateToolRow()
+        layoutIfNeeded()
+        
     }
     
     override func handleSceneReady() {
@@ -87,7 +107,7 @@ class BottomMenu: ToolView
         if let containerHeight = containerMain?.height {
             h += containerHeight
         }
-        if let containerHeight = containerAccessory?.height, containerAccessory!.isInstalled {
+        if let containerHeight = containerAccessory?.height, !containerAccessory!.isHidden {
             h += containerHeight
         }
         return h

@@ -8,14 +8,15 @@ import UIKit
 
 class Device
 {
-    static let shared = Device()
-    private init() { }
+    //static let shared = Device()
+    //private init() { }
     
-    var width:CGFloat {
+    
+    class var width:CGFloat {
         return UIScreen.main.bounds.size.width
     }
     
-    var height:CGFloat {
+    class var height:CGFloat {
         return UIScreen.main.bounds.size.height
     }
     
@@ -27,29 +28,29 @@ class Device
     //let screenSize: CGRect = UIScreen.mainScreen().bounds
     
     
-    var scale:CGFloat {
+    class var scale:CGFloat {
         return UIScreen.main.scale
     }
     
-    var portraitWidth:CGFloat {
+    class var portraitWidth:CGFloat {
         let checkWidth = width, checkHeight = height
         return checkWidth > checkHeight ? checkHeight : checkWidth
     }
     
-    var portraitHeight:CGFloat {
+    class var portraitHeight:CGFloat {
         let checkWidth = width, checkHeight = height
         return checkWidth > checkHeight ? checkWidth : checkHeight
     }
 
-    var landscapeWidth:CGFloat {
+    class var landscapeWidth:CGFloat {
         return portraitHeight
     }
     
-    var landscapeHeight:CGFloat {
+    class var landscapeHeight:CGFloat {
         return portraitWidth
     }
     
-    var tablet:Bool {
+    class var tablet:Bool {
         return width > 759.0 ? true : false
     }
     
@@ -60,7 +61,7 @@ class Device
     //    NSRunLoop.mainRunLoop().addTimer(self.updateTimer, forMode: NSRunLoopCommonModes);
     
     
-    var versionString:String {
+    class var versionString:String {
         if let text = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             print(text)
             return text
@@ -68,11 +69,11 @@ class Device
         return "8.0"
     }
     
-    var statusBarHeight:CGFloat {
+    class var statusBarHeight:CGFloat {
         return UIApplication.shared.statusBarFrame.size.height
     }
     
-    var orientation:UIInterfaceOrientation {
+    class var orientation:UIInterfaceOrientation {
         get {
             return UIApplication.shared.statusBarOrientation
         }
@@ -82,7 +83,7 @@ class Device
         }
     }
     
-    var isPortrait: Bool {
+    class var isPortrait: Bool {
         let ori = orientation
         if ori == .portrait || ori == .portraitUpsideDown { return true }
         return false
@@ -91,7 +92,7 @@ class Device
         //return device.orientation == .portrait || device.orientation == .portraitUpsideDown
     }
     
-    var isLandscape: Bool {
+    class var isLandscape: Bool {
         let orientation = UIApplication.shared.statusBarOrientation
         if orientation == .landscapeLeft || orientation == .landscapeRight { return true }
         return false

@@ -369,7 +369,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     func getCropRect(_ size: CGSize) -> CGRect {
         //Crop rect goes in-between the top and bottom toolbars.
         //We keep it at the same aspect ratio as the device's screen.
-        let activeBorder = Device.shared.tablet ? 24.0 : 6.0
+        let activeBorder = Device.tablet ? 24.0 : 6.0
         let navigationBar = ApplicationController.shared.navigationController.navigationBar
         let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
         let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
@@ -413,7 +413,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 let imageCenter = imageView.convert(CGPoint(x: imageView.bounds.midX, y: imageView.bounds.midY), to: view)
                 let imageShift = CGPoint(x: imageCenter.x - cropView.frame.midX, y: imageCenter.y - cropView.frame.midY)
                 
-                let cropScale = Device.shared.scale
+                let cropScale = Device.scale
                 let s1 = ((view.bounds.size.width) / cropView.bounds.size.width) * cropScale
                 let s2 = ((view.bounds.size.height) / cropView.bounds.size.height) * cropScale
                 let adjustScale = max(s1, s2)
@@ -455,7 +455,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
             let isPortrait = view.bounds.size.width < view.bounds.size.height
             if let bounce = ApplicationController.shared.getStoryboardVC("bounce") as? BounceViewController {
                 bounce.loadViewIfNeeded()
-                bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? Device.shared.portraitWidth : Device.shared.landscapeWidth, height: isPortrait ? Device.shared.portraitHeight : Device.shared.landscapeHeight), portraitOrientation: isPortrait)
+                bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? Device.portraitWidth : Device.landscapeWidth, height: isPortrait ? Device.portraitHeight : Device.landscapeHeight), portraitOrientation: isPortrait)
             
                 ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
                 ApplicationController.shared.navigationController.setViewControllers([bounce], animated: true)

@@ -141,15 +141,23 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         let orientation = UIApplication.shared.statusBarOrientation
         if orientation == .landscapeLeft || orientation == .landscapeRight {
             if scene.isLandscape == false {
-                Device.shared.orientation = .portrait
+                Device.orientation = .portrait
             }
         } else {
             if scene.isLandscape {
-                Device.shared.orientation = .landscapeLeft
+                Device.orientation = .landscapeLeft
             }
         }
         
-         scene.image = nil
+        scene.image = nil
+        
+        
+        
+        if bottomMenu != nil {
+            bottomMenu!.setUp()
+        }
+        
+        
     }
     
     

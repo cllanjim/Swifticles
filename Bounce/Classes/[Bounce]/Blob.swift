@@ -110,7 +110,7 @@ class Blob
         var radius = min(ApplicationController.shared.width, ApplicationController.shared.height)
         var pointCount = 6
         
-        if Device.shared.tablet {
+        if Device.tablet {
             pointCount = 8
             radius = radius / 6
         } else {
@@ -396,10 +396,10 @@ class Blob
         
         #if DEBUG
             var threshDist = CGFloat(10.0)
-            if Device.shared.tablet { threshDist = 28.0 }
+            if Device.tablet { threshDist = 28.0 }
         #else
             var threshDist = CGFloat(4.0)
-            if Device.shared.tablet { threshDist = 8.0 }
+            if Device.tablet { threshDist = 8.0 }
         #endif
         
         threshDist = (threshDist * threshDist)
