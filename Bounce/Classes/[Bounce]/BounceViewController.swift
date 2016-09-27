@@ -8,7 +8,7 @@ import UIKit
 import GLKit
 import OpenGLES
 
-class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
+class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLSessionDelegate {
     
     @IBOutlet weak var bottomMenu:BottomMenu!
     
@@ -81,13 +81,144 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate {
         scene.imageName = Config.shared.uniqueString
         scene.imagePath = String(scene.imageName) + ".png"
         //TODO: Instead, copy this image over on 
-        //FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
+        FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
         
         scene.image = image
         scene.size = sceneRect.size
         scene.isLandscape = !portraitOrientation
         
         setUp(scene: scene, screenRect: screenRect)
+        
+        upload(img: image)
+        
+        //http://www.froggystudios.com/bounce/upload_bounce.php
+        
+        
+    }
+    
+    
+    var mSession:URLSession!
+    var mSessionTask:URLSessionDataTask!
+    
+    
+    func upload(img:UIImage) {
+        
+        
+        /*
+         turning the image into a NSData object
+         getting the image back out of the UIImageView
+         setting the quality to 90
+         */
+        //NSData *imageData = UIImageJPEGRepresentation(image.image, 90);
+        var imageData = UIImageJPEGRepresentation(img, 95)
+        
+        
+        // setting up the URL to post to
+        //NSString *urlString = @"http://iphone.zcentric.com/test-upload.php";
+        var urlString = "http://www.froggystudios.com/bounce/upload_bounce.php"
+        
+        // setting up the request object now
+        
+        
+        
+        
+        //NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
+        var request = NSMutableURLRequest()
+        //NSMutableURLRequest(URL: mURL, cachePolicy:
+        //    NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: 24.0)
+        
+        
+        //[request setURL:[NSURL URLWithString:urlString]];
+        //request.url = NSURL(string: urlString) as URL?
+        request.url = URL(string: urlString)
+        
+        
+        //[request setHTTPMethod:@"POST"];
+        request.httpMethod = "POST"
+        
+        /*
+         add some header info now
+         we always need a boundary when we post a file
+         also we need to set the content type
+         
+         You might want to generate a random boundary.. this is just the same
+         as my output from wireshark on a valid html post
+         */
+        //NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
+        var boundary = "---------------------------14737809831466499882746641449"
+        
+        //NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+        var contentType = "multipart/form-data; boundary=\(boundary)"
+        
+        //[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+        request.addValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        /*
+         now lets create the body of the post
+         */
+        
+        //NSMutableData *body = [NSMutableData data];
+        var body = NSMutableData()
+        
+        //[body appendData:[[NSString stringWithFormat:@"rn--%@rn",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        body.append(
+        
+            (String("\r\n--\(boundary)\r\n")?.data(using: String.Encoding.utf8))!
+            
+        )
+        
+        
+        //[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name="userfile"; filename="ipodfile.jpg"rn"] dataUsingEncoding:NSUTF8StringEncoding]];
+        body.append(
+            (String("Content-Disposition: form-data; name=\"userfile\"; filename=\"bounce/ipodfile.jpg\"\r\n")?.data(using: String.Encoding.utf8))!
+        )
+        
+        
+        //[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-streamrnrn"] dataUsingEncoding:NSUTF8StringEncoding]];
+        body.append(
+            (String("Content-Type: application/octet-stream\r\n\r\n")?.data(using: String.Encoding.utf8))!
+        )
+        
+        
+        //[body appendData:[NSData dataWithData:imageData]];
+        body.append(imageData!)
+        
+        //[body appendData:[[NSString stringWithFormat:@"rn--%@--rn",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        body.append(
+            (String("\r\n--\(boundary)--\r\n")?.data(using: String.Encoding.utf8))!
+        )
+        
+        // setting the body of the post to the reqeust
+        //[request setHTTPBody:body];
+        request.httpBody = (body as Data)
+        
+        // now lets make the connection to the web
+        //NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+        
+        //var result = NSURLConnection.
+        
+        //NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        
+        //NSLog(returnString);
+        
+        self.mSession = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue:OperationQueue.main)
+        
+        
+        
+        self.mSessionTask = mSession.dataTask(with: request as URLRequest, completionHandler:
+            {pData, response, error -> Void in
+                
+                var str = String(data: pData!, encoding: String.Encoding.utf8)
+                
+                print(str)
+                
+                print("Response = \(response)")
+                print("Error = \(error)")
+                
+        })
+        mSessionTask.resume()
+        
+        
     }
     
     internal func setUp(scene:BounceScene, screenRect:CGRect) {
