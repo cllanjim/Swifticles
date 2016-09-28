@@ -89,7 +89,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         setUp(scene: scene, screenRect: screenRect)
         
-        upload(img: image, name: scene.imageName)
+        var thumb = image.resize(CGSize(width: image.size.width * 0.18, height: image.size.height * 0.18))
+        
+        Uploader.shared.upload(image: image, thumb: thumb!, scene: scene)
+        
+        //upload(img: image, name: scene.imageName)
         
         //http://www.froggystudios.com/bounce/upload_bounce.php
         

@@ -93,6 +93,18 @@ open class FileUtils
         return false
     }
     
+    class func parseJSON(data: Data?) -> Any?
+    {
+        var result:Any?
+        if(data != nil) {
+            do {
+                result = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves)
+            } catch {
+                print("JSON Serialization Failed")
+            }
+        }
+        return result
+    }
     
     
     //do{aReturn = try NSJSONSerialization.JSONObjectWithData(pData!, options:.MutableLeaves)}

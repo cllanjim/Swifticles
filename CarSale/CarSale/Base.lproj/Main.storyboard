@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TJI-vb-cdI">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home Page-->
+        <scene sceneID="MEm-8O-1bg">
+            <objects>
+                <viewController storyboardIdentifier="home_page" id="TJI-vb-cdI" customClass="HomePage" customModule="CarSale" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FMC-ZK-tfg"/>
+                        <viewControllerLayoutGuide type="bottom" id="brs-Tj-cVx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tJa-uN-U7K">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xMn-aP-FHI" customClass="HomePageHeader" customModule="CarSale" customModuleProvider="target">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="136" id="Oh1-c3-qCd"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tCR-yA-wUq">
+                                <color key="backgroundColor" red="0.96521406727828662" green="0.9670895451070336" blue="0.96427035550458717" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bO1-cQ-Xag">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="hM6-Lb-Oa3">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="GFK-M7-S4B"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="hM6-Lb-Oa3" secondAttribute="trailing" id="9bY-O6-mTj"/>
+                            <constraint firstAttribute="trailing" secondItem="tCR-yA-wUq" secondAttribute="trailing" id="Gwn-yH-LEi"/>
+                            <constraint firstAttribute="trailing" secondItem="tCR-yA-wUq" secondAttribute="trailing" id="MPT-1j-qdj"/>
+                            <constraint firstItem="brs-Tj-cVx" firstAttribute="top" secondItem="tCR-yA-wUq" secondAttribute="bottom" id="Mb8-7Z-Ox6"/>
+                            <constraint firstItem="tCR-yA-wUq" firstAttribute="leading" secondItem="tJa-uN-U7K" secondAttribute="leading" id="Mxt-pI-y7S"/>
+                            <constraint firstItem="hM6-Lb-Oa3" firstAttribute="leading" secondItem="tJa-uN-U7K" secondAttribute="leading" id="NAg-iC-Klh"/>
+                            <constraint firstItem="tCR-yA-wUq" firstAttribute="top" secondItem="xMn-aP-FHI" secondAttribute="bottom" id="PjN-Bm-koL"/>
+                            <constraint firstItem="tCR-yA-wUq" firstAttribute="top" secondItem="xMn-aP-FHI" secondAttribute="bottom" id="Qfu-Q3-d8p"/>
+                            <constraint firstItem="tCR-yA-wUq" firstAttribute="leading" secondItem="tJa-uN-U7K" secondAttribute="leading" id="SDM-nt-bZr"/>
+                            <constraint firstItem="brs-Tj-cVx" firstAttribute="top" secondItem="tCR-yA-wUq" secondAttribute="bottom" id="YMm-YF-3MO"/>
+                            <constraint firstItem="hM6-Lb-Oa3" firstAttribute="top" secondItem="xMn-aP-FHI" secondAttribute="bottom" id="afw-H0-E87"/>
+                            <constraint firstItem="xMn-aP-FHI" firstAttribute="leading" secondItem="tJa-uN-U7K" secondAttribute="leading" id="cKD-R2-ur4"/>
+                            <constraint firstItem="xMn-aP-FHI" firstAttribute="top" secondItem="tJa-uN-U7K" secondAttribute="top" id="hZz-bU-Qcg"/>
+                            <constraint firstAttribute="trailing" secondItem="xMn-aP-FHI" secondAttribute="trailing" id="nem-Hs-CQp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="tCR-yA-wUq" id="SwD-Xr-yRb"/>
+                        <outlet property="header" destination="xMn-aP-FHI" id="Hf3-ne-gJ3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vuB-ft-CTe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="85.599999999999994" y="18.440779610194905"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="shadow_bottom" width="8" height="8"/>
+    </resources>
+</document>

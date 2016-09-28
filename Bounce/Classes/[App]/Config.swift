@@ -20,8 +20,8 @@ class Config
         var str1 = String(_uniqueIndex1)
         var str2 = String(_uniqueIndex2)
         
-        while str1.characters.count < 8 { str1 = String("0") + str1 }
-        while str2.characters.count < 8 { str2 = String("0") + str2 }
+        while str1.characters.count < 4 { str1 = String("0") + str1 }
+        while str2.characters.count < 4 { str2 = String("0") + str2 }
         
         _uniqueIndex1 -= 16
         if _uniqueIndex1 < 1280 {
@@ -32,7 +32,7 @@ class Config
             }
         }
         
-        return (ApplicationController.uuid + String(ApplicationController.tick) + str1 + "_") + str2
+        return (ApplicationController.uuid + "_" + String(ApplicationController.tick) + "_" + str1 + "_") + str2
     }
     
     
