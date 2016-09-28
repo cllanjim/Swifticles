@@ -115,6 +115,7 @@
 		C25281F01D89F96E000A0072 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25281EF1D89F96E000A0072 /* ToolView.swift */; };
 		C296B61B1D876ECA0041CE94 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C296B61A1D876ECA0041CE94 /* BottomMenu.swift */; };
 		C29EC0411D713204004A6204 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EC0401D713204004A6204 /* Reader.swift */; };
+		C2B310EC1D9B4A32003932EE /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B310EB1D9B4A32003932EE /* Uploader.swift */; };
 		C2BC0B4E1D80DDBF00EB4075 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */; };
 		C2BC0B501D80EC0700EB4075 /* LineSegmentBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */; };
 		C2EA791B1D88E4C6008C7EF4 /* UIView+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EA791A1D88E4C6008C7EF4 /* UIView+Extras.swift */; };
@@ -252,6 +253,7 @@
 		C25281EF1D89F96E000A0072 /* ToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
 		C296B61A1D876ECA0041CE94 /* BottomMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
 		C29EC0401D713204004A6204 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
+		C2B310EB1D9B4A32003932EE /* Uploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		C2BC0B4D1D80DDBF00EB4075 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
 		C2BC0B4F1D80EC0700EB4075 /* LineSegmentBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineSegmentBuffer.swift; sourceTree = "<group>"; };
 		C2EA791A1D88E4C6008C7EF4 /* UIView+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extras.swift"; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				C214D25A1D6E9745004069A3 /* ImageImportViewController.swift */,
 				C214D25B1D6E9745004069A3 /* ToolActions.swift */,
 				C29EC0401D713204004A6204 /* Reader.swift */,
+				C2B310EB1D9B4A32003932EE /* Uploader.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -727,6 +730,7 @@
 				C214D2731D6E9745004069A3 /* CubicSpline.swift in Sources */,
 				C2036F721D8333350052DCCB /* BlobMeshNode.swift in Sources */,
 				C214D2761D6E9745004069A3 /* Math.swift in Sources */,
+				C2B310EC1D9B4A32003932EE /* Uploader.swift in Sources */,
 				C214D26A1D6E9745004069A3 /* RRButton.swift in Sources */,
 				C214D2631D6E9745004069A3 /* DrawTriangle.swift in Sources */,
 				C214D26F1D6E9745004069A3 /* ToolBarBottom.swift in Sources */,

@@ -32,7 +32,7 @@ class Config
             }
         }
         
-        return (str1 + "_") + str2
+        return (ApplicationController.uuid + String(ApplicationController.tick) + str1 + "_") + str2
     }
     
     

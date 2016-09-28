@@ -89,7 +89,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         setUp(scene: scene, screenRect: screenRect)
         
-        upload(img: image)
+        upload(img: image, name: scene.imageName)
         
         //http://www.froggystudios.com/bounce/upload_bounce.php
         
@@ -101,7 +101,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     var mSessionTask:URLSessionDataTask!
     
     
-    func upload(img:UIImage) {
+    func upload(img:UIImage, name: String) {
         
         
         /*
@@ -110,12 +110,24 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
          setting the quality to 90
          */
         //NSData *imageData = UIImageJPEGRepresentation(image.image, 90);
-        var imageData = UIImageJPEGRepresentation(img, 95)
-        
+        var imageData = UIImageJPEGRepresentation(img, 80)
         
         // setting up the URL to post to
         //NSString *urlString = @"http://iphone.zcentric.com/test-upload.php";
-        var urlString = "http://www.froggystudios.com/bounce/upload_bounce.php"
+        var urlString = "http://www.froggystudios.com/bounce/upload.php?name="
+        urlString = urlString + name
+        urlString = urlString + "&width=" + String(Int(img.size.width))
+        urlString = urlString + "&height=" + String(Int(img.size.height))
+        
+        
+        
+        
+        
+        //urlString = (urlString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed))!
+        //print(urlString)
+        
+        
+        
         
         // setting up the request object now
         
@@ -145,7 +157,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
          as my output from wireshark on a valid html post
          */
         //NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
-        var boundary = "---------------------------14737809831466499882746641449"
+        //var boundary = "---------------------------14737809831466499882746641449"
+        var boundary = "---------------------------347A2FL8KEN1CK3DLJR4PT1SGLKD5"
+        
+        
         
         //NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
         var contentType = "multipart/form-data; boundary=\(boundary)"
@@ -170,7 +185,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         //[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name="userfile"; filename="ipodfile.jpg"rn"] dataUsingEncoding:NSUTF8StringEncoding]];
         body.append(
-            (String("Content-Disposition: form-data; name=\"userfile\"; filename=\"bounce/ipodfile.jpg\"\r\n")?.data(using: String.Encoding.utf8))!
+            (String("Content-Disposition: form-data; name=\"photo\"; filename=\"bounce/ipodfile.jpg\"\r\n")?.data(using: String.Encoding.utf8))!
         )
         
         

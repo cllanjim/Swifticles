@@ -1,0 +1,33 @@
+hypernova
+Hyp3r#N0va
+
+<?php
+	$con = mysql_connect("stocks54321.db.6143131.hostedresource.com", "stocks54321", "Rest1234!");
+
+	if($con)
+	{
+		mysql_select_db('stocks54321');
+
+		$result = mysql_query("SELECT name, address, city, state, zip, lat, lon, image_url from office;");
+		$results = array();
+    
+    		while($row = mysql_fetch_array($result))
+    		{
+        		$results[] = array('name' => $row['name'],
+                           'address' => $row['address'],
+                           'city' => $row['city'],
+                           'state' => $row['state'],
+                           'zip' => $row['zip'],
+                           'image_url' => $row['image_url'],
+                           'lat' => $row['lat'],
+                           'lon' => $row['lon']);
+
+    		}
+    
+    		echo json_encode($results);
+    
+	
+	}
+	mysql_close($con);
+
+?>

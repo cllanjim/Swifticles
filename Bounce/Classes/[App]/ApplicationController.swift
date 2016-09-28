@@ -123,6 +123,20 @@ class ApplicationController
         }
     }
     
+    class var tick: Int {
+        return Int(Date().timeIntervalSince1970 * 2.0)
+    }
+    
+    class var uuid:String {
+        return UUID().uuidString
+        
+        //if let result = UIDevice.current.identifierForVendor?.uuidString {
+        //    return result
+        //} else {
+        //    return NSUUID().uuidString
+        //}
+    }
+    
     weak internal var _engine:BounceEngine?
     var engine:BounceEngine? {
         get {
