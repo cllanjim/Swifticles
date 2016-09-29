@@ -48,20 +48,6 @@ class ApplicationController
     var bounce:BounceViewController? {
         get {
             return _bounce
-            /*
-            if _bounce != nil {
-                return _bounce
-            } else {
-                for vc:UIViewController in navigationController.viewControllers {
-                    if vc.isKind(of: BounceViewController.self) {
-                        if let bounce = vc as? BounceViewController {
-                            return bounce
-                        }
-                    }
-                }
-                return nil
-            }
-            */
         }
         set {
             _bounce = newValue
@@ -124,31 +110,17 @@ class ApplicationController
     }
     
     class var tick: Int {
-        return Int(Date().timeIntervalSince1970 * 2.0)
+        return Int(Date().timeIntervalSince1970 * 100.0)
     }
     
     class var uuid:String {
         return UUID().uuidString
-        
-        //if let result = UIDevice.current.identifierForVendor?.uuidString {
-        //    return result
-        //} else {
-        //    return NSUUID().uuidString
-        //}
     }
     
     weak internal var _engine:BounceEngine?
     var engine:BounceEngine? {
         get {
             return _engine
-            /*
-            if _engine != nil {
-                return _engine
-            } else {
-                return bounce?.engine
-                return nil
-            }
-            */
         }
         set {
             _engine = newValue
@@ -160,8 +132,3 @@ class ApplicationController
     }
     
 }
-
-//let ApplicationController.shared = ApplicationController()
-
-
-

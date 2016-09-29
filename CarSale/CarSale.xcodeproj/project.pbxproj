@@ -7,16 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0DCDD6941D9B9A7100496C3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6931D9B9A7100496C3D /* AppDelegate.swift */; };
-		0DCDD6961D9B9A7100496C3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6951D9B9A7100496C3D /* ViewController.swift */; };
 		0DCDD6991D9B9A7100496C3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DCDD6971D9B9A7100496C3D /* Main.storyboard */; };
 		0DCDD69B1D9B9A7100496C3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DCDD69A1D9B9A7100496C3D /* Assets.xcassets */; };
 		0DCDD69E1D9B9A7100496C3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DCDD69C1D9B9A7100496C3D /* LaunchScreen.storyboard */; };
 		0DCDD6A91D9B9A7100496C3D /* CarSaleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6A81D9B9A7100496C3D /* CarSaleTests.swift */; };
 		0DCDD6B41D9B9A7100496C3D /* CarSaleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6B31D9B9A7100496C3D /* CarSaleUITests.swift */; };
-		0DCDD6C21D9BADEB00496C3D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6C11D9BADEB00496C3D /* HomePage.swift */; };
-		0DCDD6C41D9BB53200496C3D /* HomePageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6C31D9BB53200496C3D /* HomePageHeader.swift */; };
 		0DCDD6C61D9BB6F400496C3D /* HomePageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6C51D9BB6F400496C3D /* HomePageTests.swift */; };
+		C240B19B1D9C37C700D71D47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1941D9C37C700D71D47 /* AppDelegate.swift */; };
+		C240B19C1D9C37C700D71D47 /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1951D9C37C700D71D47 /* ApplicationController.swift */; };
+		C240B19D1D9C37C700D71D47 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1961D9C37C700D71D47 /* Device.swift */; };
+		C240B19E1D9C37C700D71D47 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1971D9C37C700D71D47 /* FileUtils.swift */; };
+		C240B19F1D9C37C700D71D47 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1981D9C37C700D71D47 /* HomePage.swift */; };
+		C240B1A01D9C37C700D71D47 /* HomePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1991D9C37C700D71D47 /* HomePageCell.swift */; };
+		C240B1A11D9C37C700D71D47 /* HomePageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B19A1D9C37C700D71D47 /* HomePageHeader.swift */; };
+		C240B1A51D9C8E6500D71D47 /* EdmundsMakesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1A41D9C8E6500D71D47 /* EdmundsMakesFetcher.swift */; };
+		C240B1A71D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */; };
+		C240B1F41D9C961900D71D47 /* EdmundsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1F31D9C961900D71D47 /* EdmundsCommon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +44,6 @@
 
 /* Begin PBXFileReference section */
 		0DCDD6901D9B9A7100496C3D /* CarSale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarSale.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0DCDD6931D9B9A7100496C3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0DCDD6951D9B9A7100496C3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0DCDD6981D9B9A7100496C3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0DCDD69A1D9B9A7100496C3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DCDD69D1D9B9A7100496C3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -50,9 +54,17 @@
 		0DCDD6AF1D9B9A7100496C3D /* CarSaleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarSaleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DCDD6B31D9B9A7100496C3D /* CarSaleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarSaleUITests.swift; sourceTree = "<group>"; };
 		0DCDD6B51D9B9A7100496C3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0DCDD6C11D9BADEB00496C3D /* HomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
-		0DCDD6C31D9BB53200496C3D /* HomePageHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageHeader.swift; sourceTree = "<group>"; };
 		0DCDD6C51D9BB6F400496C3D /* HomePageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageTests.swift; sourceTree = "<group>"; };
+		C240B1941D9C37C700D71D47 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C240B1951D9C37C700D71D47 /* ApplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
+		C240B1961D9C37C700D71D47 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		C240B1971D9C37C700D71D47 /* FileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
+		C240B1981D9C37C700D71D47 /* HomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		C240B1991D9C37C700D71D47 /* HomePageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageCell.swift; sourceTree = "<group>"; };
+		C240B19A1D9C37C700D71D47 /* HomePageHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageHeader.swift; sourceTree = "<group>"; };
+		C240B1A41D9C8E6500D71D47 /* EdmundsMakesFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMakesFetcher.swift; sourceTree = "<group>"; };
+		C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMakesFetcherTests.swift; sourceTree = "<group>"; };
+		C240B1F31D9C961900D71D47 /* EdmundsCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsCommon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,14 +115,11 @@
 		0DCDD6921D9B9A7100496C3D /* CarSale */ = {
 			isa = PBXGroup;
 			children = (
-				0DCDD6931D9B9A7100496C3D /* AppDelegate.swift */,
-				0DCDD6951D9B9A7100496C3D /* ViewController.swift */,
+				C240B1931D9C37C700D71D47 /* Source */,
 				0DCDD6971D9B9A7100496C3D /* Main.storyboard */,
 				0DCDD69A1D9B9A7100496C3D /* Assets.xcassets */,
 				0DCDD69C1D9B9A7100496C3D /* LaunchScreen.storyboard */,
 				0DCDD69F1D9B9A7100496C3D /* Info.plist */,
-				0DCDD6C11D9BADEB00496C3D /* HomePage.swift */,
-				0DCDD6C31D9BB53200496C3D /* HomePageHeader.swift */,
 			);
 			path = CarSale;
 			sourceTree = "<group>";
@@ -121,6 +130,7 @@
 				0DCDD6A81D9B9A7100496C3D /* CarSaleTests.swift */,
 				0DCDD6AA1D9B9A7100496C3D /* Info.plist */,
 				0DCDD6C51D9BB6F400496C3D /* HomePageTests.swift */,
+				C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */,
 			);
 			path = CarSaleTests;
 			sourceTree = "<group>";
@@ -132,6 +142,22 @@
 				0DCDD6B51D9B9A7100496C3D /* Info.plist */,
 			);
 			path = CarSaleUITests;
+			sourceTree = "<group>";
+		};
+		C240B1931D9C37C700D71D47 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C240B1941D9C37C700D71D47 /* AppDelegate.swift */,
+				C240B1951D9C37C700D71D47 /* ApplicationController.swift */,
+				C240B1961D9C37C700D71D47 /* Device.swift */,
+				C240B1971D9C37C700D71D47 /* FileUtils.swift */,
+				C240B1981D9C37C700D71D47 /* HomePage.swift */,
+				C240B1991D9C37C700D71D47 /* HomePageCell.swift */,
+				C240B19A1D9C37C700D71D47 /* HomePageHeader.swift */,
+				C240B1A41D9C8E6500D71D47 /* EdmundsMakesFetcher.swift */,
+				C240B1F31D9C961900D71D47 /* EdmundsCommon.swift */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +228,7 @@
 				TargetAttributes = {
 					0DCDD68F1D9B9A7100496C3D = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = LCBDY3U9B4;
 						ProvisioningStyle = Automatic;
 					};
 					0DCDD6A31D9B9A7100496C3D = {
@@ -268,10 +295,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DCDD6961D9B9A7100496C3D /* ViewController.swift in Sources */,
-				0DCDD6C21D9BADEB00496C3D /* HomePage.swift in Sources */,
-				0DCDD6C41D9BB53200496C3D /* HomePageHeader.swift in Sources */,
-				0DCDD6941D9B9A7100496C3D /* AppDelegate.swift in Sources */,
+				C240B19E1D9C37C700D71D47 /* FileUtils.swift in Sources */,
+				C240B19B1D9C37C700D71D47 /* AppDelegate.swift in Sources */,
+				C240B19C1D9C37C700D71D47 /* ApplicationController.swift in Sources */,
+				C240B1F41D9C961900D71D47 /* EdmundsCommon.swift in Sources */,
+				C240B19F1D9C37C700D71D47 /* HomePage.swift in Sources */,
+				C240B1A11D9C37C700D71D47 /* HomePageHeader.swift in Sources */,
+				C240B1A01D9C37C700D71D47 /* HomePageCell.swift in Sources */,
+				C240B1A51D9C8E6500D71D47 /* EdmundsMakesFetcher.swift in Sources */,
+				C240B19D1D9C37C700D71D47 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +313,7 @@
 			files = (
 				0DCDD6A91D9B9A7100496C3D /* CarSaleTests.swift in Sources */,
 				0DCDD6C61D9BB6F400496C3D /* HomePageTests.swift in Sources */,
+				C240B1A71D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,9 +457,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LCBDY3U9B4;
 				INFOPLIST_FILE = CarSale/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fair.CarSale;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.demo.example.prototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -436,9 +470,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = LCBDY3U9B4;
 				INFOPLIST_FILE = CarSale/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fair.CarSale;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.demo.example.prototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
