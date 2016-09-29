@@ -31,3 +31,22 @@ Hyp3r#N0va
 	mysql_close($con);
 
 ?>
+
+
+
+select thumb_q.scene_id as scene_id, thumb_q.thumb_url as thumb_url, images.imageURL as image_url from (((select scene.id as scene_id, scene.image_id as large_id, images.imageURL as thumb_url FROM scene inner join images on scene.thumb_id = images.id) as thumb_q) inner join images on thumb_q.large_id = images.id)
+
+
+select thumb_q.scene_id as id from
+
+(select scene.id as scene_id, scene.image_id as large_id, images.imageURL as thumb_url FROM scene inner join images on scene.thumb_id = images.id) as thumb_q 
+
+
+
+
+select scene.id as scene_id, scene.image_id as img_id, images.imageURL FROM scene inner join images on scene.thumb_id = images.id
+
+
+select scene.id as scene_id, images.imageURL FROM scene inner join images on scene.thumb_id = images.id
+
+

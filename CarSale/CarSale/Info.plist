@@ -28,6 +28,15 @@
 	<array>
 		<string>armv7</string>
 	</array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Show relevant vehicle information based on location.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Show relevant vehicle information based on location.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

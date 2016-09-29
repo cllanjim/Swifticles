@@ -156,7 +156,7 @@ class Uploader : NSObject, URLSessionDelegate
     
     func uploadImage(image: UIImage, name: String) {
         
-        var imageData = UIImageJPEGRepresentation(image, 80)
+        var imageData = UIImageJPEGRepresentation(image, 70)
         
         var urlString = "http://www.froggystudios.com/bounce/upload_image.php?name="
         

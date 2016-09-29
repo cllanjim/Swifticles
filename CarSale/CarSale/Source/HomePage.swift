@@ -9,9 +9,7 @@
 import UIKit
 
 
-
-
-class HomePage : UIViewController, UICollectionViewDelegate, EdmundsMakesFetcherDelegate
+class HomePage : UIViewController, UICollectionViewDelegate, WebFetcherDelegate
 {
     @IBOutlet weak var header: HomePageHeader!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -19,65 +17,74 @@ class HomePage : UIViewController, UICollectionViewDelegate, EdmundsMakesFetcher
     private var sessionTask: URLSessionTask?
     private var sessionDataTask: URLSessionDataTask?
     
-    var fetcher = EdmundsMakesFetcher() { didSet { fetcher.delegate = self } }
+    private var _makeFetcher: EdmundsMakesFetcher?
+    var makeFetcher: EdmundsMakesFetcher {
+        
+        if _makeFetcher == nil {
+            _makeFetcher = EdmundsMakesFetcher()
+            _makeFetcher!.delegate = self
+        }
+        return _makeFetcher!
+    }
+    var makes = [EdmundsMake]()
+    
+    
+    private var _imgFetcher: ImageSetFetcher?
+    var imgFetcher: ImageSetFetcher {
+        
+        if _imgFetcher == nil {
+            _imgFetcher = ImageSetFetcher()
+            _imgFetcher!.delegate = self
+        }
+        return _imgFetcher!
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        fetcher.fetchAllMakes()
-        
-        
-        /*
-        let request = NSURLRequest(url: URL(string: urlString)!)
-        
-        self.sessionTask = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue:OperationQueue.main)
-        
-        self.sessionDataTask = sessionTask!.dataTask(with: request as URLRequest, completionHandler:
-            {
-                [weakSelf = self] (data, response, error) -> Void in
-                
-                if data == nil || response == nil || error != nil {
-                    weakSelf.fail()
-                } else {
-                    
-                    DispatchQueue.main.async { //[strongSelf = weakSelf] in
-                        
-                        let jsonData = FileUtils.parseJSON(data: data) as? [String:AnyObject]
-                        
-                        
-                        print("JSON DATA = ")
-                        print("\(jsonData)")
-                    }
-                }
-                
-                
-                
-                
-                
-                var str = String(data: data!, encoding: String.Encoding.utf8)
-                
-                print(str)
-                
-                print("Response = \(response)")
-                print("Error = \(error)")
-                
-            })
-        sessionDataTask?.resume()
-        */
-        
+        makeFetcher.fetchAllMakes()
+        imgFetcher.fetchImageSets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
     }
     
-    func makesFetchDidSucceed(fetcher: EdmundsMakesFetcher) {
+    func fetchDidSucceed(fetcher: WebFetcher, result: WebResult) {
+        
+        if fetcher === makeFetcher {
+            
+            print("___\nFetched Makes!\n___")
+            
+            makes = makeFetcher.makes
+            makeFetcher.clear()
+            
+            print(makes)
+            
+            collectionView.reloadData()
+        } else if fetcher === imgFetcher {
+            
+            print("___\nFetched Image Sets!\n___")
+            
+            //makes = makeFetcher.makes
+            //makeFetcher.clear()
+            
+            //print(makes)
+            
+            //collectionView.reloadData()
+        }
         
     }
     
-    func makesFetchDidFail(fetcher: EdmundsMakesFetcher, result: EdmundsWebResult) {
+    func fetchDidFail(fetcher: WebFetcher, result: WebResult) {
+        
         
     }
-    
 }
+
+
+
+
+

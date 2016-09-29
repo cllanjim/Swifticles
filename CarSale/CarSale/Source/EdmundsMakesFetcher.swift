@@ -15,111 +15,44 @@ import Foundation
 //http://api.edmunds.com/api/vehicle/v2/lexus/models?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a&callback=myFunction
 //https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a&state=new&view=full
 
-protocol EdmundsMakesFetcherDelegate
-{
-    func makesFetchDidSucceed(fetcher: EdmundsMakesFetcher)
-    func makesFetchDidFail(fetcher: EdmundsMakesFetcher, result: EdmundsWebResult)
-}
+//http://www.froggystudios.com/bounce/fetch_scene_list.php
 
-class EdmundsMakesFetcher : NSObject, URLSessionDelegate
+class EdmundsMakesFetcher : WebFetcher
 {
-    var delegate:EdmundsMakesFetcherDelegate?
-    
     var makes = [EdmundsMake]()
     
-    private var sessionTask: URLSession?
-    private var sessionDataTask: URLSessionDataTask?
-    
-    //internal func
-    
-    internal func fail(result: EdmundsWebResult) {
-        print("FAIL!")
+    override func clear() {
+        super.clear()
+        makes.removeAll()
     }
     
     func fetchAllMakes() {
         fetch("https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a")
     }
     
-    private func fetch(_ urlString: String?) {
+    override func parse(data: Any) -> Bool {
         
-        
-        
-        guard urlString != nil else {
-            fail(result: .invalid)
-            return
+        //Is it the expected format?
+        var dic = data as? [String:Any]
+        guard dic != nil else {
+            return false
         }
         
-        print("fetch(\"\(urlString!)\")")
-        
-        guard let url = URL(string: urlString!) else {
-            fail(result: .invalid)
-            return
-        }
-        
-        let request = NSURLRequest(url: url)
-        
-        sessionTask = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: OperationQueue.main)
-        
-        guard sessionTask != nil else {
-            fail(result: .invalid)
-            return
-        }
-        
-        self.sessionDataTask = sessionTask!.dataTask(with: request as URLRequest, completionHandler:
-            {
-                [weakSelf = self] (data, response, error) -> Void in
-                DispatchQueue.main.async {
-                    if data == nil || response == nil || error != nil {
-                        weakSelf.fail(result: .error)
-                    } else {
-                        let _jsonData = FileUtils.parseJSON(data: data) as? [String:Any]
-                        guard _jsonData != nil else {
-                            weakSelf.fail(result: .error)
-                            return
-                        }
-                        weakSelf.parse(data: _jsonData!)
-                    }
-                }
-            })
-        
-        guard sessionDataTask != nil else {
-            fail(result: .invalid)
-            return
-        }
-        
-        sessionDataTask!.resume()
-    }
-    
-    func parse(data: [String:Any]) {
-        
+        //Populate the makes!
         makes.removeAll()
-        print("JSON DATA = ")
-        print("\(data)")
-        
-        if let _makes = data["makes"] as? [[String:Any]] {
-            
+        if let _makes = dic!["makes"] as? [[String:Any]] {
             for _make in _makes {
-                
-                var make = EdmundsMake()
+                let make = EdmundsMake()
                 if make.load(data: _make) {
+                    //If it's a good one, keep it.
                     makes.append(make)
                 }
             }
-            
-            print("____")
-            print("\(makes)")
-            
         }
         
-        
-        
+        //If successfully parsed 0 makes, that's a fail.
+        return (makes.count > 0)
     }
-    
-    //private func fetch
-    
-    
-    
-    
 }
 
 

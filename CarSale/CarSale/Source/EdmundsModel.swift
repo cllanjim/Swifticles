@@ -12,7 +12,6 @@ class EdmundsModel {
     
     func load(data:[String:Any]?) -> Bool {
         
-     
         return true
     }
     

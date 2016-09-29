@@ -10,7 +10,7 @@ import UIKit
 
 class EdmundsMake
 {
-    var id: Int64 = -1
+    var id: Int = -1
     var idString: String = ""
     
     var name: String = ""
@@ -26,17 +26,16 @@ class EdmundsMake
             return false
         }
         
-        guard let _idString = _data["id"] as? String else { return false }
-        guard let _name = _data["name"] as? String else { return false }
+        let _id = _data["id"] as? Int
+        let _name = _data["name"] as? String
         
-        idString = _idString
-        
-        if let _id = Int64(idString) {
-            id = _id
+        guard _id != nil && _name != nil else {
+            return false
         }
         
-        
-        name = _name
+        name = _name!
+        id = _id!
+        idString = String(id)
         
         let _niceName = _data["niceName"] as? String
         if _niceName != nil { niceName = _niceName! }
@@ -44,9 +43,7 @@ class EdmundsMake
         let _models = _data["models"] as? [[String:Any]]
         if _models != nil {
             for _model in _models! {
-              
                 let model = EdmundsModel()
-                
                 if model.load(data: _model) {
                     models.append(model)
                 }
