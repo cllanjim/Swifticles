@@ -30,7 +30,7 @@ class GLViewController: GLKViewController {
         super.viewDidLoad()
         
         preferredFramesPerSecond = 60
-        context = EAGLContext(api: .openGLES2)
+        context = EAGLContext(api: .openGLES3)
         
         if !(self.context != nil) {
             print("Failed to create ES context")
