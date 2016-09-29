@@ -25,6 +25,8 @@ class EdmundsMakesFetcher : NSObject, URLSessionDelegate
 {
     var delegate:EdmundsMakesFetcherDelegate?
     
+    var makes = [EdmundsMake]()
+    
     private var sessionTask: URLSession?
     private var sessionDataTask: URLSessionDataTask?
     
@@ -70,12 +72,12 @@ class EdmundsMakesFetcher : NSObject, URLSessionDelegate
                     if data == nil || response == nil || error != nil {
                         weakSelf.fail(result: .error)
                     } else {
-                        let jsonData = FileUtils.parseJSON(data: data) as? [String:Any]
-                        guard jsonData != nil else {
+                        let _jsonData = FileUtils.parseJSON(data: data) as? [String:Any]
+                        guard _jsonData != nil else {
                             weakSelf.fail(result: .error)
                             return
                         }
-                        weakSelf.parse(data: jsonData!)
+                        weakSelf.parse(data: _jsonData!)
                     }
                 }
             })
@@ -90,12 +92,24 @@ class EdmundsMakesFetcher : NSObject, URLSessionDelegate
     
     func parse(data: [String:Any]) {
         
-        
+        makes.removeAll()
         print("JSON DATA = ")
         print("\(data)")
         
-        guard let makes = 
-        
+        if let _makes = data["makes"] as? [[String:Any]] {
+            
+            for _make in _makes {
+                
+                var make = EdmundsMake()
+                if make.load(data: _make) {
+                    makes.append(make)
+                }
+            }
+            
+            print("____")
+            print("\(makes)")
+            
+        }
         
         
         

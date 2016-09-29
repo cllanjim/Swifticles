@@ -23,6 +23,8 @@
 		C240B1A51D9C8E6500D71D47 /* EdmundsMakesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1A41D9C8E6500D71D47 /* EdmundsMakesFetcher.swift */; };
 		C240B1A71D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */; };
 		C240B1F41D9C961900D71D47 /* EdmundsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1F31D9C961900D71D47 /* EdmundsCommon.swift */; };
+		C2BB3DF01D9CA3BF0083B3BB /* EdmundsMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB3DEF1D9CA3BF0083B3BB /* EdmundsMake.swift */; };
+		C2BB3DF21D9CA4100083B3BB /* EdmundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BB3DF11D9CA4100083B3BB /* EdmundsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		C240B1A41D9C8E6500D71D47 /* EdmundsMakesFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMakesFetcher.swift; sourceTree = "<group>"; };
 		C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMakesFetcherTests.swift; sourceTree = "<group>"; };
 		C240B1F31D9C961900D71D47 /* EdmundsCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsCommon.swift; sourceTree = "<group>"; };
+		C2BB3DEF1D9CA3BF0083B3BB /* EdmundsMake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMake.swift; sourceTree = "<group>"; };
+		C2BB3DF11D9CA4100083B3BB /* EdmundsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +160,8 @@
 				C240B19A1D9C37C700D71D47 /* HomePageHeader.swift */,
 				C240B1A41D9C8E6500D71D47 /* EdmundsMakesFetcher.swift */,
 				C240B1F31D9C961900D71D47 /* EdmundsCommon.swift */,
+				C2BB3DEF1D9CA3BF0083B3BB /* EdmundsMake.swift */,
+				C2BB3DF11D9CA4100083B3BB /* EdmundsModel.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -299,6 +305,8 @@
 				C240B19B1D9C37C700D71D47 /* AppDelegate.swift in Sources */,
 				C240B19C1D9C37C700D71D47 /* ApplicationController.swift in Sources */,
 				C240B1F41D9C961900D71D47 /* EdmundsCommon.swift in Sources */,
+				C2BB3DF21D9CA4100083B3BB /* EdmundsModel.swift in Sources */,
+				C2BB3DF01D9CA3BF0083B3BB /* EdmundsMake.swift in Sources */,
 				C240B19F1D9C37C700D71D47 /* HomePage.swift in Sources */,
 				C240B1A11D9C37C700D71D47 /* HomePageHeader.swift in Sources */,
 				C240B1A01D9C37C700D71D47 /* HomePageCell.swift in Sources */,
