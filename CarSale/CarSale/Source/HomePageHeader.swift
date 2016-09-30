@@ -10,6 +10,9 @@ import UIKit
 
 class HomePageHeader : UIView
 {
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     
 }
 

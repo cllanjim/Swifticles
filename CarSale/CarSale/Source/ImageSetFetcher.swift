@@ -8,16 +8,6 @@
 
 import Foundation
 
-
-//API KEY: yfwsqhj7ymscvt5sxh32f68a
-//Shared secret: JQeZpBDHUdG8bzPbjQT6h6t2
-
-//https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a
-//http://api.edmunds.com/api/vehicle/v2/lexus/models?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a&callback=myFunction
-//https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a&state=new&view=full
-
-//http://www.froggystudios.com/bounce/fetch_scene_list.php
-
 class ImageSetFetcher : WebFetcher
 {
     var sets = [ImageSet]()
@@ -32,28 +22,23 @@ class ImageSetFetcher : WebFetcher
     }
     
     override func parse(data: Any) -> Bool {
-        
-        print(data)
-        
-        var dic = data as? [String:Any]
-        
-        guard dic != nil else {
+        sets.removeAll()
+        let _array = data as? [[String:Any]]
+        guard _array != nil else {
             return false
         }
         
-        
-        sets.removeAll()
-
-        
-        
+        var index:Int = 0
+        for _set in _array! {
+            let set = ImageSet()
+            if set.load(data: _set) {
+                set.index = index
+                sets.append(set)
+                index += 1
+            }
+        }
         return (sets.count > 0)
     }
-    
-    //private func fetch
-    
-    
-    
-    
 }
 
 

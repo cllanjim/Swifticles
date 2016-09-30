@@ -35,6 +35,22 @@ class ApplicationController
         }
     }
     
+    class var width: CGFloat {
+        if Device.isPortrait {
+            return Device.portraitWidth
+        } else {
+            return Device.landscapeWidth
+        }
+    }
+    
+    class var height: CGFloat {
+        if Device.isPortrait {
+            return Device.portraitHeight
+        } else {
+            return Device.landscapeHeight
+        }
+    }
+    
     class var tick: Int {
         return Int(Date().timeIntervalSince1970 * 100.0)
     }
