@@ -209,12 +209,12 @@ class BottomMenu: ToolView
                 sendOnScreen(_currentToolRow!)
                 
                 UIView.animate(withDuration: 0.4, animations: {
-                    [weakSelf = self] in
+                    [weak weakSelf = self] in
                     weakSelf._currentToolRow?.layoutIfNeeded()
                     previousToolRow?.layoutIfNeeded()
                     weakSelf.layoutIfNeeded()
                     weakSelf.superview?.layoutIfNeeded()
-                    }, completion: { [weakSelf = self] (finished:Bool) in
+                    }, completion: { [weak weakSelf = self] (finished:Bool) in
                         previousToolRow?.isHidden = true
                         weakSelf._currentToolRow!.isHidden = false
                 })
@@ -268,8 +268,8 @@ class BottomMenu: ToolView
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
             UIView.animate(withDuration: 0.4, animations: {
-                [weakSelf = self] in
-                weakSelf.superview?.layoutIfNeeded()
+                [weak weakSelf = self] in
+                weakSelf?.superview?.layoutIfNeeded()
                 }, completion: nil)
         }
         
@@ -282,8 +282,8 @@ class BottomMenu: ToolView
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
             UIView.animate(withDuration: 0.4, animations: {
-                [weakSelf = self] in
-                weakSelf.superview?.layoutIfNeeded()
+                [weak weakSelf = self] in
+                weakSelf?.superview?.layoutIfNeeded()
                 }, completion: nil)
         }
     }

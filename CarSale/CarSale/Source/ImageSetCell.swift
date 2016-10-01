@@ -12,6 +12,11 @@ class ImageSetCell : UICollectionViewCell
 {
     var set: ImageSet?
     
+    var needsFetch: Bool = true
+    func setNeedsFetch() {
+        needsFetch = true
+    }
+    
     @IBOutlet weak var imageView: UIImageView? {
         didSet {
             

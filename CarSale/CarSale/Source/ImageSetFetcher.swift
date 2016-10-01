@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImageSetFetcher : WebFetcher
+class ImageSetFetcher : JSONFetcher
 {
     var sets = [ImageSet]()
     

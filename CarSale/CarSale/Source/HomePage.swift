@@ -12,16 +12,17 @@ import UIKit
 class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, WebFetcherDelegate
 {
     @IBOutlet weak var header: HomePageHeader!
-    
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
+            layoutLandscape = Device.isLandscape
+            
             collectionView.delegate = self
             collectionView.dataSource = self
         }
     }
     
+    var layoutLandscape:Bool = false
     
     /*
     // Defaults to YES, and if YES, any selection is cleared in viewWillAppear:
@@ -75,7 +76,10 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
         super.viewDidLoad()
         
         makeFetcher.fetchAllMakes()
-        imgFetcher.fetchImageSets()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 6.0) { [weak weakSelf = self] in
+            weakSelf?.imgFetcher.fetchImageSets()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +88,12 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        
+        if size.width > size.height {
+            layoutLandscape = true
+        } else {
+            layoutLandscape = false
+        }
         
         collectionView!.reloadData()
         
@@ -102,8 +112,6 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
             print("___\nFetched Makes!\n___")
             makes = makeFetcher.makes
             makeFetcher.clear()
-            collectionView?.reloadData()
-            
             syncImages()
         } else if fetcher === imgFetcher {
             print("___\nFetched Image Sets!\n___")
@@ -119,11 +127,42 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     func syncImages() {
         guard imageSets.count > 0 && makes.count > 0 else {
+            
+            //Show placeholder cells even if thumbs haven't come in..
+            if makes.count > 0 {
+                collectionView?.reloadData()
+            }
             return
         }
         
+        for i in 0..<makes.count {
+            makes[i].set = getImageSetForIndex(index: i)
+        }
+        
+        collectionView?.reloadData()
         
     }
+    
+    func getImageSetForIndex(index: Int) -> ImageSet? {
+        var result:ImageSet?
+        
+        if imageSets.count > 0 {
+            if index > imageSets.count {
+                //Mod it..
+            }
+            
+            if index >= 0 && index < imageSets.count {
+                result = imageSets[index]
+            }
+            
+            
+        }
+        
+        
+        return result
+    }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return makes.count
@@ -133,50 +172,26 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
         let cell = self.collectionView!.dequeueReusableCell(withReuseIdentifier: "car_cell", for: indexPath) as! HomePageMakeCell
         
-        
+        cell.make = makes[indexPath.row]
         
         return cell
-        
-        /*
-        !.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
-        let photoInfo = photos[indexPath.item] as Dictionary
-        let photoUrlString = (self.layoutType == LayoutType.grid) ? photoInfo["url_q"] : photoInfo["url_z"]
-        let photoUrlRequest : URLRequest = URLRequest(url: URL.URLWithString(photoUrlString))
-        
-        let imageRequestSuccess = {
-            (request : URLRequest!, response : HTTPURLResponse!, image : UIImage!) -> Void in
-            photoCell.photoImageView.image = image;
-            photoCell.photoImageView.alpha = 0
-            UIView.animate(withDuration: 0.2, animations: {
-                photoCell.photoImageView.alpha = 1.0
-            })
-        }
-        let imageRequestFailure = {
-            (request : URLRequest!, response : HTTPURLResponse!, error : NSError!) -> Void in
-            NSLog("imageRequrestFailure")
-        }
-        photoCell.photoImageView.setImageWithURLRequest(photoUrlRequest, placeholderImage: nil, success: imageRequestSuccess, failure: imageRequestFailure)
-        
-        photoCell.photoInfo = photoInfo
-        return photoCell;
-        */
-        
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
         let appWidth = ApplicationController.width
-        let appHeight = ApplicationController.height
-        
-        
-        var width = (appWidth / 2) - (8.0 + 8.0 + 8.0)
-        
+        var width = (appWidth / 2) - (4.0 * 3.0)
         if Device.tablet {
-            width = (appWidth / 3) - (8.0 + 8.0 + 8.0 + 8.0)
+            if layoutLandscape {
+                width = (appWidth / 4.0) - (4.0 * 5.0)
+            } else {
+                width = (appWidth / 3.0) - (4.0 * 4.0)
+            }
+        } else {
+            if layoutLandscape {
+                width = (appWidth / 3.0) - (4.0 * 4.0)
+            }
         }
-        
         var height = width
-        
         return CGSize(width: width, height: height)
     }
     /*

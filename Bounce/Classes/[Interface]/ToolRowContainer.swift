@@ -124,14 +124,14 @@ class ToolRowContainer : ToolView
                 sendOnScreen(_currentToolRow!)
                 
                 UIView.animate(withDuration: 0.4, animations: {
-                    [weakSelf = self] in
-                    weakSelf._currentToolRow?.layoutIfNeeded()
+                    [weak weakSelf = self] in
+                    weakSelf?._currentToolRow?.layoutIfNeeded()
                     previousToolRow?.layoutIfNeeded()
-                    weakSelf.layoutIfNeeded()
-                    weakSelf.superview?.layoutIfNeeded()
-                    }, completion: { [weakSelf = self] (finished:Bool) in
+                    weakSelf?.layoutIfNeeded()
+                    weakSelf?.superview?.layoutIfNeeded()
+                    }, completion: { [weak weakSelf = self] (finished:Bool) in
                         previousToolRow?.isHidden = true
-                        weakSelf._currentToolRow!.isHidden = false
+                        weakSelf?._currentToolRow!.isHidden = false
                     })
             }
         }
@@ -168,7 +168,7 @@ class ToolRowContainer : ToolView
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
             UIView.animate(withDuration: 0.4, animations: {
-                [weakSelf = self] in
+                [weak weakSelf = self] in
                 weakSelf.superview?.layoutIfNeeded()
                 }, completion: nil)
             */
@@ -184,7 +184,7 @@ class ToolRowContainer : ToolView
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
             UIView.animate(withDuration: 0.4, animations: {
-                [weakSelf = self] in
+                [weak weakSelf = self] in
                 weakSelf.superview?.layoutIfNeeded()
                 }, completion: nil)
             */

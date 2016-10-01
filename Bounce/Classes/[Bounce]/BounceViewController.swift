@@ -376,7 +376,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
             
             /*
             UIView.animate(withDuration: 0.4, animations: {
-                [weakSelf = self] in
+                [weak weakSelf = self] in
                 
                 weakSelf.screenScale = scale
                 weakSelf.screenTranslation.x = translate.x

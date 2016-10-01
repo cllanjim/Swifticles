@@ -11,6 +11,7 @@ import UIKit
 class EdmundsMake
 {
     var id: Int = -1
+    var index: Int = 0
     
     var name: String = ""
     var niceName: String = ""

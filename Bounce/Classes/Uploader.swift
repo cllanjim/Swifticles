@@ -113,10 +113,10 @@ class Uploader : NSObject, URLSessionDelegate
             
             self.sessionDataTask = session!.dataTask(with: request as URLRequest, completionHandler:
                 {
-                    [weakSelf = self] (data, response, error) -> Void in
+                    [weak weakSelf = self] (data, response, error) -> Void in
                     
                     if data == nil || response == nil || error != nil {
-                        weakSelf.fail()
+                        weakSelf?.fail()
                     } else {
                         
                         DispatchQueue.main.async { //[strongSelf = weakSelf] in
@@ -128,17 +128,6 @@ class Uploader : NSObject, URLSessionDelegate
                             print("\(jsonData)")
                         }
                     }
-                    
-                    
-                    
-                    
-                    
-                    var str = String(data: data!, encoding: String.Encoding.utf8)
-                    
-                    print(str)
-                    
-                    print("Response = \(response)")
-                    print("Error = \(error)")
                     
                 })
             sessionDataTask?.resume()
@@ -196,10 +185,10 @@ class Uploader : NSObject, URLSessionDelegate
 
         self.sessionDataTask = session!.dataTask(with: request as URLRequest, completionHandler:
             {
-                [weakSelf = self] (data, response, error) -> Void in
+                [weak weakSelf = self] (data, response, error) -> Void in
                 
                 if data == nil || response == nil || error != nil {
-                    weakSelf.fail()
+                    weakSelf?.fail()
                 } else {
                     
                     DispatchQueue.main.async { //[strongSelf = weakSelf] in
@@ -214,18 +203,19 @@ class Uploader : NSObject, URLSessionDelegate
                             imageURL = json["imageURL"] as? String
                         }
                         
+                        if let strongSelf = weakSelf {
                         if imageID != nil && imageURL != nil {
                             
-                            if weakSelf.state == .image {
-                                weakSelf.imageID = imageID
+                            if strongSelf.state == .image {
+                                strongSelf.imageID = imageID
                             } else {
-                                weakSelf.thumbID = imageID
+                                strongSelf.thumbID = imageID
                             }
-                            weakSelf.advance()
+                            strongSelf.advance()
                         } else {
-                            weakSelf.fail()
+                            strongSelf.fail()
                         }
-                        
+                        }
                         
                         
                         

@@ -17,7 +17,7 @@ import Foundation
 
 //http://www.froggystudios.com/bounce/fetch_scene_list.php
 
-class EdmundsMakesFetcher : WebFetcher
+class EdmundsMakesFetcher : JSONFetcher
 {
     var makes = [EdmundsMake]()
     
@@ -43,11 +43,14 @@ class EdmundsMakesFetcher : WebFetcher
         //Populate the makes!
         makes.removeAll()
         if let _makes = dic!["makes"] as? [[String:Any]] {
+            var index:Int = 0
             for _make in _makes {
                 let make = EdmundsMake()
                 if make.load(data: _make) {
                     //If it's a good one, keep it.
+                    make.index = index
                     makes.append(make)
+                    index += 1
                 }
             }
         }

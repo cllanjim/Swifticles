@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -49,13 +50,64 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="car_cell" id="WQ9-By-BpU" customClass="HomePageMakeCell" customModule="CarSale" customModuleProvider="target">
-                                        <rect key="frame" x="88" y="8" width="200" height="200"/>
+                                        <rect key="frame" x="87.5" y="8" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WOo-6a-pC0">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="WOo-6a-pC0" secondAttribute="height" multiplier="4:3" id="sKc-mc-gLf"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labeyjl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhg-7Z-s5x">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="knl-Ef-ljC"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labeyjl" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuy-KT-Gb9">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="Wyp-Xh-KGx"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="10"/>
+                                                    <color key="textColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labeyjl" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1O-cD-hRb">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="xys-2z-4s0"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="10"/>
+                                                    <color key="textColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.42282042790000002" green="0.51627006880000004" blue="0.58360980100000004" alpha="0.96011871800000004" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="WOo-6a-pC0" secondAttribute="trailing" id="4QP-hd-L9R"/>
+                                            <constraint firstItem="Hhg-7Z-s5x" firstAttribute="leading" secondItem="WQ9-By-BpU" secondAttribute="leading" id="998-oy-UZa"/>
+                                            <constraint firstItem="d1O-cD-hRb" firstAttribute="top" secondItem="WQ9-By-BpU" secondAttribute="top" constant="54" id="BY3-wL-gkn"/>
+                                            <constraint firstAttribute="trailing" secondItem="d1O-cD-hRb" secondAttribute="trailing" id="CJS-wD-RVf"/>
+                                            <constraint firstItem="d1O-cD-hRb" firstAttribute="leading" secondItem="WQ9-By-BpU" secondAttribute="leading" id="NOc-6P-zjl"/>
+                                            <constraint firstAttribute="bottom" secondItem="Hhg-7Z-s5x" secondAttribute="bottom" id="VWw-PV-gst"/>
+                                            <constraint firstItem="WOo-6a-pC0" firstAttribute="top" secondItem="WQ9-By-BpU" secondAttribute="top" id="jnF-1c-ByV"/>
+                                            <constraint firstItem="WOo-6a-pC0" firstAttribute="leading" secondItem="WQ9-By-BpU" secondAttribute="leading" id="mEZ-0X-Ms9"/>
+                                            <constraint firstItem="tuy-KT-Gb9" firstAttribute="leading" secondItem="WQ9-By-BpU" secondAttribute="leading" id="n0S-RQ-SSz"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hhg-7Z-s5x" secondAttribute="trailing" id="oQK-Xq-jJk"/>
+                                            <constraint firstItem="tuy-KT-Gb9" firstAttribute="top" secondItem="WQ9-By-BpU" secondAttribute="top" id="s1c-NA-EO6"/>
+                                            <constraint firstAttribute="trailing" secondItem="tuy-KT-Gb9" secondAttribute="trailing" id="uTW-9p-tJe"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="WOo-6a-pC0" id="lHU-ur-bD2"/>
+                                            <outlet property="labelName" destination="Hhg-7Z-s5x" id="ir8-Wz-aML"/>
+                                            <outlet property="labelThumbURL" destination="d1O-cD-hRb" id="TO1-VN-WoS"/>
+                                            <outlet property="labelURL" destination="tuy-KT-Gb9" id="r1t-n1-Cjx"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>

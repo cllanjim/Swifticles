@@ -19,6 +19,8 @@ class WebFetcher : NSObject, URLSessionDelegate
 {
     var delegate:WebFetcherDelegate?
     
+    var data:Data?
+    
     private var sessionTask: URLSession?
     private var sessionDataTask: URLSessionDataTask?
     
@@ -28,6 +30,8 @@ class WebFetcher : NSObject, URLSessionDelegate
         
         sessionTask?.invalidateAndCancel()
         sessionTask = nil
+        
+        data = nil
     }
     
     internal func succeed() {
@@ -36,22 +40,17 @@ class WebFetcher : NSObject, URLSessionDelegate
     }
     
     internal func fail(result: WebResult) {
-        
         clear()
-        
-        if delegate != nil {
-            delegate!.fetchDidFail(fetcher: self, result: result)
-        }
-        
-        print("FAIL!")
+        delegate?.fetchDidFail(fetcher: self, result: result)
     }
     
-    func parse(data: Any) -> Bool {
-        print("PARSE SHOULD BE OVERRIDEN")
-        return true
+    func fetchDidComplete(_ data: Data) {
+        //By default, we are successful.
+        succeed()
     }
     
     func fetch(_ urlString: String?) {
+        //Sanity check.
         guard urlString != nil else {
             fail(result: .invalid)
             return
@@ -59,6 +58,7 @@ class WebFetcher : NSObject, URLSessionDelegate
         
         print("fetch(\"\(urlString!)\")")
         
+        //Sanity check.
         guard let url = URL(string: urlString!) else {
             fail(result: .invalid)
             return
@@ -67,6 +67,7 @@ class WebFetcher : NSObject, URLSessionDelegate
         let request = NSURLRequest(url: url)
         sessionTask = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: OperationQueue.main)
         
+        //Sanity check.
         guard sessionTask != nil else {
             fail(result: .invalid)
             return
@@ -74,33 +75,20 @@ class WebFetcher : NSObject, URLSessionDelegate
         
         self.sessionDataTask = sessionTask!.dataTask(with: request as URLRequest, completionHandler:
             {
-                [weakSelf = self] (data, response, error) -> Void in
+                [weak weakSelf = self] (data, response, error) -> Void in
                 DispatchQueue.main.async {
-                    
                     if data == nil || response == nil || error != nil {
                         //Something went wrong with the request...
-                        weakSelf.fail(result: .error)
+                        weakSelf?.fail(result: .error)
                     } else {
-                        //Request succeeded, let's see if we can get JSON out of it.
-                        let _jsonData = FileUtils.parseJSON(data: data)
-                        guard _jsonData != nil else {
-                            //It's not even JSON!
-                            weakSelf.fail(result: .error)
-                            return
-                        }
-                        
-                        //It's JSON, let's try to parse it.
-                        if weakSelf.parse(data: _jsonData!) {
-                            //Woohoo!
-                            weakSelf.succeed()
-                        } else {
-                            //Parsing failed, was this the expected data?
-                            weakSelf.fail(result: .error)
-                        }
+                        //Request completed!
+                        weakSelf?.data = data
+                        weakSelf?.fetchDidComplete(data!)
                     }
                 }
             })
         
+        //Sanity check.
         guard sessionDataTask != nil else {
             fail(result: .invalid)
             return

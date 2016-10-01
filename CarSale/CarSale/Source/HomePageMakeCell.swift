@@ -10,6 +10,31 @@ import UIKit
 
 class HomePageMakeCell : ImageSetCell
 {
+    @IBOutlet weak var labelName: UILabel!
+    
+    @IBOutlet weak var labelURL: UILabel!
+    @IBOutlet weak var labelThumbURL: UILabel!
+    
+    var make:EdmundsMake? {
+        didSet {
+            
+            if make != nil {
+                labelName.text = make!.name
+                
+                if let set = make!.set {
+                    
+                    labelURL.text = set.imageURL
+                    labelThumbURL.text = set.thumbURL
+                    
+                }
+                else {
+                    labelURL.text = "O_O"
+                    labelThumbURL.text = "O BOI"
+                }
+            }
+        }
+    }
+    
     
     
 }

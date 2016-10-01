@@ -19,6 +19,8 @@
 		0DCDD6CA1D9CFDB400496C3D /* ImageSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6C91D9CFDB400496C3D /* ImageSet.swift */; };
 		0DCDD6CC1D9CFDC000496C3D /* ImageSetFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6CB1D9CFDC000496C3D /* ImageSetFetcher.swift */; };
 		0DCDD6CE1D9CFEF100496C3D /* WebFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6CD1D9CFEF100496C3D /* WebFetcher.swift */; };
+		C2225E681D9F4674001E8AE8 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2225E671D9F4674001E8AE8 /* ImageDownloader.swift */; };
+		C2225E6A1D9F4721001E8AE8 /* JSONFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2225E691D9F4721001E8AE8 /* JSONFetcher.swift */; };
 		C240B19B1D9C37C700D71D47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1941D9C37C700D71D47 /* AppDelegate.swift */; };
 		C240B19C1D9C37C700D71D47 /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1951D9C37C700D71D47 /* ApplicationController.swift */; };
 		C240B19D1D9C37C700D71D47 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1961D9C37C700D71D47 /* Device.swift */; };
@@ -69,6 +71,8 @@
 		0DCDD6C91D9CFDB400496C3D /* ImageSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSet.swift; sourceTree = "<group>"; };
 		0DCDD6CB1D9CFDC000496C3D /* ImageSetFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSetFetcher.swift; sourceTree = "<group>"; };
 		0DCDD6CD1D9CFEF100496C3D /* WebFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebFetcher.swift; sourceTree = "<group>"; };
+		C2225E671D9F4674001E8AE8 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		C2225E691D9F4721001E8AE8 /* JSONFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFetcher.swift; sourceTree = "<group>"; };
 		C240B1941D9C37C700D71D47 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C240B1951D9C37C700D71D47 /* ApplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
 		C240B1961D9C37C700D71D47 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 				0DCDD6CD1D9CFEF100496C3D /* WebFetcher.swift */,
 				0D493AA01D9E2C6800B14F14 /* ImageSetCell.swift */,
 				0D493AA21D9E50AE00B14F14 /* SafeParser.swift */,
+				C2225E671D9F4674001E8AE8 /* ImageDownloader.swift */,
+				C2225E691D9F4721001E8AE8 /* JSONFetcher.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -333,8 +339,10 @@
 				C240B1A01D9C37C700D71D47 /* HomePageMakeCell.swift in Sources */,
 				0D493AA11D9E2C6800B14F14 /* ImageSetCell.swift in Sources */,
 				0DCDD6C81D9CE44900496C3D /* EdmundsYear.swift in Sources */,
+				C2225E6A1D9F4721001E8AE8 /* JSONFetcher.swift in Sources */,
 				C240B1A51D9C8E6500D71D47 /* EdmundsMakesFetcher.swift in Sources */,
 				0D493AA31D9E50AE00B14F14 /* SafeParser.swift in Sources */,
+				C2225E681D9F4674001E8AE8 /* ImageDownloader.swift in Sources */,
 				C240B19D1D9C37C700D71D47 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
