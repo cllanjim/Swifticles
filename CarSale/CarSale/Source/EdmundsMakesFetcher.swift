@@ -32,8 +32,6 @@ class EdmundsMakesFetcher : JSONFetcher
     
     override func parse(data: Any) -> Bool {
         
-         print(data)
-        
         //Is it the expected format?
         var dic = data as? [String:Any]
         guard dic != nil else {

@@ -12,16 +12,33 @@ class ImageSetCell : UICollectionViewCell
 {
     var set: ImageSet?
     
-    var needsFetch: Bool = true
-    func setNeedsFetch() {
-        needsFetch = true
+    private var _didDownload: Bool = false
+    var didDownload: Bool {
+        get { return _didDownload }
+        set { _didDownload = newValue }
     }
     
-    @IBOutlet weak var imageView: UIImageView? {
-        didSet {
-            
-        }
+    private var _didAttemptDownload: Bool = false
+    var didAttemptDownload: Bool {
+        get { return _didAttemptDownload }
+        set { _didAttemptDownload = newValue }
     }
+    
+    private var _isDownloading: Bool = false
+    var isDownloading: Bool {
+        get { return _isDownloading }
+        set { _isDownloading = newValue }
+    }
+    
+    func reset() {
+        didDownload = false
+        didAttemptDownload = false
+        isDownloading = false
+        set = nil
+        imageView?.image = nil
+    }
+    
+    @IBOutlet weak var imageView: UIImageView?
     
     
 }

@@ -21,10 +21,11 @@ class HomePageMakeCell : ImageSetCell
             if make != nil {
                 labelName.text = make!.name
                 
-                if let set = make!.set {
+                if let _set = make!.set {
+                    self.set = _set
                     
-                    labelURL.text = set.imageURL
-                    labelThumbURL.text = set.thumbURL
+                    labelURL.text = _set.imageURL
+                    labelThumbURL.text = _set.thumbURL
                     
                 }
                 else {
@@ -35,6 +36,12 @@ class HomePageMakeCell : ImageSetCell
         }
     }
     
+    override func reset() {
+        super.reset()
+        
+        labelURL.text = "O_O"
+        labelThumbURL.text = "O BOI"
+    }
     
     
 }

@@ -21,16 +21,18 @@ class WebFetcher : NSObject, URLSessionDelegate
     
     var data:Data?
     
+    var cachingPolicy: NSURLRequest.CachePolicy = .reloadRevalidatingCacheData
+    var timeoutInterval: TimeInterval = 16.0
+    
     private var sessionTask: URLSession?
     private var sessionDataTask: URLSessionDataTask?
+    
     
     func clear() {
         sessionDataTask?.cancel()
         sessionDataTask = nil
-        
         sessionTask?.invalidateAndCancel()
         sessionTask = nil
-        
         data = nil
     }
     
@@ -64,7 +66,10 @@ class WebFetcher : NSObject, URLSessionDelegate
             return
         }
         
-        let request = NSURLRequest(url: url)
+        
+        
+        let request = NSMutableURLRequest(url: url, cachePolicy: cachingPolicy, timeoutInterval: timeoutInterval)
+        
         sessionTask = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: OperationQueue.main)
         
         //Sanity check.
