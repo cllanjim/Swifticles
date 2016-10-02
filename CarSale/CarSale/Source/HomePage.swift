@@ -11,8 +11,24 @@ import UIKit
 
 class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, WebFetcherDelegate, ImageDownloaderDelegate
 {
-    @IBOutlet weak var header: HomePageHeader!
+    @IBOutlet weak var header: HomePageHeader! { didSet { header.homePage = self } }
+    
+    @IBOutlet weak var searchResults: HomePageSearchResults! {
+        didSet {
+            searchResults.homePage = self
+            searchResults.isHidden = true
+        }
+    }
+    
+    
+    //
+    
+    
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var mainContainer: UIView!
+    
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             layoutLandscape = Device.isLandscape
@@ -21,7 +37,29 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
         }
     }
     
+    
+    
+    
+    var searchMode:Bool = false {
+        didSet {
+            if searchMode {
+                animateSearchModeOn()
+                header.animateSearchModeOn()
+            } else {
+                animateSearchModeOff()
+                header.animateSearchModeOff()
+            }
+        }
+    }
+    
+    
+    //Before the orientation actually is landscape, will it be switching to landscape?
     var layoutLandscape:Bool = false
+    
+    
+    
+    
+    
     
     /*
      // Defaults to YES, and if YES, any selection is cleared in viewWillAppear:
@@ -50,7 +88,6 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     private var _makeFetcher: EdmundsMakesFetcher?
     var makeFetcher: EdmundsMakesFetcher {
-        
         if _makeFetcher == nil {
             _makeFetcher = EdmundsMakesFetcher()
             _makeFetcher!.delegate = self
@@ -62,7 +99,6 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     private var _imgFetcher: ImageSetFetcher?
     var imgFetcher: ImageSetFetcher {
-        
         if _imgFetcher == nil {
             _imgFetcher = ImageSetFetcher()
             _imgFetcher!.delegate = self
@@ -73,16 +109,7 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        //ImageDownloader.shared.del
-        
         makeFetcher.fetchAllMakes()
-        
-        //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 6.0) { [weak weakSelf = self] in
-        //weakSelf?.imgFetcher.fetchImageSets()
-        //}
-        
         imgFetcher.fetchImageSets()
         
     }
@@ -213,6 +240,7 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     //urlString
     
     
+    
     func imageDownloadComplete(downloader: ImageDownloader, resultImage: UIImage, urlString: String, object: Any?) {
         print("SUCCESSFULLY DOWNLOADED IMAGE \(resultImage.size.width) x \(resultImage.size.height)\n\(urlString)\n")
         
@@ -305,12 +333,92 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     }
     
     
-    //Weak var handles this, FOOL!
-    //deinit {
-    //    if ImageDownloader.shared.delegate === self {
-    //        ImageDownloader.shared.delegate = nil
-    //    }
-    //}
+    internal func animateSearchModeOn() {
+        
+        
+        //
+        
+        
+        //headerHeightConstraint
+        
+        headerHeightConstraint.constant = 78 - Device.statusBarHeight
+        view.setNeedsLayout()
+        UIView.animate(withDuration: 0.42, delay: 0.0, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
+            
+            weakSelf?.view.layoutIfNeeded()
+            //weakSelf?.defaultUIContainer.isHidden = true
+            //weakSelf?.searchUIContainer.isHidden = false
+            
+            }, completion: { didFinish in
+        })
+        
+        //searchResults.isHidden = false
+        searchResults.animateIn()
+        
+        /*
+         UIView.animate(withDuration: 0.4, delay: 0.1, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
+         weakSelf?.defaultUIContainer.isHidden = true
+         weakSelf?.searchUIContainer.isHidden = false
+         }, completion: { didFinish in
+         })
+        */
+    }
+    
+    
+    internal func animateSearchModeOff() {
+        
+        headerHeightConstraint.constant = 78
+        view.setNeedsLayout()
+        UIView.animate(withDuration: 0.42, delay: 0.0, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
+            
+            weakSelf?.view.layoutIfNeeded()
+            //weakSelf?.defaultUIContainer.isHidden = true
+            //weakSelf?.searchUIContainer.isHidden = false
+            
+            }, completion: { didFinish in
+        })
+        
+        searchResults.animateOut()
+        
+        /*
+        UIView.animate(withDuration: 0.4, delay: 0.1, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
+            weakSelf?.defaultUIContainer.isHidden = false
+            weakSelf?.searchUIContainer.isHidden = true
+            }, completion: { didFinish in
+        })
+        */
+    }
+    
+    
+    @IBAction func clickSearch(_ sender: UIButton) {
+        
+        
+        var blurEffect = UIBlurEffect(style: .extraLight)
+        var blurEffectView = UIVisualEffectView()
+        
+        blurEffectView = UIVisualEffectView(frame: collectionView.bounds)
+        
+        
+        //blurEffectView = UIVisualEffectView(effect: blurEffect)
+        
+        //blurEffectView.frame =
+        collectionView.addSubview(blurEffectView)
+        
+        
+        //blurEffectView.effect
+        
+        
+        let overlay = UIVisualEffectView()
+        // Put it somewhere, give it a frame...
+        //UIView.animateWithDuration(0.5) {
+        UIView.animate(withDuration: 1.0) {
+            
+            blurEffectView.effect = blurEffect
+        }
+        
+        
+    }
+    
     
 }
 
