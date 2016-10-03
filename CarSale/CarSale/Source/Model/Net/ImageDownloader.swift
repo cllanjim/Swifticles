@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Raptis, Nicholas on 9/30/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -18,9 +18,9 @@ protocol ImageDownloaderDelegate
 //where n = concurrentImagePulls.
 
 //According to Amazon's research, the optimal number
-//of concurrent mobile image downloads is 2.
+//of concurrent mobile thumbnail image downloads is 2.
 
-let concurrentImagePulls:Int = 3
+let concurrentImagePulls:Int = 2
 class ImageDownloader : NSObject, ImageDownloaderTaskDelegate
 {
     static let shared = ImageDownloader()
@@ -56,11 +56,8 @@ class ImageDownloader : NSObject, ImageDownloaderTaskDelegate
         }
     }
     
-    
     func taskComplete(task: ImageDownloaderTask, resultImage: UIImage, urlString: String, object: Any?){
         delegate?.imageDownloadComplete(downloader: self, resultImage: resultImage, urlString: urlString, object: object)
-        
-        //If there are additional image downloads enqueued, start one.
     }
     
     func taskError(task: ImageDownloaderTask, urlString: String, object: Any?) {

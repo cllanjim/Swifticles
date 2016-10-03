@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Raptis, Nicholas on 9/28/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -45,7 +45,7 @@ class EdmundsMake
         if _models != nil {
             for _model in _models! {
                 let model = EdmundsModel()
-                if model.load(data: _model) {
+                if model.load(make: self, data: _model) {
                     models.append(model)
                 }
             }

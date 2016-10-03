@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Raptis, Nicholas on 9/28/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import XCTest

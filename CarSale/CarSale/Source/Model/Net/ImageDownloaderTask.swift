@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Nicholas Raptis on 9/30/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -74,6 +74,8 @@ class ImageDownloaderTask : NSObject, WebFetcherDelegate
     }
     
     func fetchDidFail(fetcher: WebFetcher, result: WebResult) {
+        
+        //We'll try pulling the image 3 times.
         if attemptCount < 4 {
             restart()
         } else {

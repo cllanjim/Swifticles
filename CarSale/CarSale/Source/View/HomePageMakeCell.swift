@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Raptis, Nicholas on 9/28/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -11,9 +11,6 @@ import UIKit
 class HomePageMakeCell : ImageSetCell
 {
     @IBOutlet weak var labelName: UILabel!
-    
-    @IBOutlet weak var labelURL: UILabel!
-    @IBOutlet weak var labelThumbURL: UILabel!
     
     var make:EdmundsMake? {
         didSet {
@@ -23,14 +20,6 @@ class HomePageMakeCell : ImageSetCell
                 
                 if let _set = make!.set {
                     self.set = _set
-                    
-                    labelURL.text = _set.imageURL
-                    labelThumbURL.text = _set.thumbURL
-                    
-                }
-                else {
-                    labelURL.text = "O_O"
-                    labelThumbURL.text = "O BOI"
                 }
             }
         }
@@ -38,10 +27,5 @@ class HomePageMakeCell : ImageSetCell
     
     override func reset() {
         super.reset()
-        
-        labelURL.text = "O_O"
-        labelThumbURL.text = "O BOI"
     }
-    
-    
 }

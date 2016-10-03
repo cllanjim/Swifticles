@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Nicholas Raptis on 9/29/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -39,6 +39,5 @@ class ImageSetCell : UICollectionViewCell
     }
     
     @IBOutlet weak var imageView: UIImageView?
-    
     
 }

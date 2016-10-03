@@ -3,13 +3,13 @@
 //  CarSale
 //
 //  Created by Nicholas Raptis on 9/28/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
 
 
-class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, WebFetcherDelegate, ImageDownloaderDelegate
+class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, WebFetcherDelegate, ImageDownloaderDelegate, UIScrollViewDelegate
 {
     @IBOutlet weak var header: HomePageHeader! { didSet { header.homePage = self } }
     
@@ -19,10 +19,6 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
             searchResults.isHidden = true
         }
     }
-    
-    
-    //
-    
     
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     
@@ -37,12 +33,13 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
         }
     }
     
-    
+    var updateTimer:Timer?
     
     
     var searchMode:Bool = false {
         didSet {
             if searchMode {
+                searchResults.reset()
                 animateSearchModeOn()
                 header.animateSearchModeOn()
             } else {
@@ -55,37 +52,7 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     //Before the orientation actually is landscape, will it be switching to landscape?
     var layoutLandscape:Bool = false
-    
-    
-    
-    
-    
-    
-    /*
-     // Defaults to YES, and if YES, any selection is cleared in viewWillAppear:
-     // This property has no effect if the useLayoutToLayoutNavigationTransitions property is set to YES
-     open var clearsSelectionOnViewWillAppear: Bool
-     
-     
-     // Set to YES before pushing a a UICollectionViewController onto a
-     // UINavigationController. The top view controller of the navigation controller
-     // must be a UICollectionViewController that was pushed with this property set
-     // to NO. This property should NOT be changed on a UICollectionViewController that
-     // has already been pushed onto a UINavigationController.
-     @available(iOS 7.0, *)
-     open var useLayoutToLayoutNavigationTransitions: Bool
-     
-     
-     // The layout object is needed when defining interactive layout to layout transitions.
-     @available(iOS 7.0, *)
-     open var collectionViewLayout: UICollectionViewLayout { get }
-     
-     
-     // Defaults to YES, and if YES, a system standard reordering gesture is used to drive collection view reordering
-     @available(iOS 9.0, *)
-     open var installsStandardGestureForInteractiveMovement: Bool
-     */
-    
+
     private var _makeFetcher: EdmundsMakesFetcher?
     var makeFetcher: EdmundsMakesFetcher {
         if _makeFetcher == nil {
@@ -95,6 +62,12 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
         return _makeFetcher!
     }
     var makes = [EdmundsMake]()
+    var models = [EdmundsModel]()
+    
+    
+    //
+    
+    
     
     
     private var _imgFetcher: ImageSetFetcher?
@@ -109,13 +82,24 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        header.searchResults = searchResults
+        
         makeFetcher.fetchAllMakes()
         imgFetcher.fetchImageSets()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         ImageDownloader.shared.delegate = self
+        
+        updateTimer?.invalidate()
+        updateTimer = Timer.scheduledTimer(timeInterval: 1.0/60.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        updateTimer?.invalidate()
     }
     
     
@@ -128,7 +112,8 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
             layoutLandscape = false
         }
         
-        collectionView!.reloadData()
+        //collectionView!.reloadData()
+        reloadData()
         
         coordinator.animate(alongsideTransition: { [weak weakSelf = self] (id:UIViewControllerTransitionCoordinatorContext) in
             if let checkSelf = weakSelf {
@@ -146,6 +131,11 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
             makes = makeFetcher.makes
             makeFetcher.clear()
             syncImages()
+            
+            
+            //var models = [EdmundsModel]()
+            buildSearchTree()
+            
         } else if fetcher === imgFetcher {
             print("___\nFetched Image Sets!\n___")
             imageSets = imgFetcher.sets
@@ -158,18 +148,54 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
         //Theoretically present some type of error indicator to the user.
     }
     
+    //It wouldn't even be an actual tree if there were no pinecones.
+    //Pre-Condition: makes has been populated.
+    func buildSearchTree() {
+        
+        models.removeAll()
+        
+        var makeIndex:Int = 0
+        for make in makes {
+            
+            //print("make[\(makeIndex)] = \"\(make.name)\"")
+            
+            if make.name.characters.count > 0 {
+                
+                var modelIndex:Int = 0
+                
+                for model in make.models {
+                    
+                    if model.name.characters.count > 0 {
+                        
+                        models.append(model)
+                        
+                        //print("\t\tmodel[\(modelIndex)] = \"\(model.name)\"")
+                        
+                        modelIndex += 1
+                    }
+                }
+                makeIndex += 1
+            }
+        }
+        
+        searchResults.buildSearchTree(models: models)
+        
+    }
+    
     func syncImages() {
         guard imageSets.count > 0 && makes.count > 0 else {
             //Show placeholder cells even if thumbs haven't come in..
             if makes.count > 0 {
-                collectionView?.reloadData()
+                //collectionView?.reloadData()
+                reloadData()
             }
             return
         }
         for i in 0..<makes.count {
             makes[i].set = getImageSetForIndex(index: i)
         }
-        collectionView?.reloadData()
+        //collectionView?.reloadData()
+        reloadData()
     }
     
     func getImageSetForIndex(index: Int) -> ImageSet? {
@@ -185,95 +211,96 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
         return result
     }
     
-    func pullThumb() -> Bool {
+    func reloadData() {
+        DispatchQueue.main.async {
+            [weak weakSelf = self] in
+            weakSelf?.collectionView.reloadData()
+            //Apple Bug - visibleCells is not ready.
+        }
         
-        if ImageDownloader.shared.isReady == false { return false }
+        //TODO, need better guarantee that this won't miss.
+        //(Probably a constant updating timer that tries to pull thumbs...)
+        //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.125) {
+        //    [weak weakSelf = self] in
+        //    weakSelf?.pullThumb()
+        //}
+    }
+    
+    func update() {
+
+        pullThumb()
+    }
+    
+    func pullThumb() -> Void {
         
-        var result:Bool = false
-        
+        if ImageDownloader.shared.isReady == false { return }
+        if collectionView.visibleCells.count == 0 { return }
         
         var pickCell: ImageSetCell?
         
-        let visibleCells = collectionView.visibleCells
+        var pullable = [ImageSetCell]()
+        pullable.reserveCapacity(collectionView.visibleCells.count)
         
-        let ipp = collectionView.indexPathsForVisibleItems
-        
-        
-        for cell in visibleCells {
-            
+        //Find the valid cells that need thumbs pulled.
+        for cell in collectionView.visibleCells {
             if let isc = cell as? ImageSetCell {
-                
                 if isc.didDownload == false && isc.isDownloading == false && isc.set != nil {
+                    pullable.append(isc)
                     pickCell = isc
-                    break
                 }
-                
-                
             }
         }
         
-        if let cell = pickCell, let set = cell.set {
-            cell.isDownloading = true
-            ImageDownloader.shared.addDownload(forURL: set.thumbURL, withObject: cell)
-        }
-        
-        return result
-    }
-    
-    func pullThumb(forCell cell: ImageSetCell) -> Bool {
-        
-        if ImageDownloader.shared.isReady == false { return false }
-        
-        var result:Bool = false
-        
-        if cell.didDownload == false && cell.isDownloading == false {
-            if let set = cell.set {
-                cell.isDownloading = true
-                ImageDownloader.shared.addDownload(forURL: set.thumbURL, withObject: cell)
-                return true
+        if pullable.count > 0 {
+            //Get the top left pullable cell.
+            var topY = pickCell!.frame.origin.y
+            var leftX = pickCell!.frame.origin.x
+            for cell in pullable {
+                if cell.frame.origin.y <= topY {
+                    topY = cell.frame.origin.y
+                    leftX = cell.frame.origin.x
+                    pickCell = cell
+                }
+            }
+            for cell in pullable {
+                if cell.frame.origin.y <= topY && cell.frame.origin.x <= leftX {
+                    leftX = cell.frame.origin.x
+                    pickCell = cell
+                }
             }
         }
         
-        return false
+        //We found one, fetch the thumbs plz!
+        if pickCell != nil {
+            pickCell!.isDownloading = true
+            ImageDownloader.shared.addDownload(forURL: pickCell!.set!.thumbURL, withObject: pickCell!)
+            
+            //See if we can start another thumb download!
+            pullThumb()
+        }
     }
-    
-    //urlString
-    
-    
     
     func imageDownloadComplete(downloader: ImageDownloader, resultImage: UIImage, urlString: String, object: Any?) {
-        print("SUCCESSFULLY DOWNLOADED IMAGE \(resultImage.size.width) x \(resultImage.size.height)\n\(urlString)\n")
+        print("downloaded thumb \(resultImage.size.width) x \(resultImage.size.height)\n\(urlString)\n")
         
         let visibleCells = collectionView.visibleCells
-        
-        let ipp = collectionView.indexPathsForVisibleItems
-        
-        
         for cell in visibleCells {
-            
             if let isc = cell as? ImageSetCell, let set = isc.set {
-                
                 if set.thumbURL == urlString {
-                    
-                    
                     isc.imageView?.image = resultImage
-                    //cell.
-                    
                 }
-                
-            
-                pullThumb(forCell: isc)
-                
             }
         }
-        
-        print("....")
+        pullThumb()
     }
     
     func imageDownloadError(downloader: ImageDownloader, urlString: String, object: Any?) {
         
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        _ = pullThumb()
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return makes.count
@@ -281,13 +308,8 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionView!.dequeueReusableCell(withReuseIdentifier: "car_cell", for: indexPath) as! HomePageMakeCell
-        
         cell.reset()
-        
         cell.make = makes[indexPath.row]
-        
-        pullThumb(forCell: cell)
-        
         return cell
     }
     
@@ -305,121 +327,31 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
                 width = (appWidth / 3.0) - (4.0 * 4.0)
             }
         }
-        var height = width
+        let height = width * 0.75 + 30.0
         return CGSize(width: width, height: height)
     }
-    /*
-     @available(iOS 6.0, *)
-     optional
-     
-     @available(iOS 6.0, *)
-     optional public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
-     
-     @available(iOS 6.0, *)
-     optional public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
-     
-     @available(iOS 6.0, *)
-     optional public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
-     
-     @available(iOS 6.0, *)
-     optional public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
-     
-     @available(iOS 6.0, *)
-     optional public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize
-     */
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    
     internal func animateSearchModeOn() {
-        
-        
-        //
-        
-        
-        //headerHeightConstraint
-        
-        headerHeightConstraint.constant = 78 - Device.statusBarHeight
+        headerHeightConstraint.constant = 78 - 20.0//Device.statusBarHeight
         view.setNeedsLayout()
         UIView.animate(withDuration: 0.42, delay: 0.0, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
-            
             weakSelf?.view.layoutIfNeeded()
-            //weakSelf?.defaultUIContainer.isHidden = true
-            //weakSelf?.searchUIContainer.isHidden = false
-            
-            }, completion: { didFinish in
-        })
-        
-        //searchResults.isHidden = false
+            }, completion: nil)
         searchResults.animateIn()
-        
-        /*
-         UIView.animate(withDuration: 0.4, delay: 0.1, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
-         weakSelf?.defaultUIContainer.isHidden = true
-         weakSelf?.searchUIContainer.isHidden = false
-         }, completion: { didFinish in
-         })
-        */
     }
     
-    
     internal func animateSearchModeOff() {
-        
         headerHeightConstraint.constant = 78
         view.setNeedsLayout()
         UIView.animate(withDuration: 0.42, delay: 0.0, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
-            
             weakSelf?.view.layoutIfNeeded()
-            //weakSelf?.defaultUIContainer.isHidden = true
-            //weakSelf?.searchUIContainer.isHidden = false
-            
-            }, completion: { didFinish in
-        })
-        
+            }, completion: nil)
         searchResults.animateOut()
-        
-        /*
-        UIView.animate(withDuration: 0.4, delay: 0.1, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
-            weakSelf?.defaultUIContainer.isHidden = false
-            weakSelf?.searchUIContainer.isHidden = true
-            }, completion: { didFinish in
-        })
-        */
     }
-    
-    
-    @IBAction func clickSearch(_ sender: UIButton) {
-        
-        
-        var blurEffect = UIBlurEffect(style: .extraLight)
-        var blurEffectView = UIVisualEffectView()
-        
-        blurEffectView = UIVisualEffectView(frame: collectionView.bounds)
-        
-        
-        //blurEffectView = UIVisualEffectView(effect: blurEffect)
-        
-        //blurEffectView.frame =
-        collectionView.addSubview(blurEffectView)
-        
-        
-        //blurEffectView.effect
-        
-        
-        let overlay = UIVisualEffectView()
-        // Put it somewhere, give it a frame...
-        //UIView.animateWithDuration(0.5) {
-        UIView.animate(withDuration: 1.0) {
-            
-            blurEffectView.effect = blurEffect
-        }
-        
-        
-    }
-    
-    
 }
 
 

@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Raptis, Nicholas on 9/28/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import Foundation
@@ -15,9 +15,11 @@ class EdmundsModel {
     var name: String = ""
     var niceName: String = ""
     
+    weak var make: EdmundsMake!
+    
     var years = [EdmundsYear]()
     
-    func load(data:[String:Any]?) -> Bool {
+    func load(make: EdmundsMake, data:[String:Any]?) -> Bool {
         
         years.removeAll()
         
@@ -32,6 +34,8 @@ class EdmundsModel {
             return false
         }
         
+        self.make = make
+        
         name = _name!
         id = _id!
         
@@ -42,7 +46,7 @@ class EdmundsModel {
         if _years != nil {
             for _year in _years! {
                 let year = EdmundsYear()
-                if year.load(data: _year) {
+                if year.load(model: self, data: _year) {
                     years.append(year)
                 }
             }

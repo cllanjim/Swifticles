@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Nicholas Raptis on 9/29/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import Foundation
@@ -65,8 +65,6 @@ class WebFetcher : NSObject, URLSessionDelegate
             fail(result: .invalid)
             return
         }
-        
-        
         
         let request = NSMutableURLRequest(url: url, cachePolicy: cachingPolicy, timeoutInterval: timeoutInterval)
         

@@ -3,7 +3,7 @@
 //  CarSale
 //
 //  Created by Nicholas Raptis on 9/28/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -12,11 +12,18 @@ class HomePageHeader : UIView, UITextFieldDelegate
 {
     weak var homePage: HomePage!
     
+    weak var searchResults: HomePageSearchResults!
+    
     @IBOutlet weak var searchField: UITextField! {
         didSet {
             searchField.delegate = self
+            
+            searchField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+            
         }
     }
+    
+    //pTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     @IBOutlet weak var defaultUIContainer: UIView!
     @IBOutlet weak var searchUIContainer: UIView! {
@@ -28,9 +35,12 @@ class HomePageHeader : UIView, UITextFieldDelegate
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var searchCancelButton: UIButton!
     
+
     
 
     @IBAction func clickSearch(_ sender: UIButton) {
+        
+        reset()
         
         animateSearchModeOn()
         homePage.animateSearchModeOn()
@@ -43,11 +53,15 @@ class HomePageHeader : UIView, UITextFieldDelegate
         searchField.resignFirstResponder()
     }
     
-    
-    
-    //optional public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool // return NO to disallow editing.
-    
-    
+    public func textFieldDidChange(_ textField: UITextField) {
+        print("Text = \(searchField.text)")
+        
+        if let text = searchField.text {
+            searchResults.updateSearchText(text: text)
+        } else {
+            searchResults.updateSearchText(text: "")
+        }
+    }
     
     // became first responder
     public func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -81,7 +95,10 @@ class HomePageHeader : UIView, UITextFieldDelegate
         return true
     }
     
-    
+    func reset() {
+        searchField.text = ""
+        
+    }
     
     internal func animateSearchModeOn() {
         UIView.animate(withDuration: 0.4, delay: 0.0, options: .transitionCrossDissolve, animations: { [weak weakSelf = self] in
