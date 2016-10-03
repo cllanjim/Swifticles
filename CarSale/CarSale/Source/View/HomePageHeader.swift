@@ -43,13 +43,13 @@ class HomePageHeader : UIView, UITextFieldDelegate
         reset()
         
         animateSearchModeOn()
-        homePage.animateSearchModeOn()
+        homePage.searchMode = true
         searchField.becomeFirstResponder()
     }
     
     @IBAction func clickSearchCancel(_ sender: UIButton) {
         animateSearchModeOff()
-        homePage.animateSearchModeOff()
+        homePage.searchMode = false
         searchField.resignFirstResponder()
     }
     

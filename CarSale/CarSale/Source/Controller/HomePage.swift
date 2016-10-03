@@ -200,12 +200,13 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     func getImageSetForIndex(index: Int) -> ImageSet? {
         var result:ImageSet?
+        var slot = index
         if imageSets.count > 0 {
-            if index > imageSets.count {
-                //Mod it..
+            while slot >= imageSets.count {
+                slot -= imageSets.count
             }
-            if index >= 0 && index < imageSets.count {
-                result = imageSets[index]
+            if slot >= 0 && slot < imageSets.count {
+                result = imageSets[slot]
             }
         }
         return result
@@ -288,6 +289,9 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
             if let isc = cell as? ImageSetCell, let set = isc.set {
                 if set.thumbURL == urlString {
                     isc.imageView?.image = resultImage
+                    if let hpc = isc as? HomePageMakeCell {
+                        hpc.animateLoadComplete()
+                    }
                 }
             }
         }
