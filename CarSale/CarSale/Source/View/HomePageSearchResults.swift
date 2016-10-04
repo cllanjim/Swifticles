@@ -23,8 +23,6 @@ class HomePageSearchResults : UIView, UITableViewDelegate, UITableViewDataSource
     var searchData = [EdmundsSearchModel]()
     var searchResults = [EdmundsSearchModel]()
     
-    var selectedModel: EdmundsSearchModel?
-    
     var blurEffect = UIBlurEffect(style: .extraLight)
     var _blurEffectView:UIVisualEffectView?
     var blurEffectView:UIVisualEffectView {
@@ -73,6 +71,7 @@ class HomePageSearchResults : UIView, UITableViewDelegate, UITableViewDataSource
             let searchText = title.lowercased()
             searchModel.title = title
             searchModel.searchText = searchText
+            searchModel.model = model
             searchData.append(searchModel)
         }
         tableView.reloadData()
@@ -118,7 +117,9 @@ class HomePageSearchResults : UIView, UITableViewDelegate, UITableViewDataSource
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
+        let searchModel = searchResults[indexPath.row]
+        homePage.selectedModel = searchModel.model
+        homePage.performSegue(withIdentifier: "year_picker", sender: nil)
     }
     
 }

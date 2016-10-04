@@ -46,6 +46,7 @@
 		0DF76D841DA1D19300949838 /* ImageSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D6C1DA1D19300949838 /* ImageSetCell.swift */; };
 		0DF76D861DA1ED0F00949838 /* SearchResultModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D851DA1ED0F00949838 /* SearchResultModelCell.swift */; };
 		0DF76D881DA1ED6E00949838 /* SearchResultYearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D871DA1ED6E00949838 /* SearchResultYearCell.swift */; };
+		C216459B1DA33311005A1578 /* YearPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C216459A1DA33311005A1578 /* YearPicker.swift */; };
 		C240B1A71D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		0DF76D6C1DA1D19300949838 /* ImageSetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSetCell.swift; sourceTree = "<group>"; };
 		0DF76D851DA1ED0F00949838 /* SearchResultModelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultModelCell.swift; sourceTree = "<group>"; };
 		0DF76D871DA1ED6E00949838 /* SearchResultYearCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultYearCell.swift; sourceTree = "<group>"; };
+		C216459A1DA33311005A1578 /* YearPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearPicker.swift; sourceTree = "<group>"; };
 		C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMakesFetcherTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				0DF76D4F1DA1D19300949838 /* HomePage.swift */,
+				C216459A1DA33311005A1578 /* YearPicker.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -365,7 +368,7 @@
 				TargetAttributes = {
 					0DCDD68F1D9B9A7100496C3D = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 2GG555KD5G;
+						DevelopmentTeam = LCBDY3U9B4;
 						ProvisioningStyle = Automatic;
 					};
 					0DCDD6A31D9B9A7100496C3D = {
@@ -464,6 +467,7 @@
 				0DF76D821DA1D19300949838 /* HomePageMakeCell.swift in Sources */,
 				0DF76D731DA1D19300949838 /* EdmundsModel.swift in Sources */,
 				0DF76D831DA1D19300949838 /* HomePageSearchResults.swift in Sources */,
+				C216459B1DA33311005A1578 /* YearPicker.swift in Sources */,
 				0DF76D861DA1ED0F00949838 /* SearchResultModelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,7 +622,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2GG555KD5G;
+				DEVELOPMENT_TEAM = LCBDY3U9B4;
 				INFOPLIST_FILE = CarSale/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.moon;
@@ -631,7 +635,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2GG555KD5G;
+				DEVELOPMENT_TEAM = LCBDY3U9B4;
 				INFOPLIST_FILE = CarSale/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.froggy.moon;

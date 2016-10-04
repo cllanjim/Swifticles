@@ -25,6 +25,10 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     @IBOutlet weak var mainContainer: UIView!
     
     
+    weak var selectedModel: EdmundsModel?
+    weak var selectedYear: EdmundsYear?
+    
+    
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             layoutLandscape = Device.isLandscape
@@ -94,6 +98,8 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
         
         updateTimer?.invalidate()
         updateTimer = Timer.scheduledTimer(timeInterval: 1.0/60.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        
+        ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
         
     }
     
@@ -337,6 +343,22 @@ class HomePage : UIViewController, UICollectionViewDelegateFlowLayout, UICollect
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        //selectedModel
+        
+         if segue.identifier == "year_picker" {
+         if let yearPicker = segue.destination as? YearPicker {
+         
+            //yearPicker
+            
+            
+            }
+        }
+        
+        
     }
     
     internal func animateSearchModeOn() {
