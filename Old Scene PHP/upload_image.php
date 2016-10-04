@@ -1,7 +1,13 @@
 <?php
     $name = $_GET['name'];
+    $name = filter_var($name, FILTER_SANITIZE_STRING);
+    
     $width = $_GET['width'];
+    $width = filter_var($width, FILTER_SANITIZE_NUMBER_INT);
+    
     $height = $_GET['height'];
+    $height = filter_var($height, FILTER_SANITIZE_NUMBER_INT);
+    
     if($_FILES['photo']['name'])
     {
         if(!$_FILES['photo']['error'])

@@ -89,15 +89,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         setUp(scene: scene, screenRect: screenRect)
         
-        var thumb = image.resize(CGSize(width: image.size.width * 0.16, height: image.size.height * 0.16))
-        var half = image.resize(CGSize(width: image.size.width * 0.5, height: image.size.height * 0.5))
-        
-        Uploader.shared.upload(image: half!, thumb: thumb!, scene: scene)
-        
-        //upload(img: image, name: scene.imageName)
+        //No longer functions as an uploader mule.
+        //var thumb = image.resize(CGSize(width: image.size.width * 0.16, height: image.size.height * 0.16))
+        //var half = image.resize(CGSize(width: image.size.width * 0.5, height: image.size.height * 0.5))
+        //Uploader.shared.upload(image: half!, thumb: thumb!, scene: scene)
         
         //http://www.froggystudios.com/bounce/upload_bounce.php
-        
         
     }
     

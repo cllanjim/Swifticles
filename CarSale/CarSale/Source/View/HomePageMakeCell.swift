@@ -10,8 +10,7 @@ import UIKit
 
 class HomePageMakeCell : ImageSetCell
 {
-    @IBOutlet weak var loadSpinner: UIActivityIndicatorView!
-    @IBOutlet weak var loadOverlayView: UIView!
+    
     @IBOutlet weak var imageAcc1: UIImageView!
     @IBOutlet weak var imageAcc2: UIImageView!
     @IBOutlet weak var labelName: UILabel!
@@ -27,20 +26,17 @@ class HomePageMakeCell : ImageSetCell
         }
     }
     
-    func animateLoadComplete() {
-        loadSpinner.stopAnimating()
+    override func animateLoadComplete() {
+        super.animateLoadComplete()
+        
         let scaleTransform = CATransform3DMakeScale(0.1, 0.1, 0.1)
+        
         imageAcc1.layer.transform = scaleTransform
-        imageAcc2.layer.transform = scaleTransform
         imageAcc1.isHidden = false
-        imageAcc2.isHidden = false
         imageAcc1.alpha = 0.0
+        imageAcc2.layer.transform = scaleTransform
+        imageAcc2.isHidden = false
         imageAcc2.alpha = 0.0
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: { [weak weakSelf = self] in
-                weakSelf?.loadOverlayView.alpha = 0.0
-            }, completion: { [weak weakSelf = self] didFinish in
-                weakSelf?.loadOverlayView.isHidden = true
-        })
         UIView.animate(withDuration: 0.34, delay: 0.28, options: .curveEaseIn, animations: { [weak weakSelf = self] in
                 weakSelf?.imageAcc1.layer.transform = CATransform3DIdentity
                 weakSelf?.imageAcc1.alpha = 1.0
@@ -53,11 +49,7 @@ class HomePageMakeCell : ImageSetCell
     
     override func reset() {
         super.reset()
-        loadOverlayView.alpha = 1.0
-        loadOverlayView.isHidden = false
         imageAcc1.isHidden = true
         imageAcc2.isHidden = true
-        loadSpinner.isHidden = false
-        loadSpinner.startAnimating()
     }
 }
