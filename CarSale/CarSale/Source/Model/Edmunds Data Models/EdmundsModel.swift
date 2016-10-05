@@ -11,6 +11,7 @@ import Foundation
 class EdmundsModel {
     
     var id: String = ""
+    var index: Int = 0
     
     var name: String = ""
     var niceName: String = ""
@@ -44,10 +45,13 @@ class EdmundsModel {
         
         let _years = _data["years"] as? [[String:Any]]
         if _years != nil {
+            var yearIndex = 0
             for _year in _years! {
                 let year = EdmundsYear()
                 if year.load(model: self, data: _year) {
+                    year.index = yearIndex
                     years.append(year)
+                    yearIndex += 1
                 }
             }
         }

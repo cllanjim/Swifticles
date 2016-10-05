@@ -26,6 +26,7 @@
 		0DCECC8B1DA381BD002AE8FF /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC8A1DA381BD002AE8FF /* YearCell.swift */; };
 		0DCECC8D1DA38505002AE8FF /* ThumbCollectionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC8C1DA38505002AE8FF /* ThumbCollectionPage.swift */; };
 		0DCECC8F1DA3896A002AE8FF /* YearPickerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC8E1DA3896A002AE8FF /* YearPickerPage.swift */; };
+		0DCECC911DA48AA3002AE8FF /* VehicleInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC901DA48AA3002AE8FF /* VehicleInfoPage.swift */; };
 		0DF76D6D1DA1D19300949838 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D4F1DA1D19300949838 /* HomePage.swift */; };
 		0DF76D6E1DA1D19300949838 /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D521DA1D19300949838 /* ApplicationController.swift */; };
 		0DF76D6F1DA1D19300949838 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D531DA1D19300949838 /* Device.swift */; };
@@ -96,6 +97,7 @@
 		0DCECC8A1DA381BD002AE8FF /* YearCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
 		0DCECC8C1DA38505002AE8FF /* ThumbCollectionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbCollectionPage.swift; sourceTree = "<group>"; };
 		0DCECC8E1DA3896A002AE8FF /* YearPickerPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearPickerPage.swift; sourceTree = "<group>"; };
+		0DCECC901DA48AA3002AE8FF /* VehicleInfoPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleInfoPage.swift; sourceTree = "<group>"; };
 		0DF76D4F1DA1D19300949838 /* HomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		0DF76D521DA1D19300949838 /* ApplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
 		0DF76D531DA1D19300949838 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				0DF76D4F1DA1D19300949838 /* HomePage.swift */,
 				0DCECC8C1DA38505002AE8FF /* ThumbCollectionPage.swift */,
 				0DCECC8E1DA3896A002AE8FF /* YearPickerPage.swift */,
+				0DCECC901DA48AA3002AE8FF /* VehicleInfoPage.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				0DF76D751DA1D19300949838 /* EdmundsYear.swift in Sources */,
 				0DF76D6E1DA1D19300949838 /* ApplicationController.swift in Sources */,
 				0DF76D7D1DA1D19300949838 /* ImageSetFetcher.swift in Sources */,
+				0DCECC911DA48AA3002AE8FF /* VehicleInfoPage.swift in Sources */,
 				0DF76D811DA1D19300949838 /* HomePageHeader.swift in Sources */,
 				0DCECC891DA37E6B002AE8FF /* CellHighlightButton.swift in Sources */,
 				0DF76D6D1DA1D19300949838 /* HomePage.swift in Sources */,

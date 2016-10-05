@@ -47,6 +47,12 @@ class ImageDownloader : NSObject, ImageDownloaderTaskDelegate
         return false
     }
     
+    func cancelAll() {
+        for task in tasks {
+            task.clear()
+        }
+    }
+    
     func addDownload(forURL: String, withObject: Any?) {
         for task in tasks {
             if task.active == false {

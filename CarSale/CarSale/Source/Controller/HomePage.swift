@@ -177,9 +177,10 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
         //selectedModel
         
          if segue.identifier == "year_picker" {
-         if let yearPicker = segue.destination as? YearPickerPage {
-            yearPicker.model = selectedModel
-            
+            if let yearPicker = segue.destination as? YearPickerPage {
+                yearPicker.model = selectedModel
+                yearPicker.imageSets = imageSets
+                ImageDownloader.shared.cancelAll()
             }
         }
     }

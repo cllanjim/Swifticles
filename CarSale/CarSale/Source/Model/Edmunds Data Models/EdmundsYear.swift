@@ -11,6 +11,8 @@ import UIKit
 class EdmundsYear
 {
     var id: Int = -1
+    var index: Int = 0
+    
     var year: Int = -1
     
     weak var model: EdmundsModel!

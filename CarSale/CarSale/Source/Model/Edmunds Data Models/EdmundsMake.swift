@@ -43,10 +43,13 @@ class EdmundsMake
         
         let _models = _data["models"] as? [[String:Any]]
         if _models != nil {
+            var modelIndex = 0
             for _model in _models! {
                 let model = EdmundsModel()
                 if model.load(make: self, data: _model) {
+                    model.index = modelIndex
                     models.append(model)
+                    modelIndex += 1
                 }
             }
         }

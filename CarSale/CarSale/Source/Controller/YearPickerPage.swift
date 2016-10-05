@@ -53,6 +53,7 @@ class YearPickerPage : ThumbCollectionPage
         
         let year = model.years[indexPath.row]
         cell.year = year
+        cell.set = getImageSetForIndex(index: year.index)
         //cell.make = makes[indexPath.row]
         
         return cell
@@ -64,6 +65,8 @@ class YearPickerPage : ThumbCollectionPage
         
         if segue.identifier == "year_picker" {
             if let yearPicker = segue.destination as? YearPickerPage {
+                
+                
                 
                 
             }
