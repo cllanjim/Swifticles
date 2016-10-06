@@ -23,7 +23,14 @@ class HomePageSearchResults : UIView, UITableViewDelegate, UITableViewDataSource
     var searchData = [EdmundsSearchModel]()
     var searchResults = [EdmundsSearchModel]()
     
-    var blurEffect = UIBlurEffect(style: .extraLight)
+    var _blurEffect:UIBlurEffect?
+    var blurEffect:UIBlurEffect {
+        if _blurEffect == nil {
+            _blurEffect = UIBlurEffect(style: .extraLight)
+        }
+        return _blurEffect!
+    }
+    
     var _blurEffectView:UIVisualEffectView?
     var blurEffectView:UIVisualEffectView {
         if _blurEffectView == nil {

@@ -52,6 +52,7 @@
 		0DF76D861DA1ED0F00949838 /* SearchResultModelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D851DA1ED0F00949838 /* SearchResultModelCell.swift */; };
 		0DF76D881DA1ED6E00949838 /* SearchResultYearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF76D871DA1ED6E00949838 /* SearchResultYearCell.swift */; };
 		C240B1A71D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */; };
+		C245D8BA1DA5A347000F7B56 /* ModelPickerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245D8B91DA5A347000F7B56 /* ModelPickerPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		0DF76D851DA1ED0F00949838 /* SearchResultModelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultModelCell.swift; sourceTree = "<group>"; };
 		0DF76D871DA1ED6E00949838 /* SearchResultYearCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultYearCell.swift; sourceTree = "<group>"; };
 		C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMakesFetcherTests.swift; sourceTree = "<group>"; };
+		C245D8B91DA5A347000F7B56 /* ModelPickerPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelPickerPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 				0DCECC8C1DA38505002AE8FF /* ThumbCollectionPage.swift */,
 				0DCECC8E1DA3896A002AE8FF /* YearPickerPage.swift */,
 				0DCECC901DA48AA3002AE8FF /* VehicleInfoPage.swift */,
+				C245D8B91DA5A347000F7B56 /* ModelPickerPage.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				0DF76D7F1DA1D19300949838 /* WebFetcher.swift in Sources */,
 				0DCECC8B1DA381BD002AE8FF /* YearCell.swift in Sources */,
 				0DF76D7E1DA1D19300949838 /* JSONFetcher.swift in Sources */,
+				C245D8BA1DA5A347000F7B56 /* ModelPickerPage.swift in Sources */,
 				0DCECC8F1DA3896A002AE8FF /* YearPickerPage.swift in Sources */,
 				0DF76D821DA1D19300949838 /* HomePageMakeCell.swift in Sources */,
 				0DF76D731DA1D19300949838 /* EdmundsModel.swift in Sources */,

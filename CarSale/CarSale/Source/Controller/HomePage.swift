@@ -172,6 +172,11 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
         return cell
     }
     
+    @IBAction func clickMakeCell(_ button:CellHighlightButton) {
+        print("clickMakeCell")
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //selectedModel
@@ -202,6 +207,9 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
             }, completion: nil)
         searchResults.animateOut()
     }
+    
+    
+    
 }
 
 

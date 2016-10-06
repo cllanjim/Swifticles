@@ -171,22 +171,22 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
         return result
     }
     
-    //Default behavior is
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let appWidth = ApplicationController.width
-        var width = (appWidth / 2) - (4.0 * 3.0)
+        var width = (appWidth - (12.0 * 3.0)) / 2.0
         if Device.tablet {
             if layoutLandscape {
-                width = (appWidth / 4.0) - (4.0 * 6.0)
+                width = (appWidth - (12.0 * 5.0)) / 4.0
             } else {
-                width = (appWidth / 3.0) - (4.0 * 6.0)
+                width = (appWidth - (12.0 * 4.0)) / 3.0
             }
         } else {
             if layoutLandscape {
-                width = (appWidth / 3.0) - (4.0 * 6.0)
+                width = (appWidth - (12.0 * 4.0)) / 3.0
             }
         }
-        let height = width * 0.75 + 30.0
+        let height = CGFloat(Int(width * 0.75 + 30.0))
+        width = CGFloat(Int(width))
         return CGSize(width: width, height: height)
     }
     
