@@ -10,7 +10,6 @@ import UIKit
 
 class VehicleInfoPage : UIViewController, WebFetcherDelegate
 {
-    
     weak var make: EdmundsMake?
     weak var model: EdmundsModel?
     weak var year: EdmundsYear?
@@ -19,12 +18,19 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
         self.make = make
         self.model = model
         self.year = year
+        
+        print("GET VEHICLE INFO")
+        print("MAKE = \(make.name)")
+        print("MODEL = \(model.name)")
+        print("YEAR = \(year.year)")
+        
+        infoFetcher.fetch(make: make, model: model, year: year)
     }
     
-    private var _infoFetcher: EdmundsMakesFetcher?
-    var infoFetcher: EdmundsMakesFetcher {
+    private var _infoFetcher: EdmundsInfoFetcher?
+    var infoFetcher: EdmundsInfoFetcher {
         if _infoFetcher == nil {
-            _infoFetcher = EdmundsMakesFetcher()
+            _infoFetcher = EdmundsInfoFetcher()
             _infoFetcher!.delegate = self
         }
         return _infoFetcher!
@@ -42,8 +48,7 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
+        ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -54,13 +59,13 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
         super.viewWillTransition(to: size, with: coordinator)
         
         coordinator.animate(alongsideTransition: { [weak weakSelf = self] (id:UIViewControllerTransitionCoordinatorContext) in
-            if let checkSelf = weakSelf {
-                
-            }
+            
             }, completion: nil)
     }
     
     func fetchDidSucceed(fetcher: WebFetcher, result: WebResult) {
+        
+        
         
     }
     
@@ -69,11 +74,7 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "year_picker" {
-            if let yearPicker = segue.destination as? YearPickerPage {
-                
-            }
-        }
+        
     }
 }
 

@@ -48,19 +48,19 @@ class YearPickerPage : ThumbCollectionPage
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView!.dequeueReusableCell(withReuseIdentifier: "year_cell", for: indexPath) as! YearCell
+        let cell = self.collectionView!.dequeueReusableCell(withReuseIdentifier: "year_cell", for: indexPath) as! YearPageCell
         cell.reset()
-        
         let year = model.years[indexPath.row]
         cell.year = year
         cell.set = getImageSetForIndex(index: year.index)
-        //cell.make = makes[indexPath.row]
-        
         return cell
     }
     
-    @IBAction func clickMakeCell(_ button:CellHighlightButton) {
-        print("clickMakeCell")
+    @IBAction func clickYear(_ button: CellHighlightButton) {
+        if let cell = button.superview?.superview as? YearPageCell {
+            selectedYear = cell.year
+            performSegue(withIdentifier: "year_vehicle_info", sender: nil)
+        }
         
     }
     
@@ -68,11 +68,14 @@ class YearPickerPage : ThumbCollectionPage
         
         //selectedModel
         
-        if segue.identifier == "year_picker" {
-            if let yearPicker = segue.destination as? YearPickerPage {
+        if segue.identifier == "year_vehicle_info" {
+            if let vehicleInfo = segue.destination as? VehicleInfoPage {
                 
+                let year = selectedYear!
+                let model = year.model!
+                let make = model.make!
                 
-                
+                vehicleInfo.setUp(withMake: make, model: model, year: year)
                 
             }
         }

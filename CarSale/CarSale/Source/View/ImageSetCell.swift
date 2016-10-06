@@ -34,7 +34,7 @@ class ImageSetCell : UICollectionViewCell
     
         layer.shadowOffset = CGSize(width: -2, height: 2.0)
         layer.shadowColor = UIColor(red: 0.05, green: 0.05, blue: 0.05, alpha: 0.20).cgColor
-        layer.shadowRadius = 4.0
+        layer.shadowRadius = 3.0
         layer.shadowOpacity = 1.0
         
         layer.borderColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.04).cgColor
@@ -99,6 +99,7 @@ class ImageSetCell : UICollectionViewCell
         didDownload = false
         didAttemptDownload = false
         isDownloading = false
+        
         set = nil
         imageView?.image = nil
         

@@ -113,7 +113,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="car_cell" id="WQ9-By-BpU" customClass="HomePageMakeCell" customModule="CarSale" customModuleProvider="target">
-                                                <rect key="frame" x="88" y="12" width="200" height="180"/>
+                                                <rect key="frame" x="87.5" y="12" width="200" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="180"/>
@@ -219,7 +219,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="is9-GM-hqH" id="EdI-IT-xGi">
-                                                            <frame key="frameInset" width="375" height="56"/>
+                                                            <frame key="frameInset" width="375" height="55.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-HO-bwM">
@@ -312,11 +312,12 @@
                         <outlet property="mainContainer" destination="w1t-ep-s2X" id="3ce-jx-e79"/>
                         <outlet property="searchResults" destination="tL1-Y2-V2Q" id="KW8-wF-Ldk"/>
                         <segue destination="NXu-Gf-5Cy" kind="show" identifier="year_picker" id="rq5-Fo-TgA"/>
+                        <segue destination="rIh-mc-W1Q" kind="show" identifier="model_picker" id="rWb-ey-nBS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vuB-ft-CTe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1018.4" y="19.340329835082461"/>
+            <point key="canvasLocation" x="874" y="-425"/>
         </scene>
         <!--Year Picker Page-->
         <scene sceneID="7DL-fB-OYf">
@@ -341,7 +342,7 @@
                                             <inset key="sectionInset" minX="12" minY="12" maxX="12" maxY="12"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="year_cell" id="XjQ-OA-KPn" customClass="YearCell" customModule="CarSale" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="year_cell" id="XjQ-OA-KPn" customClass="YearPageCell" customModule="CarSale" customModuleProvider="target">
                                                 <rect key="frame" x="76" y="12" width="223" height="201"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -389,7 +390,11 @@
                                                                 <constraint firstAttribute="width" constant="40" id="odJ-ma-KLR"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrf-5l-ach" customClass="CellHighlightButton" customModule="CarSale" customModuleProvider="target"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrf-5l-ach" customClass="CellHighlightButton" customModule="CarSale" customModuleProvider="target">
+                                                            <connections>
+                                                                <action selector="clickYear:" destination="NXu-Gf-5Cy" eventType="touchUpInside" id="Nzn-ZD-A4q"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                 </view>
                                                 <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -437,19 +442,38 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GwZ-fn-6sK" firstAttribute="leading" secondItem="b1u-x8-KfH" secondAttribute="leading" id="3mi-LY-ROQ"/>
+                            <constraint firstItem="iEH-9l-Bdx" firstAttribute="top" secondItem="GwZ-fn-6sK" secondAttribute="bottom" id="HUY-WY-4SV"/>
                             <constraint firstItem="GwZ-fn-6sK" firstAttribute="top" secondItem="b1u-x8-KfH" secondAttribute="top" id="fpV-zX-cXE"/>
                             <constraint firstAttribute="trailing" secondItem="GwZ-fn-6sK" secondAttribute="trailing" id="iIc-Sc-bR5"/>
-                            <constraint firstItem="iEH-9l-Bdx" firstAttribute="top" secondItem="GwZ-fn-6sK" secondAttribute="bottom" id="n4z-mi-Me5"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="9Ge-c9-igb" id="jQe-qg-PwU"/>
                         <outlet property="mainContainer" destination="GwZ-fn-6sK" id="z6A-Dz-yx8"/>
+                        <segue destination="P0K-9U-Hfs" kind="show" identifier="year_vehicle_info" id="BCh-I2-hrX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LSb-nl-3ia" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="18.440779610194905"/>
+            <point key="canvasLocation" x="1671" y="-404"/>
+        </scene>
+        <!--Vehicle Info Page-->
+        <scene sceneID="gNx-Zy-omz">
+            <objects>
+                <viewController id="P0K-9U-Hfs" customClass="VehicleInfoPage" customModule="CarSale" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LSZ-pK-69n"/>
+                        <viewControllerLayoutGuide type="bottom" id="39l-L1-56e"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HQ3-Zd-jAr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJP-W3-jY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2455" y="-404"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9YR-Rr-U6o">
@@ -469,6 +493,127 @@
             </objects>
             <point key="canvasLocation" x="79.200000000000003" y="19.340329835082461"/>
         </scene>
+        <!--Model Picker Page-->
+        <scene sceneID="1KS-Qm-w1H">
+            <objects>
+                <viewController id="rIh-mc-W1Q" customClass="ModelPickerPage" customModule="CarSale" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tX2-BB-rIY"/>
+                        <viewControllerLayoutGuide type="bottom" id="RgU-T3-ojr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Boj-wt-Sc4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jt6-b9-t4y">
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="d4f-mO-XLT">
+                                        <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="12" id="bFQ-aF-fmR">
+                                            <size key="itemSize" width="223" height="201"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="12" minY="12" maxX="12" maxY="12"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="model_cell" id="uRf-i4-z6d" customClass="ModelPageCell" customModule="CarSale" customModuleProvider="target">
+                                                <rect key="frame" x="76" y="12" width="223" height="201"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="223" height="201"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ish-A3-FvB">
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="ish-A3-FvB" secondAttribute="height" multiplier="4:3" id="jno-GI-Dfc"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2045" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-Ba-dky">
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="CIk-bL-xv0"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="21"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZL4-7I-8YE">
+                                                            <subviews>
+                                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="29U-yc-vcj">
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="20" id="YOB-Sa-Ut4"/>
+                                                                        <constraint firstAttribute="height" constant="20" id="plT-Lw-7bo"/>
+                                                                    </constraints>
+                                                                </activityIndicatorView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="29U-yc-vcj" firstAttribute="centerY" secondItem="ZL4-7I-8YE" secondAttribute="centerY" id="bNs-dR-sww"/>
+                                                                <constraint firstItem="29U-yc-vcj" firstAttribute="centerX" secondItem="ZL4-7I-8YE" secondAttribute="centerX" id="q4L-WZ-mfh"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sj0-Ck-T5g" customClass="CellHighlightButton" customModule="CarSale" customModuleProvider="target">
+                                                            <connections>
+                                                                <action selector="clickModel:" destination="rIh-mc-W1Q" eventType="touchUpInside" id="zsl-YW-okh"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </view>
+                                                <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="sj0-Ck-T5g" firstAttribute="leading" secondItem="uRf-i4-z6d" secondAttribute="leading" id="DGo-xM-AzE"/>
+                                                    <constraint firstAttribute="trailing" secondItem="3Jq-Ba-dky" secondAttribute="trailing" id="K4p-em-RCF"/>
+                                                    <constraint firstItem="ish-A3-FvB" firstAttribute="top" secondItem="uRf-i4-z6d" secondAttribute="top" id="O6C-ST-LFr"/>
+                                                    <constraint firstItem="ish-A3-FvB" firstAttribute="leading" secondItem="uRf-i4-z6d" secondAttribute="leading" id="OTD-ex-5FF"/>
+                                                    <constraint firstItem="3Jq-Ba-dky" firstAttribute="leading" secondItem="uRf-i4-z6d" secondAttribute="leading" id="Qf0-aO-4Td"/>
+                                                    <constraint firstItem="sj0-Ck-T5g" firstAttribute="top" secondItem="uRf-i4-z6d" secondAttribute="top" id="RuQ-Xp-lg2"/>
+                                                    <constraint firstItem="ZL4-7I-8YE" firstAttribute="top" secondItem="uRf-i4-z6d" secondAttribute="top" id="Sya-zJ-eby"/>
+                                                    <constraint firstItem="ZL4-7I-8YE" firstAttribute="centerX" secondItem="uRf-i4-z6d" secondAttribute="centerX" id="Vmd-qW-0KW"/>
+                                                    <constraint firstAttribute="bottom" secondItem="sj0-Ck-T5g" secondAttribute="bottom" id="Xva-Co-0e2"/>
+                                                    <constraint firstAttribute="bottom" secondItem="3Jq-Ba-dky" secondAttribute="bottom" id="jIc-7S-8Kp"/>
+                                                    <constraint firstItem="ZL4-7I-8YE" firstAttribute="height" secondItem="ish-A3-FvB" secondAttribute="height" id="mvn-Ua-2kN"/>
+                                                    <constraint firstItem="3Jq-Ba-dky" firstAttribute="centerX" secondItem="uRf-i4-z6d" secondAttribute="centerX" id="por-kT-Ryc"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ish-A3-FvB" secondAttribute="trailing" id="wgP-6p-HIa"/>
+                                                    <constraint firstItem="ZL4-7I-8YE" firstAttribute="width" secondItem="ish-A3-FvB" secondAttribute="width" id="ydT-GT-QCI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sj0-Ck-T5g" secondAttribute="trailing" id="zEX-lM-Z2x"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="button" destination="sj0-Ck-T5g" id="w6Q-s3-sEd"/>
+                                                    <outlet property="imageView" destination="ish-A3-FvB" id="B39-yJ-5UP"/>
+                                                    <outlet property="labelName" destination="3Jq-Ba-dky" id="eZt-0d-bFn"/>
+                                                    <outlet property="loadOverlayView" destination="ZL4-7I-8YE" id="Ytb-FN-654"/>
+                                                    <outlet property="loadSpinner" destination="29U-yc-vcj" id="JKw-3L-unj"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="d4f-mO-XLT" secondAttribute="bottom" id="1w7-jq-RnC"/>
+                                    <constraint firstAttribute="trailing" secondItem="d4f-mO-XLT" secondAttribute="trailing" id="R0M-ol-eQF"/>
+                                    <constraint firstItem="d4f-mO-XLT" firstAttribute="leading" secondItem="jt6-b9-t4y" secondAttribute="leading" id="oYg-Tg-w1q"/>
+                                    <constraint firstItem="d4f-mO-XLT" firstAttribute="top" secondItem="jt6-b9-t4y" secondAttribute="top" id="r7g-fX-uah"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jt6-b9-t4y" firstAttribute="leading" secondItem="Boj-wt-Sc4" secondAttribute="leading" id="3fW-C9-1yr"/>
+                            <constraint firstItem="jt6-b9-t4y" firstAttribute="top" secondItem="Boj-wt-Sc4" secondAttribute="top" id="FNC-vj-ix2"/>
+                            <constraint firstAttribute="trailing" secondItem="jt6-b9-t4y" secondAttribute="trailing" id="vA9-3u-UBv"/>
+                            <constraint firstItem="RgU-T3-ojr" firstAttribute="top" secondItem="jt6-b9-t4y" secondAttribute="bottom" id="zlv-bu-GTv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="d4f-mO-XLT" id="tvx-wx-dgA"/>
+                        <outlet property="mainContainer" destination="jt6-b9-t4y" id="Qw0-sr-A5H"/>
+                        <segue destination="NXu-Gf-5Cy" kind="show" identifier="model_year_picker" id="EPL-8N-8cK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uyq-tv-6fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="872.79999999999995" y="369.26536731634184"/>
+        </scene>
     </scenes>
     <resources>
         <image name="fair_logo.png" width="768" height="256"/>
@@ -480,4 +625,7 @@
         <image name="tag_icon_3.png" width="140" height="140"/>
         <image name="tag_icon_3_dark.png" width="140" height="140"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="EPL-8N-8cK"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -16,6 +16,8 @@
 		0D9CE46E1DA220BC0011B012 /* tag_icon_2_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CE4651DA220BC0011B012 /* tag_icon_2_dark.png */; };
 		0D9CE46F1DA220BC0011B012 /* tag_icon_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CE4661DA220BC0011B012 /* tag_icon_3.png */; };
 		0D9CE4701DA220BC0011B012 /* tag_icon_3_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CE4671DA220BC0011B012 /* tag_icon_3_dark.png */; };
+		0DC860511DA616B900ADD2FE /* ModelPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC860501DA616B900ADD2FE /* ModelPageCell.swift */; };
+		0DC860531DA6256500ADD2FE /* EdmundsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC860521DA6256500ADD2FE /* EdmundsInfoFetcher.swift */; };
 		0DCDD6991D9B9A7100496C3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DCDD6971D9B9A7100496C3D /* Main.storyboard */; };
 		0DCDD69B1D9B9A7100496C3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DCDD69A1D9B9A7100496C3D /* Assets.xcassets */; };
 		0DCDD69E1D9B9A7100496C3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DCDD69C1D9B9A7100496C3D /* LaunchScreen.storyboard */; };
@@ -23,7 +25,7 @@
 		0DCDD6B41D9B9A7100496C3D /* CarSaleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6B31D9B9A7100496C3D /* CarSaleUITests.swift */; };
 		0DCDD6C61D9BB6F400496C3D /* HomePageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDD6C51D9BB6F400496C3D /* HomePageTests.swift */; };
 		0DCECC891DA37E6B002AE8FF /* CellHighlightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC881DA37E6B002AE8FF /* CellHighlightButton.swift */; };
-		0DCECC8B1DA381BD002AE8FF /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC8A1DA381BD002AE8FF /* YearCell.swift */; };
+		0DCECC8B1DA381BD002AE8FF /* YearPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC8A1DA381BD002AE8FF /* YearPageCell.swift */; };
 		0DCECC8D1DA38505002AE8FF /* ThumbCollectionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC8C1DA38505002AE8FF /* ThumbCollectionPage.swift */; };
 		0DCECC8F1DA3896A002AE8FF /* YearPickerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC8E1DA3896A002AE8FF /* YearPickerPage.swift */; };
 		0DCECC911DA48AA3002AE8FF /* VehicleInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCECC901DA48AA3002AE8FF /* VehicleInfoPage.swift */; };
@@ -82,6 +84,8 @@
 		0D9CE4651DA220BC0011B012 /* tag_icon_2_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tag_icon_2_dark.png; sourceTree = "<group>"; };
 		0D9CE4661DA220BC0011B012 /* tag_icon_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tag_icon_3.png; sourceTree = "<group>"; };
 		0D9CE4671DA220BC0011B012 /* tag_icon_3_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tag_icon_3_dark.png; sourceTree = "<group>"; };
+		0DC860501DA616B900ADD2FE /* ModelPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelPageCell.swift; sourceTree = "<group>"; };
+		0DC860521DA6256500ADD2FE /* EdmundsInfoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsInfoFetcher.swift; sourceTree = "<group>"; };
 		0DCDD6901D9B9A7100496C3D /* CarSale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarSale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DCDD6981D9B9A7100496C3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0DCDD69A1D9B9A7100496C3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -95,7 +99,7 @@
 		0DCDD6B51D9B9A7100496C3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DCDD6C51D9BB6F400496C3D /* HomePageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageTests.swift; sourceTree = "<group>"; };
 		0DCECC881DA37E6B002AE8FF /* CellHighlightButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellHighlightButton.swift; sourceTree = "<group>"; };
-		0DCECC8A1DA381BD002AE8FF /* YearCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
+		0DCECC8A1DA381BD002AE8FF /* YearPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearPageCell.swift; sourceTree = "<group>"; };
 		0DCECC8C1DA38505002AE8FF /* ThumbCollectionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbCollectionPage.swift; sourceTree = "<group>"; };
 		0DCECC8E1DA3896A002AE8FF /* YearPickerPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearPickerPage.swift; sourceTree = "<group>"; };
 		0DCECC901DA48AA3002AE8FF /* VehicleInfoPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleInfoPage.swift; sourceTree = "<group>"; };
@@ -296,6 +300,7 @@
 				0DF76D641DA1D19300949838 /* ImageSetFetcher.swift */,
 				0DF76D651DA1D19300949838 /* JSONFetcher.swift */,
 				0DF76D661DA1D19300949838 /* WebFetcher.swift */,
+				0DC860521DA6256500ADD2FE /* EdmundsInfoFetcher.swift */,
 			);
 			path = Net;
 			sourceTree = "<group>";
@@ -310,7 +315,8 @@
 				0DF76D851DA1ED0F00949838 /* SearchResultModelCell.swift */,
 				0DF76D871DA1ED6E00949838 /* SearchResultYearCell.swift */,
 				0DCECC881DA37E6B002AE8FF /* CellHighlightButton.swift */,
-				0DCECC8A1DA381BD002AE8FF /* YearCell.swift */,
+				0DCECC8A1DA381BD002AE8FF /* YearPageCell.swift */,
+				0DC860501DA616B900ADD2FE /* ModelPageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -475,13 +481,14 @@
 				0DCECC891DA37E6B002AE8FF /* CellHighlightButton.swift in Sources */,
 				0DF76D6D1DA1D19300949838 /* HomePage.swift in Sources */,
 				0DF76D711DA1D19300949838 /* AppDelegate.swift in Sources */,
+				0DC860531DA6256500ADD2FE /* EdmundsInfoFetcher.swift in Sources */,
 				0DF76D7C1DA1D19300949838 /* ImageDownloaderTask.swift in Sources */,
 				0DCECC8D1DA38505002AE8FF /* ThumbCollectionPage.swift in Sources */,
 				0DF76D7A1DA1D19300949838 /* EdmundsMakesFetcher.swift in Sources */,
 				0DF76D791DA1D19300949838 /* SearchNode.swift in Sources */,
 				0DF76D701DA1D19300949838 /* FileUtils.swift in Sources */,
 				0DF76D7F1DA1D19300949838 /* WebFetcher.swift in Sources */,
-				0DCECC8B1DA381BD002AE8FF /* YearCell.swift in Sources */,
+				0DCECC8B1DA381BD002AE8FF /* YearPageCell.swift in Sources */,
 				0DF76D7E1DA1D19300949838 /* JSONFetcher.swift in Sources */,
 				C245D8BA1DA5A347000F7B56 /* ModelPickerPage.swift in Sources */,
 				0DCECC8F1DA3896A002AE8FF /* YearPickerPage.swift in Sources */,
@@ -489,6 +496,7 @@
 				0DF76D731DA1D19300949838 /* EdmundsModel.swift in Sources */,
 				0DF76D831DA1D19300949838 /* HomePageSearchResults.swift in Sources */,
 				0DF76D861DA1ED0F00949838 /* SearchResultModelCell.swift in Sources */,
+				0DC860511DA616B900ADD2FE /* ModelPageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

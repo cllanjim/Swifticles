@@ -1,5 +1,5 @@
 //
-//  YearCell.swift
+//  YearPageCell.swift
 //  CarSale
 //
 //  Created by Nicholas Raptis on 10/3/16.
@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class YearCell : ImageSetCell
+class YearPageCell : ImageSetCell
 {
     @IBOutlet weak var imageAcc1: UIImageView!
     @IBOutlet weak var imageAcc2: UIImageView!
@@ -20,10 +20,6 @@ class YearCell : ImageSetCell
         didSet {
             if year != nil {
                 labelName.text = String(year!.year)
-                
-                //if let _set = make!.set {
-                //    self.set = _set
-                //}
             }
         }
     }

@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CarSale/Source/Controller/ThumbCollectionPage.swift"
-            timestampString = "497257202.565214"
+            filePath = "CarSale/Source/Model/Net/EdmundsInfoFetcher.swift"
+            timestampString = "497427903.198809"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "imageDownloadError(downloader:urlString:object:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "parse(data:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

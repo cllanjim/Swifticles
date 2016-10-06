@@ -1,5 +1,5 @@
 //
-//  SearchResultYearCell.swift
+//  SearchResultYearPageCell.swift
 //  CarSale
 //
 //  Created by Nicholas Raptis on 10/2/16.

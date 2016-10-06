@@ -21,7 +21,9 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
     
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     
+    weak var selectedMake: EdmundsMake?
     weak var selectedModel: EdmundsModel?
+    
     var searchMode:Bool = false {
         didSet {
             if searchMode {
@@ -77,9 +79,7 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
         super.viewWillTransition(to: size, with: coordinator)
 
         coordinator.animate(alongsideTransition: { [weak weakSelf = self] (id:UIViewControllerTransitionCoordinatorContext) in
-            if let checkSelf = weakSelf {
-                
-            }
+
             }, completion: nil)
     }
     
@@ -92,8 +92,6 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
             makeFetcher.clear()
             syncImages()
             
-            
-            //var models = [EdmundsModel]()
             buildSearchTree()
             
         } else if fetcher === imgFetcher {
@@ -173,19 +171,26 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
     }
     
     @IBAction func clickMakeCell(_ button:CellHighlightButton) {
-        print("clickMakeCell")
-        
+        if let cell = button.superview?.superview as? HomePageMakeCell {
+            selectedMake = cell.make
+            performSegue(withIdentifier: "model_picker", sender: nil)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        //selectedModel
-        
          if segue.identifier == "year_picker" {
             if let yearPicker = segue.destination as? YearPickerPage {
+                yearPicker.navigationItem.title = selectedModel!.make.name + " " + selectedModel!.name
                 yearPicker.model = selectedModel
                 yearPicker.imageSets = imageSets
-                ImageDownloader.shared.cancelAll()
+            }
+        }
+        
+        if segue.identifier == "model_picker" {
+            if let modelPicker = segue.destination as? ModelPickerPage {
+                modelPicker.navigationItem.title = selectedMake!.name
+                modelPicker.imageSets = imageSets
+                modelPicker.make = selectedMake!
             }
         }
     }

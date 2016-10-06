@@ -60,9 +60,6 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
         reloadData()
         
         coordinator.animate(alongsideTransition: { [weak weakSelf = self] (id:UIViewControllerTransitionCoordinatorContext) in
-            if let checkSelf = weakSelf {
-                
-            }
             }, completion: nil)
     }
     
@@ -98,6 +95,17 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
                 if isc.didDownload == false && isc.didAttemptDownload == false && isc.isDownloading == false && isc.set != nil {
                     pullable.append(isc)
                     pickCell = isc
+                }
+            }
+        }
+        
+        if pullable.count <= 0 {
+            for cell in collectionView.visibleCells {
+                if let isc = cell as? ImageSetCell {
+                    if isc.didDownload == false && isc.isDownloading == false && isc.set != nil {
+                        pullable.append(isc)
+                        pickCell = isc
+                    }
                 }
             }
         }
