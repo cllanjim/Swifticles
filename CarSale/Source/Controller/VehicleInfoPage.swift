@@ -8,6 +8,16 @@
 
 import UIKit
 
+//Unforunately there is no free image apis available for cars, but luckily we can use truecar's image urls for our demo needs, here are some sample urls:
+
+//https://a.tcimg.net/v/model_images/v1/2014/gmc/acadia/all/190x97/side
+//https://a.tcimg.net/v/model_images/v1/2014/gmc/acadia/all/190x97/f3q
+//https://a.tcimg.net/v/model_images/v1/2017/gmc/acadia-limited/all/360x185/side
+//https://a.tcimg.net/v/model_images/v1/2017/gmc/acadia-limited/all/360x185/f3q
+
+//Plug in the correct year / make / model / trim with data from the edmunds api, and the urls will return an image if there are matchs, or a placeholder image if nothing is there. Don't worry too much about accuracy here, as long as your app demonstrates that it can pull atleast some images correctly.
+
+
 class VehicleInfoPage : UIViewController, WebFetcherDelegate
 {
     weak var make: EdmundsMake?
@@ -18,6 +28,8 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
         self.make = make
         self.model = model
         self.year = year
+        
+        navigationItem.title = "\(year.year) \(model.name)"
         
         print("GET VEHICLE INFO")
         print("MAKE = \(make.name)")

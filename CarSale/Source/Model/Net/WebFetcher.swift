@@ -59,7 +59,7 @@ class WebFetcher : NSObject, URLSessionDelegate
         }
         
         print("fetch(\"\(urlString!)\")")
-        
+
         //Sanity check.
         guard let url = URL(string: urlString!) else {
             fail(result: .invalid)
