@@ -11,9 +11,12 @@ import Foundation
 
 import UIKit
 
-class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, ImageDownloaderDelegate
+class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UICollectionViewDataSource, ImageDownloaderDelegate
 {
     @IBOutlet weak var mainContainer: UIView!
+    
+    @IBOutlet weak var refreshSpinner: RefreshSpinner?
+    
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -165,6 +168,29 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
                 }
             }
         }
+    }
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y <= 0.0 {
+            
+            var offset:CGFloat = -scrollView.contentOffset.y
+            var percent = offset / 120.0
+            if percent > 1.0 { percent = 1.0 }
+            
+            refreshSpinner?.revealPercent = percent
+            
+            //print("CONTENT OFFSET = \(scrollView.contentOffset.y)")
+            print("SPINNR PURCANT = \(percent)")
+            
+            
+            
+            
+        } else {
+            
+        }
+        
+        
     }
     
     //Override this, here for completion's sake.

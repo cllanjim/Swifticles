@@ -103,8 +103,25 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1t-ep-s2X">
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KcH-0U-d6h">
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8j-82-Og9" customClass="RefreshSpinner" customModule="CarSale" customModuleProvider="target">
+                                                <color key="backgroundColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="56" id="I0t-Qs-Lfi"/>
+                                                    <constraint firstAttribute="height" constant="56" id="reJ-iU-VJz"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="g8j-82-Og9" firstAttribute="centerX" secondItem="KcH-0U-d6h" secondAttribute="centerX" id="2Jv-vW-Qet"/>
+                                            <constraint firstItem="g8j-82-Og9" firstAttribute="top" secondItem="KcH-0U-d6h" secondAttribute="top" id="nDJ-9t-VdK"/>
+                                            <constraint firstAttribute="height" constant="120" id="ofc-LL-emB"/>
+                                        </constraints>
+                                    </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tCR-yA-wUq">
-                                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="12" id="bO1-cQ-Xag">
                                             <size key="itemSize" width="200" height="180"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -219,7 +236,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="is9-GM-hqH" id="EdI-IT-xGi">
-                                                            <frame key="frameInset" width="375" height="55.5"/>
+                                                            <frame key="frameInset" width="375" height="56"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-HO-bwM">
@@ -275,8 +292,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="tL1-Y2-V2Q" secondAttribute="bottom" id="2OF-gh-0GV"/>
+                                    <constraint firstItem="KcH-0U-d6h" firstAttribute="top" secondItem="w1t-ep-s2X" secondAttribute="top" id="9tu-eP-eS3"/>
                                     <constraint firstItem="tL1-Y2-V2Q" firstAttribute="top" secondItem="w1t-ep-s2X" secondAttribute="top" id="CH6-oJ-gW4"/>
                                     <constraint firstAttribute="trailing" secondItem="tCR-yA-wUq" secondAttribute="trailing" id="CK6-Y0-nUz"/>
+                                    <constraint firstItem="KcH-0U-d6h" firstAttribute="leading" secondItem="w1t-ep-s2X" secondAttribute="leading" id="Csl-zy-lG4"/>
+                                    <constraint firstAttribute="trailing" secondItem="KcH-0U-d6h" secondAttribute="trailing" id="Gsl-OU-HoR"/>
                                     <constraint firstItem="tCR-yA-wUq" firstAttribute="leading" secondItem="w1t-ep-s2X" secondAttribute="leading" id="Ypr-2g-0rg"/>
                                     <constraint firstAttribute="bottom" secondItem="tCR-yA-wUq" secondAttribute="bottom" id="g0o-NV-C6e"/>
                                     <constraint firstItem="tL1-Y2-V2Q" firstAttribute="leading" secondItem="w1t-ep-s2X" secondAttribute="leading" id="hVO-1w-StI"/>
@@ -310,6 +330,7 @@
                         <outlet property="header" destination="xMn-aP-FHI" id="Hf3-ne-gJ3"/>
                         <outlet property="headerHeightConstraint" destination="Oh1-c3-qCd" id="0ZD-xA-7Iy"/>
                         <outlet property="mainContainer" destination="w1t-ep-s2X" id="3ce-jx-e79"/>
+                        <outlet property="refreshSpinner" destination="g8j-82-Og9" id="uvh-91-9M6"/>
                         <outlet property="searchResults" destination="tL1-Y2-V2Q" id="KW8-wF-Ldk"/>
                         <segue destination="NXu-Gf-5Cy" kind="show" identifier="year_picker" id="rq5-Fo-TgA"/>
                         <segue destination="rIh-mc-W1Q" kind="show" identifier="model_picker" id="rWb-ey-nBS"/>
@@ -317,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vuB-ft-CTe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="874" y="-425"/>
+            <point key="canvasLocation" x="872.79999999999995" y="-425.03748125937034"/>
         </scene>
         <!--Year Picker Page-->
         <scene sceneID="7DL-fB-OYf">
@@ -626,6 +647,6 @@
         <image name="tag_icon_3_dark.png" width="140" height="140"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EPL-8N-8cK"/>
+        <segue reference="rq5-Fo-TgA"/>
     </inferredMetricsTieBreakers>
 </document>

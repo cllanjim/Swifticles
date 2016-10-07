@@ -195,6 +195,8 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
         }
     }
     
+    
+    
     internal func animateSearchModeOn() {
         headerHeightConstraint.constant = 78 - 20.0//Device.statusBarHeight
         view.setNeedsLayout()
