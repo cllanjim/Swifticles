@@ -63,10 +63,14 @@ class RefreshSpinner : UIView
     
     var spokeCount:Int = 10 { didSet { setNeedsDisplay() } }
     
+<<<<<<< HEAD
     var thickness: CGFloat = 4.0 { didSet { setNeedsDisplay() } }
+=======
+    var thickness: CGFloat = 3.25 { didSet { setNeedsDisplay() } }
+>>>>>>> origin/master
     
     var spokeInnerRadius:CGFloat = 10.0 { didSet { setNeedsDisplay() } }
-    var spokeOuterRadius:CGFloat = 17.0 { didSet { setNeedsDisplay() } }
+    var spokeOuterRadius:CGFloat = 15.0 { didSet { setNeedsDisplay() } }
     
     private var _isLoading = false
     var isLoading: Bool {
@@ -130,6 +134,7 @@ class RefreshSpinner : UIView
         var displayCount = _displaySpokeCount
         if _isLoading { displayCount = spokeCount }
         
+<<<<<<< HEAD
         let darkIndex1 = _loadAnimationStartIndex
         var darkIndex2 = _loadAnimationStartIndex - 1
         var darkIndex3 = _loadAnimationStartIndex - 2
@@ -139,8 +144,9 @@ class RefreshSpinner : UIView
         if darkIndex3 < 0 { darkIndex3 += spokeCount }
         if darkIndex4 < 0 { darkIndex4 += spokeCount }
         
+=======
+>>>>>>> origin/master
         for i in 0..<displayCount {
-            
             let percent = CGFloat(i) / CGFloat(spokeCount)
             var rot = percent * Math.PI2 + startRotation
             if rot > Math.PI2 {
@@ -149,11 +155,8 @@ class RefreshSpinner : UIView
             
             let dir = CGPoint(x: sin(rot), y: -cos(rot))
             
-            let p0 = CGPoint(x: center.x + dir.x * spokeInnerRadius,
-                             y: center.y + dir.y * spokeInnerRadius)
-            
-            let p1 = CGPoint(x: center.x + dir.x * spokeOuterRadius,
-                             y: center.y + dir.y * spokeOuterRadius)
+            let p0 = CGPoint(x: center.x + dir.x * spokeInnerRadius, y: center.y + dir.y * spokeInnerRadius)
+            let p1 = CGPoint(x: center.x + dir.x * spokeOuterRadius, y: center.y + dir.y * spokeOuterRadius)
             
             let path = UIBezierPath()
             path.addArc(withCenter: p1, radius: thickness / 2.0, startAngle: rot + Math.PI, endAngle: rot, clockwise: true)
@@ -161,6 +164,7 @@ class RefreshSpinner : UIView
             path.close()
             
             context.addPath(path.cgPath)
+<<<<<<< HEAD
             
             if _isLoading {
                 if i == darkIndex1 { context.setFillColor(colorDark1.cgColor) }
@@ -172,6 +176,11 @@ class RefreshSpinner : UIView
                 context.setFillColor(colorRegular.cgColor)
             }
             context.fillPath()
+=======
+            context.setFillColor(UIColor(red: 0.68, green: 0.68, blue: 0.68, alpha: 0.87).cgColor)
+            context.fillPath()
+            
+>>>>>>> origin/master
         }
         context.restoreGState()
     }

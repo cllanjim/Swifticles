@@ -29,8 +29,8 @@ class EdmundsInfoFetcher : JSONFetcher
     }
     
     func fetch(make: EdmundsMake, model: EdmundsModel, year: EdmundsYear) {
-        
-        
+        let url = "http://api.edmunds.com/api/vehicle/v2/\(make.name.urlEncode)/\(model.name.urlEncode)/\(year.year)?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a"
+        fetch(url)
     }
     
     override func parse(data: Any) -> Bool {

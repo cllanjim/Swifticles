@@ -178,6 +178,7 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView.contentOffset.y <= 0.0 {
+<<<<<<< HEAD
             
             var offset:CGFloat = -scrollView.contentOffset.y
             var percent = offset / 120.0
@@ -187,6 +188,10 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
                 refreshSpinner?.isLoading = true
             }
             
+=======
+            var percent = (-scrollView.contentOffset.y) / 98.0
+            if percent > 1.0 { percent = 1.0 }
+>>>>>>> origin/master
             refreshSpinner?.revealPercent = percent
         } else {
             

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D48FF571DA7709D00B56F84 /* String+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D48FF561DA7709D00B56F84 /* String+URL.swift */; };
 		0D9CE4681DA220BC0011B012 /* fair_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CE45F1DA220BC0011B012 /* fair_logo.png */; };
 		0D9CE4691DA220BC0011B012 /* home_button_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CE4601DA220BC0011B012 /* home_button_cancel.png */; };
 		0D9CE46A1DA220BC0011B012 /* home_button_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CE4611DA220BC0011B012 /* home_button_search.png */; };
@@ -80,6 +81,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D48FF561DA7709D00B56F84 /* String+URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URL.swift"; sourceTree = "<group>"; };
 		0D9CE45F1DA220BC0011B012 /* fair_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fair_logo.png; sourceTree = "<group>"; };
 		0D9CE4601DA220BC0011B012 /* home_button_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_button_cancel.png; sourceTree = "<group>"; };
 		0D9CE4611DA220BC0011B012 /* home_button_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_button_search.png; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				C2713AF41DA7036900BB2B05 /* Generic Data Models */,
 				C2713AF71DA7036900BB2B05 /* Net */,
 				C2713AFF1DA7036900BB2B05 /* WebCommon.swift */,
+				0D48FF561DA7709D00B56F84 /* String+URL.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				C2713B2A1DA7036900BB2B05 /* HomePageSearchResults.swift in Sources */,
 				C2713B121DA7036900BB2B05 /* ApplicationController.swift in Sources */,
 				C2713B281DA7036900BB2B05 /* YearPageCell.swift in Sources */,
+				0D48FF571DA7709D00B56F84 /* String+URL.swift in Sources */,
 				C2713B0E1DA7036900BB2B05 /* ModelPickerPage.swift in Sources */,
 				C2713B1A1DA7036900BB2B05 /* ImageSet.swift in Sources */,
 				C2713B1D1DA7036900BB2B05 /* EdmundsMakesFetcher.swift in Sources */,
