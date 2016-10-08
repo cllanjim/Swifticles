@@ -334,6 +334,7 @@
                         <outlet property="searchResults" destination="tL1-Y2-V2Q" id="KW8-wF-Ldk"/>
                         <segue destination="NXu-Gf-5Cy" kind="show" identifier="year_picker" id="rq5-Fo-TgA"/>
                         <segue destination="rIh-mc-W1Q" kind="show" identifier="model_picker" id="rWb-ey-nBS"/>
+                        <segue destination="ttj-iS-8DH" kind="show" identifier="alt_model_picker" id="hcn-Ki-eyf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vuB-ft-CTe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -476,7 +477,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LSb-nl-3ia" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="-404"/>
+            <point key="canvasLocation" x="1662" y="-404"/>
         </scene>
         <!--Vehicle Info Page-->
         <scene sceneID="gNx-Zy-omz">
@@ -538,7 +539,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="model_cell" id="uRf-i4-z6d" customClass="ModelPageCell" customModule="CarSale" customModuleProvider="target">
-                                                <rect key="frame" x="76" y="12" width="223" height="201"/>
+                                                <rect key="frame" x="12" y="12" width="223" height="201"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="223" height="201"/>
@@ -633,7 +634,67 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uyq-tv-6fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="872.79999999999995" y="369.26536731634184"/>
+            <point key="canvasLocation" x="873" y="391"/>
+        </scene>
+        <!--Alt Model Picker Page-->
+        <scene sceneID="MWr-sc-ppK">
+            <objects>
+                <viewController id="ttj-iS-8DH" customClass="AltModelPickerPage" customModule="CarSale" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hlG-Z9-9SO"/>
+                        <viewControllerLayoutGuide type="bottom" id="xTi-AQ-vfb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cWd-dF-eUx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yIT-Hh-dmG">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="model_cell" rowHeight="81" id="tOs-de-rcG" customClass="ModelTableCell" customModule="CarSale" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="81"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tOs-de-rcG" id="4xd-7x-zCQ">
+                                            <frame key="frameInset" width="375" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHR-SV-cYI">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="42" id="maR-Gv-awn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VHR-SV-cYI" firstAttribute="leading" secondItem="4xd-7x-zCQ" secondAttribute="leadingMargin" id="IRR-6m-2bW"/>
+                                                <constraint firstItem="VHR-SV-cYI" firstAttribute="trailing" secondItem="4xd-7x-zCQ" secondAttribute="trailingMargin" id="RD9-ML-DuS"/>
+                                                <constraint firstItem="VHR-SV-cYI" firstAttribute="centerY" secondItem="4xd-7x-zCQ" secondAttribute="centerY" id="yJt-Cz-Hk2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="VHR-SV-cYI" id="0jS-Rl-Pda"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yIT-Hh-dmG" firstAttribute="top" secondItem="cWd-dF-eUx" secondAttribute="top" id="3xQ-xD-fEm"/>
+                            <constraint firstAttribute="trailing" secondItem="yIT-Hh-dmG" secondAttribute="trailing" id="M4L-pL-6ET"/>
+                            <constraint firstItem="xTi-AQ-vfb" firstAttribute="top" secondItem="yIT-Hh-dmG" secondAttribute="bottom" id="qBH-MK-A3Q"/>
+                            <constraint firstItem="yIT-Hh-dmG" firstAttribute="leading" secondItem="cWd-dF-eUx" secondAttribute="leading" id="vTF-Il-pYm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="yIT-Hh-dmG" id="fAK-lG-FuY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tVC-gl-UzN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1632.8" y="338.68065967016497"/>
         </scene>
     </scenes>
     <resources>
@@ -647,6 +708,6 @@
         <image name="tag_icon_3_dark.png" width="140" height="140"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rq5-Fo-TgA"/>
+        <segue reference="EPL-8N-8cK"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -173,7 +173,9 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
     @IBAction func clickMakeCell(_ button:CellHighlightButton) {
         if let cell = button.superview?.superview as? HomePageMakeCell {
             selectedMake = cell.make
-            performSegue(withIdentifier: "model_picker", sender: nil)
+            //performSegue(withIdentifier: "model_picker", sender: nil)
+            performSegue(withIdentifier: "alt_model_picker", sender: nil)
+            
         }
     }
     
@@ -188,6 +190,14 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
         
         if segue.identifier == "model_picker" {
             if let modelPicker = segue.destination as? ModelPickerPage {
+                modelPicker.navigationItem.title = selectedMake!.name
+                modelPicker.imageSets = imageSets
+                modelPicker.make = selectedMake!
+            }
+        }
+        
+        if segue.identifier == "alt_model_picker" {
+            if let modelPicker = segue.destination as? AltModelPickerPage {
                 modelPicker.navigationItem.title = selectedMake!.name
                 modelPicker.imageSets = imageSets
                 modelPicker.make = selectedMake!

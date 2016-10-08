@@ -42,6 +42,10 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
         
         updateTimer?.invalidate()
         updateTimer = Timer.scheduledTimer(timeInterval: 1.0/60.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        
+        if updateTimer != nil {
+            RunLoop.main.add(updateTimer!, forMode: RunLoopMode.commonModes)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,8 +82,9 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func update() {
-        
         pullThumb()
+        
+        refreshSpinner?.update()
     }
     
     func pullThumb() -> Void {
@@ -176,16 +181,13 @@ class ThumbCollectionPage : UIViewController, UICollectionViewDelegateFlowLayout
             
             var offset:CGFloat = -scrollView.contentOffset.y
             var percent = offset / 120.0
-            if percent > 1.0 { percent = 1.0 }
+            if percent >= 1.0
+            {
+                percent = 1.0
+                refreshSpinner?.isLoading = true
+            }
             
             refreshSpinner?.revealPercent = percent
-            
-            //print("CONTENT OFFSET = \(scrollView.contentOffset.y)")
-            print("SPINNR PURCANT = \(percent)")
-            
-            
-            
-            
         } else {
             
         }
