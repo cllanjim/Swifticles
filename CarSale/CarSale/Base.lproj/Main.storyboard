@@ -333,7 +333,6 @@
                         <outlet property="refreshSpinner" destination="g8j-82-Og9" id="uvh-91-9M6"/>
                         <outlet property="searchResults" destination="tL1-Y2-V2Q" id="KW8-wF-Ldk"/>
                         <segue destination="NXu-Gf-5Cy" kind="show" identifier="year_picker" id="rq5-Fo-TgA"/>
-                        <segue destination="rIh-mc-W1Q" kind="show" identifier="model_picker" id="rWb-ey-nBS"/>
                         <segue destination="ttj-iS-8DH" kind="show" identifier="alt_model_picker" id="hcn-Ki-eyf"/>
                     </connections>
                 </viewController>
@@ -477,7 +476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LSb-nl-3ia" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1662" y="-404"/>
+            <point key="canvasLocation" x="1665" y="-404"/>
         </scene>
         <!--Vehicle Info Page-->
         <scene sceneID="gNx-Zy-omz">
@@ -495,7 +494,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJP-W3-jY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2455" y="-404"/>
+            <point key="canvasLocation" x="2474" y="-404"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9YR-Rr-U6o">
@@ -539,7 +538,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="model_cell" id="uRf-i4-z6d" customClass="ModelPageCell" customModule="CarSale" customModuleProvider="target">
-                                                <rect key="frame" x="12" y="12" width="223" height="201"/>
+                                                <rect key="frame" x="76" y="12" width="223" height="201"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="223" height="201"/>
@@ -629,12 +628,11 @@
                     <connections>
                         <outlet property="collectionView" destination="d4f-mO-XLT" id="tvx-wx-dgA"/>
                         <outlet property="mainContainer" destination="jt6-b9-t4y" id="Qw0-sr-A5H"/>
-                        <segue destination="NXu-Gf-5Cy" kind="show" identifier="model_year_picker" id="EPL-8N-8cK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uyq-tv-6fW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="873" y="391"/>
+            <point key="canvasLocation" x="79" y="675"/>
         </scene>
         <!--Alt Model Picker Page-->
         <scene sceneID="MWr-sc-ppK">
@@ -679,22 +677,43 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zpS-6d-Alc">
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DGi-GC-myp"/>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="DGi-GC-myp" secondAttribute="trailing" id="AlE-Mh-aYp"/>
+                                    <constraint firstItem="DGi-GC-myp" firstAttribute="leading" secondItem="zpS-6d-Alc" secondAttribute="leading" id="DU9-ka-Cgl"/>
+                                    <constraint firstAttribute="bottom" secondItem="DGi-GC-myp" secondAttribute="bottom" id="ISU-Iv-uVD"/>
+                                    <constraint firstItem="DGi-GC-myp" firstAttribute="top" secondItem="zpS-6d-Alc" secondAttribute="top" id="JEV-r6-tie"/>
+                                    <constraint firstAttribute="height" constant="151" id="NKy-yg-Cf6"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="zpS-6d-Alc" firstAttribute="leading" secondItem="cWd-dF-eUx" secondAttribute="leading" id="2n9-c9-VXr"/>
                             <constraint firstItem="yIT-Hh-dmG" firstAttribute="top" secondItem="cWd-dF-eUx" secondAttribute="top" id="3xQ-xD-fEm"/>
+                            <constraint firstAttribute="trailing" secondItem="zpS-6d-Alc" secondAttribute="trailing" id="Kf3-gi-DLm"/>
                             <constraint firstAttribute="trailing" secondItem="yIT-Hh-dmG" secondAttribute="trailing" id="M4L-pL-6ET"/>
+                            <constraint firstItem="zpS-6d-Alc" firstAttribute="top" secondItem="cWd-dF-eUx" secondAttribute="top" id="The-4j-spq"/>
                             <constraint firstItem="xTi-AQ-vfb" firstAttribute="top" secondItem="yIT-Hh-dmG" secondAttribute="bottom" id="qBH-MK-A3Q"/>
                             <constraint firstItem="yIT-Hh-dmG" firstAttribute="leading" secondItem="cWd-dF-eUx" secondAttribute="leading" id="vTF-Il-pYm"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="stickyHeader" destination="zpS-6d-Alc" id="SpR-Hk-eyo"/>
+                        <outlet property="stickyHeaderHeightConstraint" destination="NKy-yg-Cf6" id="fSs-lc-sGQ"/>
+                        <outlet property="stickyHeaderImageView" destination="DGi-GC-myp" id="kun-TO-hHn"/>
+                        <outlet property="stickyHeaderTopConstraint" destination="The-4j-spq" id="t9N-TN-vX3"/>
                         <outlet property="tableView" destination="yIT-Hh-dmG" id="fAK-lG-FuY"/>
+                        <segue destination="NXu-Gf-5Cy" kind="show" identifier="model_year_picker" id="UOH-73-Njd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tVC-gl-UzN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1632.8" y="338.68065967016497"/>
+            <point key="canvasLocation" x="872.79999999999995" y="312.59370314842579"/>
         </scene>
     </scenes>
     <resources>
@@ -708,6 +727,6 @@
         <image name="tag_icon_3_dark.png" width="140" height="140"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EPL-8N-8cK"/>
+        <segue reference="UOH-73-Njd"/>
     </inferredMetricsTieBreakers>
 </document>

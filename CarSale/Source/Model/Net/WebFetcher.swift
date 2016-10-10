@@ -27,7 +27,6 @@ class WebFetcher : NSObject, URLSessionDelegate
     private var sessionTask: URLSession?
     private var sessionDataTask: URLSessionDataTask?
     
-    
     func clear() {
         sessionDataTask?.cancel()
         sessionDataTask = nil
@@ -59,7 +58,7 @@ class WebFetcher : NSObject, URLSessionDelegate
         }
         
         print("fetch(\"\(urlString!)\")")
-
+        
         //Sanity check.
         guard let url = URL(string: urlString!) else {
             fail(result: .invalid)

@@ -22,7 +22,10 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     
     weak var selectedMake: EdmundsMake?
+    weak var selectedMakeThumb: UIImage?
+    
     weak var selectedModel: EdmundsModel?
+    
     
     var searchMode:Bool = false {
         didSet {
@@ -69,6 +72,11 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
         super.viewWillAppear(animated)
         
         ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -173,6 +181,7 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
     @IBAction func clickMakeCell(_ button:CellHighlightButton) {
         if let cell = button.superview?.superview as? HomePageMakeCell {
             selectedMake = cell.make
+            selectedMakeThumb = cell.imageView?.image
             //performSegue(withIdentifier: "model_picker", sender: nil)
             performSegue(withIdentifier: "alt_model_picker", sender: nil)
             
@@ -187,7 +196,6 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
                 yearPicker.imageSets = imageSets
             }
         }
-        
         if segue.identifier == "model_picker" {
             if let modelPicker = segue.destination as? ModelPickerPage {
                 modelPicker.navigationItem.title = selectedMake!.name
@@ -195,12 +203,12 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
                 modelPicker.make = selectedMake!
             }
         }
-        
         if segue.identifier == "alt_model_picker" {
             if let modelPicker = segue.destination as? AltModelPickerPage {
                 modelPicker.navigationItem.title = selectedMake!.name
                 modelPicker.imageSets = imageSets
                 modelPicker.make = selectedMake!
+                modelPicker.headerImage = selectedMakeThumb
             }
         }
     }

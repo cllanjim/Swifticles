@@ -41,6 +41,9 @@ class HomePageSearchResults : UIView, UITableViewDelegate, UITableViewDataSource
     
     func reset() {
         updateSearchText(text: "")
+        
+        blurEffectView.removeFromSuperview()
+        blurEffectView.effect = nil
     }
     
     func animateIn() {

@@ -20,6 +20,9 @@ import UIKit
 
 class VehicleInfoPage : UIViewController, WebFetcherDelegate
 {
+    
+    var styles = [EdmundsStyle]()
+    
     weak var make: EdmundsMake?
     weak var model: EdmundsModel?
     weak var year: EdmundsYear?
@@ -36,16 +39,16 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
         print("MODEL = \(model.name)")
         print("YEAR = \(year.year)")
         
-        infoFetcher.fetch(make: make, model: model, year: year)
+        styleFetcher.fetch(make: make, model: model, year: year)
     }
     
-    private var _infoFetcher: EdmundsInfoFetcher?
-    var infoFetcher: EdmundsInfoFetcher {
-        if _infoFetcher == nil {
-            _infoFetcher = EdmundsInfoFetcher()
-            _infoFetcher!.delegate = self
+    private var _styleFetcher: EdmundsStyleFetcher?
+    var styleFetcher: EdmundsStyleFetcher {
+        if _styleFetcher == nil {
+            _styleFetcher = EdmundsStyleFetcher()
+            _styleFetcher!.delegate = self
         }
-        return _infoFetcher!
+        return _styleFetcher!
     }
     var makes = [EdmundsMake]()
     var models = [EdmundsModel]()
@@ -77,8 +80,13 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
     
     func fetchDidSucceed(fetcher: WebFetcher, result: WebResult) {
         
-        
-        
+        if fetcher === styleFetcher {
+            
+            styles = styleFetcher.styles
+            styleFetcher.clear()
+            
+            print(styles)
+        }
     }
     
     func fetchDidFail(fetcher: WebFetcher, result: WebResult) {
