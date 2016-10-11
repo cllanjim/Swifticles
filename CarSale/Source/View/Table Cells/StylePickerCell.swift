@@ -1,14 +1,15 @@
 //
-//  SpecCell.swift
+//  StylePickerCell.swift
 //  CarSale
 //
-//  Created by Raptis, Nicholas on 10/10/16.
+//  Created by Nicholas Raptis on 10/10/16.
 //  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
+
 import UIKit
 
-class SpecCell : UITableViewCell
+class StylePickerCell : UITableViewCell
 {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
@@ -34,3 +35,6 @@ class SpecCell : UITableViewCell
     }
     
 }
+
+
+

@@ -18,11 +18,12 @@ import UIKit
 enum InfoSection : UInt32 { case dealer = 0, spec = 1 }
 
 
-class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate
+class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, StylePickerDelegate
 {
     @IBOutlet weak var stylePicker: StylePicker! {
         didSet {
-            
+            stylePicker.infoPage = self
+            stylePicker.delegate = self
         }
     }
     
@@ -50,6 +51,11 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
     
     @IBOutlet weak var stickyHeaderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var stickyHeaderTopConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var stylePickerLeftConstraint: NSLayoutConstraint!
+    
+    var sideExpanded: Bool = true
     
     
     var styles = [EdmundsStyle]()
@@ -104,6 +110,8 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
             styles = styleFetcher.styles
             styleFetcher.clear()
             print(styles)
+            
+            stylePicker.setUp(withInfoPage: self)
         }
     }
     
@@ -119,6 +127,10 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         cell.reset()
         //cell.titleLabel.text = model.name
         return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 240.0
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int
@@ -140,7 +152,6 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        
         return headerHeight
     }
     
@@ -167,6 +178,44 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         }
         stickyHeaderTopConstraint.constant = y
         stickyHeaderHeightConstraint.constant = height
+    }
+    
+    func didPickStyle(picker: StylePicker, style: EdmundsStyle) {
+        
+    }
+    
+    @IBAction func clickSideExpand(_ sender: UIButton) {
+        
+        if sideExpanded == false {
+            
+            
+            sideExpanded = true
+            stylePickerLeftConstraint.constant = 0
+            view.setNeedsUpdateConstraints()
+            view.superview?.setNeedsUpdateConstraints()
+            UIView.animate(withDuration: 0.4, animations: {
+                [weak weakSelf = self] in
+                weakSelf?.view.superview?.layoutIfNeeded()
+                }, completion: nil)
+            
+            
+        } else {
+            
+            sideExpanded = false
+            stylePickerLeftConstraint.constant = -100.0
+            view.setNeedsUpdateConstraints()
+            view.superview?.setNeedsUpdateConstraints()
+            UIView.animate(withDuration: 0.4, animations: {
+                [weak weakSelf = self] in
+                weakSelf?.view.superview?.layoutIfNeeded()
+                }, completion: nil)
+            
+        }
+        
+        //@IBOutlet weak var stylePickerLeftConstraint: NSLayoutConstraint!
+        //var sideExpanded: Bool = false
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
