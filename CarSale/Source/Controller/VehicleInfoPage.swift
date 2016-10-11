@@ -8,8 +8,6 @@
 
 import UIKit
 
-//Unforunately there is no free image apis available for cars, but luckily we can use truecar's image urls for our demo needs, here are some sample urls:
-
 //https://a.tcimg.net/v/model_images/v1/2014/gmc/acadia/all/190x97/side
 //https://a.tcimg.net/v/model_images/v1/2014/gmc/acadia/all/190x97/f3q
 //https://a.tcimg.net/v/model_images/v1/2017/gmc/acadia-limited/all/360x185/side
@@ -17,9 +15,42 @@ import UIKit
 
 //Plug in the correct year / make / model / trim with data from the edmunds api, and the urls will return an image if there are matchs, or a placeholder image if nothing is there. Don't worry too much about accuracy here, as long as your app demonstrates that it can pull atleast some images correctly.
 
+enum InfoSection : UInt32 { case dealer = 0, spec = 1 }
 
-class VehicleInfoPage : UIViewController, WebFetcherDelegate
+
+class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate
 {
+    @IBOutlet weak var stylePicker: StylePicker! {
+        didSet {
+            
+        }
+    }
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView!.delegate = self
+            tableView!.dataSource = self
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
+        adjustStickyHeader()
+    }
+    
+    
+    //weak var
+    private var _header: PlaceholderTableHeader?
+    private var headerHeight: CGFloat = 150.0
+    
+    @IBOutlet weak var stickyHeaderHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stickyHeaderTopConstraint: NSLayoutConstraint!
+    
     
     var styles = [EdmundsStyle]()
     
@@ -55,20 +86,9 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //infoFetcher.fetchAllMakes()
-        
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -81,16 +101,72 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate
     func fetchDidSucceed(fetcher: WebFetcher, result: WebResult) {
         
         if fetcher === styleFetcher {
-            
             styles = styleFetcher.styles
             styleFetcher.clear()
-            
             print(styles)
         }
     }
     
     func fetchDidFail(fetcher: WebFetcher, result: WebResult) {
         
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = self.tableView!.dequeueReusableCell(withIdentifier: "locate_dealer_cell", for: indexPath) as! LocateDealerCell
+        
+        //let model = make.models[indexPath.row]
+        cell.reset()
+        //cell.titleLabel.text = model.name
+        return cell
+    }
+    
+    public func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //let model = make.models[indexPath.row]
+        //selectedModel = model
+        //performSegue(withIdentifier: "model_year_picker", sender: nil)
+        
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        
+        return headerHeight
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        if _header == nil {
+            _header = PlaceholderTableHeader(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: headerHeight))
+        }
+        return _header
+    }
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        adjustStickyHeader()
+    }
+    
+    func adjustStickyHeader() {
+        let offsetY = tableView.contentOffset.y
+        let insetTop = tableView.contentInset.top
+        var y = -offsetY
+        var height = headerHeight
+        if y > insetTop {
+            height += (y - insetTop)
+            y = insetTop
+        }
+        stickyHeaderTopConstraint.constant = y
+        stickyHeaderHeightConstraint.constant = height
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

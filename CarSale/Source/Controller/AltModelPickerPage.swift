@@ -35,7 +35,7 @@ class AltModelPickerPage : UIViewController, UITableViewDelegate, UITableViewDat
     
     
     //weak var
-    private var _header: AltModelPickerTableHeader?
+    private var _header: PlaceholderTableHeader?
     private var headerHeight: CGFloat = 150.0
     
     weak var selectedModel: EdmundsModel?
@@ -112,7 +112,6 @@ class AltModelPickerPage : UIViewController, UITableViewDelegate, UITableViewDat
             height += (y - insetTop)
             y = insetTop
         }
-        
         stickyHeaderTopConstraint.constant = y
         stickyHeaderHeightConstraint.constant = height
     }
@@ -125,8 +124,7 @@ class AltModelPickerPage : UIViewController, UITableViewDelegate, UITableViewDat
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         if _header == nil {
-            _header = AltModelPickerTableHeader(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: headerHeight))
-            _header?.backgroundColor = UIColor.clear
+            _header = PlaceholderTableHeader(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: headerHeight))
         }
         return _header
     }

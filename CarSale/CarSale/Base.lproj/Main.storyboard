@@ -236,7 +236,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="is9-GM-hqH" id="EdI-IT-xGi">
-                                                            <frame key="frameInset" width="375" height="55.5"/>
+                                                            <frame key="frameInset" width="375" height="56"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-HO-bwM">
@@ -364,7 +364,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="year_cell" id="XjQ-OA-KPn" customClass="YearPageCell" customModule="CarSale" customModuleProvider="target">
-                                                <rect key="frame" x="76" y="12" width="223" height="201"/>
+                                                <rect key="frame" x="12" y="12" width="223" height="201"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="223" height="201"/>
@@ -489,12 +489,89 @@
                     <view key="view" contentMode="scaleToFill" id="HQ3-Zd-jAr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7FO-0w-ug9" customClass="StylePicker" customModule="CarSale" customModuleProvider="target">
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="132" id="x8n-t3-ZYv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jeq-qt-RId">
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rock" translatesAutoresizingMaskIntoConstraints="NO" id="AF0-bS-WO5">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="AF0-bS-WO5" secondAttribute="height" multiplier="1:1" id="mB8-z3-Owt"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.36472315436241581" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="AF0-bS-WO5" firstAttribute="centerY" secondItem="Jeq-qt-RId" secondAttribute="centerY" id="IYn-W3-cM6"/>
+                                    <constraint firstItem="AF0-bS-WO5" firstAttribute="height" secondItem="Jeq-qt-RId" secondAttribute="height" id="OpM-gG-edV"/>
+                                    <constraint firstAttribute="height" constant="126" id="PeK-gj-xzA"/>
+                                    <constraint firstItem="AF0-bS-WO5" firstAttribute="centerX" secondItem="Jeq-qt-RId" secondAttribute="centerX" id="n2O-mT-5PH"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3aX-o1-Dw2">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="locate_dealer_cell" rowHeight="160" id="ZK2-BT-CHq" customClass="LocateDealerCell" customModule="CarSale" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="243" height="160"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZK2-BT-CHq" id="iIk-jh-jNr">
+                                            <frame key="frameInset" width="243" height="159"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vou-PB-BwY">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="A6T-Wv-TFg"/>
+                                                        <constraint firstAttribute="width" constant="84" id="wrn-57-2Xg"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Dealer Info"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vou-PB-BwY" firstAttribute="trailing" secondItem="iIk-jh-jNr" secondAttribute="trailingMargin" id="gkh-ka-7Se"/>
+                                                <constraint firstItem="vou-PB-BwY" firstAttribute="centerY" secondItem="iIk-jh-jNr" secondAttribute="centerY" id="pdP-La-FZG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="MfJ-bG-mk9">
+                                        <rect key="frame" x="0.0" y="188" width="243" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MfJ-bG-mk9" id="7Ws-aW-GYz">
+                                            <frame key="frameInset" width="243" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3aX-o1-Dw2" secondAttribute="trailing" id="9CH-xB-OOi"/>
+                            <constraint firstItem="7FO-0w-ug9" firstAttribute="leading" secondItem="HQ3-Zd-jAr" secondAttribute="leading" id="9fD-Uj-B10"/>
+                            <constraint firstAttribute="trailing" secondItem="Jeq-qt-RId" secondAttribute="trailing" id="DzZ-Sw-pQG"/>
+                            <constraint firstItem="39l-L1-56e" firstAttribute="top" secondItem="7FO-0w-ug9" secondAttribute="bottom" id="Lgx-dP-Rxo"/>
+                            <constraint firstItem="Jeq-qt-RId" firstAttribute="top" secondItem="HQ3-Zd-jAr" secondAttribute="top" id="M5I-FR-hxP"/>
+                            <constraint firstItem="3aX-o1-Dw2" firstAttribute="top" secondItem="HQ3-Zd-jAr" secondAttribute="top" id="Sfe-iB-7EH"/>
+                            <constraint firstItem="Jeq-qt-RId" firstAttribute="leading" secondItem="7FO-0w-ug9" secondAttribute="trailing" id="ami-V5-1HW"/>
+                            <constraint firstItem="3aX-o1-Dw2" firstAttribute="leading" secondItem="7FO-0w-ug9" secondAttribute="trailing" id="bgv-Ny-bZV"/>
+                            <constraint firstItem="7FO-0w-ug9" firstAttribute="top" secondItem="HQ3-Zd-jAr" secondAttribute="top" id="lWj-Hx-lqn"/>
+                            <constraint firstItem="39l-L1-56e" firstAttribute="top" secondItem="3aX-o1-Dw2" secondAttribute="bottom" id="vGA-fd-s6z"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="stickyHeaderHeightConstraint" destination="PeK-gj-xzA" id="4Vj-KB-1pc"/>
+                        <outlet property="stickyHeaderTopConstraint" destination="M5I-FR-hxP" id="IIM-OL-BSC"/>
+                        <outlet property="stylePicker" destination="7FO-0w-ug9" id="mpV-tu-USd"/>
+                        <outlet property="tableView" destination="3aX-o1-Dw2" id="25D-4p-syF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJP-W3-jY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2474" y="-404"/>
+            <point key="canvasLocation" x="2472.8000000000002" y="-404.34782608695656"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9YR-Rr-U6o">
@@ -653,7 +730,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tOs-de-rcG" id="4xd-7x-zCQ">
-                                            <frame key="frameInset" width="375" height="80"/>
+                                            <frame key="frameInset" width="375" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHR-SV-cYI">
@@ -720,6 +797,7 @@
         <image name="fair_logo.png" width="768" height="256"/>
         <image name="home_button_cancel.png" width="512" height="256"/>
         <image name="home_button_search.png" width="512" height="256"/>
+        <image name="rock" width="256" height="256"/>
         <image name="shadow_bottom" width="8" height="8"/>
         <image name="tag_icon_1.png" width="140" height="140"/>
         <image name="tag_icon_2.png" width="140" height="140"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AltModelPickerTableHeader : UIView
+class PlaceholderTableHeader : UIView
 {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,7 @@ class AltModelPickerTableHeader : UIView
         super.init(coder: aDecoder)
         setUp()
     }
-
+    
     func setUp() {
         backgroundColor = UIColor.clear
         isUserInteractionEnabled = false

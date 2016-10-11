@@ -182,9 +182,7 @@ class HomePage : ThumbCollectionPage, WebFetcherDelegate
         if let cell = button.superview?.superview as? HomePageMakeCell {
             selectedMake = cell.make
             selectedMakeThumb = cell.imageView?.image
-            //performSegue(withIdentifier: "model_picker", sender: nil)
             performSegue(withIdentifier: "alt_model_picker", sender: nil)
-            
         }
     }
     
