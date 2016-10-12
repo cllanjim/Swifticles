@@ -1,14 +1,14 @@
 //
-//  EdmundsStyleDetailFetcher.swift
+//  EdmundsDealerFetcher.swift
 //  CarSale
 //
-//  Created by Raptis, Nicholas on 10/11/16.
+//  Created by Nicholas Raptis on 10/12/16.
 //  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
 import Foundation
 
-class EdmundsStyleDetailFetcher : JSONFetcher
+class EdmundsDealerFetcher : JSONFetcher
 {
     var styleDetail: EdmundsStyleExtended?
     
@@ -17,8 +17,10 @@ class EdmundsStyleDetailFetcher : JSONFetcher
         styleDetail = nil
     }
     
-    func fetch(style: EdmundsStyle) {
-        let url = "https://api.edmunds.com/api/vehicle/v2/styles/\(style.id)?view=full&fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a"
+    func fetch(withZip zip: Int, make: EdmundsStyle) {
+        let url = "https://api.edmunds.com/api/dealer/v2/franchises?zipcode=\(zip)&make=\(make.name.urlEncode)&api_key=yfwsqhj7ymscvt5sxh32f68a"
+        
+        //"https://api.edmunds.com/api/vehicle/v2/styles/\(style.id)?view=full&fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a"
         fetch(url)
     }
     
@@ -40,9 +42,4 @@ class EdmundsStyleDetailFetcher : JSONFetcher
         return false
     }
 }
-
-
-
-
-
 

@@ -40,7 +40,7 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
         adjustStickyHeader()
         
-        spoofLoad()
+        //spoofLoad()
     }
     
     var sections = [TableSection]()
@@ -61,6 +61,8 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         
         setUp(withMake: _make, model: _model, year: _year)
     }
+    
+    //90069
     
     //weak var
     private var _header: PlaceholderTableHeader?
