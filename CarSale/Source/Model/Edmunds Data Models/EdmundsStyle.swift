@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EdmundsStyle
+class EdmundsStyle : NSObject
 {
     var id: Int = -1
     var index: Int = 0

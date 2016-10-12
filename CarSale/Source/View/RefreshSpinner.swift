@@ -25,13 +25,11 @@ class RefreshSpinner : UIView
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
     }
     
-    
     private let colorRegular = UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 0.8)
     private let colorDark1 = UIColor(red: 0.62 * 0.6, green: 0.62 * 0.6, blue: 0.62 * 0.6, alpha: 0.8)
     private let colorDark2 = UIColor(red: 0.62 * 0.7, green: 0.62 * 0.7, blue: 0.62 * 0.7, alpha: 0.8)
     private let colorDark3 = UIColor(red: 0.62 * 0.8, green: 0.62 * 0.8, blue: 0.62 * 0.8, alpha: 0.8)
     private let colorDark4 = UIColor(red: 0.62 * 0.9, green: 0.62 * 0.9, blue: 0.62 * 0.9, alpha: 0.8)
-    
     
     private var _revealPercent: CGFloat = 0.0
     var revealPercent: CGFloat {

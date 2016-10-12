@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EdmundsYear
+class EdmundsYear : NSObject
 {
     var id: Int = -1
     var index: Int = 0

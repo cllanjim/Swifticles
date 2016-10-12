@@ -17,7 +17,6 @@ protocol StylePickerDelegate
 class StylePicker : UIView, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate
 {
     var delegate: StylePickerDelegate?
-    
     var infoPage: VehicleInfoPage?
     
     @IBOutlet weak var tableView: UITableView! {
@@ -31,23 +30,22 @@ class StylePicker : UIView, UITableViewDelegate, UITableViewDataSource, UIScroll
     private var _header: PlaceholderTableHeader?
     private var headerHeight: CGFloat = 44.0
     
-    //var styles = [EdmundsStyle]()
-    
-    
     func setUp(withInfoPage info: VehicleInfoPage) {
         infoPage = info
         tableView.reloadData()
+        
+        if info.styles.count > 0 {
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
+            tableView(tableView, didSelectRowAt: indexPath)
+        }
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = self.tableView!.dequeueReusableCell(withIdentifier: "style_pick", for: indexPath) as! StylePickerCell
-        
         let style = infoPage!.styles[indexPath.row]
-        
         cell.reset()
-        cell.titleLabel.text = style.trim
-        
+        cell.titleLabel.text = style.name
         return cell
     }
     
@@ -61,7 +59,6 @@ class StylePicker : UIView, UITableViewDelegate, UITableViewDataSource, UIScroll
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if let count = infoPage?.styles.count {
             return count
         }
@@ -69,27 +66,23 @@ class StylePicker : UIView, UITableViewDelegate, UITableViewDataSource, UIScroll
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let style = infoPage!.styles[indexPath.row]
-        
-        
-        //let model = make.models[indexPath.row]
-        //selectedModel = model
-        //performSegue(withIdentifier: "model_year_picker", sender: nil)
-        
+        delegate?.didPickStyle(picker: self, style: style)
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        
         return headerHeight
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        return nil
+        if _header === nil {
+            _header = PlaceholderTableHeader()
+            _header?.backgroundColor = UIColor.clear
+        }
+        return _header
     }
-    
 }
 
 

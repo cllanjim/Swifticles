@@ -8,8 +8,8 @@
 
 import Foundation
 
-class EdmundsModel {
-    
+class EdmundsModel : NSObject
+{
     var id: String = ""
     var index: Int = 0
     

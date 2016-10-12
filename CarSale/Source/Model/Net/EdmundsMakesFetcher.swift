@@ -14,9 +14,7 @@ import Foundation
 //https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a
 //http://api.edmunds.com/api/vehicle/v2/lexus/models?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a&callback=myFunction
 //https://api.edmunds.com/api/vehicle/v2/makes?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a&state=new&view=full
-
 //http://api.edmunds.com/api/vehicle/v2/chevrolet/camaro/2017?fmt=json&api_key=yfwsqhj7ymscvt5sxh32f68a
-
 //http://www.froggystudios.com/bounce/fetch_scene_list.php
 
 class EdmundsMakesFetcher : JSONFetcher

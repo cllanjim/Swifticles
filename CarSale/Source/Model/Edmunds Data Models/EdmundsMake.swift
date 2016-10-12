@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EdmundsMake
+class EdmundsMake : NSObject
 {
     var id: Int = -1
     var index: Int = 0

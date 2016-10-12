@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class EdmundsSubmodel
+class EdmundsSubmodel : NSObject
 {
     var id: Int = -1
     var body: String = ""

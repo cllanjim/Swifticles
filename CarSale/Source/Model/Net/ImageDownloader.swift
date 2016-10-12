@@ -8,6 +8,9 @@
 
 import UIKit
 
+//This should be converted into a notification, all kinds of
+//shit wants to listen to the image downloader. Caching, thumbs,
+//different pages in background and foreground..
 protocol ImageDownloaderDelegate
 {
     func imageDownloadComplete(downloader: ImageDownloader, resultImage: UIImage, urlString: String, object: Any?)
@@ -69,6 +72,5 @@ class ImageDownloader : NSObject, ImageDownloaderTaskDelegate
     func taskError(task: ImageDownloaderTask, urlString: String, object: Any?) {
         delegate?.imageDownloadError(downloader: self, urlString: urlString, object: object)
     }
-    
     
 }

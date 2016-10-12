@@ -8,10 +8,7 @@
 
 import UIKit
 
-//https://a.tcimg.net/v/model_images/v1/2014/gmc/acadia/all/190x97/side
-//https://a.tcimg.net/v/model_images/v1/2014/gmc/acadia/all/190x97/f3q
-//https://a.tcimg.net/v/model_images/v1/2017/gmc/acadia-limited/all/360x185/side
-//https://a.tcimg.net/v/model_images/v1/2017/gmc/acadia-limited/all/360x185/f3q
+//https://api.edmunds.com/api/vehicle/v2/styles/200487199?view=full&fmt=json&api_key=
 
 //Plug in the correct year / make / model / trim with data from the edmunds api, and the urls will return an image if there are matchs, or a placeholder image if nothing is there. Don't worry too much about accuracy here, as long as your app demonstrates that it can pull atleast some images correctly.
 
@@ -42,8 +39,28 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         super.viewWillAppear(animated)
         ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
         adjustStickyHeader()
+        
+        spoofLoad()
     }
     
+    var sections = [TableSection]()
+    
+    func spoofLoad() {
+        
+        let _make = EdmundsMake()
+        _make.name = "Buick"
+        _make.id = 200006659
+        
+        let _model = EdmundsModel()
+        _model.name = "Encore"
+        _model.id = "Buick_Encore"
+        
+        let _year = EdmundsYear()
+        _year.year = 2017
+        _year.id = 401631197
+        
+        setUp(withMake: _make, model: _model, year: _year)
+    }
     
     //weak var
     private var _header: PlaceholderTableHeader?
@@ -57,6 +74,7 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
     
     var sideExpanded: Bool = true
     
+    var styleDetail: EdmundsStyleExtended?
     
     var styles = [EdmundsStyle]()
     
@@ -68,16 +86,14 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         self.make = make
         self.model = model
         self.year = year
-        
+
         navigationItem.title = "\(year.year) \(model.name)"
-        
-        print("GET VEHICLE INFO")
-        print("MAKE = \(make.name)")
-        print("MODEL = \(model.name)")
-        print("YEAR = \(year.year)")
-        
         styleFetcher.fetch(make: make, model: model, year: year)
     }
+    
+    
+    //EdmundsStyleDetailFetcher
+    
     
     private var _styleFetcher: EdmundsStyleFetcher?
     var styleFetcher: EdmundsStyleFetcher {
@@ -87,14 +103,19 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         }
         return _styleFetcher!
     }
-    var makes = [EdmundsMake]()
-    var models = [EdmundsModel]()
+    
+    private var _detailFetcher: EdmundsStyleDetailFetcher?
+    var detailFetcher: EdmundsStyleDetailFetcher {
+        if _detailFetcher == nil {
+            _detailFetcher = EdmundsStyleDetailFetcher()
+            _detailFetcher!.delegate = self
+        }
+        return _detailFetcher!
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -113,33 +134,114 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
             
             stylePicker.setUp(withInfoPage: self)
         }
+        
+        if fetcher === detailFetcher {
+            styleDetail = detailFetcher.styleDetail
+            detailFetcher.clear()
+            reloadData()
+        }
+        
     }
     
     func fetchDidFail(fetcher: WebFetcher, result: WebResult) {
         
     }
     
+    func reloadData() {
+        
+        sections.removeAll()
+        
+        let dealerSection = TableSection(type:.dealer, count:1, id: nil)
+        sections.append(dealerSection)
+        
+        if let detail = styleDetail {
+            
+            if detail.doorCount.characters.count > 0 {
+                
+                let doorSection = TableSection(type:.stat, count:1, id: "door_count")
+                sections.append(doorSection)
+                
+            }
+            
+            if detail.mpg != nil {
+                let mpgSection = TableSection(type:.mpg, count:1, id: nil)
+                sections.append(mpgSection)
+            }
+            
+            //stat_cell
+            
+        }
+        
+        
+        tableView.reloadData()
+        
+        
+        
+    }
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView!.dequeueReusableCell(withIdentifier: "locate_dealer_cell", for: indexPath) as! LocateDealerCell
         
-        //let model = make.models[indexPath.row]
-        cell.reset()
-        //cell.titleLabel.text = model.name
-        return cell
+        let section = sections[indexPath.section]
+        
+        if section.type == .dealer {
+            let cell = self.tableView!.dequeueReusableCell(withIdentifier: "locate_dealer_cell", for: indexPath) as! LocateDealerCell
+            cell.reset()
+            return cell
+        } else if section.type == .mpg {
+            let cell = self.tableView!.dequeueReusableCell(withIdentifier: "mpg_cell", for: indexPath) as! MPGCell
+            cell.reset()
+            
+            cell.cityLabel?.text = styleDetail?.mpg?.city
+            cell.highwayLabel?.text = styleDetail?.mpg?.highway
+            
+            return cell
+            
+        } else {
+            
+            let cell = self.tableView!.dequeueReusableCell(withIdentifier: "stat_cell", for: indexPath) as! StatCell
+            
+            cell.reset()
+            
+            if section.id == "door_count" {
+                cell.titleLabel?.text = "Number of Doors:"
+                cell.valueLabel?.text = styleDetail!.doorCount
+            }
+            
+            return cell
+            
+        }
+        
+        
+        
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 240.0
+        
+        let section = sections[indexPath.section]
+        
+        if section.type == .dealer {
+            return 240.0
+        } else if section.type == .mpg {
+            return 68.0
+        }else if section.type == .stat {
+            return 44.0
+        }
+        
+        
+        //let doorSection = TableSection(type:.stat, count:1, id: "door_count")
+        //sections.append(doorSection)
+        
+        return 110.0
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 1
+        return sections.count
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return sections[section].count
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -152,15 +254,24 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return headerHeight
+        if section == 0 {
+            return headerHeight
+        }
+        
+            return 0.0
+        
+        
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
+        if section == 0 {
         if _header == nil {
             _header = PlaceholderTableHeader(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: headerHeight))
         }
         return _header
+        }
+        return nil
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -182,13 +293,12 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
     
     func didPickStyle(picker: StylePicker, style: EdmundsStyle) {
         
+        detailFetcher.fetch(style: style)
+        
     }
     
     @IBAction func clickSideExpand(_ sender: UIButton) {
-        
         if sideExpanded == false {
-            
-            
             sideExpanded = true
             stylePickerLeftConstraint.constant = 0
             view.setNeedsUpdateConstraints()
