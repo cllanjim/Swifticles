@@ -52,5 +52,24 @@ class HomePageTests: XCTestCase {
         XCTAssertNotNil(homePage.collectionView)
     }
     
+    func testMakeFetch()
+    {
+        let exp = expectation(description: "refresh")
+        
+        homePage.makeFetcher.fetchAllMakes()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4.0) {
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5.0) { error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
+            XCTAssert(self.homePage.makes.count > 0)
+        }
+        
+    }
+    
     
 }

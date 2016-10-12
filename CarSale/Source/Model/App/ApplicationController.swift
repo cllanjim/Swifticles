@@ -13,6 +13,8 @@ class ApplicationController
     static let shared = ApplicationController()
     private init() { }
     
+    var selectedMake: EdmundsMake?
+    
     var storyboard:UIStoryboard {
         return UIStoryboard(name: "Main", bundle: Bundle.main)
     }

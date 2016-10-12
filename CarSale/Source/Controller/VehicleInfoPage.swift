@@ -88,7 +88,9 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         self.make = make
         self.model = model
         self.year = year
-
+        
+        ApplicationController.shared.selectedMake = make
+        
         navigationItem.title = "\(year.year) \(model.name)"
         styleFetcher.fetch(make: make, model: model, year: year)
     }
@@ -297,6 +299,13 @@ class VehicleInfoPage : UIViewController, WebFetcherDelegate, UITableViewDelegat
         
         detailFetcher.fetch(style: style)
         
+    }
+    
+    
+    
+    @IBAction func clickLocateDealer(_ sender: AnyObject) {
+        
+        performSegue(withIdentifier: "dealer_picker", sender: nil)
     }
     
     @IBAction func clickSideExpand(_ sender: UIButton) {

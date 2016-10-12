@@ -104,23 +104,6 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1t-ep-s2X">
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KcH-0U-d6h">
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8j-82-Og9" customClass="RefreshSpinner" customModule="CarSale" customModuleProvider="target">
-                                                <color key="backgroundColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="56" id="I0t-Qs-Lfi"/>
-                                                    <constraint firstAttribute="height" constant="56" id="reJ-iU-VJz"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="g8j-82-Og9" firstAttribute="centerX" secondItem="KcH-0U-d6h" secondAttribute="centerX" id="2Jv-vW-Qet"/>
-                                            <constraint firstItem="g8j-82-Og9" firstAttribute="top" secondItem="KcH-0U-d6h" secondAttribute="top" id="nDJ-9t-VdK"/>
-                                            <constraint firstAttribute="height" constant="120" id="ofc-LL-emB"/>
-                                        </constraints>
-                                    </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tCR-yA-wUq">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="12" id="bO1-cQ-Xag">
@@ -131,7 +114,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="car_cell" id="WQ9-By-BpU" customClass="HomePageMakeCell" customModule="CarSale" customModuleProvider="target">
-                                                <rect key="frame" x="12" y="12" width="200" height="180"/>
+                                                <rect key="frame" x="88" y="12" width="200" height="180"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="180"/>
@@ -234,10 +217,10 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="search_model_cell" rowHeight="56" id="is9-GM-hqH" customClass="SearchResultModelCell" customModule="CarSale" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="1000" height="56"/>
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="is9-GM-hqH" id="EdI-IT-xGi">
-                                                            <frame key="frameInset" width="1000" height="55.5"/>
+                                                            <frame key="frameInset" width="375" height="56"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8K-HO-bwM">
@@ -293,11 +276,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="tL1-Y2-V2Q" secondAttribute="bottom" id="2OF-gh-0GV"/>
-                                    <constraint firstItem="KcH-0U-d6h" firstAttribute="top" secondItem="w1t-ep-s2X" secondAttribute="top" id="9tu-eP-eS3"/>
                                     <constraint firstItem="tL1-Y2-V2Q" firstAttribute="top" secondItem="w1t-ep-s2X" secondAttribute="top" id="CH6-oJ-gW4"/>
                                     <constraint firstAttribute="trailing" secondItem="tCR-yA-wUq" secondAttribute="trailing" id="CK6-Y0-nUz"/>
-                                    <constraint firstItem="KcH-0U-d6h" firstAttribute="leading" secondItem="w1t-ep-s2X" secondAttribute="leading" id="Csl-zy-lG4"/>
-                                    <constraint firstAttribute="trailing" secondItem="KcH-0U-d6h" secondAttribute="trailing" id="Gsl-OU-HoR"/>
                                     <constraint firstItem="tCR-yA-wUq" firstAttribute="leading" secondItem="w1t-ep-s2X" secondAttribute="leading" id="Ypr-2g-0rg"/>
                                     <constraint firstAttribute="bottom" secondItem="tCR-yA-wUq" secondAttribute="bottom" id="g0o-NV-C6e"/>
                                     <constraint firstItem="tL1-Y2-V2Q" firstAttribute="leading" secondItem="w1t-ep-s2X" secondAttribute="leading" id="hVO-1w-StI"/>
@@ -331,7 +311,6 @@
                         <outlet property="header" destination="xMn-aP-FHI" id="Hf3-ne-gJ3"/>
                         <outlet property="headerHeightConstraint" destination="Oh1-c3-qCd" id="0ZD-xA-7Iy"/>
                         <outlet property="mainContainer" destination="w1t-ep-s2X" id="3ce-jx-e79"/>
-                        <outlet property="refreshSpinner" destination="g8j-82-Og9" id="uvh-91-9M6"/>
                         <outlet property="searchResults" destination="tL1-Y2-V2Q" id="KW8-wF-Ldk"/>
                         <segue destination="NXu-Gf-5Cy" kind="show" identifier="year_picker" id="rq5-Fo-TgA"/>
                         <segue destination="ttj-iS-8DH" kind="show" identifier="alt_model_picker" id="hcn-Ki-eyf"/>
@@ -525,7 +504,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="132" height="62"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fiR-R0-U8Z" id="1eH-cs-zKL">
-                                                    <frame key="frameInset" width="132" height="61.5"/>
+                                                    <frame key="frameInset" width="132" height="62"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBO-gP-Ela">
@@ -613,7 +592,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9I6-6l-axV">
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fair_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="bZH-Kr-veY">
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="55" id="Jvp-Zg-Lxm"/>
                                                                 <constraint firstAttribute="width" constant="110" id="mrD-8s-C8C"/>
@@ -659,6 +638,9 @@
                                                     <state key="normal" title="Locate Dealer">
                                                         <color key="titleColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="clickLocateDealer:" destination="P0K-9U-Hfs" eventType="touchUpInside" id="ke8-ih-euJ"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -868,11 +850,71 @@
                         <outlet property="stylePicker" destination="7FO-0w-ug9" id="mpV-tu-USd"/>
                         <outlet property="stylePickerLeftConstraint" destination="9fD-Uj-B10" id="KCf-5t-NFd"/>
                         <outlet property="tableView" destination="3aX-o1-Dw2" id="25D-4p-syF"/>
+                        <segue destination="bw3-UU-UhU" kind="show" identifier="dealer_picker" id="K57-Zi-ddp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJP-W3-jY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2474" y="-392"/>
+        </scene>
+        <!--Dealer Picker Page-->
+        <scene sceneID="PVa-fM-YSk">
+            <objects>
+                <viewController id="bw3-UU-UhU" customClass="DealerPickerPage" customModule="CarSale" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5S6-eG-lrI"/>
+                        <viewControllerLayoutGuide type="bottom" id="1Nc-JM-X7R"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="frU-R4-DEO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rhf-Ze-N5e">
+                                <frame key="frameInset" minY="164" width="375" height="503"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="dealer_cell" rowHeight="72" id="U34-Ni-MVH" customClass="DealerPickerCell" customModule="CarSale" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="72"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U34-Ni-MVH" id="mgw-jR-deA">
+                                            <frame key="frameInset" width="375" height="71"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label Label Label " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPz-a0-PmQ">
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BPz-a0-PmQ" firstAttribute="leading" secondItem="mgw-jR-deA" secondAttribute="leadingMargin" id="8tH-Kb-XPF"/>
+                                                <constraint firstItem="BPz-a0-PmQ" firstAttribute="width" secondItem="mgw-jR-deA" secondAttribute="width" multiplier="0.5" id="CZd-4g-Y9f"/>
+                                                <constraint firstItem="BPz-a0-PmQ" firstAttribute="bottom" secondItem="mgw-jR-deA" secondAttribute="bottomMargin" id="gdl-4w-PO9"/>
+                                                <constraint firstItem="BPz-a0-PmQ" firstAttribute="top" secondItem="mgw-jR-deA" secondAttribute="topMargin" id="o2P-Gq-jih"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="BPz-a0-PmQ" id="v0B-3H-hcF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rhf-Ze-N5e" firstAttribute="leading" secondItem="frU-R4-DEO" secondAttribute="leading" id="AYf-Id-8oe"/>
+                            <constraint firstItem="1Nc-JM-X7R" firstAttribute="top" secondItem="rhf-Ze-N5e" secondAttribute="bottom" id="aJd-wz-hnE"/>
+                            <constraint firstAttribute="trailing" secondItem="rhf-Ze-N5e" secondAttribute="trailing" id="qag-TK-kSA"/>
+                            <constraint firstItem="rhf-Ze-N5e" firstAttribute="top" secondItem="5S6-eG-lrI" secondAttribute="bottom" id="rja-Pm-mc2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="rhf-Ze-N5e" id="M4v-Sx-R8L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X0M-tq-QUy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3317.5999999999999" y="-393.55322338830587"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9YR-Rr-U6o">
@@ -916,7 +958,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="model_cell" id="uRf-i4-z6d" customClass="ModelPageCell" customModule="CarSale" customModuleProvider="target">
-                                                <rect key="frame" x="12" y="12" width="223" height="201"/>
+                                                <rect key="frame" x="76" y="12" width="223" height="201"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="223" height="201"/>
@@ -1028,10 +1070,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="model_cell" rowHeight="81" id="tOs-de-rcG" customClass="ModelTableCell" customModule="CarSale" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="81"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tOs-de-rcG" id="4xd-7x-zCQ">
-                                            <frame key="frameInset" width="1000" height="80.5"/>
+                                            <frame key="frameInset" width="375" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHR-SV-cYI">
@@ -1112,6 +1154,6 @@
         <image name="tag_icon_3_dark.png" width="140" height="140"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UOH-73-Njd"/>
+        <segue reference="rq5-Fo-TgA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -40,6 +40,9 @@
 		C201546B1DA8662900126BE6 /* AltModelPickerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C201546A1DA8662900126BE6 /* AltModelPickerPage.swift */; };
 		C201546D1DA867EA00126BE6 /* ModelTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C201546C1DA867EA00126BE6 /* ModelTableCell.swift */; };
 		C201546F1DA8682E00126BE6 /* PlaceholderTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C201546E1DA8682E00126BE6 /* PlaceholderTableHeader.swift */; };
+		C231812B1DAEA3C300AC0339 /* DealerPickerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231812A1DAEA3C300AC0339 /* DealerPickerPage.swift */; };
+		C231812D1DAEA48A00AC0339 /* EdmundsDealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231812C1DAEA48A00AC0339 /* EdmundsDealer.swift */; };
+		C231812F1DAEA4C200AC0339 /* DealerPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C231812E1DAEA4C200AC0339 /* DealerPickerCell.swift */; };
 		C240B1A71D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */; };
 		C2713B0D1DA7036900BB2B05 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2713AE41DA7036900BB2B05 /* HomePage.swift */; };
 		C2713B0E1DA7036900BB2B05 /* ModelPickerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2713AE51DA7036900BB2B05 /* ModelPickerPage.swift */; };
@@ -145,6 +148,9 @@
 		C201546A1DA8662900126BE6 /* AltModelPickerPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltModelPickerPage.swift; sourceTree = "<group>"; };
 		C201546C1DA867EA00126BE6 /* ModelTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTableCell.swift; sourceTree = "<group>"; };
 		C201546E1DA8682E00126BE6 /* PlaceholderTableHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderTableHeader.swift; sourceTree = "<group>"; };
+		C231812A1DAEA3C300AC0339 /* DealerPickerPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerPickerPage.swift; sourceTree = "<group>"; };
+		C231812C1DAEA48A00AC0339 /* EdmundsDealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsDealer.swift; sourceTree = "<group>"; };
+		C231812E1DAEA4C200AC0339 /* DealerPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerPickerCell.swift; sourceTree = "<group>"; };
 		C240B1A61D9C8ECE00D71D47 /* EdmundsMakesFetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdmundsMakesFetcherTests.swift; sourceTree = "<group>"; };
 		C2713AE41DA7036900BB2B05 /* HomePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		C2713AE51DA7036900BB2B05 /* ModelPickerPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelPickerPage.swift; sourceTree = "<group>"; };
@@ -316,6 +322,7 @@
 				C2713AE71DA7036900BB2B05 /* VehicleInfoPage.swift */,
 				C2713AE81DA7036900BB2B05 /* YearPickerPage.swift */,
 				C201546A1DA8662900126BE6 /* AltModelPickerPage.swift */,
+				C231812A1DAEA3C300AC0339 /* DealerPickerPage.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -358,6 +365,7 @@
 				C27D84B51DADE2E700BF638C /* EdmundsEngine.swift */,
 				C27D84B71DADE34B00BF638C /* EdmundsCategories.swift */,
 				C27D84B91DADE92F00BF638C /* EdmundsStyleExtended.swift */,
+				C231812C1DAEA48A00AC0339 /* EdmundsDealer.swift */,
 			);
 			path = "Edmunds Data Models";
 			sourceTree = "<group>";
@@ -426,6 +434,7 @@
 				C27D84BD1DADFE0900BF638C /* MPGCell.swift */,
 				C27D84BF1DADFED400BF638C /* CategoriesCell.swift */,
 				C27D84C11DADFEEC00BF638C /* ColorCell.swift */,
+				C231812E1DAEA4C200AC0339 /* DealerPickerCell.swift */,
 			);
 			path = "Table Cells";
 			sourceTree = "<group>";
@@ -586,7 +595,9 @@
 				C2713B1C1DA7036900BB2B05 /* EdmundsStyleFetcher.swift in Sources */,
 				C2713B1F1DA7036900BB2B05 /* ImageDownloaderTask.swift in Sources */,
 				0DB88C2F1DACABC2004F3825 /* StylePickerCell.swift in Sources */,
+				C231812B1DAEA3C300AC0339 /* DealerPickerPage.swift in Sources */,
 				C2713B2A1DA7036900BB2B05 /* HomePageSearchResults.swift in Sources */,
+				C231812F1DAEA4C200AC0339 /* DealerPickerCell.swift in Sources */,
 				C2713B121DA7036900BB2B05 /* ApplicationController.swift in Sources */,
 				C2713B281DA7036900BB2B05 /* YearPageCell.swift in Sources */,
 				0D48FF571DA7709D00B56F84 /* String+URL.swift in Sources */,
@@ -609,6 +620,7 @@
 				C2713B2B1DA7036900BB2B05 /* RefreshSpinner.swift in Sources */,
 				C2713B1B1DA7036900BB2B05 /* SearchNode.swift in Sources */,
 				C27D84BE1DADFE0900BF638C /* MPGCell.swift in Sources */,
+				C231812D1DAEA48A00AC0339 /* EdmundsDealer.swift in Sources */,
 				C27D84B81DADE34B00BF638C /* EdmundsCategories.swift in Sources */,
 				C2713B171DA7036900BB2B05 /* EdmundsModel.swift in Sources */,
 				C27D84BA1DADE92F00BF638C /* EdmundsStyleExtended.swift in Sources */,
