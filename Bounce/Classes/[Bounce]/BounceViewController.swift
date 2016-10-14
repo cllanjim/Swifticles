@@ -182,6 +182,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         }
     }
     
+    /*
     override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
         if engine.scene.isLandscape {
             return UIInterfaceOrientation.landscapeLeft
@@ -189,6 +190,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
             return UIInterfaceOrientation.portrait
         }
     }
+    */
     
     override func viewDidLoad() {
         super.viewDidLoad()

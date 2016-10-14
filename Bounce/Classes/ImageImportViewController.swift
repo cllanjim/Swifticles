@@ -117,6 +117,9 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
         updateTimer?.invalidate()
         updateTimer = Timer.scheduledTimer(timeInterval: 1.0/60.0, target: self, selector: #selector(ImageImportViewController.update), userInfo: nil, repeats: true)
+        if updateTimer != nil {
+            RunLoop.main.add(updateTimer!, forMode: RunLoopMode.commonModes)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
