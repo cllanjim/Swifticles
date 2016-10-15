@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="l55-up-fKj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QJR-Vx-Ban">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqn-WP-CYZ"/>
@@ -253,7 +253,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GLKView">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
@@ -678,7 +678,7 @@
                         <viewControllerLayoutGuide type="bottom" id="db2-5h-Unk"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="wQN-W4-IBZ">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">
@@ -722,7 +722,7 @@
         <!--Navigation Controller-->
         <scene sceneID="yeL-a2-qnE">
             <objects>
-                <navigationController storyboardIdentifier="main_navigation" automaticallyAdjustsScrollViewInsets="NO" id="brJ-ai-UTe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigation_controller" automaticallyAdjustsScrollViewInsets="NO" id="brJ-ai-UTe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -743,8 +743,8 @@
     <resources>
         <image name="background_modal_ipad.png" width="1024" height="1024"/>
         <image name="shadow_top" width="8" height="8"/>
-        <image name="tb_btn_menu" width="128" height="128"/>
-        <image name="tb_btn_menu_down" width="128" height="128"/>
+        <image name="tb_btn_menu" width="64" height="64"/>
+        <image name="tb_btn_menu_down" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8KK-ae-JtT"/>

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C28077921DB14A9600C68797 /* AppDelegateBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28077911DB14A9600C68797 /* AppDelegateBase.swift */; };
+		C281951F1DB1928300B23E52 /* BlurPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281951E1DB1928300B23E52 /* BlurPopover.swift */; };
+		C28195211DB1978300B23E52 /* Popover2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195201DB1978300B23E52 /* Popover2.swift */; };
 		C2FDBDDD1DB0001B005A5742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FDBDDC1DB0001B005A5742 /* AppDelegate.swift */; };
 		C2FDBDE21DB0001B005A5742 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2FDBDE01DB0001B005A5742 /* Main.storyboard */; };
 		C2FDBDE41DB0001B005A5742 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2FDBDE31DB0001B005A5742 /* Assets.xcassets */; };
@@ -40,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C28077911DB14A9600C68797 /* AppDelegateBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateBase.swift; sourceTree = "<group>"; };
+		C281951E1DB1928300B23E52 /* BlurPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurPopover.swift; sourceTree = "<group>"; };
+		C28195201DB1978300B23E52 /* Popover2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popover2.swift; sourceTree = "<group>"; };
 		C2FDBDD91DB0001B005A5742 /* DemoFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2FDBDDC1DB0001B005A5742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2FDBDE11DB0001B005A5742 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -121,6 +127,9 @@
 				C2FDBE141DB06189005A5742 /* MainPage1.swift */,
 				C2FDBE161DB06197005A5742 /* TutorialPage1.swift */,
 				C2FDBE181DB061A3005A5742 /* TutorialPage2.swift */,
+				C28077911DB14A9600C68797 /* AppDelegateBase.swift */,
+				C281951E1DB1928300B23E52 /* BlurPopover.swift */,
+				C28195201DB1978300B23E52 /* Popover2.swift */,
 			);
 			path = DemoFlow;
 			sourceTree = "<group>";
@@ -281,11 +290,14 @@
 			files = (
 				C2FDBE171DB06197005A5742 /* TutorialPage1.swift in Sources */,
 				C2FDBE131DB0617A005A5742 /* MainPage2.swift in Sources */,
+				C28195211DB1978300B23E52 /* Popover2.swift in Sources */,
 				C2FDBE191DB061A3005A5742 /* TutorialPage2.swift in Sources */,
+				C281951F1DB1928300B23E52 /* BlurPopover.swift in Sources */,
 				C2FDBE111DB0049E005A5742 /* RootViewController.swift in Sources */,
 				C2FDBE0F1DB0047E005A5742 /* RootViewControllerBase.swift in Sources */,
 				C2FDBE151DB06189005A5742 /* MainPage1.swift in Sources */,
 				C2FDBDDD1DB0001B005A5742 /* AppDelegate.swift in Sources */,
+				C28077921DB14A9600C68797 /* AppDelegateBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

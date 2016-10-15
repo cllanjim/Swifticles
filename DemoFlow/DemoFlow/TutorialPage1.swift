@@ -14,6 +14,16 @@ class TutorialPage1: UIViewController {
         self.navigationItem.title = "Tutorial Page 1"
     }
     
+    @IBAction func showPopover(_ sender: AnyObject) {
+        
+        
+        let vc = AppDelegate.root.storyboard.instantiateViewController(withIdentifier: "popover_test") as! BlurPopover
+        
+        AppDelegate.root.showPopover(withVC: vc)
+        
+        
+    }
+    
     @IBAction func switchStoryboard(_ sender: UIButton) {
         AppDelegate.root.setStoryboard(UIStoryboard(name: "Main", bundle: Bundle.main), animated: true)
     }

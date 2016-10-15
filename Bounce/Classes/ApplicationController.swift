@@ -26,14 +26,22 @@ class ApplicationController
         return (UIApplication.shared.delegate as! AppDelegate)
     }
     
-    weak internal var _navigationController:UINavigationController?
-    var navigationController:UINavigationController {
-        if _navigationController != nil {
-            return _navigationController!
-        } else {
-            _navigationController = appDelegate.window!.rootViewController as? UINavigationController
-            return _navigationController!
+    //weak internal var _navigationController:UINavigationController?
+    var navigationController:UINavigationController? {
+        
+        if let nc = AppDelegate.root.currentViewController as? UINavigationController {
+            return nc
         }
+        return nil
+        //if _navigationController != nil {
+        //    return _navigationController!
+        //} else {
+            
+            
+            
+            //_navigationController = appDelegate.window!.rootViewController as? UINavigationController
+            //return _navigationController!
+        //}
     }
     
     var importScale:CGFloat {

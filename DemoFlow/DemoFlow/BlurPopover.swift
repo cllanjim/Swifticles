@@ -1,35 +1,19 @@
 //
-//  RootViewController.swift
+//  BlurPopover.swift
 //  DemoFlow
 //
-//  Created by Raptis, Nicholas on 10/13/16.
+//  Created by Raptis, Nicholas on 10/14/16.
 //  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
 import UIKit
 
-class RootViewController: RootViewControllerBase {
-    
+class BlurPopover: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //setStoryboard(UIStoryboard(name: "Tutorial", bundle: Bundle.main), animated: false)
-        
-        /*
-        let nc = storyboard.instantiateViewController(withIdentifier: "main_nav") as! UINavigationController
-        nc.view.frame = view.bounds
-        view.addSubview(nc.view)
-        nc.view.setNeedsLayout()
-        */
-        
-        
-        
-        //let home = storyboard.instantiateViewController(withIdentifier: "tutorial_root") as! TutorialRoot
-        
-        //view.addSubview(home.view)
-        
-        
-        
+
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,6 +21,21 @@ class RootViewController: RootViewControllerBase {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func showAnotherPopover(_ sender: UIButton) {
+        
+        
+        let sb = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = sb.instantiateViewController(withIdentifier: "popover_test") as! Popover2
+        
+        AppDelegate.root.showPopover(withVC: vc)
+        
+    }
+    
+    @IBAction func killPopover(_ sender: UIButton) {
+    
+        AppDelegate.root.killPopover()
+        
+    }
 
     /*
     // MARK: - Navigation

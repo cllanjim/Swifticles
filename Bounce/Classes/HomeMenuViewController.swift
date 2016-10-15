@@ -24,7 +24,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         
-        ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
+        ApplicationController.shared.navigationController?.setNavigationBarHidden(true, animated: true)
         
     }
     
@@ -38,7 +38,8 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        present(imagePicker, animated: true, completion: {})
+        
+        AppDelegate.root.present(imagePicker, animated: true, completion: {})
     }
     
     func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
@@ -74,14 +75,14 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         
         importImage = image
         
-        self.dismiss(animated: true) { [weak weakSelf = self] in
+        AppDelegate.root.dismiss(animated: true) { [weak weakSelf = self] in
             weakSelf?.performSegue(withIdentifier: "import_image", sender: nil)
         }
         
     }
     
     internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true) { //[weak ws = self] in
+        AppDelegate.root.dismiss(animated: true) { //[weak ws = self] in
             print("Finished Dismissing Image Picker")
         }
     }

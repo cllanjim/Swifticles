@@ -180,14 +180,14 @@ class Blob
             
         }
         
-            
+        
         
         
         
         
         //ShaderProgramMesh.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
         //ShaderProgramMesh.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
-
+        
         
         
         
@@ -240,21 +240,24 @@ class Blob
         }
         
         if vertexIndex > 0 && indexBufferCount > 0 {
-        //Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBufferCount)
-        Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexIndex)
-        
-        ShaderProgramMesh.shared.positionEnable()
-        ShaderProgramMesh.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
-        
-        ShaderProgramMesh.shared.texCoordEnable()
-        ShaderProgramMesh.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
-        
-        ShaderProgramMesh.shared.colorArrayEnable()
-        ShaderProgramMesh.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
-        
-        Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
-        Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
-        
+            
+            //Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexIndex)
+            Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBuffer.count)
+            
+            ShaderProgramMesh.shared.positionEnable()
+            ShaderProgramMesh.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
+            
+            ShaderProgramMesh.shared.texCoordEnable()
+            ShaderProgramMesh.shared.textureCoordSetPointer(size: 3, offset: 3, stride: 10)
+            
+            ShaderProgramMesh.shared.colorArrayEnable()
+            ShaderProgramMesh.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
+            
+            //Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
+            Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: tri.indeces.count)
+            
+            Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
+            
         }
         
         Graphics.blendDisable()
@@ -287,69 +290,69 @@ class Blob
         
         
         /*
-        for i in 0..<tri.count {
-            
-            let t = tri.data [i]
-            
-            let drawTriangle = DrawTriangle()
-            
-            let x1 = meshNodes.data[t.i1].x
-            var y1 = meshNodes.data[t.i1].y
-            
-            let x2 = meshNodes.data[t.i2].x
-            var y2 = meshNodes.data[t.i2].y
-            
-            let x3 = meshNodes.data[t.i3].x
-            var y3 = meshNodes.data[t.i3].y
-            
-            y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
-            y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
-            y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
-            
-            drawTriangle.p1 = (x1, y1, 0.0)
-            drawTriangle.p2 = (x2, y2, 0.0)
-            drawTriangle.p3 = (x3, y3, 0.0)
-            
-            drawTriangle.u1 = meshNodes.data[t.i1].u
-            drawTriangle.v1 = meshNodes.data[t.i1].v
-            
-            drawTriangle.u2 = meshNodes.data[t.i2].u
-            drawTriangle.v2 = meshNodes.data[t.i2].v
-            drawTriangle.u3 = meshNodes.data[t.i3].u
-            drawTriangle.v3 = meshNodes.data[t.i3].v
-            
-            drawTriangle.a1 = 0.88
-            drawTriangle.a2 = 0.85
-            drawTriangle.a3 = 0.85
-
-            drawTriangle.draw()
-        }
-        */
+         for i in 0..<tri.count {
+         
+         let t = tri.data [i]
+         
+         let drawTriangle = DrawTriangle()
+         
+         let x1 = meshNodes.data[t.i1].x
+         var y1 = meshNodes.data[t.i1].y
+         
+         let x2 = meshNodes.data[t.i2].x
+         var y2 = meshNodes.data[t.i2].y
+         
+         let x3 = meshNodes.data[t.i3].x
+         var y3 = meshNodes.data[t.i3].y
+         
+         y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
+         y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
+         y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
+         
+         drawTriangle.p1 = (x1, y1, 0.0)
+         drawTriangle.p2 = (x2, y2, 0.0)
+         drawTriangle.p3 = (x3, y3, 0.0)
+         
+         drawTriangle.u1 = meshNodes.data[t.i1].u
+         drawTriangle.v1 = meshNodes.data[t.i1].v
+         
+         drawTriangle.u2 = meshNodes.data[t.i2].u
+         drawTriangle.v2 = meshNodes.data[t.i2].v
+         drawTriangle.u3 = meshNodes.data[t.i3].u
+         drawTriangle.v3 = meshNodes.data[t.i3].v
+         
+         drawTriangle.a1 = 0.88
+         drawTriangle.a2 = 0.85
+         drawTriangle.a3 = 0.85
+         
+         drawTriangle.draw()
+         }
+         */
         
         /*
-        ShaderProgramMesh.shared.colorSet(a: 0.25)
-        for i in 0..<tri.count {
-            
-            let t = tri.data [i]
-            
-            let x1 = meshNodes.data[t.i1].x
-            var y1 = meshNodes.data[t.i1].y
-            
-            let x2 = meshNodes.data[t.i2].x
-            var y2 = meshNodes.data[t.i2].y
-            
-            let x3 = meshNodes.data[t.i3].x
-            var y3 = meshNodes.data[t.i3].y
-            
-            y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
-            y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
-            y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
-            
-            ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
-            ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
-            ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
-        }
-        */
+         ShaderProgramMesh.shared.colorSet(a: 0.25)
+         for i in 0..<tri.count {
+         
+         let t = tri.data [i]
+         
+         let x1 = meshNodes.data[t.i1].x
+         var y1 = meshNodes.data[t.i1].y
+         
+         let x2 = meshNodes.data[t.i2].x
+         var y2 = meshNodes.data[t.i2].y
+         
+         let x3 = meshNodes.data[t.i3].x
+         var y3 = meshNodes.data[t.i3].y
+         
+         y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
+         y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
+         y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
+         
+         ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
+         ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
+         ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
+         }
+         */
         
         
     }
@@ -436,7 +439,7 @@ class Blob
             prev = point
         }
     }
- 
+    
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
         
@@ -748,7 +751,7 @@ class Blob
                         let t2_i2 = meshIndexEdgeU(right, bottom)
                         let t2_i3 = meshIndex(right, bottom)
                         tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
-                    
+                        
                     }
                 }
                 
@@ -766,7 +769,7 @@ class Blob
                         tri.add(i1: t2_i1, i2: t2_i2, i3: t2_i3)
                     }
                 }
- 
+                
                 //Upper-Left out (Elbow)
                 if (U_L.inside == false) && (U_R.inside == true) && (D_L.inside == true) && (D_R.inside == true) {
                     if U_R.edgeL && D_L.edgeU {

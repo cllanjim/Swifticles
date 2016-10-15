@@ -20,6 +20,10 @@ class RootViewControllerBase: UIViewController {
         return _currentStoryboard!
     }
     
+    
+    var currentViewController: UIViewController? {
+        return _currentViewController
+    }
     private var _currentViewController: UIViewController?
     private var _previousViewController: UIViewController?
     
@@ -38,6 +42,16 @@ class RootViewControllerBase: UIViewController {
         rootContainerView.backgroundColor = UIColor.white
         view.addSubview(rootContainerView)
         constrain(view: rootContainerView, inParentView: view)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if let vc = currentViewController {
+            vc.viewWillTransition(to: size, with: coordinator)
+        }
+     
+        
     }
     
     override func didReceiveMemoryWarning() {

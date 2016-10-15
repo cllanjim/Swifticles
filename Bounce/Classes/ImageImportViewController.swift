@@ -303,7 +303,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 loadViewIfNeeded()
                 view.layoutIfNeeded()
                 
-                ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
+                ApplicationController.shared.navigationController?.setNavigationBarHidden(false, animated: true)
                 
                 imageView = UIImageView(frame: CGRect(x: (-image.size.width / 2.0), y: (-image.size.height / 2.0), width: image.size.width, height: image.size.height))
                 imageView.image = image
@@ -373,8 +373,14 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
         //Crop rect goes in-between the top and bottom toolbars.
         //We keep it at the same aspect ratio as the device's screen.
         let activeBorder = Device.tablet ? 24.0 : 6.0
-        let navigationBar = ApplicationController.shared.navigationController.navigationBar
-        let activeTop = (navigationBar.frame.size.height + navigationBar.frame.origin.y) + CGFloat(activeBorder)
+        let navigationBar = ApplicationController.shared.navigationController?.navigationBar
+        var navigationBarY:CGFloat = 0.0
+        var navigationBarHeight:CGFloat = 0.0
+        if navigationBar != nil {
+            navigationBarY = navigationBar!.frame.origin.y
+            navigationBarHeight = navigationBar!.frame.size.height
+        }
+        let activeTop = (navigationBarHeight + navigationBarY) + CGFloat(activeBorder)
         let activeBottom = size.height - (toolBarBottom.frame.size.height + CGFloat(activeBorder))
         let activeWidth = size.width - (CGFloat(activeBorder * 2))
         let activeHeight = (activeBottom - activeTop)
@@ -460,8 +466,8 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 bounce.loadViewIfNeeded()
                 bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? Device.portraitWidth : Device.landscapeWidth, height: isPortrait ? Device.portraitHeight : Device.landscapeHeight), portraitOrientation: isPortrait)
             
-                ApplicationController.shared.navigationController.setNavigationBarHidden(true, animated: true)
-                ApplicationController.shared.navigationController.setViewControllers([bounce], animated: true)
+                ApplicationController.shared.navigationController?.setNavigationBarHidden(true, animated: true)
+                ApplicationController.shared.navigationController?.setViewControllers([bounce], animated: true)
             }
         }
     }

@@ -19,9 +19,9 @@ class ToolActions {
             transition.duration = 0.54
             transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             transition.type = kCATransitionReveal
-            nc.view.layer.add(transition, forKey: nil)
-            ApplicationController.shared.navigationController.setViewControllers([home], animated: true)
-            ApplicationController.shared.navigationController.setNavigationBarHidden(false, animated: true)
+            nc?.view.layer.add(transition, forKey: nil)
+            ApplicationController.shared.navigationController?.setViewControllers([home], animated: true)
+            ApplicationController.shared.navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
     

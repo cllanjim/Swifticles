@@ -13,7 +13,11 @@ class RootViewController: RootViewControllerBase {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //setStoryboard(UIStoryboard(name: "Tutorial", bundle: Bundle.main), animated: false)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        setStoryboard(storyboard, animated: false)
+        
+        //navigation_controller
         
         /*
         let nc = storyboard.instantiateViewController(withIdentifier: "main_nav") as! UINavigationController
@@ -37,6 +41,32 @@ class RootViewController: RootViewControllerBase {
         // Dispose of any resources that can be recreated.
     }
     
+    open override var shouldAutorotate : Bool {
+        
+        if let nc = currentViewController as? UINavigationController {
+            if (nc.visibleViewController as? BounceViewController) != nil {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    open override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        
+        if let nc = currentViewController as? UINavigationController {
+            if let vc = nc.visibleViewController {
+                return vc.supportedInterfaceOrientations
+            }
+        }
+        
+        var mask = UIInterfaceOrientationMask(rawValue: 0)
+        mask = mask.union(.portrait)
+        mask = mask.union(.portraitUpsideDown)
+        mask = mask.union(.landscapeLeft)
+        mask = mask.union(.landscapeRight)
+        return mask
+    }
 
     /*
     // MARK: - Navigation
