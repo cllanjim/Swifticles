@@ -470,19 +470,23 @@
                                                 <constraints>
                                                     <constraint firstItem="IcJ-BC-Jcn" firstAttribute="centerY" secondItem="vSP-yM-i5p" secondAttribute="centerY" id="46D-Qd-Lwa"/>
                                                     <constraint firstItem="4pQ-QD-P53" firstAttribute="height" secondItem="vSP-yM-i5p" secondAttribute="height" id="7DJ-dY-XCp"/>
-                                                    <constraint firstItem="KJr-MW-wCv" firstAttribute="centerX" secondItem="vSP-yM-i5p" secondAttribute="centerX" id="GYA-db-iIE"/>
+                                                    <constraint firstItem="IcJ-BC-Jcn" firstAttribute="width" secondItem="vSP-yM-i5p" secondAttribute="width" multiplier="0.25" id="97x-Ms-zM2"/>
                                                     <constraint firstItem="KJr-MW-wCv" firstAttribute="centerY" secondItem="vSP-yM-i5p" secondAttribute="centerY" id="H5R-0p-0Pg"/>
+                                                    <constraint firstItem="4pQ-QD-P53" firstAttribute="width" secondItem="vSP-yM-i5p" secondAttribute="width" multiplier="0.25" id="NIa-C8-5qL"/>
                                                     <constraint firstItem="4pQ-QD-P53" firstAttribute="centerY" secondItem="vSP-yM-i5p" secondAttribute="centerY" id="PBQ-64-GlK"/>
                                                     <constraint firstItem="KJr-MW-wCv" firstAttribute="height" secondItem="vSP-yM-i5p" secondAttribute="height" id="S5P-ZL-hoG"/>
+                                                    <constraint firstItem="IcJ-BC-Jcn" firstAttribute="leading" secondItem="KJr-MW-wCv" secondAttribute="trailing" id="SzS-ca-kYT"/>
+                                                    <constraint firstItem="KJr-MW-wCv" firstAttribute="leading" secondItem="4pQ-QD-P53" secondAttribute="trailing" id="UvC-HG-f5e"/>
                                                     <constraint firstItem="4pQ-QD-P53" firstAttribute="leading" secondItem="vSP-yM-i5p" secondAttribute="leading" id="aEo-bq-2Ue"/>
-                                                    <constraint firstItem="KJr-MW-wCv" firstAttribute="width" secondItem="vSP-yM-i5p" secondAttribute="width" multiplier="0.58" id="bBJ-kE-dJK"/>
                                                     <constraint firstItem="IcJ-BC-Jcn" firstAttribute="height" secondItem="vSP-yM-i5p" secondAttribute="height" id="fBd-ar-xOJ"/>
-                                                    <constraint firstItem="4pQ-QD-P53" firstAttribute="trailing" secondItem="KJr-MW-wCv" secondAttribute="leading" id="tGF-ls-B0m"/>
                                                     <constraint firstAttribute="trailing" secondItem="IcJ-BC-Jcn" secondAttribute="trailing" id="uyL-OB-F0K"/>
-                                                    <constraint firstItem="IcJ-BC-Jcn" firstAttribute="leading" secondItem="KJr-MW-wCv" secondAttribute="trailing" id="zLS-Cz-hux"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="leftConstraint" destination="ttN-PF-YXg" id="i43-dw-2RD"/>
+                                                    <outlet property="leftContainer" destination="4pQ-QD-P53" id="13b-rW-4Li"/>
+                                                    <outlet property="leftContainerWidthConstraint" destination="NIa-C8-5qL" id="zQH-v7-K0q"/>
+                                                    <outlet property="rightContainer" destination="IcJ-BC-Jcn" id="X1d-Wq-WwS"/>
+                                                    <outlet property="rightContainerWidthConstraint" destination="97x-Ms-zM2" id="pi9-OU-87H"/>
                                                     <outlet property="topConstraint" destination="cOK-DH-lkM" id="mI0-Bh-7p7"/>
                                                 </connections>
                                             </view>
@@ -501,6 +505,12 @@
                                             <constraint firstItem="vSP-yM-i5p" firstAttribute="leading" secondItem="cpv-rW-iyl" secondAttribute="leading" id="ttN-PF-YXg"/>
                                             <constraint firstItem="Vcn-Ou-uJo" firstAttribute="width" secondItem="cpv-rW-iyl" secondAttribute="width" id="zTc-hW-lte"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="Vcn-Ou-uJo"/>
+                                                <exclude reference="J0s-W5-s5Y"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="toolRowEdit" destination="vSP-yM-i5p" id="Wbt-h6-w6Q"/>
                                             <outlet property="toolRowView" destination="Vcn-Ou-uJo" id="0fs-c3-dQX"/>
@@ -667,7 +677,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2047.5" y="383.45070422535213"/>
+            <point key="canvasLocation" x="2046.376811594203" y="383.1521739130435"/>
         </scene>
         <!--Import Image-->
         <scene sceneID="CMF-NA-AwL">

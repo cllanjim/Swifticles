@@ -10,7 +10,6 @@ import UIKit
 
 class ToolContainerBottomMain : ToolRowContainer
 {
-    
     @IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit! {
         didSet { toolRows.append(toolRowEdit); toolRowEdit.backgroundColor = UIColor.clear }
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ToolRowBottomView: ToolView
+class ToolRowBottomView: ToolRow
 {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

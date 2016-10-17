@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToolRowBottomEdit: ToolView
+class ToolRowBottomEdit: ToolRow
 {
     override func setUp() {
         super.setUp()

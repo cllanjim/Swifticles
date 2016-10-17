@@ -61,6 +61,7 @@
 		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
 		0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F651D581263006DDDAB /* BounceTests.swift */; };
 		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
+		0DEEFBA81DB1FFBF00028C3F /* ToolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
 		C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956B1DB1AC8A00B23E52 /* DrawNode.swift */; };
 		C281958C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */; };
@@ -208,6 +209,7 @@
 		0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BounceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD20F701D581263006DDDAB /* BounceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceUITests.swift; sourceTree = "<group>"; };
 		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRow.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
 		C281956B1DB1AC8A00B23E52 /* DrawNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNode.swift; sourceTree = "<group>"; };
 		C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 				C28195C21DB1AC9500B23E52 /* ToolRowZoom.swift */,
 				C28195C31DB1AC9500B23E52 /* ToolRowZoomAccessory.swift */,
 				C28195C41DB1AC9500B23E52 /* ToolView.swift */,
+				0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				C28195A11DB1AC8A00B23E52 /* CubicSpline.swift in Sources */,
 				C28195D11DB1AC9500B23E52 /* BlobMeshNode.swift in Sources */,
 				C281959A1DB1AC8A00B23E52 /* Texture.swift in Sources */,
+				0DEEFBA81DB1FFBF00028C3F /* ToolRow.swift in Sources */,
 				C281959B1DB1AC8A00B23E52 /* ImageDownloader.swift in Sources */,
 				C281958F1DB1AC8A00B23E52 /* GLViewController.swift in Sources */,
 				C28195D01DB1AC9500B23E52 /* BlobMeshBuffer.swift in Sources */,

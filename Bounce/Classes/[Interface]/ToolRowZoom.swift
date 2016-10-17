@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ToolRowZoom : ToolView
+class ToolRowZoom : ToolRow
 {
     override func setUp() {
         super.setUp()

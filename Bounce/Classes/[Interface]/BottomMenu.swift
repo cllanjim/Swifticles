@@ -264,13 +264,25 @@ class BottomMenu: ToolView
     func expand() {
         if expanded == false {
             expanded = true
+            
+            /*
             menuHeightConstraint.constant = expandedHeight
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 3.4, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
                 }, completion: nil)
+            */
+            
+            
+            if let container = containerAccessory, container.isHidden == false {
+                container.showToolsAnimated(withDelay: 0.0, withStagger: 0.5, withDirection: 1)
+            }
+            if let container = containerMain, container.isHidden == false {
+                container.showToolsAnimated(withDelay: 1.0, withStagger: 0.5, withDirection: -1)
+            }
+            
         }
         
     }
@@ -278,13 +290,25 @@ class BottomMenu: ToolView
     func collapse() {
         if expanded == true {
             expanded = false
+            
+            /*
             menuHeightConstraint.constant = toolBar.height
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 3.4, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
                 }, completion: nil)
+            */
+            
+            if let container = containerAccessory, container.isHidden == false {
+                container.hideToolsAnimated(withDelay: 1.0, withStagger: 0.5, withDirection: -1)
+            }
+            if let container = containerMain, container.isHidden == false {
+                container.hideToolsAnimated(withDelay: 0.0, withStagger: 0.5, withDirection: 1)
+            }
+            
+            
         }
     }
     

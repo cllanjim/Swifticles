@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ToolRowBottomZoom: ToolView
+class ToolRowBottomZoom: ToolRow
 {
     
     //@IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit! {

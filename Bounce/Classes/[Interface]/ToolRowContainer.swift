@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToolRowContainer : ToolView
+class ToolRowContainer : ToolRow
 {
     override func setUp() {
         super.setUp()
@@ -29,7 +29,7 @@ class ToolRowContainer : ToolView
         
     }
     
-    var toolRows = [ToolView]()
+    var toolRows = [ToolRow]()
     
     var expanded:Bool = true
     
@@ -55,8 +55,8 @@ class ToolRowContainer : ToolView
     }
     
     //override func handleBlobSelectionChanged() { }
-    var _currentToolRow: ToolView?
-    var toolRow: ToolView? {
+    var _currentToolRow: ToolRow?
+    var toolRow: ToolRow? {
         get {
             return _currentToolRow
         }
@@ -137,23 +137,36 @@ class ToolRowContainer : ToolView
         }
     }
     
+    override func hideToolsAnimated(withDelay delay: CGFloat, withStagger stagger: CGFloat, withDirection direction: Int) {
+
+        if let row = _currentToolRow {
+            row.hideToolsAnimated(withDelay: delay, withStagger: stagger, withDirection: direction)
+        }
+    }
+    
+    override func showToolsAnimated(withDelay delay: CGFloat, withStagger stagger: CGFloat, withDirection direction: Int) {
+        if let row = _currentToolRow {
+            row.showToolsAnimated(withDelay: delay, withStagger: stagger, withDirection: direction)
+        }
+    }
+    
     func updateToolRowConstraints() {
         //
         
         //_currentToolRow
     }
     
-    func sendOnScreen(_ row:ToolView) {
+    func sendOnScreen(_ row:ToolRow) {
         row.leftConstraint?.constant = 0.0
         row.setNeedsLayout()
     }
     
-    func sendOffScreenLeft(_ row:ToolView) {
+    func sendOffScreenLeft(_ row:ToolRow) {
         row.leftConstraint?.constant = CGFloat(-Int(ApplicationController.shared.width + 0.5))
         row.setNeedsLayout()
     }
     
-    func sendOffScreenRight(_ row:ToolView) {
+    func sendOffScreenRight(_ row:ToolRow) {
         row.leftConstraint?.constant = CGFloat(Int(ApplicationController.shared.width + 0.5))
         row.setNeedsLayout()
     }
