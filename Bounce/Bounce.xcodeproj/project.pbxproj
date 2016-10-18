@@ -63,6 +63,8 @@
 		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
 		0DEEFBA81DB1FFBF00028C3F /* ToolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
+		C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */; };
+		C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */; };
 		C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956B1DB1AC8A00B23E52 /* DrawNode.swift */; };
 		C281958C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */; };
 		C281958D1DB1AC8A00B23E52 /* DrawTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956D1DB1AC8A00B23E52 /* DrawTriangle.swift */; };
@@ -211,6 +213,8 @@
 		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRow.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
+		C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extras.swift"; sourceTree = "<group>"; };
+		C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
 		C281956B1DB1AC8A00B23E52 /* DrawNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNode.swift; sourceTree = "<group>"; };
 		C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
 		C281956D1DB1AC8A00B23E52 /* DrawTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangle.swift; sourceTree = "<group>"; };
@@ -496,6 +500,8 @@
 				C28195861DB1AC8A00B23E52 /* UIImage+Resize.swift */,
 				C28195871DB1AC8A00B23E52 /* UIView+Extras.swift */,
 				C28195F21DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift */,
+				C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */,
+				C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -766,6 +772,7 @@
 				C281959E1DB1AC8A00B23E52 /* WebCommon.swift in Sources */,
 				C28195E61DB1AC9500B23E52 /* ToolRowZoomAccessory.swift in Sources */,
 				C28195951DB1AC8A00B23E52 /* ShaderProgram.swift in Sources */,
+				C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */,
 				C28195DC1DB1AC9500B23E52 /* TBSegment.swift in Sources */,
 				C281959F1DB1AC8A00B23E52 /* WebFetcher.swift in Sources */,
 				C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */,
@@ -782,6 +789,7 @@
 				C28195A71DB1AC8A00B23E52 /* Math.swift in Sources */,
 				C28195E81DB1AC9500B23E52 /* AppDelegate.swift in Sources */,
 				C28195E91DB1AC9500B23E52 /* ApplicationController.swift in Sources */,
+				C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */,
 				C28195EF1DB1AC9500B23E52 /* RootViewController.swift in Sources */,
 				C28195E71DB1AC9500B23E52 /* ToolView.swift in Sources */,
 				C28195A81DB1AC8A00B23E52 /* RootViewControllerBase.swift in Sources */,

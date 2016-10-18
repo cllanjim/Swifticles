@@ -14,6 +14,46 @@ class RRButton: UIButton {
     
     var maxHeight: CGFloat?
     
+    var image: UIImage? {
+        if isPressed {
+            if let img = imageDown {
+                return img
+            }
+            if let img = imageUp {
+                return img
+            }
+        } else {
+            if let img = imageUp {
+                return img
+            }
+            if let img = imageDown {
+                return img
+            }
+        }
+        return nil
+    }
+    
+    private var _imageUp:UIImage?
+    var imageUp: UIImage? {
+        if _imageUp == nil && imagePathUp != nil {
+            _imageUp = FileUtils.loadImage(imagePathUp)
+        }
+        return _imageUp
+    }
+    
+    private var _imageDown:UIImage?
+    var imageDown: UIImage? {
+        if _imageDown == nil && imagePathDown != nil {
+            _imageDown = FileUtils.loadImage(imagePathDown)
+        }
+        return _imageDown
+    }
+    
+    var fitImage: Bool = false { didSet { setNeedsDisplay() } }
+    
+    var imagePathUp: String?
+    var imagePathDown: String?
+    
     var cornerUL = true { didSet { setNeedsDisplay() } }
     var cornerUR = false { didSet { setNeedsDisplay() } }
     var cornerDR = true { didSet { setNeedsDisplay() } }
@@ -47,6 +87,7 @@ class RRButton: UIButton {
     }
     
     deinit {
+        
     }
     
     func setUp() {
@@ -138,6 +179,19 @@ class RRButton: UIButton {
             context.setFillColor(isPressed ? fillColorDown.cgColor : fillColor.cgColor)
             context.closePath()
             context.fillPath()
+        }
+        
+        if let img = image {
+            
+            if fitImage {
+                let fit = CGSize(width: rect.size.width, height: rect.size.height).getAspectFit(img.size)
+                let size = fit.size
+                let imgRect = CGRect(x: width / 2.0 - size.width / 2.0, y: height / 2.0 - size.height / 2.0, width: size.width, height: size.height)
+                img.draw(in: imgRect, blendMode: .normal, alpha: 1.0)
+            } else {
+                let imgRect = CGRect(x: width / 2.0 - img.size.width / 2.0, y: height / 2.0 - img.size.height / 2.0, width: img.size.width, height: img.size.height)
+                img.draw(in: imgRect, blendMode: .normal, alpha: 1.0)
+            }
         }
         context.restoreGState()
     }

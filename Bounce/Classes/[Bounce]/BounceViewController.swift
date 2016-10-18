@@ -10,7 +10,11 @@ import OpenGLES
 
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLSessionDelegate {
     
+    @IBOutlet weak var buttonShowHideAll:RRButton!
+    
     @IBOutlet weak var bottomMenu:BottomMenu!
+    
+    
     
     let engine = BounceEngine()
     

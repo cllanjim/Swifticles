@@ -33,16 +33,12 @@ class BottomMenu: ToolView
         didSet { toolRowUnderlay.backgroundColor = styleColorToolbarRow }
     }
     
-    @IBOutlet weak internal var containerMain: ToolContainerBottomMain? {
-        didSet { }
-    }
+    @IBOutlet weak internal var containerMain: ToolContainerBottomMain?
+    @IBOutlet weak internal var accessoryRow: ToolRow?
     
-    @IBOutlet weak internal var containerAccessory: ToolContainerBottomAccessory? {
-        didSet { }
-    }
+    @IBOutlet weak internal var containerAccessory: ToolContainerBottomAccessory?
     
     @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var containerMainTopConstraint: NSLayoutConstraint!
     
     
@@ -77,13 +73,12 @@ class BottomMenu: ToolView
             
             layoutIfNeeded()
             
-            let shift = containerAccessory!.height
-            print("SHIFT = \(shift)")
-            
             containerAccessory!.isHidden = true
-            containerMainTopConstraint.constant = -containerAccessory!.height
-            containerAccessory!.setNeedsLayout()
-            containerMain!.setNeedsLayout()
+            removeConstraint(containerMainTopConstraint)
+            
+            let newTopConstraint = NSLayoutConstraint(item: containerMain!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
+            addConstraint(newTopConstraint)
+            
             setNeedsLayout()
         }
         

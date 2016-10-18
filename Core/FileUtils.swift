@@ -76,6 +76,22 @@ open class FileUtils
         return nil
     }
     
+    //Eventually we'll be wanting to bundle these images togther.
+    open class func loadImage(_ filePath:String?) -> UIImage? {
+        var image: UIImage?
+        if let path = filePath {
+            image = UIImage(named: path)
+            
+            if image == nil {
+                
+                //jpg, png, jpeg, JPG, PNG, JPEG, gif, GIF
+                
+            }
+            
+        }
+        return image
+    }
+    
     open class func saveImagePNG(image:UIImage?, filePath:String?) -> Bool {
         if image != nil {
             var imageData = UIImagePNGRepresentation(image!)
