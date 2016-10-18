@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D199C281D59AE7D006F857C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D199C271D59AE7D006F857C /* Assets.xcassets */; };
 		0D37EA3E1D7381DA009DF16A /* background_generic.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA181D7381DA009DF16A /* background_generic.png */; };
 		0D37EA3F1D7381DA009DF16A /* background_generic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA191D7381DA009DF16A /* background_generic@2x.png */; };
 		0D37EA401D7381DA009DF16A /* background_modal_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA1A1D7381DA009DF16A /* background_modal_ipad.png */; };
@@ -53,6 +52,7 @@
 		0D37EA701D73E364009DF16A /* test_iphone6_portrait_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA6C1D73E364009DF16A /* test_iphone6_portrait_info.json */; };
 		0D37EA711D73E364009DF16A /* test_iphone6_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D37EA6D1D73E364009DF16A /* test_iphone6_portrait.png */; };
 		0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */; };
+		0D77CBCC1DB6080B000DC571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D77CBCB1DB6080B000DC571 /* Assets.xcassets */; };
 		0D83BE921D96407600256F63 /* MeshFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE8E1D96407600256F63 /* MeshFragmentShader.glsl */; };
 		0D83BE931D96407600256F63 /* MeshVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE8F1D96407600256F63 /* MeshVertexShader.glsl */; };
 		0D83BE941D96407600256F63 /* SimpleFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE901D96407600256F63 /* SimpleFragmentShader.glsl */; };
@@ -151,7 +151,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D199C271D59AE7D006F857C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D37EA181D7381DA009DF16A /* background_generic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_generic.png; sourceTree = "<group>"; };
 		0D37EA191D7381DA009DF16A /* background_generic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_generic@2x.png"; sourceTree = "<group>"; };
 		0D37EA1A1D7381DA009DF16A /* background_modal_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_modal_ipad.png; sourceTree = "<group>"; };
@@ -197,6 +196,7 @@
 		0D37EA6C1D73E364009DF16A /* test_iphone6_portrait_info.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_iphone6_portrait_info.json; sourceTree = "<group>"; };
 		0D37EA6D1D73E364009DF16A /* test_iphone6_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_iphone6_portrait.png; sourceTree = "<group>"; };
 		0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewControllerTests.swift; sourceTree = "<group>"; };
+		0D77CBCB1DB6080B000DC571 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D83BE8E1D96407600256F63 /* MeshFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MeshFragmentShader.glsl; sourceTree = "<group>"; };
 		0D83BE8F1D96407600256F63 /* MeshVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MeshVertexShader.glsl; sourceTree = "<group>"; };
 		0D83BE901D96407600256F63 /* SimpleFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragmentShader.glsl; sourceTree = "<group>"; };
@@ -389,10 +389,10 @@
 		0DD20F441D581262006DDDAB = {
 			isa = PBXGroup;
 			children = (
+				0D77CBCB1DB6080B000DC571 /* Assets.xcassets */,
 				C28195A91DB1AC9500B23E52 /* Classes */,
 				C28195691DB1AC8A00B23E52 /* Core */,
 				0D37EA171D7381DA009DF16A /* Assets (Loose) */,
-				0D199C271D59AE7D006F857C /* Assets.xcassets */,
 				0DD20F4F1D581263006DDDAB /* Bounce */,
 				0DD20F641D581263006DDDAB /* BounceTests */,
 				0DD20F6F1D581263006DDDAB /* BounceUITests */,
@@ -713,6 +713,7 @@
 				0D37EA6E1D73E364009DF16A /* test_iphone6_landscape_info.json in Resources */,
 				0DD20F561D581263006DDDAB /* Main.storyboard in Resources */,
 				0D37EA581D7381DA009DF16A /* reg_btn_save_down@2x.png in Resources */,
+				0D77CBCC1DB6080B000DC571 /* Assets.xcassets in Resources */,
 				0D37EA691D73C2EA009DF16A /* test_iphone5_portrait.png in Resources */,
 				0D37EA4B1D7381DA009DF16A /* reg_btn_deselect@2x.png in Resources */,
 				0D83BE931D96407600256F63 /* MeshVertexShader.glsl in Resources */,
@@ -720,7 +721,6 @@
 				0D37EA421D7381DA009DF16A /* checkbox_back_checked@2x.png in Resources */,
 				0D37EA451D7381DA009DF16A /* reg_btn_clone_selected@2x.png in Resources */,
 				0D37EA671D73C2EA009DF16A /* test_iphone5_landscape.png in Resources */,
-				0D199C281D59AE7D006F857C /* Assets.xcassets in Resources */,
 				0D37EA681D73C2EA009DF16A /* test_iphone5_portrait_info.json in Resources */,
 				0D37EA5F1D7381DA009DF16A /* test_ipad_portrait_info.json in Resources */,
 				0D37EA5A1D7381DA009DF16A /* reg_btn_select_any_down@2x.png in Resources */,
