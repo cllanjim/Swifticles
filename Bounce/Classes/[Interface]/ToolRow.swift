@@ -18,10 +18,14 @@ class ToolRow : ToolView
     @IBOutlet weak var rightConstraint: NSLayoutConstraint?
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint?
     
-    //Containers which are only visible in landscape mode.
+    //L/R Containers which are only visible in landscape mode.
     //(In portrait mode, their buttons exist in extra row)
     @IBOutlet weak var leftContainer: UIView?
     @IBOutlet weak var rightContainer: UIView?
+    
+    //Usually centered between the left and right containers.
+    @IBOutlet weak var mainContainer: UIView?
+    
     
     @IBOutlet weak var leftContainerWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var rightContainerWidthConstraint: NSLayoutConstraint?

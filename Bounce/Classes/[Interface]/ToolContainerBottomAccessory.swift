@@ -28,6 +28,8 @@ class ToolContainerBottomAccessory : ToolRowContainer
     }
     
     func updateToolRow() {
+        guard isHidden == false else { return }
+        
         if ApplicationController.shared.zoomMode {
             toolRow = toolRowZoom
         } else {

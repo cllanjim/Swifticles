@@ -96,8 +96,8 @@ class BottomMenu: ToolView
     }
     
     func updateToolRow() {
-        containerMain?.updateToolRow()
-        containerAccessory?.updateToolRow()
+        containerMain!.updateToolRow()
+        containerAccessory!.updateToolRow()
     }
     
     func expand() {

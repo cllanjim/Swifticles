@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToolBarBottom : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
+class ToolBarBottom : ToolRow, TBSegmentDelegate, TBCheckBoxDelegate
 {
     
     @IBInspectable @IBOutlet weak var segMode:TBSegment! {
