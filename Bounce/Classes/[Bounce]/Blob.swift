@@ -77,7 +77,9 @@ class Blob
     private var indexBufferSlot:BufferIndex?
     
     var linesBase = LineSegmentBuffer()
-    var lines = LineSegmentBuffer()
+    var linesInner = LineSegmentBuffer()
+    var linesOuter = LineSegmentBuffer()
+    
     
     //Base = untransformed, no Base = transformed...
     private var borderBase = PointList()
@@ -107,10 +109,15 @@ class Blob
         vertexBufferSlot = Graphics.bufferGenerate()
         indexBufferSlot = Graphics.bufferGenerate()
         
+        linesInner.color = Color(1.0, 1.0, 1.0, 1.0)
+        linesOuter.color = Color(0.45, 0.45, 0.45, 1.0)
+        
+        //var linesOuter = LineSegmentBuffer()
+        
         var radius = min(ApplicationController.shared.width, ApplicationController.shared.height)
         var pointCount = 6
         
-        if Device.tablet {
+        if Device.isTablet {
             pointCount = 8
             radius = radius / 6
         } else {
@@ -241,8 +248,8 @@ class Blob
         
         if vertexIndex > 0 && indexBufferCount > 0 {
             
-            //Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexIndex)
-            Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBuffer.count)
+            Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexIndex)
+            //Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBuffer, size: vertexBuffer.count)
             
             ShaderProgramMesh.shared.positionEnable()
             ShaderProgramMesh.shared.positionSetPointer(size: 3, offset: 0, stride: 10)
@@ -253,8 +260,8 @@ class Blob
             ShaderProgramMesh.shared.colorArrayEnable()
             ShaderProgramMesh.shared.colorArraySetPointer(size: 4, offset: 6, stride: 10)
             
-            //Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
-            Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: tri.indeces.count)
+            Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: indexBufferCount)
+            //Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: tri.indeces.count)
             
             Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
             
@@ -264,11 +271,27 @@ class Blob
         
         if isEditMode {
             if selected {
-                lines.thickness = 1.6
+                
+                if Device.isTablet {
+                    
+                    linesOuter.thickness = 2.5
+                    linesInner.thickness = 1.5
+                } else {
+                    linesOuter.thickness = 1.75
+                    linesInner.thickness = 1.0
+                }
             } else {
-                lines.thickness = 0.85
+                if Device.isTablet {
+                    linesOuter.thickness = 2.0
+                    linesInner.thickness = 1.0
+                } else {
+                    linesOuter.thickness = 1.5
+                    linesInner.thickness = 0.75
+                }
             }
-            lines.draw()
+            linesOuter.draw()
+            linesInner.draw()
+            
             
             if isEditModeShape {
                 Graphics.blendEnable()
@@ -399,10 +422,10 @@ class Blob
         
         #if DEBUG
             var threshDist = CGFloat(10.0)
-            if Device.tablet { threshDist = 28.0 }
+            if Device.isTablet { threshDist = 28.0 }
         #else
             var threshDist = CGFloat(4.0)
-            if Device.tablet { threshDist = 8.0 }
+            if Device.isTablet { threshDist = 8.0 }
         #endif
         
         threshDist = (threshDist * threshDist)
@@ -980,11 +1003,14 @@ class Blob
             return
         }
         
-        lines.reset()
+        linesInner.reset()
+        linesOuter.reset()
         var prev = border.data[border.count - 1]
         for i in 0..<border.count {
             let point = border.data[i]
-            lines.set(index: i, p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y))
+            linesInner.set(index: i, p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y))
+            linesOuter.set(index: i, p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y))
+            
             prev = point
         }
         

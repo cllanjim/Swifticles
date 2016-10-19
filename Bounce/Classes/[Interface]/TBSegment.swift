@@ -21,16 +21,27 @@ class TBSegment: UIView {
         willSet {
             if let index = selectedIndex , index >= 0 && index < buttons.count {
                 buttons[index].styleSetSegment()
+                buttons[index].isSelected = false
             }
         }
         didSet {
             if let index = selectedIndex , index >= 0 && index < buttons.count {
                 buttons[index].styleSetSegmentSelected()
+                buttons[index].isSelected = true
             }
         }
     }
     
-    private var buttons = [RRButton]()
+    private var buttons = [TBSegmentButton]()
+    
+    func setImage(index: Int, path: String?, pathSelected: String?) {
+        
+        if index >= 0 && index < buttons.count {
+            buttons[index].imagePathUp = path
+            buttons[index].imagePathDown = pathSelected
+        }
+        
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -78,7 +89,7 @@ class TBSegment: UIView {
             
             if newValue > 0 {
                 for index in 0..<newValue {
-                    let button = RRButton(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+                    let button = TBSegmentButton(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
                     buttons.append(button)
                     
                     if index <= 0 {

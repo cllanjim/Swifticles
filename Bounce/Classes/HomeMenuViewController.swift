@@ -43,7 +43,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
-        var result = UIInterfaceOrientationMask.all
+        let result = UIInterfaceOrientationMask.all
         return result
     }
     
@@ -62,23 +62,15 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
             print("key = \(key)")
             print("obj = \(obj)")
         }
-        
         let pickerImage = info["UIImagePickerControllerOriginalImage"] as? UIImage
-        
-        print("cond-1 \(pickerImage?.size.width)x\(pickerImage?.size.height)")
-        
         guard let image = pickerImage , image.size.width > 32.0 && image.size.height > 32.0 else {
-            print("FAIL-SAUCE!!!")
             self.dismiss(animated: true) { }
             return
         }
-        
         importImage = image
-        
         AppDelegate.root.dismiss(animated: true) { [weak weakSelf = self] in
             weakSelf?.performSegue(withIdentifier: "import_image", sender: nil)
         }
-        
     }
     
     internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -117,11 +109,15 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @IBAction func clickLoad(_ sender: AnyObject) {
         loadPath = "test_ipad_portrait_info.json"
+        ApplicationController.shared.preloadScene(withFile: loadPath!)
+        
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
     @IBAction func clickUpgrade(_ sender: AnyObject) {
         loadPath = "test_ipad_landscape_info.json"
+        ApplicationController.shared.preloadScene(withFile: loadPath!)
+        
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     
@@ -132,6 +128,8 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     @IBAction func clickContinueRecent(_ sender: HMButton) {
         loadPath = "recent_scene.json"
+        ApplicationController.shared.preloadScene(withFile: loadPath!)
+        
         performSegue(withIdentifier: "test_bounce", sender: nil)
     }
     

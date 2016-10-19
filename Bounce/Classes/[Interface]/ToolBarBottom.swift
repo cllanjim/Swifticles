@@ -15,6 +15,9 @@ class ToolBarBottom : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
         didSet {
             segMode.segmentCount = 2
             segMode.delegate = self
+            segMode.setImage(index: 0, path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
+            segMode.setImage(index: 1, path: "tb_seg_view", pathSelected: "tb_seg_view_selected")
+            segMode.selectedIndex = 0
         }
     }
     

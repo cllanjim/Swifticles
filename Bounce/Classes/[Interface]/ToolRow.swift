@@ -55,8 +55,7 @@ class ToolRow : ToolView
                 let newWidthConstraint = NSLayoutConstraint(item: rc, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 5.0)
                 addConstraint(newWidthConstraint)
             }
-            setNeedsLayout()
-            
+            setNeedsUpdateConstraints()
         }
     }
     

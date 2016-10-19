@@ -13,27 +13,8 @@ class RootViewController: RootViewControllerBase {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         setStoryboard(storyboard, animated: false)
-        
-        //navigation_controller
-        
-        /*
-        let nc = storyboard.instantiateViewController(withIdentifier: "main_nav") as! UINavigationController
-        nc.view.frame = view.bounds
-        view.addSubview(nc.view)
-        nc.view.setNeedsLayout()
-        */
-        
-        
-        
-        //let home = storyboard.instantiateViewController(withIdentifier: "tutorial_root") as! TutorialRoot
-        
-        //view.addSubview(home.view)
-        
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,11 +24,13 @@ class RootViewController: RootViewControllerBase {
     
     open override var shouldAutorotate : Bool {
         
+        /*
         if let nc = currentViewController as? UINavigationController {
             if (nc.visibleViewController as? BounceViewController) != nil {
                 return false
             }
         }
+        */
         
         return true
     }

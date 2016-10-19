@@ -17,7 +17,8 @@ class GLViewController: GLKViewController {
     func load() { }
     func draw() { }
     
-    var skipDrawCount:Int = 2
+    var skipDrawCount:Int = 0
+    var isRendering = false
     
     deinit {
         self.tearDownGL()
@@ -55,15 +56,15 @@ class GLViewController: GLKViewController {
             print("***  GL - SUICIDE!!! ***")
             print("************************")
             /*
-            self.view = nil
-            
-            self.tearDownGL()
-            
-            if EAGLContext.currentContext() === self.context {
-                EAGLContext.setCurrentContext(nil)
-            }
-            self.context = nil
-            */
+             self.view = nil
+             
+             self.tearDownGL()
+             
+             if EAGLContext.currentContext() === self.context {
+             EAGLContext.setCurrentContext(nil)
+             }
+             self.context = nil
+             */
         }
     }
     
@@ -84,9 +85,17 @@ class GLViewController: GLKViewController {
             skipDrawCount = skipDrawCount - 1
             return
         }
-        Graphics.clear()
-        Graphics.blendEnable()
-        Graphics.blendSetAlpha()
-        draw()
+        
+        if isRendering == false {
+            
+            isRendering = true
+            
+            Graphics.clear()
+            Graphics.blendEnable()
+            Graphics.blendSetAlpha()
+            draw()
+            
+            isRendering = false
+        }
     }
 }

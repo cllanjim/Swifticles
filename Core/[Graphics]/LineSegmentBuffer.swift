@@ -15,15 +15,21 @@ class LineSegmentBuffer {
     
     var data = [LineSegment]()
     
+    var color = Color() {
+        willSet {
+            if(newValue != color) {
+                setNeedsCompute()
+            }
+        }
+    }
+    
+    
     var thickness: CGFloat = 1.25 {
-        
         willSet {
             if(newValue != thickness) {
                 setNeedsCompute()
             }
         }
-        
-        didSet {  }
     }
     
     private var _drawBuffer: DrawTriangleBuffer?
@@ -88,6 +94,9 @@ class LineSegmentBuffer {
         let buffer = drawBuffer
         buffer.reset()
         if count >= 3 {
+            
+            _triangle.setColor(color: color)
+            
             var nodeIndex:Int = 0
             var index2:Int = count - 1
             for index1 in 0..<count {

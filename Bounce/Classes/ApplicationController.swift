@@ -44,6 +44,47 @@ class ApplicationController
         //}
     }
     
+    var toolBarHeight: CGFloat {
+        if Device.isTablet {
+            if ApplicationController.shared.isSceneLandscape {
+                return 64.0
+            } else {
+                return 70.0
+            }
+        } else {
+            if ApplicationController.shared.isSceneLandscape {
+                return 42.0
+            } else {
+                return 48.0
+            }
+        }
+    }
+    
+    var tbStrokeWidth: CGFloat {
+        if Device.isTablet {
+            return 4.0
+        } else {
+            return 2.0
+        }
+    }
+    
+    var tbButtonHeight: CGFloat {
+        if Device.isTablet {
+            if ApplicationController.shared.isSceneLandscape {
+                return 54.0
+            } else {
+                return 60.0
+            }
+        } else {
+            if ApplicationController.shared.isSceneLandscape {
+                return 36.0
+            } else {
+                return 42.0
+            }
+        }
+    }
+    
+    
     var importScale:CGFloat {
         var result = Device.scale * 2.0
         if result > 4.0 {
@@ -62,11 +103,21 @@ class ApplicationController
         }
     }
     
+    
+    private var _isSceneLandscape:Bool = false
     var isSceneLandscape:Bool {
-        if let scene = engine?.scene {
-            return scene.isLandscape
+        
+        get {
+            return _isSceneLandscape
         }
-        return Device.isLandscape
+        set {
+            _isSceneLandscape = newValue
+        }
+        
+        //if let scene = engine?.scene {
+        //    return scene.isLandscape
+        //}
+        //return Device.isLandscape
     }
     
     var sceneMode:SceneMode {
@@ -138,5 +189,32 @@ class ApplicationController
     var bottomMenu:BottomMenu? {
         return bounce?.bottomMenu
     }
+    
+    func preloadScene(withFile filePath: String) {
+        //Basically, just preload the file and figure out if it's landscape or portrait.
+        if let fileData = FileUtils.loadData(filePath) {
+            var parsedInfo:[String:AnyObject]?
+            do {
+                var jsonData:Any?
+                jsonData = try JSONSerialization.jsonObject(with: fileData, options:.mutableLeaves)
+                parsedInfo = jsonData as? [String:AnyObject]
+            }
+            catch {
+                print("Unable to parse data [\(filePath)]")
+            }
+            if let info = parsedInfo {
+                let scene = BounceScene()
+                if let sceneInfo = info["scene"] as? [String:AnyObject] {
+                    scene.load(info: sceneInfo)
+                    isSceneLandscape = scene.isLandscape
+                }
+            }
+        }
+    }
+    
+    func preloadScene(withLandscape landscape: Bool) {
+        isSceneLandscape = landscape
+    }
+    
     
 }

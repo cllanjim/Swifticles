@@ -38,8 +38,9 @@ class ToolView: UIView
             if view.responds(to: #selector(setUp)) {
                 view.perform(#selector(setUp))
             }
+            view.setNeedsDisplay()
         }
-        
+        setNeedsDisplay()
     }
     
     func addObserver(selector:Selector, notification:BounceNotification) {

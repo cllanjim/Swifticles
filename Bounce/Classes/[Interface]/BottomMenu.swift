@@ -10,36 +10,20 @@ import UIKit
 
 class BottomMenu: ToolView
 {
-    /*
-    var toolRows = [ToolView]()
-    
-    @IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit! {
-        didSet { toolRows.append(toolRowEdit); toolRowEdit.backgroundColor = UIColor.clear }
-    }
-    @IBOutlet weak internal var toolRowView: ToolRowBottomView! {
-        didSet { toolRows.append(toolRowView); toolRowView.backgroundColor = UIColor.clear }
-    }
-    @IBOutlet weak internal var toolRowZoom: ToolRowBottomZoom! {
-        didSet { toolRows.append(toolRowZoom); toolRowZoom.backgroundColor = UIColor.clear }
-    }
-    
-     @IBOutlet weak var toolMenuContainer: UIView! {
-     didSet { toolMenuContainer.backgroundColor = UIColor.clear }
-     }
-     
-    */
-    
     @IBOutlet weak internal var toolRowUnderlay: UIView! {
         didSet { toolRowUnderlay.backgroundColor = styleColorToolbarRow }
     }
     
     @IBOutlet weak internal var containerMain: ToolContainerBottomMain?
+    
     @IBOutlet weak internal var accessoryRow: ToolRow?
     
     @IBOutlet weak internal var containerAccessory: ToolContainerBottomAccessory?
     
     @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerMainTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var toolBarHeightConstraint: NSLayoutConstraint!
     
     
     var expanded:Bool = true
@@ -63,14 +47,9 @@ class BottomMenu: ToolView
         clipsToBounds = false
         isMultipleTouchEnabled = false
         
-        /*
-        for i in 0..<toolRows.count {
-            toolRows[i].index = i
-        }
-        */
+        toolBarHeightConstraint.constant = ApplicationController.shared.toolBarHeight
         
         if ApplicationController.shared.isSceneLandscape {
-            
             layoutIfNeeded()
             
             containerAccessory!.isHidden = true
@@ -79,7 +58,7 @@ class BottomMenu: ToolView
             let newTopConstraint = NSLayoutConstraint(item: containerMain!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
             addConstraint(newTopConstraint)
             
-            setNeedsLayout()
+            setNeedsUpdateConstraints()
         }
         
         
@@ -117,144 +96,9 @@ class BottomMenu: ToolView
     }
     
     func updateToolRow() {
-        
         containerMain?.updateToolRow()
-        
-        /*
-        if ApplicationController.shared.zoomMode {
-            toolRow = toolRowZoom
-        } else {
-            if ApplicationController.shared.sceneMode == .edit {
-                toolRow = toolRowEdit
-            } else if ApplicationController.shared.sceneMode == .view {
-                toolRow = toolRowView
-            }
-        }
-        */
+        containerAccessory?.updateToolRow()
     }
-    
-    /*
-    //override func handleBlobSelectionChanged() { }
-    var _currentToolRow: ToolView?
-    var toolRow: ToolView? {
-        get {
-            return _currentToolRow
-        }
-        set {
-            guard newValue != _currentToolRow else { return }
-            
-            
-            var previousToolRow = _currentToolRow
-            _currentToolRow = newValue
-            
-            if _currentToolRow != nil {
-                toolMenuContainer.bringSubview(toFront: _currentToolRow!)
-            }
-            
-            
-            //Initial case, snap everything into place.
-            if _currentToolRow != nil && previousToolRow == nil {
-                
-                for tr in toolRows {
-                    if tr !== _currentToolRow {
-                        sendOffScreenLeft(tr)
-                        tr.isHidden = true
-                    }
-                }
-                sendOnScreen(_currentToolRow!)
-                _currentToolRow!.isHidden = false
-                
-                layoutIfNeeded()
-                
-                
-            //Initial case, snap everything into place.
-            } else if _currentToolRow == nil && previousToolRow != nil {
-                print("***UNUSED CASE***)")
-                print("***DISMISS ALL***)")
-                
-            //Usual case, animate them all pretty.
-            } else if _currentToolRow != nil && previousToolRow != nil {
-                
-                if _currentToolRow!.index > previousToolRow!.index {
-                    
-                    sendOffScreenRight(_currentToolRow!)
-                    sendOnScreen(previousToolRow!)
-                    
-                    _currentToolRow?.layoutIfNeeded()
-                    previousToolRow?.layoutIfNeeded()
-                    layoutIfNeeded()
-                    
-                    sendOffScreenLeft(previousToolRow!)
-                    
-                    
-                } else {
-                    sendOffScreenLeft(_currentToolRow!)
-                    sendOnScreen(previousToolRow!)
-                    
-                    _currentToolRow?.layoutIfNeeded()
-                    previousToolRow?.layoutIfNeeded()
-                    layoutIfNeeded()
-                    
-                    sendOffScreenRight(previousToolRow!)
-                }
-                
-                _currentToolRow?.isHidden = false
-                previousToolRow?.isHidden = false
-                
-                sendOnScreen(_currentToolRow!)
-                
-                UIView.animate(withDuration: 0.4, animations: {
-                    [weak weakSelf = self] in
-                    weakSelf._currentToolRow?.layoutIfNeeded()
-                    previousToolRow?.layoutIfNeeded()
-                    weakSelf.layoutIfNeeded()
-                    weakSelf.superview?.layoutIfNeeded()
-                    }, completion: { [weak weakSelf = self] (finished:Bool) in
-                        previousToolRow?.isHidden = true
-                        weakSelf._currentToolRow!.isHidden = false
-                })
-            }
-        }
-    }
- 
-    
-    func updateToolRowConstraints() {
-        //
-        
-        //_currentToolRow
-    }
- 
-    
-    func sendOnScreen(_ row:ToolView) {
-        
-        if row === toolRowEdit { print("EDIT - sendOnScreen") }
-        if row === toolRowView { print("VIEW - sendOnScreen") }
-        if row === toolRowZoom { print("ZOOM - sendOnScreen") }
-        
-        row.leftConstraint?.constant = 0.0
-        row.setNeedsLayout()
-    }
-    
-    func sendOffScreenLeft(_ row:ToolView) {
-        
-        if row === toolRowEdit { print("EDIT - sendOffScreenLeft") }
-        if row === toolRowView { print("VIEW - sendOffScreenLeft") }
-        if row === toolRowZoom { print("ZOOM - sendOffScreenLeft") }
-        
-        row.leftConstraint?.constant = CGFloat(-Int(ApplicationController.shared.width + 0.5))
-        row.setNeedsLayout()
-    }
-    
-    func sendOffScreenRight(_ row:ToolView) {
-        
-        if row === toolRowEdit { print("EDIT - sendOffScreenRight") }
-        if row === toolRowView { print("VIEW - sendOffScreenRight") }
-        if row === toolRowZoom { print("ZOOM - sendOffScreenRight") }
-        
-        row.leftConstraint?.constant = CGFloat(Int(ApplicationController.shared.width + 0.5))
-        row.setNeedsLayout()
-    }
-    */
     
     func expand() {
         if expanded == false {

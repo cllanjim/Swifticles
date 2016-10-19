@@ -61,7 +61,7 @@ class ToolRowContainer : ToolRow
             return _currentToolRow
         }
         set {
-            guard newValue != _currentToolRow else { return }
+            guard newValue !== _currentToolRow else { return }
             
             
             var previousToolRow = _currentToolRow
@@ -158,17 +158,17 @@ class ToolRowContainer : ToolRow
     
     func sendOnScreen(_ row:ToolRow) {
         row.leftConstraint?.constant = 0.0
-        row.setNeedsLayout()
+        row.setNeedsUpdateConstraints()
     }
     
     func sendOffScreenLeft(_ row:ToolRow) {
         row.leftConstraint?.constant = CGFloat(-Int(ApplicationController.shared.width + 0.5))
-        row.setNeedsLayout()
+        row.setNeedsUpdateConstraints()
     }
     
     func sendOffScreenRight(_ row:ToolRow) {
         row.leftConstraint?.constant = CGFloat(Int(ApplicationController.shared.width + 0.5))
-        row.setNeedsLayout()
+        row.setNeedsUpdateConstraints()
     }
     
     

@@ -11,14 +11,32 @@ import UIKit
 class ToolContainerBottomAccessory : ToolRowContainer
 {
     
-    @IBOutlet weak internal var toolRowEdit: ToolRowBottomEdit! {
-        didSet { toolRows.append(toolRowEdit); toolRowEdit.backgroundColor = UIColor.clear }
+    @IBOutlet weak internal var toolRowEdit: ToolRowAccessoryBottomEdit! {
+        didSet { toolRows.append(toolRowEdit);
+            //toolRowEdit.backgroundColor = UIColor.clear
+        }
     }
-    @IBOutlet weak internal var toolRowView: ToolRowBottomView! {
-        didSet { toolRows.append(toolRowView); toolRowView.backgroundColor = UIColor.clear }
+    @IBOutlet weak internal var toolRowView: ToolRowAccessoryBottomView! {
+        didSet { toolRows.append(toolRowView);
+            //toolRowView.backgroundColor = UIColor.clear
+        }
     }
-    @IBOutlet weak internal var toolRowZoom: ToolRowBottomZoom! {
-        didSet { toolRows.append(toolRowZoom); toolRowZoom.backgroundColor = UIColor.clear }
+    @IBOutlet weak internal var toolRowZoom: ToolRowAccessoryBottomZoom! {
+        didSet { toolRows.append(toolRowZoom);
+            //toolRowZoom.backgroundColor = UIColor.clear
+        }
+    }
+    
+    func updateToolRow() {
+        if ApplicationController.shared.zoomMode {
+            toolRow = toolRowZoom
+        } else {
+            if ApplicationController.shared.sceneMode == .edit {
+                toolRow = toolRowEdit
+            } else if ApplicationController.shared.sceneMode == .view {
+                toolRow = toolRowView
+            }
+        }
     }
     
     override func setUp() {

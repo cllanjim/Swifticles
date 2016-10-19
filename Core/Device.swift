@@ -38,8 +38,12 @@ class Device
         return portraitWidth
     }
     
-    class var tablet:Bool {
+    class var isTablet:Bool {
         return width > 759.0 ? true : false
+    }
+    
+    class var isPhone:Bool {
+        return !isTablet
     }
     
     class var versionString:String {

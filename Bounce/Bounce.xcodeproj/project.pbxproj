@@ -65,6 +65,11 @@
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
 		C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */; };
 		C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */; };
+		C276E4DD1DB6CA3400568423 /* TBSegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4DC1DB6CA3400568423 /* TBSegmentButton.swift */; };
+		C276E4DF1DB6F50F00568423 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4DE1DB6F50F00568423 /* Color.swift */; };
+		C276E4E11DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4E01DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift */; };
+		C276E4E31DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4E21DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift */; };
+		C276E4E51DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4E41DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift */; };
 		C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956B1DB1AC8A00B23E52 /* DrawNode.swift */; };
 		C281958C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */; };
 		C281958D1DB1AC8A00B23E52 /* DrawTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956D1DB1AC8A00B23E52 /* DrawTriangle.swift */; };
@@ -215,6 +220,11 @@
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
 		C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extras.swift"; sourceTree = "<group>"; };
 		C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
+		C276E4DC1DB6CA3400568423 /* TBSegmentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBSegmentButton.swift; sourceTree = "<group>"; };
+		C276E4DE1DB6F50F00568423 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		C276E4E01DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomEdit.swift; sourceTree = "<group>"; };
+		C276E4E21DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomView.swift; sourceTree = "<group>"; };
+		C276E4E41DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomZoom.swift; sourceTree = "<group>"; };
 		C281956B1DB1AC8A00B23E52 /* DrawNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNode.swift; sourceTree = "<group>"; };
 		C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
 		C281956D1DB1AC8A00B23E52 /* DrawTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangle.swift; sourceTree = "<group>"; };
@@ -477,6 +487,7 @@
 				C28195781DB1AC8A00B23E52 /* ShaderProgramSprite.swift */,
 				C28195791DB1AC8A00B23E52 /* Sprite.swift */,
 				C281957A1DB1AC8A00B23E52 /* Texture.swift */,
+				C276E4DE1DB6F50F00568423 /* Color.swift */,
 			);
 			path = "[Graphics]";
 			sourceTree = "<group>";
@@ -542,6 +553,7 @@
 		C28195B21DB1AC9500B23E52 /* [Interface] */ = {
 			isa = PBXGroup;
 			children = (
+				C276E4DC1DB6CA3400568423 /* TBSegmentButton.swift */,
 				C28195B31DB1AC9500B23E52 /* BottomMenu.swift */,
 				C28195B41DB1AC9500B23E52 /* HMButton.swift */,
 				C28195B51DB1AC9500B23E52 /* RRButton.swift */,
@@ -561,6 +573,9 @@
 				C28195C31DB1AC9500B23E52 /* ToolRowZoomAccessory.swift */,
 				C28195C41DB1AC9500B23E52 /* ToolView.swift */,
 				0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */,
+				C276E4E01DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift */,
+				C276E4E21DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift */,
+				C276E4E41DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -748,11 +763,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C276E4E11DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift in Sources */,
 				C28195EE1DB1AC9500B23E52 /* Reader.swift in Sources */,
 				C28195D41DB1AC9500B23E52 /* BounceViewController.swift in Sources */,
 				C28195911DB1AC8A00B23E52 /* LineSegment.swift in Sources */,
 				C28195901DB1AC8A00B23E52 /* Graphics.swift in Sources */,
 				C28195E11DB1AC9500B23E52 /* ToolRowBottomEdit.swift in Sources */,
+				C276E4DF1DB6F50F00568423 /* Color.swift in Sources */,
 				C28195EC1DB1AC9500B23E52 /* HomeMenuViewController.swift in Sources */,
 				C28195A51DB1AC8A00B23E52 /* UIView+Extras.swift in Sources */,
 				C28195961DB1AC8A00B23E52 /* ShaderProgramMesh.swift in Sources */,
@@ -774,6 +791,7 @@
 				C28195951DB1AC8A00B23E52 /* ShaderProgram.swift in Sources */,
 				C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */,
 				C28195DC1DB1AC9500B23E52 /* TBSegment.swift in Sources */,
+				C276E4E51DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift in Sources */,
 				C281959F1DB1AC8A00B23E52 /* WebFetcher.swift in Sources */,
 				C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */,
 				C28195E01DB1AC9500B23E52 /* ToolContainerBottomMain.swift in Sources */,
@@ -783,6 +801,7 @@
 				C28195ED1DB1AC9500B23E52 /* ImageImportViewController.swift in Sources */,
 				C28195E51DB1AC9500B23E52 /* ToolRowZoom.swift in Sources */,
 				C281958C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift in Sources */,
+				C276E4E31DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift in Sources */,
 				C28195E41DB1AC9500B23E52 /* ToolRowContainer.swift in Sources */,
 				C28195DE1DB1AC9500B23E52 /* ToolBarTop.swift in Sources */,
 				C28195DD1DB1AC9500B23E52 /* ToolBarBottom.swift in Sources */,
@@ -815,6 +834,7 @@
 				C28195F31DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift in Sources */,
 				C28195DB1DB1AC9500B23E52 /* TBCheckBox.swift in Sources */,
 				C28195941DB1AC8A00B23E52 /* PointList.swift in Sources */,
+				C276E4DD1DB6CA3400568423 /* TBSegmentButton.swift in Sources */,
 				C28195921DB1AC8A00B23E52 /* LineSegmentBuffer.swift in Sources */,
 				C28195D61DB1AC9500B23E52 /* BottomMenu.swift in Sources */,
 			);

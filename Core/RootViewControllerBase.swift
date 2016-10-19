@@ -77,7 +77,7 @@ class RootViewControllerBase: UIViewController {
         let constraintTop = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: parentView, attribute: .top, multiplier: 1.0, constant: _frameInsets)
         let constraintBottom = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: parentView, attribute: .bottom, multiplier: 1.0, constant: -_frameInsets)
         parentView.addConstraints([constraintLeft, constraintRight, constraintTop, constraintBottom])
-        parentView.setNeedsLayout()
+        parentView.setNeedsUpdateConstraints()
         parentView.setNeedsDisplay()
     }
     

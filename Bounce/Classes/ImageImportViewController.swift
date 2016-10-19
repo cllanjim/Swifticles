@@ -372,7 +372,7 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     func getCropRect(_ size: CGSize) -> CGRect {
         //Crop rect goes in-between the top and bottom toolbars.
         //We keep it at the same aspect ratio as the device's screen.
-        let activeBorder = Device.tablet ? 24.0 : 6.0
+        let activeBorder = Device.isTablet ? 24.0 : 6.0
         let navigationBar = ApplicationController.shared.navigationController?.navigationBar
         var navigationBarY:CGFloat = 0.0
         var navigationBarHeight:CGFloat = 0.0
@@ -433,27 +433,29 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
                 //UIGraphicsBeginImageContextWithOptions(CGSize(width: resultWidth, height: resultHeight), false, 0.0)
                 UIGraphicsBeginImageContext(CGSize(width: resultWidth, height: resultHeight))
                 
-                let context = UIGraphicsGetCurrentContext();
+                if let context = UIGraphicsGetCurrentContext() {
                 
-                context?.translateBy(x: (resultWidth / 2.0), y: (resultHeight / 2.0))
-                context?.scaleBy(x: adjustScale, y: adjustScale)
-                context?.translateBy(x: imageShift.x, y: imageShift.y)
-                context?.scaleBy(x: scale, y: scale)
-                context?.rotate(by: rotation)
-                context?.translateBy(x: -(image.size.width / 2.0), y: -(image.size.height / 2.0))
+                context.translateBy(x: (resultWidth / 2.0), y: (resultHeight / 2.0))
+                context.scaleBy(x: adjustScale, y: adjustScale)
+                context.translateBy(x: imageShift.x, y: imageShift.y)
+                context.scaleBy(x: scale, y: scale)
+                context.rotate(by: rotation)
+                context.translateBy(x: -(image.size.width / 2.0), y: -(image.size.height / 2.0))
                 
                 //And then for some reason, flip the whole thing horizontally.
-                context?.translateBy(x: 0.0, y: image.size.height)
-                context?.scaleBy(x: 1.0, y: -1.0)
+                
+                context.translateBy(x: 0.0, y: image.size.height)
+                context.scaleBy(x: 1.0, y: -1.0)
                 
                 //CGContextSetAlpha(context, 0.75)
-                context?.draw(image.cgImage!, in: CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height))
+                context.draw(image.cgImage!, in: CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height))
                 
                 let resultImage = UIGraphicsGetImageFromCurrentImageContext()
                 
                 UIGraphicsEndImageContext()
                 
                 return resultImage
+                }
             }
         }
         return nil
@@ -462,7 +464,10 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func clickNext(_ sender: UIBarButtonItem) {
         if let resultImage = cropImage() {
             let isPortrait = view.bounds.size.width < view.bounds.size.height
+            
+            ApplicationController.shared.preloadScene(withLandscape: isPortrait == false)
             if let bounce = ApplicationController.shared.getStoryboardVC("bounce") as? BounceViewController {
+                
                 bounce.loadViewIfNeeded()
                 bounce.setUpNew(image: resultImage, sceneRect:CGRect(x: 0.0, y: 0.0, width: isPortrait ? Device.portraitWidth : Device.landscapeWidth, height: isPortrait ? Device.portraitHeight : Device.landscapeHeight), portraitOrientation: isPortrait)
             

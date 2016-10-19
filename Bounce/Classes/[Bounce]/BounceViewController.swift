@@ -287,8 +287,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
         viewMat.scale(Float(screenScale))
         ShaderProgramMesh.shared.matrixProjectionSet(viewMat)
-        //ShaderProgramMesh.shared.blendEnable()
-        //ShaderProgramMesh.shared.blendSetAlpha()
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         Graphics.textureEnable()
         engine.draw()

@@ -364,7 +364,55 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVU-aK-WgD" customClass="ToolRow" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoL-NO-q1m" customClass="ToolContainerBottomAccessory" customModule="Bounce" customModuleProvider="target">
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1M-RB-Eqp" customClass="ToolRowAccessoryBottomView" customModule="Bounce" customModuleProvider="target">
+                                                                <color key="backgroundColor" red="0.095218120810000001" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <connections>
+                                                                    <outlet property="heightConstraint" destination="BYJ-Qr-NBa" id="UZn-FX-cBL"/>
+                                                                    <outlet property="leftConstraint" destination="ck5-WE-bkW" id="SYr-5g-oPM"/>
+                                                                    <outlet property="topConstraint" destination="ba6-Ro-1fZ" id="Bp9-UJ-Wr2"/>
+                                                                    <outlet property="widthConstraint" destination="hfJ-VX-2qa" id="vJh-q7-SWz"/>
+                                                                </connections>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAa-uQ-qbo" customClass="ToolRowAccessoryBottomEdit" customModule="Bounce" customModuleProvider="target">
+                                                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <connections>
+                                                                    <outlet property="heightConstraint" destination="7AY-V2-5fv" id="Rjj-F9-f5N"/>
+                                                                    <outlet property="leftConstraint" destination="If6-2E-PPH" id="8qP-kc-7U1"/>
+                                                                    <outlet property="topConstraint" destination="a0h-R0-nmA" id="vtq-jq-ob3"/>
+                                                                    <outlet property="widthConstraint" destination="TPi-3L-MOf" id="rc6-3G-RJ8"/>
+                                                                </connections>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XuX-P0-NaW" customClass="ToolRowAccessoryBottomZoom" customModule="Bounce" customModuleProvider="target">
+                                                                <color key="backgroundColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <connections>
+                                                                    <outlet property="heightConstraint" destination="Qw3-jW-Tm4" id="gtD-SX-9X6"/>
+                                                                    <outlet property="leftConstraint" destination="0kg-VU-MvI" id="kou-PN-HOZ"/>
+                                                                    <outlet property="topConstraint" destination="rrp-fo-lf4" id="NtD-Hr-Bas"/>
+                                                                    <outlet property="widthConstraint" destination="Xxt-4h-6EE" id="gAO-NK-iKg"/>
+                                                                </connections>
+                                                            </view>
+                                                        </subviews>
                                                         <color key="backgroundColor" red="0.32118453746177372" green="0.3931455466360852" blue="0.55695718654434245" alpha="0.59924051857585137" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="XuX-P0-NaW" firstAttribute="leading" secondItem="IoL-NO-q1m" secondAttribute="leading" id="0kg-VU-MvI"/>
+                                                            <constraint firstItem="rAa-uQ-qbo" firstAttribute="height" secondItem="IoL-NO-q1m" secondAttribute="height" id="7AY-V2-5fv"/>
+                                                            <constraint firstItem="W1M-RB-Eqp" firstAttribute="height" secondItem="IoL-NO-q1m" secondAttribute="height" id="BYJ-Qr-NBa"/>
+                                                            <constraint firstItem="rAa-uQ-qbo" firstAttribute="leading" secondItem="IoL-NO-q1m" secondAttribute="leading" id="If6-2E-PPH"/>
+                                                            <constraint firstItem="XuX-P0-NaW" firstAttribute="height" secondItem="IoL-NO-q1m" secondAttribute="height" id="Qw3-jW-Tm4"/>
+                                                            <constraint firstItem="rAa-uQ-qbo" firstAttribute="width" secondItem="IoL-NO-q1m" secondAttribute="width" id="TPi-3L-MOf"/>
+                                                            <constraint firstItem="XuX-P0-NaW" firstAttribute="width" secondItem="IoL-NO-q1m" secondAttribute="width" id="Xxt-4h-6EE"/>
+                                                            <constraint firstItem="rAa-uQ-qbo" firstAttribute="top" secondItem="IoL-NO-q1m" secondAttribute="top" id="a0h-R0-nmA"/>
+                                                            <constraint firstItem="W1M-RB-Eqp" firstAttribute="top" secondItem="IoL-NO-q1m" secondAttribute="top" id="ba6-Ro-1fZ"/>
+                                                            <constraint firstItem="W1M-RB-Eqp" firstAttribute="leading" secondItem="IoL-NO-q1m" secondAttribute="leading" id="ck5-WE-bkW"/>
+                                                            <constraint firstItem="W1M-RB-Eqp" firstAttribute="width" secondItem="IoL-NO-q1m" secondAttribute="width" id="hfJ-VX-2qa"/>
+                                                            <constraint firstItem="XuX-P0-NaW" firstAttribute="top" secondItem="IoL-NO-q1m" secondAttribute="top" id="rrp-fo-lf4"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="toolRowEdit" destination="rAa-uQ-qbo" id="qlu-q3-nBv"/>
+                                                            <outlet property="toolRowView" destination="W1M-RB-Eqp" id="DIO-id-AGr"/>
+                                                            <outlet property="toolRowZoom" destination="XuX-P0-NaW" id="Pfy-th-fCY"/>
+                                                        </connections>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -388,8 +436,7 @@
                                         <subviews>
                                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
-                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btq-wf-4ew">
-                                                        <frame key="frameInset" minX="8" minY="11" width="51" height="25"/>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btq-wf-4ew">
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="49" id="9BM-Yv-KFY"/>
                                                         </constraints>
@@ -561,37 +608,13 @@
                                             <constraint firstItem="KGr-Yo-8Tw" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="7IO-r5-3gK"/>
                                             <constraint firstAttribute="height" constant="46" id="7Rw-Cx-R86"/>
                                             <constraint firstAttribute="trailing" secondItem="4AA-c5-6ui" secondAttribute="trailing" constant="8" id="9n0-KW-O1l"/>
-                                            <constraint firstAttribute="height" constant="42" id="LKF-TQ-4o4"/>
                                             <constraint firstItem="sJC-8m-x7T" firstAttribute="centerX" secondItem="LEj-da-9Od" secondAttribute="centerX" id="Qhm-zG-MEF"/>
                                             <constraint firstItem="sJC-8m-x7T" firstAttribute="top" secondItem="LEj-da-9Od" secondAttribute="top" id="SbK-Jh-Pys"/>
                                             <constraint firstItem="4AA-c5-6ui" firstAttribute="centerY" secondItem="LEj-da-9Od" secondAttribute="centerY" id="UdY-sO-dcG"/>
-                                            <constraint firstAttribute="height" constant="66" id="bGj-Ju-kk8"/>
                                             <constraint firstItem="4AA-c5-6ui" firstAttribute="height" secondItem="LEj-da-9Od" secondAttribute="height" id="eWH-ZX-wuh"/>
                                             <constraint firstItem="KGr-Yo-8Tw" firstAttribute="leading" secondItem="LEj-da-9Od" secondAttribute="leading" id="fO2-MP-5IT"/>
                                             <constraint firstItem="KGr-Yo-8Tw" firstAttribute="centerY" secondItem="LEj-da-9Od" secondAttribute="centerY" id="igW-be-Jz1"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="7Rw-Cx-R86"/>
-                                                <exclude reference="LKF-TQ-4o4"/>
-                                                <exclude reference="bGj-Ju-kk8"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="LKF-TQ-4o4"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="7Rw-Cx-R86"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="bGj-Ju-kk8"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <outlet property="buttonExpand" destination="4AA-c5-6ui" id="PBh-mv-3IZ"/>
                                             <outlet property="segMode" destination="sJC-8m-x7T" id="u5W-oO-ZgZ"/>
@@ -630,6 +653,7 @@
                                     <outlet property="containerMainTopConstraint" destination="hFS-PU-mev" id="QHf-Qn-bb8"/>
                                     <outlet property="menuHeightConstraint" destination="SM1-54-13n" id="dNe-Ad-h8h"/>
                                     <outlet property="toolBar" destination="LEj-da-9Od" id="vQR-m8-faf"/>
+                                    <outlet property="toolBarHeightConstraint" destination="7Rw-Cx-R86" id="VN8-QV-CUd"/>
                                     <outlet property="toolRowUnderlay" destination="MBh-4I-Pr7" id="fy8-Ix-dlO"/>
                                 </connections>
                             </view>

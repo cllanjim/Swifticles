@@ -18,6 +18,28 @@ class DrawTriangle {
         node3.set(drawNode: triangle.node3)
     }
     
+    func setColor(color: Color) {
+        
+        node1.r = color.r
+        node1.g = color.g
+        node1.b = color.b
+        node1.a = color.a
+        
+        node2.r = color.r
+        node2.g = color.g
+        node2.b = color.b
+        node2.a = color.a
+        
+        node3.r = color.r
+        node3.g = color.g
+        node3.b = color.b
+        node3.a = color.a
+        
+        
+        
+        //Color
+    }
+    
     var p1:(x:CGFloat, y:CGFloat, z:CGFloat) {
         get { return (node1.x, node1.y, node1.z)}
         set {
