@@ -37,8 +37,12 @@ class TBSegment: UIView {
     func setImage(index: Int, path: String?, pathSelected: String?) {
         
         if index >= 0 && index < buttons.count {
-            buttons[index].imagePathUp = path
-            buttons[index].imagePathDown = pathSelected
+            //buttons[index]
+            
+            buttons[index].setImages(path: path, pathSelected: pathSelected)
+            
+            //buttons[index].imagePathUp = path
+            //buttons[index].imagePathDown = pathSelected
         }
         
     }

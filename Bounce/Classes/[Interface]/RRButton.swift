@@ -33,6 +33,11 @@ class RRButton: UIButton {
         return nil
     }
     
+    func setImages(path: String?, pathSelected: String?) {
+        if path != nil { imagePathUp = path! }
+        if pathSelected != nil { imagePathDown = pathSelected! }
+    }
+    
     private var _imageUp:UIImage?
     var imageUp: UIImage? {
         if _imageUp == nil && imagePathUp != nil {

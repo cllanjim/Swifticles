@@ -69,6 +69,7 @@ class ToolRowContainer : ToolRow
             
             if _currentToolRow != nil {
                 bringSubview(toFront: _currentToolRow!)
+                _currentToolRow!.showTools()
             }
             
             
@@ -170,46 +171,7 @@ class ToolRowContainer : ToolRow
         row.leftConstraint?.constant = CGFloat(Int(ApplicationController.shared.width + 0.5))
         row.setNeedsUpdateConstraints()
     }
+
     
-    
-    func expand() {
-        if expanded == false {
-            expanded = true
-            
-            /*
-            menuHeightConstraint.constant = toolBar.height + toolMenuContainer.height
-            setNeedsUpdateConstraints()
-            superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 0.4, animations: {
-                [weak weakSelf = self] in
-                weakSelf.superview?.layoutIfNeeded()
-                }, completion: nil)
-            */
-        }
-    }
-    
-    func collapse() {
-        if expanded == true {
-            expanded = false
-            
-            /*
-            menuHeightConstraint.constant = toolBar.height
-            setNeedsUpdateConstraints()
-            superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 0.4, animations: {
-                [weak weakSelf = self] in
-                weakSelf.superview?.layoutIfNeeded()
-                }, completion: nil)
-            */
-        }
-    }
-    
-    //override func handleSceneReady() { }
-    //override func handleZoomModeChange() { }
-    //override func handleSceneModeChanged() { }
-    //override func handleEditModeChanged() { }
-    //override func handleViewModeChanged() { }
-    //override func handleBlobAdded() { }
-    //override func handleBlobSelectionChanged() { }
 }
 

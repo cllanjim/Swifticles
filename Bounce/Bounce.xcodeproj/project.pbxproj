@@ -61,15 +61,49 @@
 		0DD20F5B1D581263006DDDAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DD20F591D581263006DDDAB /* LaunchScreen.storyboard */; };
 		0DD20F661D581263006DDDAB /* BounceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F651D581263006DDDAB /* BounceTests.swift */; };
 		0DD20F711D581263006DDDAB /* BounceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD20F701D581263006DDDAB /* BounceUITests.swift */; };
-		0DEEFBA81DB1FFBF00028C3F /* ToolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */; };
+		C21E409E1DB8472500EB6A4F /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40751DB8472500EB6A4F /* Blob.swift */; };
+		C21E409F1DB8472500EB6A4F /* BlobMeshBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40761DB8472500EB6A4F /* BlobMeshBuffer.swift */; };
+		C21E40A01DB8472500EB6A4F /* BlobMeshNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40771DB8472500EB6A4F /* BlobMeshNode.swift */; };
+		C21E40A11DB8472500EB6A4F /* BounceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40781DB8472500EB6A4F /* BounceEngine.swift */; };
+		C21E40A21DB8472500EB6A4F /* BounceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40791DB8472500EB6A4F /* BounceScene.swift */; };
+		C21E40A31DB8472500EB6A4F /* BounceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E407A1DB8472500EB6A4F /* BounceViewController.swift */; };
+		C21E40A41DB8472500EB6A4F /* IndexTriangleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E407B1DB8472500EB6A4F /* IndexTriangleList.swift */; };
+		C21E40A51DB8472500EB6A4F /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E407E1DB8472500EB6A4F /* BottomMenu.swift */; };
+		C21E40A61DB8472500EB6A4F /* ToolBarBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E407F1DB8472500EB6A4F /* ToolBarBottom.swift */; };
+		C21E40A71DB8472500EB6A4F /* ToolContainerBottomAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40801DB8472500EB6A4F /* ToolContainerBottomAccessory.swift */; };
+		C21E40A81DB8472500EB6A4F /* ToolContainerBottomMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40811DB8472500EB6A4F /* ToolContainerBottomMain.swift */; };
+		C21E40A91DB8472500EB6A4F /* ToolRowAccessoryBottomEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40821DB8472500EB6A4F /* ToolRowAccessoryBottomEdit.swift */; };
+		C21E40AA1DB8472500EB6A4F /* ToolRowAccessoryBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40831DB8472500EB6A4F /* ToolRowAccessoryBottomView.swift */; };
+		C21E40AB1DB8472500EB6A4F /* ToolRowAccessoryBottomZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40841DB8472500EB6A4F /* ToolRowAccessoryBottomZoom.swift */; };
+		C21E40AC1DB8472500EB6A4F /* ToolRowBottomEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40851DB8472500EB6A4F /* ToolRowBottomEdit.swift */; };
+		C21E40AD1DB8472500EB6A4F /* ToolRowBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40861DB8472500EB6A4F /* ToolRowBottomView.swift */; };
+		C21E40AE1DB8472500EB6A4F /* ToolRowBottomZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40871DB8472500EB6A4F /* ToolRowBottomZoom.swift */; };
+		C21E40AF1DB8472500EB6A4F /* ToolBarTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40891DB8472500EB6A4F /* ToolBarTop.swift */; };
+		C21E40B01DB8472500EB6A4F /* HMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E408A1DB8472500EB6A4F /* HMButton.swift */; };
+		C21E40B11DB8472500EB6A4F /* RRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E408B1DB8472500EB6A4F /* RRButton.swift */; };
+		C21E40B21DB8472500EB6A4F /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E408C1DB8472500EB6A4F /* Style.swift */; };
+		C21E40B31DB8472500EB6A4F /* TBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E408D1DB8472500EB6A4F /* TBButton.swift */; };
+		C21E40B41DB8472500EB6A4F /* TBCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E408E1DB8472500EB6A4F /* TBCheckBox.swift */; };
+		C21E40B51DB8472500EB6A4F /* TBSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E408F1DB8472500EB6A4F /* TBSegment.swift */; };
+		C21E40B61DB8472500EB6A4F /* TBSegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40901DB8472500EB6A4F /* TBSegmentButton.swift */; };
+		C21E40B71DB8472500EB6A4F /* ToolRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40911DB8472500EB6A4F /* ToolRow.swift */; };
+		C21E40B81DB8472500EB6A4F /* ToolRowContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40921DB8472500EB6A4F /* ToolRowContainer.swift */; };
+		C21E40B91DB8472500EB6A4F /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40931DB8472500EB6A4F /* ToolView.swift */; };
+		C21E40BA1DB8472500EB6A4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40941DB8472500EB6A4F /* AppDelegate.swift */; };
+		C21E40BB1DB8472500EB6A4F /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40951DB8472500EB6A4F /* ApplicationController.swift */; };
+		C21E40BC1DB8472500EB6A4F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40961DB8472500EB6A4F /* Config.swift */; };
+		C21E40BD1DB8472500EB6A4F /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40971DB8472500EB6A4F /* EditAffineViewController.swift */; };
+		C21E40BE1DB8472500EB6A4F /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40981DB8472500EB6A4F /* HomeMenuViewController.swift */; };
+		C21E40BF1DB8472500EB6A4F /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40991DB8472500EB6A4F /* ImageImportViewController.swift */; };
+		C21E40C01DB8472500EB6A4F /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E409A1DB8472500EB6A4F /* Reader.swift */; };
+		C21E40C11DB8472500EB6A4F /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E409B1DB8472500EB6A4F /* RootViewController.swift */; };
+		C21E40C21DB8472500EB6A4F /* ToolActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E409C1DB8472500EB6A4F /* ToolActions.swift */; };
+		C21E40C31DB8472500EB6A4F /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E409D1DB8472500EB6A4F /* Uploader.swift */; };
+		C21E40C51DB8550400EB6A4F /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40C41DB8550400EB6A4F /* ButtonGroup.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
 		C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */; };
 		C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */; };
-		C276E4DD1DB6CA3400568423 /* TBSegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4DC1DB6CA3400568423 /* TBSegmentButton.swift */; };
 		C276E4DF1DB6F50F00568423 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4DE1DB6F50F00568423 /* Color.swift */; };
-		C276E4E11DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4E01DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift */; };
-		C276E4E31DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4E21DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift */; };
-		C276E4E51DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4E41DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift */; };
 		C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956B1DB1AC8A00B23E52 /* DrawNode.swift */; };
 		C281958C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */; };
 		C281958D1DB1AC8A00B23E52 /* DrawTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956D1DB1AC8A00B23E52 /* DrawTriangle.swift */; };
@@ -100,41 +134,6 @@
 		C28195A61DB1AC8A00B23E52 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195881DB1AC8A00B23E52 /* FileUtils.swift */; };
 		C28195A71DB1AC8A00B23E52 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195891DB1AC8A00B23E52 /* Math.swift */; };
 		C28195A81DB1AC8A00B23E52 /* RootViewControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281958A1DB1AC8A00B23E52 /* RootViewControllerBase.swift */; };
-		C28195CF1DB1AC9500B23E52 /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195AB1DB1AC9500B23E52 /* Blob.swift */; };
-		C28195D01DB1AC9500B23E52 /* BlobMeshBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195AC1DB1AC9500B23E52 /* BlobMeshBuffer.swift */; };
-		C28195D11DB1AC9500B23E52 /* BlobMeshNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195AD1DB1AC9500B23E52 /* BlobMeshNode.swift */; };
-		C28195D21DB1AC9500B23E52 /* BounceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195AE1DB1AC9500B23E52 /* BounceEngine.swift */; };
-		C28195D31DB1AC9500B23E52 /* BounceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195AF1DB1AC9500B23E52 /* BounceScene.swift */; };
-		C28195D41DB1AC9500B23E52 /* BounceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B01DB1AC9500B23E52 /* BounceViewController.swift */; };
-		C28195D51DB1AC9500B23E52 /* IndexTriangleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B11DB1AC9500B23E52 /* IndexTriangleList.swift */; };
-		C28195D61DB1AC9500B23E52 /* BottomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B31DB1AC9500B23E52 /* BottomMenu.swift */; };
-		C28195D71DB1AC9500B23E52 /* HMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B41DB1AC9500B23E52 /* HMButton.swift */; };
-		C28195D81DB1AC9500B23E52 /* RRButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B51DB1AC9500B23E52 /* RRButton.swift */; };
-		C28195D91DB1AC9500B23E52 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B61DB1AC9500B23E52 /* Style.swift */; };
-		C28195DA1DB1AC9500B23E52 /* TBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B71DB1AC9500B23E52 /* TBButton.swift */; };
-		C28195DB1DB1AC9500B23E52 /* TBCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B81DB1AC9500B23E52 /* TBCheckBox.swift */; };
-		C28195DC1DB1AC9500B23E52 /* TBSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195B91DB1AC9500B23E52 /* TBSegment.swift */; };
-		C28195DD1DB1AC9500B23E52 /* ToolBarBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195BA1DB1AC9500B23E52 /* ToolBarBottom.swift */; };
-		C28195DE1DB1AC9500B23E52 /* ToolBarTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195BB1DB1AC9500B23E52 /* ToolBarTop.swift */; };
-		C28195DF1DB1AC9500B23E52 /* ToolContainerBottomAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195BC1DB1AC9500B23E52 /* ToolContainerBottomAccessory.swift */; };
-		C28195E01DB1AC9500B23E52 /* ToolContainerBottomMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195BD1DB1AC9500B23E52 /* ToolContainerBottomMain.swift */; };
-		C28195E11DB1AC9500B23E52 /* ToolRowBottomEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195BE1DB1AC9500B23E52 /* ToolRowBottomEdit.swift */; };
-		C28195E21DB1AC9500B23E52 /* ToolRowBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195BF1DB1AC9500B23E52 /* ToolRowBottomView.swift */; };
-		C28195E31DB1AC9500B23E52 /* ToolRowBottomZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C01DB1AC9500B23E52 /* ToolRowBottomZoom.swift */; };
-		C28195E41DB1AC9500B23E52 /* ToolRowContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C11DB1AC9500B23E52 /* ToolRowContainer.swift */; };
-		C28195E51DB1AC9500B23E52 /* ToolRowZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C21DB1AC9500B23E52 /* ToolRowZoom.swift */; };
-		C28195E61DB1AC9500B23E52 /* ToolRowZoomAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C31DB1AC9500B23E52 /* ToolRowZoomAccessory.swift */; };
-		C28195E71DB1AC9500B23E52 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C41DB1AC9500B23E52 /* ToolView.swift */; };
-		C28195E81DB1AC9500B23E52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C51DB1AC9500B23E52 /* AppDelegate.swift */; };
-		C28195E91DB1AC9500B23E52 /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C61DB1AC9500B23E52 /* ApplicationController.swift */; };
-		C28195EA1DB1AC9500B23E52 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C71DB1AC9500B23E52 /* Config.swift */; };
-		C28195EB1DB1AC9500B23E52 /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C81DB1AC9500B23E52 /* EditAffineViewController.swift */; };
-		C28195EC1DB1AC9500B23E52 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195C91DB1AC9500B23E52 /* HomeMenuViewController.swift */; };
-		C28195ED1DB1AC9500B23E52 /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195CA1DB1AC9500B23E52 /* ImageImportViewController.swift */; };
-		C28195EE1DB1AC9500B23E52 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195CB1DB1AC9500B23E52 /* Reader.swift */; };
-		C28195EF1DB1AC9500B23E52 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195CC1DB1AC9500B23E52 /* RootViewController.swift */; };
-		C28195F01DB1AC9500B23E52 /* ToolActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195CD1DB1AC9500B23E52 /* ToolActions.swift */; };
-		C28195F11DB1AC9500B23E52 /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195CE1DB1AC9500B23E52 /* Uploader.swift */; };
 		C28195F31DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195F21DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift */; };
 /* End PBXBuildFile section */
 
@@ -216,15 +215,49 @@
 		0DD20F6C1D581263006DDDAB /* BounceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BounceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DD20F701D581263006DDDAB /* BounceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceUITests.swift; sourceTree = "<group>"; };
 		0DD20F721D581263006DDDAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRow.swift; sourceTree = "<group>"; };
+		C21E40751DB8472500EB6A4F /* Blob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
+		C21E40761DB8472500EB6A4F /* BlobMeshBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlobMeshBuffer.swift; sourceTree = "<group>"; };
+		C21E40771DB8472500EB6A4F /* BlobMeshNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlobMeshNode.swift; sourceTree = "<group>"; };
+		C21E40781DB8472500EB6A4F /* BounceEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceEngine.swift; sourceTree = "<group>"; };
+		C21E40791DB8472500EB6A4F /* BounceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceScene.swift; sourceTree = "<group>"; };
+		C21E407A1DB8472500EB6A4F /* BounceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewController.swift; sourceTree = "<group>"; };
+		C21E407B1DB8472500EB6A4F /* IndexTriangleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexTriangleList.swift; sourceTree = "<group>"; };
+		C21E407E1DB8472500EB6A4F /* BottomMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
+		C21E407F1DB8472500EB6A4F /* ToolBarBottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarBottom.swift; sourceTree = "<group>"; };
+		C21E40801DB8472500EB6A4F /* ToolContainerBottomAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerBottomAccessory.swift; sourceTree = "<group>"; };
+		C21E40811DB8472500EB6A4F /* ToolContainerBottomMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerBottomMain.swift; sourceTree = "<group>"; };
+		C21E40821DB8472500EB6A4F /* ToolRowAccessoryBottomEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomEdit.swift; sourceTree = "<group>"; };
+		C21E40831DB8472500EB6A4F /* ToolRowAccessoryBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomView.swift; sourceTree = "<group>"; };
+		C21E40841DB8472500EB6A4F /* ToolRowAccessoryBottomZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomZoom.swift; sourceTree = "<group>"; };
+		C21E40851DB8472500EB6A4F /* ToolRowBottomEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomEdit.swift; sourceTree = "<group>"; };
+		C21E40861DB8472500EB6A4F /* ToolRowBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomView.swift; sourceTree = "<group>"; };
+		C21E40871DB8472500EB6A4F /* ToolRowBottomZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomZoom.swift; sourceTree = "<group>"; };
+		C21E40891DB8472500EB6A4F /* ToolBarTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarTop.swift; sourceTree = "<group>"; };
+		C21E408A1DB8472500EB6A4F /* HMButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMButton.swift; sourceTree = "<group>"; };
+		C21E408B1DB8472500EB6A4F /* RRButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRButton.swift; sourceTree = "<group>"; };
+		C21E408C1DB8472500EB6A4F /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		C21E408D1DB8472500EB6A4F /* TBButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBButton.swift; sourceTree = "<group>"; };
+		C21E408E1DB8472500EB6A4F /* TBCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBCheckBox.swift; sourceTree = "<group>"; };
+		C21E408F1DB8472500EB6A4F /* TBSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBSegment.swift; sourceTree = "<group>"; };
+		C21E40901DB8472500EB6A4F /* TBSegmentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBSegmentButton.swift; sourceTree = "<group>"; };
+		C21E40911DB8472500EB6A4F /* ToolRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRow.swift; sourceTree = "<group>"; };
+		C21E40921DB8472500EB6A4F /* ToolRowContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowContainer.swift; sourceTree = "<group>"; };
+		C21E40931DB8472500EB6A4F /* ToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
+		C21E40941DB8472500EB6A4F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C21E40951DB8472500EB6A4F /* ApplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
+		C21E40961DB8472500EB6A4F /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		C21E40971DB8472500EB6A4F /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
+		C21E40981DB8472500EB6A4F /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
+		C21E40991DB8472500EB6A4F /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
+		C21E409A1DB8472500EB6A4F /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
+		C21E409B1DB8472500EB6A4F /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		C21E409C1DB8472500EB6A4F /* ToolActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolActions.swift; sourceTree = "<group>"; };
+		C21E409D1DB8472500EB6A4F /* Uploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
+		C21E40C41DB8550400EB6A4F /* ButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroup.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
 		C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extras.swift"; sourceTree = "<group>"; };
 		C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
-		C276E4DC1DB6CA3400568423 /* TBSegmentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBSegmentButton.swift; sourceTree = "<group>"; };
 		C276E4DE1DB6F50F00568423 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		C276E4E01DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomEdit.swift; sourceTree = "<group>"; };
-		C276E4E21DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomView.swift; sourceTree = "<group>"; };
-		C276E4E41DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryBottomZoom.swift; sourceTree = "<group>"; };
 		C281956B1DB1AC8A00B23E52 /* DrawNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNode.swift; sourceTree = "<group>"; };
 		C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
 		C281956D1DB1AC8A00B23E52 /* DrawTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTriangle.swift; sourceTree = "<group>"; };
@@ -255,41 +288,6 @@
 		C28195881DB1AC8A00B23E52 /* FileUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
 		C28195891DB1AC8A00B23E52 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		C281958A1DB1AC8A00B23E52 /* RootViewControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewControllerBase.swift; sourceTree = "<group>"; };
-		C28195AB1DB1AC9500B23E52 /* Blob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
-		C28195AC1DB1AC9500B23E52 /* BlobMeshBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlobMeshBuffer.swift; sourceTree = "<group>"; };
-		C28195AD1DB1AC9500B23E52 /* BlobMeshNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlobMeshNode.swift; sourceTree = "<group>"; };
-		C28195AE1DB1AC9500B23E52 /* BounceEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceEngine.swift; sourceTree = "<group>"; };
-		C28195AF1DB1AC9500B23E52 /* BounceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceScene.swift; sourceTree = "<group>"; };
-		C28195B01DB1AC9500B23E52 /* BounceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewController.swift; sourceTree = "<group>"; };
-		C28195B11DB1AC9500B23E52 /* IndexTriangleList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexTriangleList.swift; sourceTree = "<group>"; };
-		C28195B31DB1AC9500B23E52 /* BottomMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenu.swift; sourceTree = "<group>"; };
-		C28195B41DB1AC9500B23E52 /* HMButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMButton.swift; sourceTree = "<group>"; };
-		C28195B51DB1AC9500B23E52 /* RRButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRButton.swift; sourceTree = "<group>"; };
-		C28195B61DB1AC9500B23E52 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		C28195B71DB1AC9500B23E52 /* TBButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBButton.swift; sourceTree = "<group>"; };
-		C28195B81DB1AC9500B23E52 /* TBCheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBCheckBox.swift; sourceTree = "<group>"; };
-		C28195B91DB1AC9500B23E52 /* TBSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBSegment.swift; sourceTree = "<group>"; };
-		C28195BA1DB1AC9500B23E52 /* ToolBarBottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarBottom.swift; sourceTree = "<group>"; };
-		C28195BB1DB1AC9500B23E52 /* ToolBarTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarTop.swift; sourceTree = "<group>"; };
-		C28195BC1DB1AC9500B23E52 /* ToolContainerBottomAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerBottomAccessory.swift; sourceTree = "<group>"; };
-		C28195BD1DB1AC9500B23E52 /* ToolContainerBottomMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerBottomMain.swift; sourceTree = "<group>"; };
-		C28195BE1DB1AC9500B23E52 /* ToolRowBottomEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomEdit.swift; sourceTree = "<group>"; };
-		C28195BF1DB1AC9500B23E52 /* ToolRowBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomView.swift; sourceTree = "<group>"; };
-		C28195C01DB1AC9500B23E52 /* ToolRowBottomZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowBottomZoom.swift; sourceTree = "<group>"; };
-		C28195C11DB1AC9500B23E52 /* ToolRowContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowContainer.swift; sourceTree = "<group>"; };
-		C28195C21DB1AC9500B23E52 /* ToolRowZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowZoom.swift; sourceTree = "<group>"; };
-		C28195C31DB1AC9500B23E52 /* ToolRowZoomAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowZoomAccessory.swift; sourceTree = "<group>"; };
-		C28195C41DB1AC9500B23E52 /* ToolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
-		C28195C51DB1AC9500B23E52 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C28195C61DB1AC9500B23E52 /* ApplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
-		C28195C71DB1AC9500B23E52 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		C28195C81DB1AC9500B23E52 /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
-		C28195C91DB1AC9500B23E52 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
-		C28195CA1DB1AC9500B23E52 /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
-		C28195CB1DB1AC9500B23E52 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
-		C28195CC1DB1AC9500B23E52 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		C28195CD1DB1AC9500B23E52 /* ToolActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolActions.swift; sourceTree = "<group>"; };
-		C28195CE1DB1AC9500B23E52 /* Uploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		C28195F21DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImagePickerController+Landscape.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -400,7 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				0D77CBCB1DB6080B000DC571 /* Assets.xcassets */,
-				C28195A91DB1AC9500B23E52 /* Classes */,
+				C21E40731DB8472500EB6A4F /* Classes */,
 				C28195691DB1AC8A00B23E52 /* Core */,
 				0D37EA171D7381DA009DF16A /* Assets (Loose) */,
 				0DD20F4F1D581263006DDDAB /* Bounce */,
@@ -449,6 +447,84 @@
 				0DD20F721D581263006DDDAB /* Info.plist */,
 			);
 			path = BounceUITests;
+			sourceTree = "<group>";
+		};
+		C21E40731DB8472500EB6A4F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C21E40741DB8472500EB6A4F /* [Bounce] */,
+				C21E407C1DB8472500EB6A4F /* [Interface] */,
+				C21E40941DB8472500EB6A4F /* AppDelegate.swift */,
+				C21E40951DB8472500EB6A4F /* ApplicationController.swift */,
+				C21E40961DB8472500EB6A4F /* Config.swift */,
+				C21E40971DB8472500EB6A4F /* EditAffineViewController.swift */,
+				C21E40981DB8472500EB6A4F /* HomeMenuViewController.swift */,
+				C21E40991DB8472500EB6A4F /* ImageImportViewController.swift */,
+				C21E409A1DB8472500EB6A4F /* Reader.swift */,
+				C21E409B1DB8472500EB6A4F /* RootViewController.swift */,
+				C21E409C1DB8472500EB6A4F /* ToolActions.swift */,
+				C21E409D1DB8472500EB6A4F /* Uploader.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		C21E40741DB8472500EB6A4F /* [Bounce] */ = {
+			isa = PBXGroup;
+			children = (
+				C21E40751DB8472500EB6A4F /* Blob.swift */,
+				C21E40761DB8472500EB6A4F /* BlobMeshBuffer.swift */,
+				C21E40771DB8472500EB6A4F /* BlobMeshNode.swift */,
+				C21E40781DB8472500EB6A4F /* BounceEngine.swift */,
+				C21E40791DB8472500EB6A4F /* BounceScene.swift */,
+				C21E407A1DB8472500EB6A4F /* BounceViewController.swift */,
+				C21E407B1DB8472500EB6A4F /* IndexTriangleList.swift */,
+			);
+			path = "[Bounce]";
+			sourceTree = "<group>";
+		};
+		C21E407C1DB8472500EB6A4F /* [Interface] */ = {
+			isa = PBXGroup;
+			children = (
+				C21E407D1DB8472500EB6A4F /* [Bottom] */,
+				C21E40881DB8472500EB6A4F /* [Top] */,
+				C21E408A1DB8472500EB6A4F /* HMButton.swift */,
+				C21E408B1DB8472500EB6A4F /* RRButton.swift */,
+				C21E408C1DB8472500EB6A4F /* Style.swift */,
+				C21E408D1DB8472500EB6A4F /* TBButton.swift */,
+				C21E408E1DB8472500EB6A4F /* TBCheckBox.swift */,
+				C21E408F1DB8472500EB6A4F /* TBSegment.swift */,
+				C21E40901DB8472500EB6A4F /* TBSegmentButton.swift */,
+				C21E40911DB8472500EB6A4F /* ToolRow.swift */,
+				C21E40921DB8472500EB6A4F /* ToolRowContainer.swift */,
+				C21E40931DB8472500EB6A4F /* ToolView.swift */,
+				C21E40C41DB8550400EB6A4F /* ButtonGroup.swift */,
+			);
+			path = "[Interface]";
+			sourceTree = "<group>";
+		};
+		C21E407D1DB8472500EB6A4F /* [Bottom] */ = {
+			isa = PBXGroup;
+			children = (
+				C21E407E1DB8472500EB6A4F /* BottomMenu.swift */,
+				C21E407F1DB8472500EB6A4F /* ToolBarBottom.swift */,
+				C21E40801DB8472500EB6A4F /* ToolContainerBottomAccessory.swift */,
+				C21E40811DB8472500EB6A4F /* ToolContainerBottomMain.swift */,
+				C21E40821DB8472500EB6A4F /* ToolRowAccessoryBottomEdit.swift */,
+				C21E40831DB8472500EB6A4F /* ToolRowAccessoryBottomView.swift */,
+				C21E40841DB8472500EB6A4F /* ToolRowAccessoryBottomZoom.swift */,
+				C21E40851DB8472500EB6A4F /* ToolRowBottomEdit.swift */,
+				C21E40861DB8472500EB6A4F /* ToolRowBottomView.swift */,
+				C21E40871DB8472500EB6A4F /* ToolRowBottomZoom.swift */,
+			);
+			path = "[Bottom]";
+			sourceTree = "<group>";
+		};
+		C21E40881DB8472500EB6A4F /* [Top] */ = {
+			isa = PBXGroup;
+			children = (
+				C21E40891DB8472500EB6A4F /* ToolBarTop.swift */,
+			);
+			path = "[Top]";
 			sourceTree = "<group>";
 		};
 		C28195691DB1AC8A00B23E52 /* Core */ = {
@@ -515,69 +591,6 @@
 				C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		C28195A91DB1AC9500B23E52 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				C28195AA1DB1AC9500B23E52 /* [Bounce] */,
-				C28195B21DB1AC9500B23E52 /* [Interface] */,
-				C28195C51DB1AC9500B23E52 /* AppDelegate.swift */,
-				C28195C61DB1AC9500B23E52 /* ApplicationController.swift */,
-				C28195C71DB1AC9500B23E52 /* Config.swift */,
-				C28195C81DB1AC9500B23E52 /* EditAffineViewController.swift */,
-				C28195C91DB1AC9500B23E52 /* HomeMenuViewController.swift */,
-				C28195CA1DB1AC9500B23E52 /* ImageImportViewController.swift */,
-				C28195CB1DB1AC9500B23E52 /* Reader.swift */,
-				C28195CC1DB1AC9500B23E52 /* RootViewController.swift */,
-				C28195CD1DB1AC9500B23E52 /* ToolActions.swift */,
-				C28195CE1DB1AC9500B23E52 /* Uploader.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		C28195AA1DB1AC9500B23E52 /* [Bounce] */ = {
-			isa = PBXGroup;
-			children = (
-				C28195AB1DB1AC9500B23E52 /* Blob.swift */,
-				C28195AC1DB1AC9500B23E52 /* BlobMeshBuffer.swift */,
-				C28195AD1DB1AC9500B23E52 /* BlobMeshNode.swift */,
-				C28195AE1DB1AC9500B23E52 /* BounceEngine.swift */,
-				C28195AF1DB1AC9500B23E52 /* BounceScene.swift */,
-				C28195B01DB1AC9500B23E52 /* BounceViewController.swift */,
-				C28195B11DB1AC9500B23E52 /* IndexTriangleList.swift */,
-			);
-			path = "[Bounce]";
-			sourceTree = "<group>";
-		};
-		C28195B21DB1AC9500B23E52 /* [Interface] */ = {
-			isa = PBXGroup;
-			children = (
-				C276E4DC1DB6CA3400568423 /* TBSegmentButton.swift */,
-				C28195B31DB1AC9500B23E52 /* BottomMenu.swift */,
-				C28195B41DB1AC9500B23E52 /* HMButton.swift */,
-				C28195B51DB1AC9500B23E52 /* RRButton.swift */,
-				C28195B61DB1AC9500B23E52 /* Style.swift */,
-				C28195B71DB1AC9500B23E52 /* TBButton.swift */,
-				C28195B81DB1AC9500B23E52 /* TBCheckBox.swift */,
-				C28195B91DB1AC9500B23E52 /* TBSegment.swift */,
-				C28195BA1DB1AC9500B23E52 /* ToolBarBottom.swift */,
-				C28195BB1DB1AC9500B23E52 /* ToolBarTop.swift */,
-				C28195BC1DB1AC9500B23E52 /* ToolContainerBottomAccessory.swift */,
-				C28195BD1DB1AC9500B23E52 /* ToolContainerBottomMain.swift */,
-				C28195BE1DB1AC9500B23E52 /* ToolRowBottomEdit.swift */,
-				C28195BF1DB1AC9500B23E52 /* ToolRowBottomView.swift */,
-				C28195C01DB1AC9500B23E52 /* ToolRowBottomZoom.swift */,
-				C28195C11DB1AC9500B23E52 /* ToolRowContainer.swift */,
-				C28195C21DB1AC9500B23E52 /* ToolRowZoom.swift */,
-				C28195C31DB1AC9500B23E52 /* ToolRowZoomAccessory.swift */,
-				C28195C41DB1AC9500B23E52 /* ToolView.swift */,
-				0DEEFBA71DB1FFBF00028C3F /* ToolRow.swift */,
-				C276E4E01DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift */,
-				C276E4E21DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift */,
-				C276E4E41DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift */,
-			);
-			path = "[Interface]";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -763,80 +776,79 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C276E4E11DB6FDEF00568423 /* ToolRowAccessoryBottomEdit.swift in Sources */,
-				C28195EE1DB1AC9500B23E52 /* Reader.swift in Sources */,
-				C28195D41DB1AC9500B23E52 /* BounceViewController.swift in Sources */,
+				C21E40A41DB8472500EB6A4F /* IndexTriangleList.swift in Sources */,
 				C28195911DB1AC8A00B23E52 /* LineSegment.swift in Sources */,
 				C28195901DB1AC8A00B23E52 /* Graphics.swift in Sources */,
-				C28195E11DB1AC9500B23E52 /* ToolRowBottomEdit.swift in Sources */,
+				C21E40B31DB8472500EB6A4F /* TBButton.swift in Sources */,
+				C21E40AC1DB8472500EB6A4F /* ToolRowBottomEdit.swift in Sources */,
+				C21E409E1DB8472500EB6A4F /* Blob.swift in Sources */,
+				C21E40B11DB8472500EB6A4F /* RRButton.swift in Sources */,
+				C21E40AF1DB8472500EB6A4F /* ToolBarTop.swift in Sources */,
 				C276E4DF1DB6F50F00568423 /* Color.swift in Sources */,
-				C28195EC1DB1AC9500B23E52 /* HomeMenuViewController.swift in Sources */,
+				C21E40AE1DB8472500EB6A4F /* ToolRowBottomZoom.swift in Sources */,
+				C21E40C11DB8472500EB6A4F /* RootViewController.swift in Sources */,
 				C28195A51DB1AC8A00B23E52 /* UIView+Extras.swift in Sources */,
+				C21E409F1DB8472500EB6A4F /* BlobMeshBuffer.swift in Sources */,
 				C28195961DB1AC8A00B23E52 /* ShaderProgramMesh.swift in Sources */,
-				C28195E31DB1AC9500B23E52 /* ToolRowBottomZoom.swift in Sources */,
-				C28195D71DB1AC9500B23E52 /* HMButton.swift in Sources */,
-				C28195D91DB1AC9500B23E52 /* Style.swift in Sources */,
 				C28195931DB1AC8A00B23E52 /* Matrix.swift in Sources */,
-				C28195EB1DB1AC9500B23E52 /* EditAffineViewController.swift in Sources */,
+				C21E40BB1DB8472500EB6A4F /* ApplicationController.swift in Sources */,
+				C21E40BF1DB8472500EB6A4F /* ImageImportViewController.swift in Sources */,
 				C28195971DB1AC8A00B23E52 /* ShaderProgramSimple.swift in Sources */,
-				C28195D51DB1AC9500B23E52 /* IndexTriangleList.swift in Sources */,
-				C28195CF1DB1AC9500B23E52 /* Blob.swift in Sources */,
 				C28195A41DB1AC8A00B23E52 /* UIImage+Resize.swift in Sources */,
-				C28195F11DB1AC9500B23E52 /* Uploader.swift in Sources */,
 				C28195A31DB1AC8A00B23E52 /* String+URL.swift in Sources */,
-				C28195E21DB1AC9500B23E52 /* ToolRowBottomView.swift in Sources */,
-				C28195DF1DB1AC9500B23E52 /* ToolContainerBottomAccessory.swift in Sources */,
 				C281959E1DB1AC8A00B23E52 /* WebCommon.swift in Sources */,
-				C28195E61DB1AC9500B23E52 /* ToolRowZoomAccessory.swift in Sources */,
+				C21E40C31DB8472500EB6A4F /* Uploader.swift in Sources */,
+				C21E40AD1DB8472500EB6A4F /* ToolRowBottomView.swift in Sources */,
+				C21E40A81DB8472500EB6A4F /* ToolContainerBottomMain.swift in Sources */,
 				C28195951DB1AC8A00B23E52 /* ShaderProgram.swift in Sources */,
 				C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */,
-				C28195DC1DB1AC9500B23E52 /* TBSegment.swift in Sources */,
-				C276E4E51DB6FE0A00568423 /* ToolRowAccessoryBottomZoom.swift in Sources */,
 				C281959F1DB1AC8A00B23E52 /* WebFetcher.swift in Sources */,
+				C21E40B81DB8472500EB6A4F /* ToolRowContainer.swift in Sources */,
 				C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */,
-				C28195E01DB1AC9500B23E52 /* ToolContainerBottomMain.swift in Sources */,
-				C28195F01DB1AC9500B23E52 /* ToolActions.swift in Sources */,
+				C21E40BE1DB8472500EB6A4F /* HomeMenuViewController.swift in Sources */,
+				C21E40A31DB8472500EB6A4F /* BounceViewController.swift in Sources */,
 				C281958E1DB1AC8A00B23E52 /* DrawTriangleBuffer.swift in Sources */,
-				C28195D81DB1AC9500B23E52 /* RRButton.swift in Sources */,
-				C28195ED1DB1AC9500B23E52 /* ImageImportViewController.swift in Sources */,
-				C28195E51DB1AC9500B23E52 /* ToolRowZoom.swift in Sources */,
 				C281958C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift in Sources */,
-				C276E4E31DB6FDFA00568423 /* ToolRowAccessoryBottomView.swift in Sources */,
-				C28195E41DB1AC9500B23E52 /* ToolRowContainer.swift in Sources */,
-				C28195DE1DB1AC9500B23E52 /* ToolBarTop.swift in Sources */,
-				C28195DD1DB1AC9500B23E52 /* ToolBarBottom.swift in Sources */,
+				C21E40B61DB8472500EB6A4F /* TBSegmentButton.swift in Sources */,
+				C21E40A21DB8472500EB6A4F /* BounceScene.swift in Sources */,
+				C21E40B91DB8472500EB6A4F /* ToolView.swift in Sources */,
+				C21E40BC1DB8472500EB6A4F /* Config.swift in Sources */,
 				C28195A71DB1AC8A00B23E52 /* Math.swift in Sources */,
-				C28195E81DB1AC9500B23E52 /* AppDelegate.swift in Sources */,
-				C28195E91DB1AC9500B23E52 /* ApplicationController.swift in Sources */,
+				C21E40B01DB8472500EB6A4F /* HMButton.swift in Sources */,
 				C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */,
-				C28195EF1DB1AC9500B23E52 /* RootViewController.swift in Sources */,
-				C28195E71DB1AC9500B23E52 /* ToolView.swift in Sources */,
 				C28195A81DB1AC8A00B23E52 /* RootViewControllerBase.swift in Sources */,
-				C28195D31DB1AC9500B23E52 /* BounceScene.swift in Sources */,
-				C28195D21DB1AC9500B23E52 /* BounceEngine.swift in Sources */,
 				C28195A11DB1AC8A00B23E52 /* CubicSpline.swift in Sources */,
-				C28195D11DB1AC9500B23E52 /* BlobMeshNode.swift in Sources */,
+				C21E40B51DB8472500EB6A4F /* TBSegment.swift in Sources */,
 				C281959A1DB1AC8A00B23E52 /* Texture.swift in Sources */,
-				0DEEFBA81DB1FFBF00028C3F /* ToolRow.swift in Sources */,
 				C281959B1DB1AC8A00B23E52 /* ImageDownloader.swift in Sources */,
+				C21E40BA1DB8472500EB6A4F /* AppDelegate.swift in Sources */,
+				C21E40A71DB8472500EB6A4F /* ToolContainerBottomAccessory.swift in Sources */,
 				C281958F1DB1AC8A00B23E52 /* GLViewController.swift in Sources */,
-				C28195D01DB1AC9500B23E52 /* BlobMeshBuffer.swift in Sources */,
+				C21E40AB1DB8472500EB6A4F /* ToolRowAccessoryBottomZoom.swift in Sources */,
 				C28195A21DB1AC8A00B23E52 /* Device.swift in Sources */,
-				C28195DA1DB1AC9500B23E52 /* TBButton.swift in Sources */,
+				C21E40C01DB8472500EB6A4F /* Reader.swift in Sources */,
 				C28195A61DB1AC8A00B23E52 /* FileUtils.swift in Sources */,
+				C21E40B71DB8472500EB6A4F /* ToolRow.swift in Sources */,
 				C28195991DB1AC8A00B23E52 /* Sprite.swift in Sources */,
 				C28195A01DB1AC8A00B23E52 /* AppDelegateBase.swift in Sources */,
 				C281959C1DB1AC8A00B23E52 /* ImageDownloaderTask.swift in Sources */,
+				C21E40C51DB8550400EB6A4F /* ButtonGroup.swift in Sources */,
+				C21E40A51DB8472500EB6A4F /* BottomMenu.swift in Sources */,
+				C21E40A01DB8472500EB6A4F /* BlobMeshNode.swift in Sources */,
 				C281959D1DB1AC8A00B23E52 /* JSONFetcher.swift in Sources */,
-				C28195EA1DB1AC9500B23E52 /* Config.swift in Sources */,
+				C21E40A91DB8472500EB6A4F /* ToolRowAccessoryBottomEdit.swift in Sources */,
+				C21E40BD1DB8472500EB6A4F /* EditAffineViewController.swift in Sources */,
 				C28195981DB1AC8A00B23E52 /* ShaderProgramSprite.swift in Sources */,
+				C21E40AA1DB8472500EB6A4F /* ToolRowAccessoryBottomView.swift in Sources */,
+				C21E40A61DB8472500EB6A4F /* ToolBarBottom.swift in Sources */,
 				C281958D1DB1AC8A00B23E52 /* DrawTriangle.swift in Sources */,
 				C28195F31DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift in Sources */,
-				C28195DB1DB1AC9500B23E52 /* TBCheckBox.swift in Sources */,
+				C21E40A11DB8472500EB6A4F /* BounceEngine.swift in Sources */,
 				C28195941DB1AC8A00B23E52 /* PointList.swift in Sources */,
-				C276E4DD1DB6CA3400568423 /* TBSegmentButton.swift in Sources */,
+				C21E40B41DB8472500EB6A4F /* TBCheckBox.swift in Sources */,
+				C21E40C21DB8472500EB6A4F /* ToolActions.swift in Sources */,
 				C28195921DB1AC8A00B23E52 /* LineSegmentBuffer.swift in Sources */,
-				C28195D61DB1AC9500B23E52 /* BottomMenu.swift in Sources */,
+				C21E40B21DB8472500EB6A4F /* Style.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

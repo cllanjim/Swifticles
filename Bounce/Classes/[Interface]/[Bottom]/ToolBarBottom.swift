@@ -24,10 +24,18 @@ class ToolBarBottom : ToolRow, TBSegmentDelegate, TBCheckBoxDelegate
     
     @IBInspectable @IBOutlet weak var buttonExpand:TBButton! {
         didSet {
-            //buttonExpand.styleSetSegment()
-            
+            buttonExpand.setImages(path: "tb_btn_select_next_blob", pathSelected: "tb_btn_select_next_blob_down")
         }
     }
+    
+    @IBInspectable @IBOutlet weak var buttonExpandAlt:TBButton! {
+        didSet {
+            buttonExpand.setImages(path: "tb_btn_select_next_blob", pathSelected: "tb_btn_select_next_blob_down")
+        }
+    }
+    
+        
+    
     
     @IBInspectable @IBOutlet weak var buttonUndo:TBButton! {
         didSet {

@@ -53,7 +53,7 @@ class ApplicationController
             }
         } else {
             if ApplicationController.shared.isSceneLandscape {
-                return 42.0
+                return 38.0
             } else {
                 return 48.0
             }
@@ -77,7 +77,7 @@ class ApplicationController
             }
         } else {
             if ApplicationController.shared.isSceneLandscape {
-                return 36.0
+                return 32.0
             } else {
                 return 42.0
             }
