@@ -14,8 +14,7 @@ class ToolRowContainer : ToolRow
         super.setUp()
         
         
-        clipsToBounds = false
-        isMultipleTouchEnabled = false
+        
         
         for i in 0..<toolRows.count {
             toolRows[i].index = i

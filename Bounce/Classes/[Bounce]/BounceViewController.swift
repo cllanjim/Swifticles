@@ -37,9 +37,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     var pinchRecognizer:UIPinchGestureRecognizer!
     var rotRecognizer:UIRotationGestureRecognizer!;
     
-    @IBAction func cleeek(_ sender: AnyObject) {
-        ToolActions.bottomMenuToggleExpand()
-    }
+    
+    
     
     var controlPoint = Sprite()
     var controlPointSelected = Sprite()
@@ -643,9 +642,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         return true
     }
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
+    
+    //func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    //    return true
+    //}
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -747,6 +747,16 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         }
         */
     }
+    
+    
+    @IBAction func clickShowHideAll(_ sender: RRButton) {
+        //ToolActions.bottomMenuToggleExpand()
+        
+        ToolActions.bottomMenuToggleShowing()
+        
+        
+    }
+    
     
     func saveRecentScene() {
         let scene = engine.scene.clone

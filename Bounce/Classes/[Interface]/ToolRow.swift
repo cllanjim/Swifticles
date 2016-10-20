@@ -121,31 +121,24 @@ class ToolRow : ToolView
         }
     }
     
-    private func isToolElement(view: UIView) -> Bool {
-        
-        if view is TBButton { return true }
-        if view is TBSegment { return true }
-        if view is TBCheckBox { return true }
-        
-        return false
-    }
+    
     
     private func getTools() -> [UIView] {
         var result = [UIView]()
         for subview1 in subviews {
-            if isToolElement(view: subview1) {
+            if ToolView.isToolElement(view: subview1) {
                 result.append(subview1)
             } else {
                 for subview2 in subview1.subviews {
-                    if isToolElement(view: subview2) {
+                    if ToolView.isToolElement(view: subview2) {
                         result.append(subview2)
                     } else {
                         for subview3 in subview2.subviews {
-                            if isToolElement(view: subview3) {
+                            if ToolView.isToolElement(view: subview3) {
                                 result.append(subview3)
                             } else {
                                 for subview4 in subview3.subviews {
-                                    if isToolElement(view: subview4) {
+                                    if ToolView.isToolElement(view: subview4) {
                                         result.append(subview4)
                                     }
                                 }

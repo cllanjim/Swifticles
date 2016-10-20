@@ -42,7 +42,16 @@ class ToolActions {
                 menu.expand()
             }
         }
-        
+    }
+    
+    class func bottomMenuToggleShowing() {
+        if let menu = ApplicationController.shared.bottomMenu {
+            if menu.showing {
+                menu.hideAnimated()
+            } else {
+                menu.showAnimated()
+            }
+        }
     }
     
     //class func set

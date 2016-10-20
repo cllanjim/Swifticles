@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="l55-up-fKj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QJR-Vx-Ban">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqn-WP-CYZ"/>
@@ -253,7 +253,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GLKView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
@@ -357,27 +357,27 @@
                                     <outlet property="segMode" destination="vLb-r9-sfa" id="aIz-16-dTG"/>
                                 </connections>
                             </view>
-                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikJ-du-UKY" customClass="BottomMenu" customModule="Bounce" customModuleProvider="target">
+                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikJ-du-UKY" customClass="BottomMenu" customModule="Bounce" customModuleProvider="target">
                                 <subviews>
-                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBh-4I-Pr7">
+                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBh-4I-Pr7">
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVU-aK-WgD" customClass="ToolRow" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVU-aK-WgD" customClass="ToolRow" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoL-NO-q1m" customClass="ToolContainerBottomAccessory" customModule="Bounce" customModuleProvider="target">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoL-NO-q1m" customClass="ToolContainerBottomAccessory" customModule="Bounce" customModuleProvider="target">
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAa-uQ-qbo" customClass="ToolRowAccessoryBottomEdit" customModule="Bounce" customModuleProvider="target">
+                                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAa-uQ-qbo" customClass="ToolRowAccessoryBottomEdit" customModule="Bounce" customModuleProvider="target">
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-cS-xhV" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-cS-xhV" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                         <frame key="frameInset" minX="133" width="46" height="46"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVT-C1-Zuy" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVT-C1-Zuy" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                         <frame key="frameInset" minX="79" width="46" height="46"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fa-ir-xwX" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fa-ir-xwX" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                         <frame key="frameInset" minX="21" width="46" height="46"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
@@ -391,7 +391,7 @@
                                                                     <outlet property="widthConstraint" destination="TPi-3L-MOf" id="rc6-3G-RJ8"/>
                                                                 </connections>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1M-RB-Eqp" customClass="ToolRowAccessoryBottomView" customModule="Bounce" customModuleProvider="target">
+                                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1M-RB-Eqp" customClass="ToolRowAccessoryBottomView" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.095218120810000001" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <connections>
                                                                     <outlet property="heightConstraint" destination="BYJ-Qr-NBa" id="UZn-FX-cBL"/>
@@ -400,7 +400,7 @@
                                                                     <outlet property="widthConstraint" destination="hfJ-VX-2qa" id="vJh-q7-SWz"/>
                                                                 </connections>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XuX-P0-NaW" customClass="ToolRowAccessoryBottomZoom" customModule="Bounce" customModuleProvider="target">
+                                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XuX-P0-NaW" customClass="ToolRowAccessoryBottomZoom" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.94036321990000005" green="0.17071554410000001" blue="0.22833160420000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <connections>
                                                                     <outlet property="heightConstraint" destination="Qw3-jW-Tm4" id="gtD-SX-9X6"/>
@@ -448,24 +448,24 @@
                                             <constraint firstItem="wVU-aK-WgD" firstAttribute="top" secondItem="MBh-4I-Pr7" secondAttribute="top" id="TVv-C0-YAy"/>
                                         </constraints>
                                     </view>
-                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-rW-iyl" customClass="ToolContainerBottomMain" customModule="Bounce" customModuleProvider="target">
+                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-rW-iyl" customClass="ToolContainerBottomMain" customModule="Bounce" customModuleProvider="target">
                                         <subviews>
-                                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="EMe-KF-Lde">
+                                            <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="EMe-KF-Lde">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="6" id="dA2-rX-dgj"/>
                                                 </constraints>
                                             </imageView>
-                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0s-W5-s5Y" customClass="ToolRowBottomZoom" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0s-W5-s5Y" customClass="ToolRowBottomZoom" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDU-hr-6r3">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDU-hr-6r3">
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ea-DF-WsT" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ea-DF-WsT" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="2ea-DF-WsT" secondAttribute="height" multiplier="1:1" id="4Tn-kp-IuS"/>
                                                                 </constraints>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGB-VI-F9f" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGB-VI-F9f" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="nGB-VI-F9f" secondAttribute="height" multiplier="1:1" id="Aev-4d-uTm"/>
@@ -482,7 +482,7 @@
                                                             <constraint firstItem="nGB-VI-F9f" firstAttribute="height" secondItem="tDU-hr-6r3" secondAttribute="height" id="zIP-2g-U8e"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnV-0X-UVW">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnV-0X-UVW">
                                                         <subviews>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qH9-sa-PiP"/>
                                                         </subviews>
@@ -513,15 +513,15 @@
                                                     <outlet property="rightContainerWidthConstraint" destination="Rsa-yN-beu" id="D2R-Rr-RIC"/>
                                                 </connections>
                                             </view>
-                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgk-Nb-iae">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgk-Nb-iae">
                                                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Us-ee-ZBW">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Us-ee-ZBW">
                                                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMQ-uY-8he">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMQ-uY-8he">
                                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
@@ -549,17 +549,17 @@
                                                     <outlet property="rightContainerWidthConstraint" destination="WDA-rP-2rp" id="9zD-WJ-thK"/>
                                                 </connections>
                                             </view>
-                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-yM-i5p" customClass="ToolRowBottomEdit" customModule="Bounce" customModuleProvider="target">
+                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-yM-i5p" customClass="ToolRowBottomEdit" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IcJ-BC-Jcn">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IcJ-BC-Jcn">
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWt-KE-3Z8" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWt-KE-3Z8" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="jWt-KE-3Z8" secondAttribute="height" multiplier="1:1" id="s7U-Ig-yoj"/>
                                                                 </constraints>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEE-vp-Sso" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FEE-vp-Sso" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="FEE-vp-Sso" secondAttribute="height" multiplier="1:1" id="8I0-Ym-CM5"/>
@@ -576,15 +576,15 @@
                                                             <constraint firstItem="FEE-vp-Sso" firstAttribute="centerY" secondItem="IcJ-BC-Jcn" secondAttribute="centerY" id="qSO-sN-e22"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pQ-QD-P53">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pQ-QD-P53">
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCp-bJ-MEb" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCp-bJ-MEb" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="dCp-bJ-MEb" secondAttribute="height" multiplier="1:1" id="2G1-qZ-J1Q"/>
                                                                 </constraints>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9p-t9-EOi" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9p-t9-EOi" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="b9p-t9-EOi" secondAttribute="height" multiplier="1:1" id="7xw-V1-bo8"/>
@@ -601,9 +601,9 @@
                                                             <constraint firstItem="b9p-t9-EOi" firstAttribute="centerY" secondItem="4pQ-QD-P53" secondAttribute="centerY" id="ooA-6L-F6f"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kY-wh-HC5">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kY-wh-HC5">
                                                         <subviews>
-                                                            <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJr-MW-wCv" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
+                                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJr-MW-wCv" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
@@ -614,10 +614,10 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnN-mc-Piq" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnN-mc-Piq" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ae-LO-7RB" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ae-LO-7RB" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                             </button>
                                                         </subviews>
@@ -688,16 +688,16 @@
                                             <outlet property="toolRowZoom" destination="J0s-W5-s5Y" id="8LZ-2b-XQT"/>
                                         </connections>
                                     </view>
-                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEj-da-9Od" customClass="ToolBarBottom" customModule="Bounce" customModuleProvider="target">
+                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEj-da-9Od" customClass="ToolBarBottom" customModule="Bounce" customModuleProvider="target">
                                         <subviews>
-                                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="GnO-I8-Uu7">
+                                            <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="GnO-I8-Uu7">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="6" id="4SO-8r-SqU"/>
                                                 </constraints>
                                             </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2to-NQ-iPn">
+                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2to-NQ-iPn">
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVS-0y-W6x" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVS-0y-W6x" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="vVS-0y-W6x" secondAttribute="height" multiplier="1:1" id="pRV-UA-B9P"/>
@@ -714,12 +714,12 @@
                                                     <constraint firstItem="vVS-0y-W6x" firstAttribute="centerY" secondItem="2to-NQ-iPn" secondAttribute="centerY" id="iyV-CI-jqR"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFA-cv-6rY">
+                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFA-cv-6rY">
                                                 <color key="backgroundColor" red="0.62612030080000003" green="1" blue="0.4468788447" alpha="0.80238970590000003" colorSpace="calibratedRGB"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ThE-W9-q1v">
+                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ThE-W9-q1v">
                                                 <subviews>
-                                                    <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzJ-BY-eRf" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzJ-BY-eRf" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
                                                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
@@ -730,9 +730,9 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jX8-OT-bdf">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jX8-OT-bdf">
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1H-4D-jjM" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1H-4D-jjM" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="M1H-4D-jjM" secondAttribute="height" multiplier="1:1" id="VUs-gP-zTy"/>
@@ -749,9 +749,9 @@
                                                             <constraint firstItem="M1H-4D-jjM" firstAttribute="height" secondItem="jX8-OT-bdf" secondAttribute="height" id="hct-IT-23e"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvL-K7-hY1">
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvL-K7-hY1">
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMD-gf-pFl" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMD-gf-pFl" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="LMD-gf-pFl" secondAttribute="height" multiplier="1:1" id="VT6-8W-lbi"/>
@@ -816,7 +816,7 @@
                                             <outlet property="segMode" destination="YzJ-BY-eRf" id="XyZ-jB-Tbo"/>
                                         </connections>
                                     </view>
-                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="YY8-E9-ldf">
+                                    <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="YY8-E9-ldf">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" id="FsN-MZ-NYP"/>
                                         </constraints>
@@ -847,6 +847,7 @@
                                     <outlet property="containerAccessory" destination="IoL-NO-q1m" id="8cX-bq-ijr"/>
                                     <outlet property="containerMain" destination="cpv-rW-iyl" id="mgH-9e-RtG"/>
                                     <outlet property="containerMainTopConstraint" destination="hFS-PU-mev" id="QHf-Qn-bb8"/>
+                                    <outlet property="menuBottomConstraint" destination="FQQ-wb-eLB" id="RUi-bd-oye"/>
                                     <outlet property="menuHeightConstraint" destination="SM1-54-13n" id="dNe-Ad-h8h"/>
                                     <outlet property="shadowMiddleMainRow" destination="EMe-KF-Lde" id="csN-72-wzl"/>
                                     <outlet property="shadowMiddleToolbar" destination="GnO-I8-Uu7" id="myE-Cw-iBR"/>
@@ -856,38 +857,39 @@
                                     <outlet property="toolRowUnderlay" destination="MBh-4I-Pr7" id="fy8-Ix-dlO"/>
                                 </connections>
                             </view>
+                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bje-Xq-RgT" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="2sQ-eM-IdL"/>
+                                    <constraint firstAttribute="height" constant="54" id="ecr-pm-RvJ"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="clickShowHideAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SEf-jR-tPC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="27M-R0-Bg7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0Uw-nu-EBq"/>
-                            <constraint firstAttribute="trailing" secondItem="ikJ-du-UKY" secondAttribute="trailing" id="5VX-pc-5Lz"/>
+                            <constraint firstItem="Bje-Xq-RgT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="8aI-k9-7ap"/>
+                            <constraint firstAttribute="trailing" secondItem="ikJ-du-UKY" secondAttribute="trailing" id="Cua-Td-hLC"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="bottom" id="FQQ-wb-eLB"/>
                             <constraint firstItem="27M-R0-Bg7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="IuA-Jz-M1A"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="bottom" constant="540" id="KnQ-Ii-oTq"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ikJ-du-UKY" secondAttribute="bottom" id="bjj-NY-n3f"/>
                             <constraint firstItem="27M-R0-Bg7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="euI-8U-Sz0"/>
                             <constraint firstItem="ikJ-du-UKY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hng-Za-oRs"/>
-                            <constraint firstItem="27M-R0-Bg7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ioP-8o-Wa6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="27M-R0-Bg7" secondAttribute="trailing" constant="-20" id="wIx-j2-vE1"/>
-                            <constraint firstAttribute="trailing" secondItem="27M-R0-Bg7" secondAttribute="trailing" id="yXk-rQ-3UO"/>
+                            <constraint firstItem="Bje-Xq-RgT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="xrn-YG-v6Q"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="0Uw-nu-EBq"/>
-                                <exclude reference="ioP-8o-Wa6"/>
-                                <exclude reference="yXk-rQ-3UO"/>
-                                <exclude reference="KnQ-Ii-oTq"/>
-                            </mask>
-                        </variation>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="bottomMenu" destination="ikJ-du-UKY" id="imU-sB-qEo"/>
+                        <outlet property="buttonShowHideAll" destination="Bje-Xq-RgT" id="2gb-5o-3N5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2045.625" y="382.3943661971831"/>
+            <point key="canvasLocation" x="2044.9275362318842" y="382.33695652173918"/>
         </scene>
         <!--Import Image-->
         <scene sceneID="CMF-NA-AwL">
@@ -898,7 +900,7 @@
                         <viewControllerLayoutGuide type="bottom" id="db2-5h-Unk"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="wQN-W4-IBZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">

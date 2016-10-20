@@ -20,10 +20,9 @@ class ToolView: UIView
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.065) { [weak weakSelf = self] in
-        //    weakSelf?.setUp()
-        //}
-        //setUp()
+        
+        clipsToBounds = false
+        isMultipleTouchEnabled = false
     }
     
     func setUp() {
@@ -34,12 +33,52 @@ class ToolView: UIView
         addObserver(selector: #selector(handleViewModeChanged), notification: .ViewModeChanged)
         addObserver(selector: #selector(handleBlobSelectionChanged), notification: .BlobSelectionChanged)
         
-        for view in subviews {
-            if view.responds(to: #selector(setUp)) {
-                view.perform(#selector(setUp))
+        //Propogate setup to subviews.
+        for subview1 in subviews {
+            if subview1.responds(to: #selector(setUp)) {
+                subview1.perform(#selector(setUp))
+            } else {
+                for subview2 in subview1.subviews {
+                    if subview2.responds(to: #selector(setUp)) {
+                        subview2.perform(#selector(setUp))
+                    } else {
+                        for subview3 in subview2.subviews {
+                            if subview3.responds(to: #selector(setUp)) {
+                                subview3.perform(#selector(setUp))
+                            } else {
+                                for subview4 in subview3.subviews {
+                                    if subview4.responds(to: #selector(setUp)) {
+                                        subview4.perform(#selector(setUp))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            view.setNeedsDisplay()
         }
+        
+        
+        //Hide all of the setup / test background colors..
+        for subview1 in subviews {
+            if ToolView.isToolElement(view: subview1) == false {
+                subview1.backgroundColor = UIColor.clear
+                for subview2 in subview1.subviews {
+                    if ToolView.isToolElement(view: subview2) == false {
+                        subview2.backgroundColor = UIColor.clear
+                        for subview3 in subview2.subviews {
+                            if ToolView.isToolElement(view: subview3) == false {
+                                subview3.backgroundColor = UIColor.clear
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        
+        
         setNeedsDisplay()
     }
     
@@ -48,6 +87,13 @@ class ToolView: UIView
                                                selector: selector,
                                                name: NSNotification.Name(notification.rawValue),
                                                object: nil)
+    }
+    
+    class func isToolElement(view: UIView) -> Bool {
+        if view is TBButton { return true }
+        if view is TBSegment { return true }
+        if view is TBCheckBox { return true }
+        return false
     }
     
     deinit {

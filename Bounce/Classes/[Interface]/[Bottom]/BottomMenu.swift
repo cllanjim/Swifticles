@@ -10,9 +10,7 @@ import UIKit
 
 class BottomMenu: ToolView
 {
-    @IBOutlet weak internal var toolRowUnderlay: UIView! {
-        didSet { toolRowUnderlay.backgroundColor = styleColorToolbarRow }
-    }
+    @IBOutlet weak internal var toolRowUnderlay: UIView!
     
     @IBOutlet weak internal var containerMain: ToolContainerBottomMain?
     @IBOutlet weak internal var accessoryRow: ToolRow?
@@ -24,14 +22,19 @@ class BottomMenu: ToolView
     @IBOutlet weak internal var shadowMiddleMainRow: UIImageView!
     
     
-    
+    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerMainTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var containerMainTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var toolBarHeightConstraint: NSLayoutConstraint!
     
     
+    //Expanded = Bottom row visible, top rows hidden.
     var expanded:Bool = true
+    
+    //Showing = fully visible, now showing = fully invisible..
+    var showing:Bool = true
+    
     
     @IBOutlet weak var toolBar: ToolBarBottom! {
         didSet { toolBar.backgroundColor = styleColorToolbarMain }
@@ -68,6 +71,8 @@ class BottomMenu: ToolView
             setNeedsUpdateConstraints()
         }
         
+        toolRowUnderlay.backgroundColor = styleColorToolbarRow
+        toolBar.backgroundColor = styleColorToolbarMain
         
         updateToolRow()
         layoutIfNeeded()
@@ -107,28 +112,58 @@ class BottomMenu: ToolView
         containerAccessory!.updateToolRow()
     }
     
+    func hideAnimated() {
+        if showing == true {
+            showing = false
+            menuBottomConstraint.constant = -height
+            setNeedsUpdateConstraints()
+            superview?.setNeedsUpdateConstraints()
+            UIView.animate(withDuration: 0.52, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseOut, animations:
+                { [weak weakSelf = self] in
+                    weakSelf?.superview?.layoutIfNeeded()
+                    
+                }, completion:
+                { [weak weakSelf = self] (finished:Bool) in
+                    weakSelf?.isHidden = true
+                })
+            UIView.animate(withDuration: 0.24, delay: 0.24, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseOut, animations:
+                { [weak weakSelf = self] in
+                    weakSelf?.shadowTop.alpha = 0.0
+                }, completion: nil)
+        }
+    }
+    
+    func showAnimated() {
+        if showing == false {
+            showing = true
+            menuBottomConstraint.constant = 0.0
+            setNeedsUpdateConstraints()
+            superview?.setNeedsUpdateConstraints()
+            isHidden = false
+            UIView.animate(withDuration: 0.52, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseIn, animations:
+                { [weak weakSelf = self] in
+                    weakSelf?.superview?.layoutIfNeeded()
+                    weakSelf?.shadowTop.alpha = 1.0
+                }, completion: nil)
+        }
+    }
+    
     func expand() {
         if expanded == false {
             expanded = true
-            
-            /*
             menuHeightConstraint.constant = expandedHeight
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 3.4, animations: {
+            UIView.animate(withDuration: 0.4, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
                 }, completion: nil)
-            */
-            
-            
-            //shadowMiddleMainRow
             
             var shadowDelay:CGFloat = 0.15
             if ApplicationController.shared.isSceneLandscape == false {
                 shadowDelay = 0.3
                 shadowMiddleMainRow.isHidden = false
-                UIView.animate(withDuration: 0.15, delay: 0.25, options: .curveEaseOut, animations:
+                UIView.animate(withDuration: 0.28, delay: 0.15, options: .curveEaseOut, animations:
                     { [weak weakSelf = self] in
                         weakSelf?.shadowMiddleMainRow.alpha = 1.0
                         
@@ -136,58 +171,37 @@ class BottomMenu: ToolView
             }
             
             shadowMiddleToolbar.isHidden = false
-            UIView.animate(withDuration: TimeInterval(shadowDelay), delay: 0.25, options: .curveEaseOut, animations:
+            UIView.animate(withDuration: 0.28, delay: TimeInterval(shadowDelay), options: .curveEaseOut, animations:
                 { [weak weakSelf = self] in
                     weakSelf?.shadowMiddleToolbar.alpha = 1.0
                     
                 }, completion:nil)
             
-            
-            
-            
-            
             if let container = containerAccessory, container.isHidden == false {
-                container.showToolsAnimated(withDelay: 0.0, withStagger: 1.06, withDirection: 1)
+                container.showToolsAnimated(withDelay: 0.0, withStagger: 0.06, withDirection: 1)
             }
             if let container = containerMain, container.isHidden == false {
-                container.showToolsAnimated(withDelay: 0.20, withStagger: 1.06, withDirection: -1)
+                container.showToolsAnimated(withDelay: 0.20, withStagger: 0.06, withDirection: -1)
             }
             
         }
-        
     }
     
     func collapse() {
         if expanded == true {
             expanded = false
             
-            /*
+            
             menuHeightConstraint.constant = toolBar.height
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 3.4, animations: {
+            UIView.animate(withDuration: 0.40, delay: 0.2, options: .curveEaseIn, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
                 }, completion: nil)
-            */
-            
-            
-            //@IBOutlet weak internal var shadowMiddleToolbar: UIImageView!
-            //@IBOutlet weak internal var shadowMiddleMainRow: UIImageView!
-            
-            
-            UIView.animate(withDuration: 0.15, delay: 0.25, options: .curveEaseIn, animations:
-                { [weak weakSelf = self] in
-                    weakSelf?.shadowMiddleToolbar.alpha = 0.0
-                    
-                }, completion:
-                { [weak weakSelf = self] (finished:Bool) in
-                    weakSelf?.shadowMiddleToolbar.isHidden = false
-                })
             
             if ApplicationController.shared.isSceneLandscape == false {
-                
-                UIView.animate(withDuration: 0.30, delay: 0.25, options: .curveEaseIn, animations:
+                UIView.animate(withDuration: 0.28, delay: 0.30, options: .curveEaseIn, animations:
                     { [weak weakSelf = self] in
                         weakSelf?.shadowMiddleMainRow.alpha = 0.0
                         
@@ -197,16 +211,22 @@ class BottomMenu: ToolView
                     })
             }
             
-            
+            UIView.animate(withDuration: 0.28, delay: 0.15, options: .curveEaseIn, animations:
+                { [weak weakSelf = self] in
+                    weakSelf?.shadowMiddleToolbar.alpha = 0.0
+                    
+                }, completion:
+                { [weak weakSelf = self] (finished:Bool) in
+                    weakSelf?.shadowMiddleToolbar.isHidden = false
+                })
             
             if let container = containerAccessory, container.isHidden == false {
-                container.hideToolsAnimated(withDelay: 0.20, withStagger: 1.06, withDirection: -1)
+                container.hideToolsAnimated(withDelay: 0.240, withStagger: 0.06, withDirection: -1)
             }
+            
             if let container = containerMain, container.isHidden == false {
-                container.hideToolsAnimated(withDelay: 0.0, withStagger: 1.06, withDirection: 1)
+                container.hideToolsAnimated(withDelay: 0.0, withStagger: 0.06, withDirection: 1)
             }
-            
-            
         }
     }
     
