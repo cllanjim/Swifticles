@@ -238,24 +238,24 @@ class BounceEngine {
         background.draw()
         ShaderProgramMesh.shared.colorSet()
         
-        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.2, b: 0.2)
-        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.startX, y: background.startY))
-        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.startX, y: background.endY))
-        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.endX, y: background.startY))
-        ShaderProgramMesh.shared.pointDraw(point: CGPoint(x: background.endX, y: background.endY))
-        
-        
-        
-        ShaderProgramMesh.shared.colorSet()
+        if sceneMode == .view {
+            Graphics.depthEnable()
+            Graphics.depthClear()
+        }
         
         for blob:Blob in blobs {
             if blob.enabled {
-                blob.draw()
+                blob.drawMesh()
             }
         }
         
-        ShaderProgramMesh.shared.colorSet(r: 0.6, g: 0.8, b: 0.25)
-        ShaderProgramMesh.shared.pointDraw(point: touchPoint)
+        Graphics.depthDisable()
+        
+        for blob:Blob in blobs {
+            if blob.enabled {
+                blob.drawMarkers()
+            }
+        }
         
         ShaderProgramMesh.shared.colorSet()
     }
@@ -265,6 +265,25 @@ class BounceEngine {
         
         //selectedBlob
         let touchBlob = selectBlobAtPoint(point)
+        
+        if sceneMode == .view {
+            
+            //TODO: Find better way to handle multi-touch overlapping blobs here.
+            if let blob = touchBlob {
+                
+                if blob.grabSelectionTouch === nil {
+                    blob.grabSelectionTouch = touch
+                    blob.grabSelection = touchPoint
+                    blob.grabAnimationGuideOffsetStart = blob.animationGuideOffset
+                    blob.grabAnimationGuideTouchStart = touchPoint
+                }
+            }
+            
+            //weak var grabSelectionTouch:UITouch?
+            //var grabAnimationGuideOffsetStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
+            
+            
+        }
         
         if sceneMode == .edit && editMode == .affine {
             if affineSelectedBlob == nil {
@@ -322,6 +341,23 @@ class BounceEngine {
     
     func touchMove(_ touch:inout UITouch, point:CGPoint) {
         touchPoint = CGPoint(x:point.x, y:point.y)
+        
+        if sceneMode == .view {
+            
+            for blob in blobs {
+                if blob.grabSelectionTouch === touch {
+                   
+                    var diffX = touchPoint.x - blob.grabAnimationGuideTouchStart.x
+                    var diffY = touchPoint.y - blob.grabAnimationGuideTouchStart.y
+                    
+                    blob.grabSelection = touchPoint
+                    blob.animationGuideOffset.x = blob.grabAnimationGuideOffsetStart.x + diffX
+                    blob.animationGuideOffset.y = blob.grabAnimationGuideOffsetStart.y + diffY
+                    
+                }
+            }            
+        }
+        
         if sceneMode == .edit && editMode == .shape {
             if let blob = shapeSelectedBlob , touch === shapeSelectionTouch {
                 if let index = shapeSelectionControlPointIndex {
@@ -336,6 +372,17 @@ class BounceEngine {
     }
     
     func touchUp(_ touch:inout UITouch, point:CGPoint) {
+        
+        
+            for blob in blobs {
+                if blob.grabSelectionTouch === touch {
+                    blob.releaseGrabFling()
+                    blob.grabSelectionTouch = nil
+                }
+            }
+        
+        
+        
         if touch === affineSelectionTouch {
             affineSelectionTouch = nil
             affineSelectedBlob = nil

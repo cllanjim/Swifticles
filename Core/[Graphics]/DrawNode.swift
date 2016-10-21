@@ -32,6 +32,7 @@ class DrawNode {
         u = drawNode.u;v = drawNode.v;w = drawNode.w
         r = drawNode.r;g = drawNode.g;b = drawNode.b;a = drawNode.a
     }
+    
     func writeToTriangleList(_ t:inout [GLfloat], index:Int) {
         //let count = t.count
         t[index +  0] = GLfloat(x)
@@ -45,4 +46,6 @@ class DrawNode {
         t[index +  8] = GLfloat(b)
         t[index +  9] = GLfloat(a)
     }
+    
+    
 }

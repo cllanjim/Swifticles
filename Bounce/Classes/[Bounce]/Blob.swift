@@ -80,6 +80,20 @@ class Blob
     var linesInner = LineSegmentBuffer()
     var linesOuter = LineSegmentBuffer()
     
+    weak var grabSelectionTouch:UITouch?
+    
+    var grabSelection: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    var grabSelectionHistory = [CGPoint]()
+    var grabSelectionHistoryCount: Int = 0
+    var grabSelectionHistorySize: Int = 7
+    
+    var grabAnimationGuideOffsetStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
+    var grabAnimationGuideTouchStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
+    
+    var releaseFlingDecay: CGFloat = 0.0
+    
+    //
+    //
     
     //Base = untransformed, no Base = transformed...
     private var borderBase = PointList()
@@ -88,6 +102,15 @@ class Blob
     var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { setNeedsComputeAffine() } }
     var scale:CGFloat = 1.0 { didSet { setNeedsComputeAffine() } }
     var rotation:CGFloat = 0.0 { didSet { setNeedsComputeAffine() } }
+    
+    var animationGuideOffset:CGPoint = CGPoint(x: 0.0, y: 0.0)
+    
+    var animationGuideSpeed:CGPoint = CGPoint(x: 0.0, y: 0.0)
+    
+    
+    //var animationGuide:CGPoint = CGPoint(x: 0.0, y: 0.0)
+    
+    
     
     func setNeedsComputeShape() { needsComputeShape = true }
     internal var needsComputeShape:Bool = true
@@ -105,6 +128,17 @@ class Blob
     }
     
     init() {
+        
+        for _ in 0..<grabSelectionHistorySize {
+            grabSelectionHistory.append(CGPoint(x: 0.0, y: 0.0))
+        }
+        
+        
+        //var grabSelection: CGPoint = CGPoint(x: 0.0, y: 0.0)
+        //var grabSelectionHistory = [CGPoint]()
+        //var grabSelectionHistoryCount: Int = 0
+        //var grabSelectionHistorySize: Int = 12
+        
         
         vertexBufferSlot = Graphics.bufferGenerate()
         indexBufferSlot = Graphics.bufferGenerate()
@@ -131,6 +165,7 @@ class Blob
         spline.linear = false
         spline.closed = true
         computeShape()
+        
     }
     
     deinit {
@@ -142,28 +177,6 @@ class Blob
     }
     
     func update() {
-        testAngle1 += 2.0
-        if testAngle1 > 360.0 { testAngle1 -= 360.0 }
-        
-        testAngle2 -= 1.5
-        if testAngle2 < 0.0 { testAngle2 += 360.0 }
-        
-        testAngle3 += 3.25
-        if testAngle3 > 360.0 { testAngle3 -= 360.0 }
-        
-        testSin1 = Math.sind(testAngle1)
-        testSin2 = Math.sind(testAngle2)
-        testSin3 = Math.sind(testAngle3)
-    }
-    
-    func draw() {
-        
-        guard let sprite = ApplicationController.shared.engine?.background else {
-            valid = false
-            return
-        }
-        
-        computeIfNeeded()
         
         var isEditMode = false
         var isViewMode = false
@@ -184,19 +197,106 @@ class Blob
                     }
                 }
             }
+            if engine.sceneMode == .view {
+                isViewMode = true
+            }
             
+        }
+        
+        
+        testAngle1 += 2.0
+        if testAngle1 > 360.0 { testAngle1 -= 360.0 }
+        
+        testAngle2 -= 1.5
+        if testAngle2 < 0.0 { testAngle2 += 360.0 }
+        
+        testAngle3 += 3.25
+        if testAngle3 > 360.0 { testAngle3 -= 360.0 }
+        
+        testSin1 = Math.sind(testAngle1)
+        testSin2 = Math.sind(testAngle2)
+        testSin3 = Math.sind(testAngle3)
+        
+        if grabSelectionTouch !== nil {
+            if grabSelectionHistoryCount < grabSelectionHistorySize {
+                grabSelectionHistory[grabSelectionHistoryCount].x = grabSelection.x
+                grabSelectionHistory[grabSelectionHistoryCount].y = grabSelection.y
+                grabSelectionHistoryCount += 1
+            } else {
+                for i in 1..<grabSelectionHistorySize {
+                    grabSelectionHistory[i-1].x = grabSelectionHistory[i].x
+                    grabSelectionHistory[i-1].y = grabSelectionHistory[i].y
+                }
+                grabSelectionHistory[grabSelectionHistorySize - 1].x = grabSelection.x
+                grabSelectionHistory[grabSelectionHistorySize - 1].y = grabSelection.y
+            }
+        } else {
+            grabSelectionHistoryCount = 0
+        }
+        
+        
+        
+        if isViewMode {
+            
+            if grabSelectionTouch === nil {
+                
+                var diffX = -animationGuideOffset.x
+                var diffY = -animationGuideOffset.y
+                
+                var dist = diffX * diffX + diffY * diffY
+                
+                if dist > Math.epsilon {
+                    dist = CGFloat(sqrtf(Float(dist)))
+                    diffX /= dist
+                    diffY /= dist
+                } else {
+                    
+                    diffX = 0.0
+                    diffY = 0.0
+                }
+                
+                animationGuideSpeed.x += diffX * dist * 0.04
+                animationGuideSpeed.y += diffY * dist * 0.04
+                
+                animationGuideSpeed.x *= 0.945
+                animationGuideSpeed.y *= 0.945
+                
+                animationGuideOffset.x += animationGuideSpeed.x
+                animationGuideOffset.y += animationGuideSpeed.y
+                
+                releaseFlingDecay += 0.2
+                if releaseFlingDecay > 1.0 {
+                    releaseFlingDecay = 1.0
+                }
+            }
+            
+            
+        } else {
+            
+            animationGuideSpeed.x = 0.0
+            animationGuideSpeed.y = 0.0
+            
+            animationGuideOffset.x = 0.0
+            animationGuideOffset.y = 0.0
         }
         
         
         
         
         
-        
-        //ShaderProgramMesh.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
-        //ShaderProgramMesh.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
+        //animationGuideSpeed
         
         
+    }
+    
+    func drawMesh() {
         
+        guard let sprite = ApplicationController.shared.engine?.background else {
+            valid = false
+            return
+        }
+        
+        computeIfNeeded()
         
         let indexBufferCount = tri.count * 3
         let vertexBufferCount = meshNodes.count * 30
@@ -238,10 +338,18 @@ class Blob
             Graphics.textureBind(texture: sprite.texture)
             Graphics.blendDisable()
             
+            
+            
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
+                
+                
+                node.animX = node.x + testSin1 * 31.0 * node.edgePercent
+                node.animY = node.y + testSin2 * 16.0 * node.edgePercent
+                node.animZ = node.edgePercent * 200.0
+                
                 node.r = 1.0;node.g = 1.0;node.b = 1.0;node.a = 1.0
-                node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
+                node.writeToTriangleListAnimated(&vertexBuffer, index: vertexIndex)
                 vertexIndex += 10
             }
         }
@@ -266,8 +374,43 @@ class Blob
             Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
             
         }
+    }
+    
+    
+    func drawMarkers() {
         
-        Graphics.blendDisable()
+        computeIfNeeded()
+        
+        var isEditMode = false
+        var isViewMode = false
+        
+        var isEditModeAffine = false
+        var isEditModeShape = false
+        
+        var shapeSelectionControlPointIndex:Int?
+        
+        if let engine = ApplicationController.shared.engine {
+            if engine.sceneMode == .edit {
+                isEditMode = true
+                if engine.editMode == .affine { isEditModeAffine = true }
+                if engine.editMode == .shape {
+                    isEditModeShape = true
+                    if selected {
+                        shapeSelectionControlPointIndex = engine.shapeSelectionControlPointIndex
+                    }
+                }
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        //ShaderProgramMesh.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
+        //ShaderProgramMesh.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
+        
         
         if isEditMode {
             if selected {
@@ -289,9 +432,9 @@ class Blob
                     linesInner.thickness = 0.75
                 }
             }
+            
             linesOuter.draw()
             linesInner.draw()
-            
             
             if isEditModeShape {
                 Graphics.blendEnable()
@@ -307,76 +450,75 @@ class Blob
                 }
                 Graphics.blendDisable()
             }
+        }
+        
+        ShaderProgramMesh.shared.pointDraw(point: center)
+        ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x: center.x + animationGuideOffset.x, y: center.y + animationGuideOffset.y), thickness: 1)
+        
+        
+        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.0, b: 0.0, a: 0.5)
+        
+        for i in 0..<grabSelectionHistoryCount {
+            let p = grabSelectionHistory[i]
+            ShaderProgramMesh.shared.pointDraw(point: p)
+        }
+        
+        
+    }
+    
+    func releaseGrabFling() {
+        
+        if grabSelectionHistoryCount > 2 {
+            
+            let startPoint = grabSelectionHistory[0]
+            var dirSum = CGPoint(x: 0.0, y: 0.0)
+            
+            for i in 0..<grabSelectionHistoryCount {
+                let dirSlice = CGPoint(x: grabSelectionHistory[i].x - startPoint.x, y: grabSelectionHistory[i].y - startPoint.y)
+                dirSum.x += dirSlice.x
+                dirSum.y += dirSlice.y
+            }
+            
+            
+            
+            var dir = CGPoint(x: dirSum.x / CGFloat(grabSelectionHistoryCount), y: dirSum.y / CGFloat(grabSelectionHistoryCount))
+            
+            
+            var dirLength = dir.x * dir.x + dir.y * dir.y
+            
+            if dirLength > Math.epsilon {
+                
+                releaseFlingDecay = 0.0
+                
+                dirLength = CGFloat(sqrtf(Float(dirLength)))
+                dir.x /= dirLength
+                dir.y /= dirLength
+                
+                dirLength = CGFloat(sqrtf(Float(dirLength * 2.0))) + dirLength * 0.25
+                
+                if dirLength > 20.0 {
+                    dirLength = 20.0 + (dirLength - 20.0) * 0.5
+                }
+                
+                
+                animationGuideSpeed.x = dir.x * (dirLength + 1.0)
+                animationGuideSpeed.y = dir.y * (dirLength + 1.0)
+            }
+            
+            
+            
+            //animationGuideSpeed.x += diffX * dist * 0.07
+            //animationGuideSpeed.y += diffY * dist * 0.07
+            
+            
+            print("Release LEN = \(dirLength) Dir: \(dir.x) x \(dir.y)")
+            
             
         }
         
         
-        
-        /*
-         for i in 0..<tri.count {
-         
-         let t = tri.data [i]
-         
-         let drawTriangle = DrawTriangle()
-         
-         let x1 = meshNodes.data[t.i1].x
-         var y1 = meshNodes.data[t.i1].y
-         
-         let x2 = meshNodes.data[t.i2].x
-         var y2 = meshNodes.data[t.i2].y
-         
-         let x3 = meshNodes.data[t.i3].x
-         var y3 = meshNodes.data[t.i3].y
-         
-         y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
-         y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
-         y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
-         
-         drawTriangle.p1 = (x1, y1, 0.0)
-         drawTriangle.p2 = (x2, y2, 0.0)
-         drawTriangle.p3 = (x3, y3, 0.0)
-         
-         drawTriangle.u1 = meshNodes.data[t.i1].u
-         drawTriangle.v1 = meshNodes.data[t.i1].v
-         
-         drawTriangle.u2 = meshNodes.data[t.i2].u
-         drawTriangle.v2 = meshNodes.data[t.i2].v
-         drawTriangle.u3 = meshNodes.data[t.i3].u
-         drawTriangle.v3 = meshNodes.data[t.i3].v
-         
-         drawTriangle.a1 = 0.88
-         drawTriangle.a2 = 0.85
-         drawTriangle.a3 = 0.85
-         
-         drawTriangle.draw()
-         }
-         */
-        
-        /*
-         ShaderProgramMesh.shared.colorSet(a: 0.25)
-         for i in 0..<tri.count {
-         
-         let t = tri.data [i]
-         
-         let x1 = meshNodes.data[t.i1].x
-         var y1 = meshNodes.data[t.i1].y
-         
-         let x2 = meshNodes.data[t.i2].x
-         var y2 = meshNodes.data[t.i2].y
-         
-         let x3 = meshNodes.data[t.i3].x
-         var y3 = meshNodes.data[t.i3].y
-         
-         y1 += meshNodes.data[t.i1].edgePercent * 20.0 * testSin3
-         y2 += meshNodes.data[t.i2].edgePercent * 20.0 * testSin3
-         y3 += meshNodes.data[t.i3].edgePercent * 20.0 * testSin3
-         
-         ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x1, y:y1), p2: CGPoint(x: x2, y: y2), thickness: 0.25)
-         ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x2, y:y2), p2: CGPoint(x: x3, y: y3), thickness: 0.25)
-         ShaderProgramMesh.shared.lineDraw(p1: CGPoint(x: x3, y:y3), p2: CGPoint(x: x1, y: y1), thickness: 0.25)
-         }
-         */
-        
+        grabSelectionHistoryCount = 0
+        grabSelectionTouch = nil
         
     }
     
@@ -413,6 +555,7 @@ class Blob
         computeGridInside()
         computeGridEdges()
         computeMesh()
+        computeMeshEdgeFactors()
         guard valid == true else { return }
         computeAffine()
     }

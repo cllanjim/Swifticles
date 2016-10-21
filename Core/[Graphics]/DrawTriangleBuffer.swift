@@ -89,6 +89,7 @@ class DrawTriangleBuffer {
                 Graphics.textureEnable()
                 Graphics.textureBind(texture: checkTexture)
             } else {
+                ShaderProgramMesh.shared.textureBlankBind()
                 Graphics.textureDisable()
             }
             

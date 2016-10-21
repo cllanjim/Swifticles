@@ -15,6 +15,12 @@ class BlobMeshNode : DrawNode
     var edgeDistance: CGFloat = 0.0
     var edgePercent: CGFloat = 0.0
     
+    var animX: CGFloat = 0.0
+    var animY: CGFloat = 0.0
+    var animZ: CGFloat = 0.0
+    
+    
+    
     func set(meshNode:BlobMeshNode) {
         
         set(drawNode: meshNode)
@@ -25,5 +31,19 @@ class BlobMeshNode : DrawNode
         edgePercent = meshNode.edgePercent
     }
     
+    
+    func writeToTriangleListAnimated(_ t:inout [GLfloat], index:Int) {
+        //let count = t.count
+        t[index +  0] = GLfloat(animX)
+        t[index +  1] = GLfloat(animY)
+        t[index +  2] = GLfloat(animZ)
+        t[index +  3] = GLfloat(u)
+        t[index +  4] = GLfloat(v)
+        t[index +  5] = GLfloat(w)
+        t[index +  6] = GLfloat(r)
+        t[index +  7] = GLfloat(g)
+        t[index +  8] = GLfloat(b)
+        t[index +  9] = GLfloat(a)
+    }
     
 }

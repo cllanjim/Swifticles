@@ -239,6 +239,8 @@ class Graphics {
     
     class func depthEnable() {
         glEnable(GLenum(GL_DEPTH_TEST))
+        glDepthFunc(GLenum(GL_LESS))
+        glDepthMask(GLboolean(GL_TRUE))
     }
     
     class func depthDisable() {
