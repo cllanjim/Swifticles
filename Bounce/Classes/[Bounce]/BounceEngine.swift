@@ -225,6 +225,17 @@ class BounceEngine {
         for blob:Blob in blobs {
             if blob.enabled { blob.update() }
         }
+        
+        
+        
+        if let gyroData = ApplicationController.shared.motionManager.gyroData {
+            print("RotRate (\(gyroData.rotationRate.x) x \(gyroData.rotationRate.y) x \(gyroData.rotationRate.z))")
+        }
+        
+        if let deviceMotion = ApplicationController.shared.motionManager.deviceMotion {
+            
+        }
+        
     }
     
     func draw() {
@@ -522,6 +533,8 @@ class BounceEngine {
         affineSelectionTouch = nil
     }
     
+    
+    
     class func postNotification(_ notificationName: BounceNotification) {
         let notification = Notification(name: Notification.Name(notificationName.rawValue), object: nil, userInfo: nil)
         NotificationCenter.default.post(notification)
@@ -530,6 +543,30 @@ class BounceEngine {
     class func postNotification(_ notificationName: BounceNotification, object: AnyObject?) {
         let notification = Notification(name: Notification.Name(notificationName.rawValue), object: object, userInfo: nil)
         NotificationCenter.default.post(notification)
+    }
+    
+    func handleZoomModeChange() {
+        for blob in blobs {
+            if blob.enabled { blob.handleZoomModeChange() }
+        }
+    }
+    
+    func handleSceneModeChanged() {
+        for blob in blobs {
+            if blob.enabled { blob.handleSceneModeChanged() }
+        }
+    }
+    
+    func handleEditModeChanged() {
+        for blob in blobs {
+            if blob.enabled { blob.handleEditModeChanged() }
+        }
+    }
+    
+    func handleViewModeChanged() {
+        for blob in blobs {
+            if blob.enabled { blob.handleViewModeChanged() }
+        }
     }
     
     func addBlob() {

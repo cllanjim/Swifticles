@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMotion
 
 class ApplicationController
 {
@@ -42,6 +43,21 @@ class ApplicationController
             //_navigationController = appDelegate.window!.rootViewController as? UINavigationController
             //return _navigationController!
         //}
+    }
+    
+    private var _root: RootViewController?
+    var root: RootViewController {
+        set {
+            _root = newValue
+        }
+        get {
+            return _root!
+        }
+    }
+    
+    var motionManager: CMMotionManager {
+
+        return root.motionManager
     }
     
     var toolBarHeight: CGFloat {

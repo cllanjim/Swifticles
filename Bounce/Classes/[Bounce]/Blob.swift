@@ -90,7 +90,7 @@ class Blob
     var grabAnimationGuideOffsetStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
     var grabAnimationGuideTouchStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
     
-    var releaseFlingDecay: CGFloat = 0.0
+    
     
     //
     //
@@ -106,6 +106,9 @@ class Blob
     var animationGuideOffset:CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     var animationGuideSpeed:CGPoint = CGPoint(x: 0.0, y: 0.0)
+    
+    var animationGuideReleaseFlingDecay: CGFloat = 0.0
+    var animationGuideReleaseFlingAccel:CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     
     //var animationGuide:CGPoint = CGPoint(x: 0.0, y: 0.0)
@@ -255,29 +258,34 @@ class Blob
                     diffY = 0.0
                 }
                 
+                var decayInv = (1.0 - animationGuideReleaseFlingDecay)
+                
+                
+                //animationGuideReleaseFlingAccel = CGPoint.zero
+                //animationGuideSpeed = CGPoint.zero
+                
+                animationGuideSpeed.x += animationGuideReleaseFlingAccel.x * animationGuideReleaseFlingDecay
+                animationGuideSpeed.y += animationGuideReleaseFlingAccel.y * animationGuideReleaseFlingDecay
+                
                 animationGuideSpeed.x += diffX * dist * 0.04
                 animationGuideSpeed.y += diffY * dist * 0.04
                 
-                animationGuideSpeed.x *= 0.945
-                animationGuideSpeed.y *= 0.945
+                let speedDecay = 0.954 + (animationGuideReleaseFlingDecay * 0.046)
+                
+                animationGuideSpeed.x *= speedDecay
+                animationGuideSpeed.y *= speedDecay
                 
                 animationGuideOffset.x += animationGuideSpeed.x
                 animationGuideOffset.y += animationGuideSpeed.y
                 
-                releaseFlingDecay += 0.2
-                if releaseFlingDecay > 1.0 {
-                    releaseFlingDecay = 1.0
-                }
+                animationGuideReleaseFlingDecay -= 0.06
+                if animationGuideReleaseFlingDecay < 0.0 { animationGuideReleaseFlingDecay = 0.0 }
+                
             }
             
             
         } else {
-            
-            animationGuideSpeed.x = 0.0
-            animationGuideSpeed.y = 0.0
-            
-            animationGuideOffset.x = 0.0
-            animationGuideOffset.y = 0.0
+             cancelAnimationGuideMotion()
         }
         
         
@@ -343,10 +351,9 @@ class Blob
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 
-                
-                node.animX = node.x + testSin1 * 31.0 * node.edgePercent
-                node.animY = node.y + testSin2 * 16.0 * node.edgePercent
-                node.animZ = node.edgePercent * 200.0
+                //node.animX = node.x + testSin1 * 31.0 * node.edgePercent
+                //node.animY = node.y + testSin2 * 16.0 * node.edgePercent
+                //node.animZ = node.edgePercent * 200.0
                 
                 node.r = 1.0;node.g = 1.0;node.b = 1.0;node.a = 1.0
                 node.writeToTriangleListAnimated(&vertexBuffer, index: vertexIndex)
@@ -403,38 +410,34 @@ class Blob
             
         }
         
+
         
+        if selected {
+            
+            if Device.isTablet {
+                
+                linesOuter.thickness = 2.5
+                linesInner.thickness = 1.5
+            } else {
+                linesOuter.thickness = 1.75
+                linesInner.thickness = 1.0
+            }
+        } else {
+            if Device.isTablet {
+                linesOuter.thickness = 2.0
+                linesInner.thickness = 1.0
+            } else {
+                linesOuter.thickness = 1.5
+                linesInner.thickness = 0.75
+            }
+        }
         
-        
-        
-        
-        //ShaderProgramMesh.shared.colorSet(r: 0.5, g: 0.8, b: 0.05)
-        //ShaderProgramMesh.shared.rectDraw(x: Float(center.x - 6), y: Float(center.y - 6), width: 13, height: 13)
+        linesOuter.draw()
+        linesInner.draw()
         
         
         if isEditMode {
-            if selected {
-                
-                if Device.isTablet {
-                    
-                    linesOuter.thickness = 2.5
-                    linesInner.thickness = 1.5
-                } else {
-                    linesOuter.thickness = 1.75
-                    linesInner.thickness = 1.0
-                }
-            } else {
-                if Device.isTablet {
-                    linesOuter.thickness = 2.0
-                    linesInner.thickness = 1.0
-                } else {
-                    linesOuter.thickness = 1.5
-                    linesInner.thickness = 0.75
-                }
-            }
             
-            linesOuter.draw()
-            linesInner.draw()
             
             if isEditModeShape {
                 Graphics.blendEnable()
@@ -468,6 +471,12 @@ class Blob
     
     func releaseGrabFling() {
         
+        //var animationGuideReleaseFlingDecay: CGFloat = 0.0
+        
+        animationGuideReleaseFlingDecay = 0.0
+        animationGuideReleaseFlingAccel = CGPoint.zero
+        animationGuideSpeed = CGPoint.zero
+        
         if grabSelectionHistoryCount > 2 {
             
             let startPoint = grabSelectionHistory[0]
@@ -488,21 +497,26 @@ class Blob
             
             if dirLength > Math.epsilon {
                 
-                releaseFlingDecay = 0.0
+                animationGuideReleaseFlingDecay = 1.0
                 
                 dirLength = CGFloat(sqrtf(Float(dirLength)))
                 dir.x /= dirLength
                 dir.y /= dirLength
                 
-                dirLength = CGFloat(sqrtf(Float(dirLength * 2.0))) + dirLength * 0.25
                 
-                if dirLength > 20.0 {
-                    dirLength = 20.0 + (dirLength - 20.0) * 0.5
-                }
+                let releaseSpeed = dirLength / 2.0
+                
+                animationGuideSpeed.x = dir.x * releaseSpeed
+                animationGuideSpeed.y = dir.y * releaseSpeed
+                
+                let accelSpeed = CGFloat(sqrtf(Float(releaseSpeed + releaseSpeed))) / 2.0
+                
+                animationGuideReleaseFlingAccel.x = dir.x * accelSpeed
+                animationGuideReleaseFlingAccel.y = dir.y * accelSpeed
                 
                 
-                animationGuideSpeed.x = dir.x * (dirLength + 1.0)
-                animationGuideSpeed.y = dir.y * (dirLength + 1.0)
+                print("Release LEN = \(dirLength) ACCEL = \(accelSpeed) Dir: \(dir.x) x \(dir.y)")
+                
             }
             
             
@@ -511,7 +525,7 @@ class Blob
             //animationGuideSpeed.y += diffY * dist * 0.07
             
             
-            print("Release LEN = \(dirLength) Dir: \(dir.x) x \(dir.y)")
+            
             
             
         }
@@ -1214,6 +1228,34 @@ class Blob
         return BounceEngine.transformPoint(point: point, translation: center, scale: scale, rotation: rotation)
     }
     
+    
+    func cancelAnimationGuideMotion() {
+        grabSelectionTouch = nil
+        grabSelection = CGPoint.zero
+        grabSelectionHistoryCount = 0
+        grabAnimationGuideOffsetStart = CGPoint.zero
+        grabAnimationGuideTouchStart = CGPoint.zero
+        animationGuideOffset = CGPoint.zero
+        animationGuideSpeed = CGPoint.zero
+        animationGuideReleaseFlingDecay = 0.0
+        animationGuideReleaseFlingAccel = CGPoint(x: 0.0, y: 0.0)
+    }
+    
+    func handleZoomModeChange() {
+        cancelAnimationGuideMotion()
+    }
+    
+    func handleSceneModeChanged() {
+        cancelAnimationGuideMotion()
+    }
+    
+    func handleEditModeChanged() {
+        cancelAnimationGuideMotion()
+    }
+    
+    func handleViewModeChanged() {
+        cancelAnimationGuideMotion()
+    }
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()

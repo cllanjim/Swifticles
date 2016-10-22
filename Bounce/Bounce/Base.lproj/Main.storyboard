@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="l55-up-fKj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QJR-Vx-Ban">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqn-WP-CYZ"/>
@@ -253,7 +253,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GLKView">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
@@ -278,12 +278,6 @@
                                             <action selector="clickAddBlob:" destination="27M-R0-Bg7" eventType="touchUpInside" id="G9x-Xb-ziJ"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLb-r9-sfa" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="33" id="WDO-hC-L9d"/>
-                                        </constraints>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZG-oi-s0r" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -316,8 +310,6 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.23563257312907004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="1Vp-Rx-vsc" firstAttribute="centerY" secondItem="cZG-oi-s0r" secondAttribute="centerY" id="2Rb-cY-Nzx"/>
-                                    <constraint firstItem="vLb-r9-sfa" firstAttribute="leading" secondItem="1Vp-Rx-vsc" secondAttribute="trailing" constant="26" id="3yg-Rq-YBP"/>
-                                    <constraint firstItem="vLb-r9-sfa" firstAttribute="centerX" secondItem="27M-R0-Bg7" secondAttribute="centerX" id="7Lr-H7-g6N"/>
                                     <constraint firstItem="1Vp-Rx-vsc" firstAttribute="leading" secondItem="1BU-hg-uMx" secondAttribute="trailing" constant="19" id="9RU-Cd-rdM"/>
                                     <constraint firstAttribute="height" constant="80" id="C5F-vt-h4O"/>
                                     <constraint firstItem="1Vp-Rx-vsc" firstAttribute="firstBaseline" secondItem="1BU-hg-uMx" secondAttribute="baseline" id="CcU-ku-Qn4"/>
@@ -333,9 +325,7 @@
                                     <constraint firstItem="1BU-hg-uMx" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="top" constant="8" id="iym-s9-L1j"/>
                                     <constraint firstItem="1Vp-Rx-vsc" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="top" constant="6" id="oDg-hl-uK5"/>
                                     <constraint firstItem="1Vp-Rx-vsc" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="top" constant="6" id="piX-lU-dpG"/>
-                                    <constraint firstItem="vLb-r9-sfa" firstAttribute="top" secondItem="27M-R0-Bg7" secondAttribute="top" constant="20" id="rVH-y2-9aB"/>
                                     <constraint firstItem="1BU-hg-uMx" firstAttribute="leading" secondItem="27M-R0-Bg7" secondAttribute="leading" constant="8" id="rt4-oB-t0d"/>
-                                    <constraint firstItem="vLb-r9-sfa" firstAttribute="width" secondItem="27M-R0-Bg7" secondAttribute="width" multiplier="0.36" id="uID-rz-2pS"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -346,7 +336,6 @@
                                         <exclude reference="ddz-hU-ZG3"/>
                                         <exclude reference="oDg-hl-uK5"/>
                                         <exclude reference="ixx-9y-j3w"/>
-                                        <exclude reference="3yg-Rq-YBP"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -354,7 +343,6 @@
                                     <outlet property="buttonMenu" destination="1BU-hg-uMx" id="dfQ-Sy-LK0"/>
                                     <outlet property="checkBoxZoom" destination="1Vp-Rx-vsc" id="sGS-tf-hKb"/>
                                     <outlet property="segEditMode" destination="cZG-oi-s0r" id="4pM-fv-jlr"/>
-                                    <outlet property="segMode" destination="vLb-r9-sfa" id="aIz-16-dTG"/>
                                 </connections>
                             </view>
                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikJ-du-UKY" customClass="BottomMenu" customModule="Bounce" customModuleProvider="target">
@@ -900,7 +888,7 @@
                         <viewControllerLayoutGuide type="bottom" id="db2-5h-Unk"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="wQN-W4-IBZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">

@@ -295,33 +295,36 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     func handleZoomModeChange() {
         print("handleZoomModeChange()")
+        engine.handleZoomModeChange()
         cancelAllGesturesAndTouches()
     }
     
     func handleSceneModeChanged() {
         print("handleSceneModeChanged()")
+        engine.handleSceneModeChanged()
         cancelAllGesturesAndTouches()
     }
     
     func handleEditModeChanged() {
+        
         print("handleEditModeChanged()")
+        engine.handleEditModeChanged()
         cancelAllGesturesAndTouches()
     }
     
     func handleViewModeChanged() {
         print("handleViewModeChanged()")
+        engine.handleViewModeChanged()
         cancelAllGesturesAndTouches()
     }
     
     func handleBlobAdded() {
         print("handleBlobAdded()")
-        //cancelAllGesturesAndTouches()
-        
+        cancelAllGesturesAndTouches()
     }
     
     func handleBlobSelectionChanged() {
         print("handleBlobSelectionChanged()")
-        //cancelAllGesturesAndTouches()
         
     }
     

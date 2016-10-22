@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import CoreMotion
 
 class RootViewController: RootViewControllerBase {
     
+    let motionManager = CMMotionManager()
+    
     override func viewDidLoad() {
+        
+        ApplicationController.shared.root = self
+        
         super.viewDidLoad()
         
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -49,6 +55,24 @@ class RootViewController: RootViewControllerBase {
         mask = mask.union(.landscapeLeft)
         mask = mask.union(.landscapeRight)
         return mask
+    }
+    
+    override func didBecomeActive() {
+        super.didBecomeActive()
+        
+        motionManager.startDeviceMotionUpdates()
+        motionManager.startAccelerometerUpdates()
+        motionManager.startGyroUpdates()
+        
+    }
+    
+    override func didBecomeInactive() {
+        super.didBecomeInactive()
+        
+        motionManager.stopDeviceMotionUpdates()
+        motionManager.stopAccelerometerUpdates()
+        motionManager.stopGyroUpdates()
+        
     }
     
 }
