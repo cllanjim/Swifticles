@@ -56,8 +56,30 @@ class ApplicationController
     }
     
     var motionManager: CMMotionManager {
-
         return root.motionManager
+    }
+    
+    var gyroDir: CGPoint {
+        var result = CGPoint.zero
+        if let gyroData = ApplicationController.shared.motionManager.gyroData {
+            var jerkX = CGFloat(gyroData.rotationRate.x)
+            var jerkY = CGFloat(gyroData.rotationRate.y)
+            let hold = jerkX
+            if Device.orientation == .landscapeLeft {
+                jerkX = -jerkX
+            } else if Device.orientation == .landscapeRight {
+                jerkY = -jerkY
+            } else if Device.orientation == .portraitUpsideDown {
+                jerkX = -jerkY
+                jerkY = -hold
+            } else {
+                jerkX = jerkY
+                jerkY = hold
+            }
+            result.x = jerkX
+            result.y = jerkY
+        }
+        return result
     }
     
     var toolBarHeight: CGFloat {

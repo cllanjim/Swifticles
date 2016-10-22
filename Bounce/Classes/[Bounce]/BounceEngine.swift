@@ -225,17 +225,7 @@ class BounceEngine {
         for blob:Blob in blobs {
             if blob.enabled { blob.update() }
         }
-        
-        
-        
-        if let gyroData = ApplicationController.shared.motionManager.gyroData {
-            print("RotRate (\(gyroData.rotationRate.x) x \(gyroData.rotationRate.y) x \(gyroData.rotationRate.z))")
-        }
-        
-        if let deviceMotion = ApplicationController.shared.motionManager.deviceMotion {
-            
-        }
-        
+
     }
     
     func draw() {

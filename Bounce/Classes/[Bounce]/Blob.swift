@@ -281,11 +281,18 @@ class Blob
                 animationGuideReleaseFlingDecay -= 0.06
                 if animationGuideReleaseFlingDecay < 0.0 { animationGuideReleaseFlingDecay = 0.0 }
                 
+                
+                let gyroDir = ApplicationController.shared.gyroDir
+                
+                animationGuideSpeed.x += gyroDir.x
+                animationGuideSpeed.y += gyroDir.y
+                
+                
             }
             
             
         } else {
-             cancelAnimationGuideMotion()
+            cancelAnimationGuideMotion()
         }
         
         
@@ -410,7 +417,7 @@ class Blob
             
         }
         
-
+        
         
         if selected {
             
