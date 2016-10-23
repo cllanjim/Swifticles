@@ -76,8 +76,7 @@ class ToolView: UIView
             }
         }
         
-        
-        
+        refreshUI()
         
         setNeedsDisplay()
     }
@@ -94,6 +93,10 @@ class ToolView: UIView
         if view is TBSegment { return true }
         if view is TBCheckBox { return true }
         return false
+    }
+    
+    func refreshUI() {
+        
     }
     
     deinit {

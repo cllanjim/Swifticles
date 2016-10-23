@@ -92,7 +92,6 @@
 		C21E40BA1DB8472500EB6A4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40941DB8472500EB6A4F /* AppDelegate.swift */; };
 		C21E40BB1DB8472500EB6A4F /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40951DB8472500EB6A4F /* ApplicationController.swift */; };
 		C21E40BC1DB8472500EB6A4F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40961DB8472500EB6A4F /* Config.swift */; };
-		C21E40BD1DB8472500EB6A4F /* EditAffineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40971DB8472500EB6A4F /* EditAffineViewController.swift */; };
 		C21E40BE1DB8472500EB6A4F /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40981DB8472500EB6A4F /* HomeMenuViewController.swift */; };
 		C21E40BF1DB8472500EB6A4F /* ImageImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40991DB8472500EB6A4F /* ImageImportViewController.swift */; };
 		C21E40C01DB8472500EB6A4F /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E409A1DB8472500EB6A4F /* Reader.swift */; };
@@ -246,7 +245,6 @@
 		C21E40941DB8472500EB6A4F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C21E40951DB8472500EB6A4F /* ApplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
 		C21E40961DB8472500EB6A4F /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		C21E40971DB8472500EB6A4F /* EditAffineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAffineViewController.swift; sourceTree = "<group>"; };
 		C21E40981DB8472500EB6A4F /* HomeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
 		C21E40991DB8472500EB6A4F /* ImageImportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageImportViewController.swift; sourceTree = "<group>"; };
 		C21E409A1DB8472500EB6A4F /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
@@ -457,7 +455,6 @@
 				C21E40941DB8472500EB6A4F /* AppDelegate.swift */,
 				C21E40951DB8472500EB6A4F /* ApplicationController.swift */,
 				C21E40961DB8472500EB6A4F /* Config.swift */,
-				C21E40971DB8472500EB6A4F /* EditAffineViewController.swift */,
 				C21E40981DB8472500EB6A4F /* HomeMenuViewController.swift */,
 				C21E40991DB8472500EB6A4F /* ImageImportViewController.swift */,
 				C21E409A1DB8472500EB6A4F /* Reader.swift */,
@@ -837,7 +834,6 @@
 				C21E40A01DB8472500EB6A4F /* BlobMeshNode.swift in Sources */,
 				C281959D1DB1AC8A00B23E52 /* JSONFetcher.swift in Sources */,
 				C21E40A91DB8472500EB6A4F /* ToolRowAccessoryBottomEdit.swift in Sources */,
-				C21E40BD1DB8472500EB6A4F /* EditAffineViewController.swift in Sources */,
 				C28195981DB1AC8A00B23E52 /* ShaderProgramSprite.swift in Sources */,
 				C21E40AA1DB8472500EB6A4F /* ToolRowAccessoryBottomView.swift in Sources */,
 				C21E40A61DB8472500EB6A4F /* ToolBarBottom.swift in Sources */,

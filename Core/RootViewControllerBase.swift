@@ -3,7 +3,7 @@
 //  DemoFlow
 //
 //  Created by Raptis, Nicholas on 10/13/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -175,9 +175,4 @@ class RootViewControllerBase: UIViewController {
     }
     
 }
-
-
-
-
-
 

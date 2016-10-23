@@ -27,5 +27,19 @@ class ToolRowBottomZoom: ToolRow
     override func setUp() {
         super.setUp()
     }
+    
+    override func refreshUI() {
+        super.refreshUI()
+        
+    }
+    
+    override func segmentSelected(segment:TBSegment, index: Int) {
+        
+    }
+    
+    override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
+        
+    }
+    
 }
 

@@ -30,7 +30,7 @@ class ToolRowContainer : ToolRow
     
     var toolRows = [ToolRow]()
     
-    var expanded:Bool = true
+    var showing:Bool = true
     
     override func handleSceneReady() {
         /*
@@ -66,9 +66,17 @@ class ToolRowContainer : ToolRow
             var previousToolRow = _currentToolRow
             _currentToolRow = newValue
             
+            
+            
             if _currentToolRow != nil {
                 bringSubview(toFront: _currentToolRow!)
-                _currentToolRow!.showTools()
+                
+                if showing == false {
+                    _currentToolRow!.hideTools()
+                } else {
+                    _currentToolRow!.showTools()
+                }
+                
             }
             
             
@@ -151,9 +159,12 @@ class ToolRowContainer : ToolRow
     }
     
     func updateToolRowConstraints() {
-        //
         
-        //_currentToolRow
+    }
+    
+    override func refreshUI() {
+        super.refreshUI()
+        
     }
     
     func sendOnScreen(_ row:ToolRow) {

@@ -54,6 +54,15 @@ class ToolActions {
         }
     }
     
+    class func undo() {
+        
+    }
+    
+    class func redo() {
+        
+    }
+    
+    
     //class func set
     
 }

@@ -3,7 +3,7 @@
 //  SwiftFunhouse
 //
 //  Created by Raptis, Nicholas on 7/18/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -17,16 +17,46 @@ class TBSegment: UIView {
     
     var delegate:TBSegmentDelegate?
     
+    var orange: Bool = false {
+        didSet {
+            for i in 0..<buttons.count {
+                if selectedIndex == i {
+                    if orange {
+                        buttons[i].styleSetSegmentSelectedOrange()
+                    } else {
+                        buttons[i].styleSetSegmentSelected()
+                    }
+                } else {
+                    if orange {
+                        buttons[i].styleSetSegmentOrange()
+                    } else {
+                        buttons[i].styleSetSegment()
+                    }
+                }
+            }
+            
+        }
+    }
+    
     var selectedIndex:Int? {
         willSet {
             if let index = selectedIndex , index >= 0 && index < buttons.count {
-                buttons[index].styleSetSegment()
+                if orange {
+                    buttons[index].styleSetSegmentOrange()
+                } else {
+                    buttons[index].styleSetSegment()
+                }
+                
                 buttons[index].isSelected = false
             }
         }
         didSet {
             if let index = selectedIndex , index >= 0 && index < buttons.count {
-                buttons[index].styleSetSegmentSelected()
+                if orange {
+                    buttons[index].styleSetSegmentSelectedOrange()
+                } else {
+                    buttons[index].styleSetSegmentSelected()
+                }
                 buttons[index].isSelected = true
             }
         }
@@ -120,7 +150,13 @@ class TBSegment: UIView {
                     }
                     
                     button.addTarget(self, action: #selector(clickSegment(_:)), for:.touchUpInside)
-                    button.styleSetSegment()
+                    
+                    if orange {
+                        button.styleSetSegmentOrange()
+                    } else {
+                        button.styleSetSegment()
+                    }
+                    
                     addSubview(button)
                 }
             }

@@ -151,13 +151,26 @@ class BottomMenu: ToolView
     func expand() {
         if expanded == false {
             expanded = true
+            
+            containerMain?.showing = true
+            containerAccessory?.showing = true
+            
             menuHeightConstraint.constant = expandedHeight
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
             UIView.animate(withDuration: 0.4, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
-                }, completion: nil)
+                }, completion: { [weak weakSelf = self] (finished:Bool) in
+                    
+                    
+            }
+            
+            
+            
+            
+            
+            )
             
             var shadowDelay:CGFloat = 0.15
             if ApplicationController.shared.isSceneLandscape == false {
@@ -198,7 +211,10 @@ class BottomMenu: ToolView
             UIView.animate(withDuration: 0.40, delay: 0.2, options: .curveEaseIn, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
-                }, completion: nil)
+                }, completion: { [weak weakSelf = self] (finished:Bool) in
+                    weakSelf?.containerMain?.showing = false
+                    weakSelf?.containerAccessory?.showing = false
+                })
             
             if ApplicationController.shared.isSceneLandscape == false {
                 UIView.animate(withDuration: 0.28, delay: 0.30, options: .curveEaseIn, animations:

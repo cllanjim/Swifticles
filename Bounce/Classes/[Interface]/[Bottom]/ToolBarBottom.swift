@@ -8,13 +8,14 @@
 
 import UIKit
 
-class ToolBarBottom : ToolRow, TBSegmentDelegate, TBCheckBoxDelegate
+class ToolBarBottom : ToolRow
 {
     
     @IBInspectable @IBOutlet weak var segMode:TBSegment! {
         didSet {
             segMode.segmentCount = 2
             segMode.delegate = self
+            segMode.orange = true
             segMode.setImage(index: 0, path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
             segMode.setImage(index: 1, path: "tb_seg_view", pathSelected: "tb_seg_view_selected")
             segMode.selectedIndex = 0
@@ -34,19 +35,28 @@ class ToolBarBottom : ToolRow, TBSegmentDelegate, TBCheckBoxDelegate
         }
     }
     
-        
-    
-    
     @IBInspectable @IBOutlet weak var buttonUndo:TBButton! {
         didSet {
-            //buttonExpand.styleSetSegment()
+            buttonUndo.setImages(path: "tb_btn_undo", pathSelected: "tb_btn_undo_down")
+            buttonUndo.isEnabled = false
         }
     }
     
     @IBInspectable @IBOutlet weak var buttonRedo:TBButton! {
         didSet {
-            //buttonExpand.styleSetSegment()
+            buttonRedo.setImages(path: "tb_btn_redo", pathSelected: "tb_btn_redo_down")
         }
+    }
+    
+    override func setUp() {
+        if ApplicationController.shared.isSceneLandscape {
+            buttonExpandAlt.isHidden = false
+            buttonExpand.isHidden = true
+        } else {
+            buttonExpandAlt.isHidden = true
+            buttonExpand.isHidden = false
+        }
+        super.setUp()
     }
     
     override func handleSceneReady() {
@@ -60,11 +70,30 @@ class ToolBarBottom : ToolRow, TBSegmentDelegate, TBCheckBoxDelegate
             }
     }
     
+    override func refreshUI() {
+        super.refreshUI()
+        
+        if ApplicationController.shared.sceneMode == .view {
+            segMode.selectedIndex = 1
+        } else {
+            segMode.selectedIndex = 0
+        }
+    }
+    
+    
     @IBAction func clickExpand(sender: AnyObject) {
         ToolActions.bottomMenuToggleExpand()
     }
     
-    func segmentSelected(segment:TBSegment, index: Int) {
+    @IBAction func clickUndo(sender: AnyObject) {
+        ToolActions.undo()
+    }
+    
+    @IBAction func clickRedo(sender: AnyObject) {
+        ToolActions.redo()
+    }
+    
+    override func segmentSelected(segment:TBSegment, index: Int) {
         if segment === segMode {
             if segMode.selectedIndex == 0 {
                 ApplicationController.shared.sceneMode = .edit
@@ -74,7 +103,7 @@ class ToolBarBottom : ToolRow, TBSegmentDelegate, TBCheckBoxDelegate
         }
     }
     
-    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
+    override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
     }
     

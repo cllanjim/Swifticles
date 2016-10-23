@@ -3,7 +3,7 @@
 //  SwiftFunhouse
 //
 //  Created by Raptis, Nicholas on 7/18/16.
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,7 @@ class RRButton: UIButton {
     var maxHeight: CGFloat?
     
     var image: UIImage? {
-        if isPressed {
+        if isPressed == true && isEnabled == true {
             if let img = imageDown {
                 return img
             }
@@ -183,14 +183,18 @@ class RRButton: UIButton {
         }
         
         if let img = image {
+            
+            var imageAlpha: CGFloat = 1.0
+            if isEnabled == false { imageAlpha = 0.5 }
+            
             if fitImage {
                 let fit = CGSize(width: rect.size.width, height: rect.size.height).getAspectFit(img.size)
                 let size = fit.size
                 let imgRect = CGRect(x: width / 2.0 - size.width / 2.0, y: height / 2.0 - size.height / 2.0, width: size.width, height: size.height)
-                img.draw(in: imgRect, blendMode: .normal, alpha: 1.0)
+                img.draw(in: imgRect, blendMode: .normal, alpha: imageAlpha)
             } else {
                 let imgRect = CGRect(x: width / 2.0 - img.size.width / 2.0, y: height / 2.0 - img.size.height / 2.0, width: img.size.width, height: img.size.height)
-                img.draw(in: imgRect, blendMode: .normal, alpha: 1.0)
+                img.draw(in: imgRect, blendMode: .normal, alpha: imageAlpha)
             }
         }
         context.restoreGState()
@@ -204,17 +208,48 @@ class RRButton: UIButton {
         
     }
     
+    func styleSetCheck() {
+        
+        fill = true
+        stroke = false
+        strokeDown = true
+        fillColor = styleColorMediumGray
+        fillColorDown = styleColorMediumGray
+        strokeColorDown = UIColor.white
+        maxHeight = ApplicationController.shared.tbButtonHeight
+        strokeWidth = ApplicationController.shared.tbStrokeWidth
+        setNeedsDisplay()
+    }
+    
+    func styleSetCheckChecked() {
+        
+        fill = true
+        stroke = true
+        strokeDown = true
+        fillColor = styleColorMediumGray
+        strokeColor = styleColorBlue
+        fillColorDown = styleColorMediumGray
+        strokeColorDown = UIColor.white
+        maxHeight = ApplicationController.shared.tbButtonHeight
+        strokeWidth = ApplicationController.shared.tbStrokeWidth
+        setNeedsDisplay()
+        
+    }
+    
+    
+    
+    
     func styleSetSegment() {
         fill = true
         stroke = true
         strokeDown = true
-        fillColor = styleColorSegmentFill
-        strokeColor = styleColorSegmentStroke
-        fillColorDown = styleColorSegmentFillSelected
+        fillColor = styleColorDarkGray
+        strokeColor = styleColorBlue
+        fillColorDown = styleColorBlue
         strokeColorDown = UIColor.white
-        
         maxHeight = ApplicationController.shared.tbButtonHeight
         strokeWidth = ApplicationController.shared.tbStrokeWidth
+        setNeedsDisplay()
     }
     
     func styleSetSegmentSelected() {
@@ -222,14 +257,32 @@ class RRButton: UIButton {
         fillDown = true
         stroke = false
         strokeDown = true
-        fillColor = styleColorSegmentFillSelected
-        strokeColor = styleColorSegmentStrokeSelected
-        fillColorDown = styleColorSegmentFillSelected
+        fillColor = styleColorBlue
+        fillColorDown = styleColorBlue
         strokeColorDown = UIColor.white
-
         maxHeight = ApplicationController.shared.tbButtonHeight
         strokeWidth = ApplicationController.shared.tbStrokeWidth
+        setNeedsDisplay()
     }
+    
+    func styleSetSegmentOrange() {
+        styleSetSegment()
+        //fillColor = styleColorSegmentOrangeFill
+        strokeColor = styleColorOrange
+        fillColorDown = styleColorOrange
+        setNeedsDisplay()
+    }
+    
+    func styleSetSegmentSelectedOrange() {
+        styleSetSegmentSelected()
+        fillColor = styleColorOrange
+        fillColorDown = styleColorOrange
+        setNeedsDisplay()
+    }
+    
+    
+    
+    
     
     func styleSetToolbarButton() {
         fill = false
@@ -238,11 +291,11 @@ class RRButton: UIButton {
         strokeDown = false
         strokeWidth = 4.0
         //fillColor = UIColor.clear
-        fillColorDown = styleColorToolbarButtonFillPressed
-        strokeColor = styleColorSegmentStroke
-
+        fillColorDown = styleColorBlue
+        strokeColor = styleColorBlue
         maxHeight = ApplicationController.shared.tbButtonHeight
         strokeWidth = ApplicationController.shared.tbStrokeWidth
+        setNeedsDisplay()
     }
     
     func styleSetHomeMenuButton() {
@@ -253,9 +306,10 @@ class RRButton: UIButton {
         strokeWidth = 2.0
         fillColor = styleColorHomeMenuButtonBack
         fillColorDown = styleColorHomeMenuButtonBackDown
-        strokeColor = styleColorSegmentStroke
-        strokeColorDown = styleColorSegmentStroke
+        strokeColor = styleColorDarkGray
+        strokeColorDown = styleColorOrange
         //maxHeight = nil
+        setNeedsDisplay()
     }
     
 }

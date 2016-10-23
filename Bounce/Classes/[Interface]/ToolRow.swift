@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToolRow : ToolView
+class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
 {
     
     @IBOutlet weak var heightConstraint: NSLayoutConstraint?
@@ -152,6 +152,20 @@ class ToolRow : ToolView
         result.sort(by: { $0.frame.origin.x < $1.frame.origin.x})
         
         return result
+    }
+    
+    
+    func segmentSelected(segment:TBSegment, index: Int) {
+        
+    }
+    
+    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
+        
+    }
+    
+    override func refreshUI() {
+        super.refreshUI()
+        
     }
     
     deinit {

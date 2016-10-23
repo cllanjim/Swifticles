@@ -20,7 +20,7 @@ enum BounceNotification:String {
 }
 
 enum SceneMode: UInt32 { case edit = 1, view = 2 }
-enum EditMode: UInt32 { case affine = 1, shape = 2 }
+enum EditMode: UInt32 { case affine = 1, shape = 2, distribution = 3 }
 enum ViewMode: UInt32 { case grab = 1, animation = 2 }
 
 class BounceEngine {
