@@ -23,6 +23,25 @@ class ToolRowAccessoryBottomEdit: ToolRow
         }
     }
     
+    @IBInspectable @IBOutlet weak var buttonCloneBlob:TBButton! {
+        didSet {
+            buttonCloneBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var buttonResetZoom:TBButton! {
+        didSet {
+            buttonResetZoom.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var checkboxZoomMode: TBCheckBox! {
+        didSet {
+            checkboxZoomMode.delegate = self
+            checkboxZoomMode.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
+        }
+    }
+    
     override func setUp() {
         super.setUp()
         

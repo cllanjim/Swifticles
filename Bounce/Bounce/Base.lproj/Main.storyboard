@@ -256,6 +256,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bje-Xq-RgT" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="2sQ-eM-IdL"/>
+                                    <constraint firstAttribute="height" constant="54" id="ecr-pm-RvJ"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="clickShowHideAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SEf-jR-tPC"/>
+                                </connections>
+                            </button>
                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27M-R0-Bg7" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BU-hg-uMx" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
@@ -337,24 +347,61 @@
                                                         <subviews>
                                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAa-uQ-qbo" customClass="ToolRowAccessoryBottomEdit" customModule="Bounce" customModuleProvider="target">
                                                                 <subviews>
-                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-cS-xhV" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                        <frame key="frameInset" minX="133" width="46" height="46"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QBj-IO-0vX" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
                                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="QBj-IO-0vX" secondAttribute="height" multiplier="2:1" id="9Bl-9j-CXq"/>
+                                                                        </constraints>
                                                                     </button>
-                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVT-C1-Zuy" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                        <frame key="frameInset" minX="79" width="46" height="46"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2g-QN-h9W" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                        <color key="backgroundColor" red="0.42175313990000002" green="0.36909152709999998" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="v2g-QN-h9W" secondAttribute="height" multiplier="1:1" id="MO6-73-cm9"/>
+                                                                        </constraints>
                                                                     </button>
-                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fa-ir-xwX" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                        <frame key="frameInset" minX="21" width="46" height="46"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-cS-xhV" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="a0I-cS-xhV" secondAttribute="height" multiplier="1:1" id="XxN-3d-hMA"/>
+                                                                        </constraints>
+                                                                    </button>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVT-C1-Zuy" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                        <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="GVT-C1-Zuy" secondAttribute="height" multiplier="1:1" id="JVl-6j-u7l"/>
+                                                                        </constraints>
+                                                                    </button>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fa-ir-xwX" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                        <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="6Fa-ir-xwX" secondAttribute="height" multiplier="1:1" id="guC-gk-87S"/>
+                                                                        </constraints>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="6Fa-ir-xwX" firstAttribute="top" secondItem="rAa-uQ-qbo" secondAttribute="top" id="2mT-LC-eJO"/>
+                                                                    <constraint firstItem="GVT-C1-Zuy" firstAttribute="height" secondItem="rAa-uQ-qbo" secondAttribute="height" id="3Wr-h3-iIq"/>
+                                                                    <constraint firstItem="QBj-IO-0vX" firstAttribute="height" secondItem="rAa-uQ-qbo" secondAttribute="height" id="5px-b4-Enj"/>
+                                                                    <constraint firstItem="6Fa-ir-xwX" firstAttribute="leading" secondItem="rAa-uQ-qbo" secondAttribute="leading" constant="4" id="AM8-jb-1wL"/>
+                                                                    <constraint firstItem="GVT-C1-Zuy" firstAttribute="leading" secondItem="6Fa-ir-xwX" secondAttribute="trailing" id="DhI-Ku-8rX"/>
+                                                                    <constraint firstItem="QBj-IO-0vX" firstAttribute="top" secondItem="rAa-uQ-qbo" secondAttribute="top" id="Jnb-pQ-UwS"/>
+                                                                    <constraint firstItem="a0I-cS-xhV" firstAttribute="height" secondItem="rAa-uQ-qbo" secondAttribute="height" id="LOn-Te-wY3"/>
+                                                                    <constraint firstItem="a0I-cS-xhV" firstAttribute="leading" secondItem="GVT-C1-Zuy" secondAttribute="trailing" id="Qx0-Oe-BNk"/>
+                                                                    <constraint firstItem="a0I-cS-xhV" firstAttribute="top" secondItem="rAa-uQ-qbo" secondAttribute="top" id="XGc-Eu-gim"/>
+                                                                    <constraint firstItem="GVT-C1-Zuy" firstAttribute="top" secondItem="rAa-uQ-qbo" secondAttribute="top" id="fGm-2p-Ed5"/>
+                                                                    <constraint firstItem="v2g-QN-h9W" firstAttribute="top" secondItem="rAa-uQ-qbo" secondAttribute="top" id="iOp-FA-Aw6"/>
+                                                                    <constraint firstItem="v2g-QN-h9W" firstAttribute="height" secondItem="rAa-uQ-qbo" secondAttribute="height" id="nrF-rR-kZl"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="QBj-IO-0vX" secondAttribute="trailing" constant="4" id="o4u-Bg-xtW"/>
+                                                                    <constraint firstItem="QBj-IO-0vX" firstAttribute="leading" secondItem="v2g-QN-h9W" secondAttribute="trailing" constant="4" id="ula-sN-PFS"/>
+                                                                    <constraint firstItem="6Fa-ir-xwX" firstAttribute="height" secondItem="rAa-uQ-qbo" secondAttribute="height" id="zcG-Td-dPN"/>
+                                                                </constraints>
                                                                 <connections>
+                                                                    <outlet property="buttonAddBlob" destination="6Fa-ir-xwX" id="s4K-vy-NYG"/>
+                                                                    <outlet property="buttonCloneBlob" destination="a0I-cS-xhV" id="T8e-NB-74B"/>
+                                                                    <outlet property="buttonDeleteBlob" destination="GVT-C1-Zuy" id="3e3-dE-SSe"/>
+                                                                    <outlet property="buttonResetZoom" destination="v2g-QN-h9W" id="cQM-2M-UyC"/>
+                                                                    <outlet property="checkboxZoomMode" destination="QBj-IO-0vX" id="Oet-Ew-VjX"/>
                                                                     <outlet property="heightConstraint" destination="7AY-V2-5fv" id="Rjj-F9-f5N"/>
                                                                     <outlet property="leftConstraint" destination="If6-2E-PPH" id="8qP-kc-7U1"/>
                                                                     <outlet property="topConstraint" destination="a0h-R0-nmA" id="vtq-jq-ob3"/>
@@ -395,6 +442,12 @@
                                                             <constraint firstItem="W1M-RB-Eqp" firstAttribute="width" secondItem="IoL-NO-q1m" secondAttribute="width" id="hfJ-VX-2qa"/>
                                                             <constraint firstItem="XuX-P0-NaW" firstAttribute="top" secondItem="IoL-NO-q1m" secondAttribute="top" id="rrp-fo-lf4"/>
                                                         </constraints>
+                                                        <variation key="default">
+                                                            <mask key="subviews">
+                                                                <exclude reference="W1M-RB-Eqp"/>
+                                                                <exclude reference="XuX-P0-NaW"/>
+                                                            </mask>
+                                                        </variation>
                                                         <connections>
                                                             <outlet property="toolRowEdit" destination="rAa-uQ-qbo" id="qlu-q3-nBv"/>
                                                             <outlet property="toolRowView" destination="W1M-RB-Eqp" id="DIO-id-AGr"/>
@@ -521,6 +574,55 @@
                                             </view>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-yM-i5p" customClass="ToolRowBottomEdit" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
+                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kY-wh-HC5">
+                                                        <subviews>
+                                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJr-MW-wCv" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
+                                                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
+                                                                        <integer key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ql-Yn-Cs1">
+                                                                <subviews>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUC-8A-ZWW" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                        <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="mUC-8A-ZWW" secondAttribute="trailing" id="Ku2-Hb-ZQx"/>
+                                                                    <constraint firstItem="mUC-8A-ZWW" firstAttribute="top" secondItem="5ql-Yn-Cs1" secondAttribute="top" id="cfy-CA-Rx8"/>
+                                                                    <constraint firstAttribute="width" secondItem="5ql-Yn-Cs1" secondAttribute="height" multiplier="1:1" id="cqE-lU-eEI"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="mUC-8A-ZWW" secondAttribute="bottom" id="sdc-N4-cgi"/>
+                                                                    <constraint firstItem="mUC-8A-ZWW" firstAttribute="leading" secondItem="5ql-Yn-Cs1" secondAttribute="leading" id="v6h-4E-WZB"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4I-IA-SIn">
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="J4I-IA-SIn" secondAttribute="height" multiplier="1:1" id="fzc-II-B3z"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="KJr-MW-wCv" secondAttribute="bottom" id="58A-xC-pcE"/>
+                                                            <constraint firstItem="5ql-Yn-Cs1" firstAttribute="top" secondItem="1kY-wh-HC5" secondAttribute="top" id="Nmd-pD-yBV"/>
+                                                            <constraint firstItem="J4I-IA-SIn" firstAttribute="top" secondItem="1kY-wh-HC5" secondAttribute="top" id="QoS-Zu-Wyb"/>
+                                                            <constraint firstItem="J4I-IA-SIn" firstAttribute="leading" secondItem="KJr-MW-wCv" secondAttribute="trailing" constant="4" id="aGs-Xm-KCQ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="J4I-IA-SIn" secondAttribute="trailing" constant="4" id="aH2-6Z-ulD"/>
+                                                            <constraint firstItem="KJr-MW-wCv" firstAttribute="top" secondItem="1kY-wh-HC5" secondAttribute="top" id="aPN-xz-IjD"/>
+                                                            <constraint firstItem="5ql-Yn-Cs1" firstAttribute="leading" secondItem="1kY-wh-HC5" secondAttribute="leading" constant="4" id="dSi-7C-aDf"/>
+                                                            <constraint firstItem="J4I-IA-SIn" firstAttribute="height" secondItem="1kY-wh-HC5" secondAttribute="height" id="k4b-4R-MX5"/>
+                                                            <constraint firstItem="5ql-Yn-Cs1" firstAttribute="height" secondItem="1kY-wh-HC5" secondAttribute="height" id="qa4-dW-nvZ"/>
+                                                            <constraint firstItem="KJr-MW-wCv" firstAttribute="leading" secondItem="5ql-Yn-Cs1" secondAttribute="trailing" constant="4" id="uaL-cA-INL"/>
+                                                        </constraints>
+                                                    </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IcJ-BC-Jcn">
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KzB-SP-cP7" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
@@ -529,12 +631,21 @@
                                                                     <constraint firstAttribute="width" secondItem="KzB-SP-cP7" secondAttribute="height" multiplier="2:1" id="ovY-88-q5f"/>
                                                                 </constraints>
                                                             </button>
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TyP-CZ-2bU" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                <color key="backgroundColor" red="0.42175313990000002" green="0.36909152709999998" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="TyP-CZ-2bU" secondAttribute="height" multiplier="1:1" id="7Te-DZ-AlU"/>
+                                                                </constraints>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.62612030080000003" green="1" blue="0.4468788447" alpha="0.80238970588235292" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="KzB-SP-cP7" secondAttribute="trailing" constant="4" id="GHD-U8-c9i"/>
                                                             <constraint firstItem="KzB-SP-cP7" firstAttribute="top" secondItem="IcJ-BC-Jcn" secondAttribute="top" id="GJe-Uv-f8j"/>
+                                                            <constraint firstItem="KzB-SP-cP7" firstAttribute="leading" secondItem="TyP-CZ-2bU" secondAttribute="trailing" constant="4" id="MYP-QA-2Lt"/>
                                                             <constraint firstItem="KzB-SP-cP7" firstAttribute="height" secondItem="IcJ-BC-Jcn" secondAttribute="height" id="XhW-Gf-Boh"/>
+                                                            <constraint firstItem="TyP-CZ-2bU" firstAttribute="height" secondItem="IcJ-BC-Jcn" secondAttribute="height" id="flM-Al-izP"/>
+                                                            <constraint firstItem="TyP-CZ-2bU" firstAttribute="top" secondItem="IcJ-BC-Jcn" secondAttribute="top" id="sMJ-3v-ZOt"/>
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pQ-QD-P53">
@@ -551,51 +662,24 @@
                                                                     <constraint firstAttribute="width" secondItem="b9p-t9-EOi" secondAttribute="height" multiplier="1:1" id="7xw-V1-bo8"/>
                                                                 </constraints>
                                                             </button>
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8f-FH-Nsf" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                <color key="backgroundColor" red="0.42175313988862528" green="0.36909152706053761" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="d8f-FH-Nsf" secondAttribute="height" multiplier="1:1" id="Wwv-fo-Erx"/>
+                                                                </constraints>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.62612030080000003" green="1" blue="0.4468788447" alpha="0.80238970590000003" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="dCp-bJ-MEb" firstAttribute="height" secondItem="4pQ-QD-P53" secondAttribute="height" id="2nn-Zk-2Iw"/>
+                                                            <constraint firstItem="d8f-FH-Nsf" firstAttribute="leading" secondItem="dCp-bJ-MEb" secondAttribute="trailing" id="3kk-Cb-Lvy"/>
                                                             <constraint firstItem="dCp-bJ-MEb" firstAttribute="centerY" secondItem="4pQ-QD-P53" secondAttribute="centerY" id="Goi-ps-Mgm"/>
                                                             <constraint firstItem="dCp-bJ-MEb" firstAttribute="leading" secondItem="b9p-t9-EOi" secondAttribute="trailing" id="NMj-8N-9Nd"/>
                                                             <constraint firstItem="b9p-t9-EOi" firstAttribute="height" secondItem="4pQ-QD-P53" secondAttribute="height" id="Ydv-w4-hOv"/>
+                                                            <constraint firstItem="d8f-FH-Nsf" firstAttribute="top" secondItem="4pQ-QD-P53" secondAttribute="top" id="ZRt-zS-PhR"/>
                                                             <constraint firstItem="b9p-t9-EOi" firstAttribute="leading" secondItem="4pQ-QD-P53" secondAttribute="leading" constant="4" id="ikJ-V9-bQw"/>
                                                             <constraint firstItem="b9p-t9-EOi" firstAttribute="centerY" secondItem="4pQ-QD-P53" secondAttribute="centerY" id="ooA-6L-F6f"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kY-wh-HC5">
-                                                        <subviews>
-                                                            <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJr-MW-wCv" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
-                                                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
-                                                                        <integer key="value" value="1"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnN-mc-Piq" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
-                                                            </button>
-                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ae-LO-7RB" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
-                                                            </button>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstItem="KJr-MW-wCv" firstAttribute="leading" secondItem="GnN-mc-Piq" secondAttribute="trailing" id="36F-dh-nhZ"/>
-                                                            <constraint firstItem="9Ae-LO-7RB" firstAttribute="top" secondItem="1kY-wh-HC5" secondAttribute="top" id="36Q-b9-HFm"/>
-                                                            <constraint firstAttribute="trailing" secondItem="9Ae-LO-7RB" secondAttribute="trailing" id="57Z-bh-NFj"/>
-                                                            <constraint firstItem="9Ae-LO-7RB" firstAttribute="leading" secondItem="KJr-MW-wCv" secondAttribute="trailing" id="5pT-Et-Acu"/>
-                                                            <constraint firstItem="KJr-MW-wCv" firstAttribute="width" secondItem="1kY-wh-HC5" secondAttribute="width" multiplier="0.75" id="Yuh-ce-hJd"/>
-                                                            <constraint firstAttribute="bottom" secondItem="9Ae-LO-7RB" secondAttribute="bottom" id="ZLO-IU-rgE"/>
-                                                            <constraint firstItem="GnN-mc-Piq" firstAttribute="leading" secondItem="1kY-wh-HC5" secondAttribute="leading" id="aRk-Fh-9SW"/>
-                                                            <constraint firstAttribute="bottom" secondItem="KJr-MW-wCv" secondAttribute="bottom" id="cwp-Kh-ZdS"/>
-                                                            <constraint firstItem="GnN-mc-Piq" firstAttribute="top" secondItem="1kY-wh-HC5" secondAttribute="top" id="hnu-BD-qPn"/>
-                                                            <constraint firstItem="KJr-MW-wCv" firstAttribute="top" secondItem="1kY-wh-HC5" secondAttribute="top" id="iRO-F0-AfU"/>
-                                                            <constraint firstAttribute="bottom" secondItem="GnN-mc-Piq" secondAttribute="bottom" id="lqX-k9-rgd"/>
-                                                            <constraint firstItem="KJr-MW-wCv" firstAttribute="centerX" secondItem="1kY-wh-HC5" secondAttribute="centerX" id="nGA-Ei-vDY"/>
+                                                            <constraint firstItem="d8f-FH-Nsf" firstAttribute="height" secondItem="4pQ-QD-P53" secondAttribute="height" id="rQn-Cp-Icn"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -615,6 +699,12 @@
                                                     <constraint firstAttribute="trailing" secondItem="IcJ-BC-Jcn" secondAttribute="trailing" id="uyL-OB-F0K"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="buttonAddBlob" destination="b9p-t9-EOi" id="Kks-Kb-6ay"/>
+                                                    <outlet property="buttonCloneBlob" destination="d8f-FH-Nsf" id="ugU-hI-h0B"/>
+                                                    <outlet property="buttonDeleteBlob" destination="dCp-bJ-MEb" id="ada-2q-WlE"/>
+                                                    <outlet property="buttonResetZoom" destination="TyP-CZ-2bU" id="9P0-0u-gGk"/>
+                                                    <outlet property="buttonUndoAlt" destination="mUC-8A-ZWW" id="EfK-EF-Qig"/>
+                                                    <outlet property="checkboxZoomMode" destination="KzB-SP-cP7" id="2IZ-3G-lCj"/>
                                                     <outlet property="leftConstraint" destination="ttN-PF-YXg" id="i43-dw-2RD"/>
                                                     <outlet property="leftContainer" destination="4pQ-QD-P53" id="13b-rW-4Li"/>
                                                     <outlet property="leftContainerWidthConstraint" destination="NIa-C8-5qL" id="zQH-v7-K0q"/>
@@ -734,28 +824,26 @@
                                                         </subviews>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstItem="M1H-4D-jjM" firstAttribute="centerX" secondItem="jX8-OT-bdf" secondAttribute="centerX" id="9z3-Yv-jCW"/>
-                                                            <constraint firstItem="M1H-4D-jjM" firstAttribute="centerY" secondItem="jX8-OT-bdf" secondAttribute="centerY" id="FcD-On-OEv"/>
+                                                            <constraint firstAttribute="trailing" secondItem="M1H-4D-jjM" secondAttribute="trailing" constant="4" id="IOq-9U-ham"/>
                                                             <constraint firstItem="M1H-4D-jjM" firstAttribute="height" secondItem="jX8-OT-bdf" secondAttribute="height" id="hct-IT-23e"/>
+                                                            <constraint firstItem="M1H-4D-jjM" firstAttribute="top" secondItem="jX8-OT-bdf" secondAttribute="top" id="sid-02-Xbn"/>
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvL-K7-hY1">
                                                         <subviews>
-                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMD-gf-pFl" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPd-Ly-UJR" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
+                                                                <frame key="frameInset" minX="46" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="LMD-gf-pFl" secondAttribute="height" multiplier="1:1" id="VT6-8W-lbi"/>
+                                                                    <constraint firstAttribute="width" secondItem="tPd-Ly-UJR" secondAttribute="height" multiplier="1:1" id="IBo-LF-hHs"/>
                                                                 </constraints>
-                                                                <connections>
-                                                                    <action selector="clickExpandWithSender:" destination="LEj-da-9Od" eventType="touchUpInside" id="fX8-IE-AwW"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
-                                                            <constraint firstItem="LMD-gf-pFl" firstAttribute="height" secondItem="NvL-K7-hY1" secondAttribute="height" id="MTZ-FE-cLQ"/>
-                                                            <constraint firstItem="LMD-gf-pFl" firstAttribute="centerY" secondItem="NvL-K7-hY1" secondAttribute="centerY" id="QXb-mm-m3C"/>
-                                                            <constraint firstItem="LMD-gf-pFl" firstAttribute="centerX" secondItem="NvL-K7-hY1" secondAttribute="centerX" id="rV8-Eu-STh"/>
+                                                            <constraint firstItem="tPd-Ly-UJR" firstAttribute="height" secondItem="NvL-K7-hY1" secondAttribute="height" id="Iqh-Wd-Hmk"/>
+                                                            <constraint firstItem="tPd-Ly-UJR" firstAttribute="leading" secondItem="NvL-K7-hY1" secondAttribute="leading" constant="4" id="bCk-N7-Dj5"/>
+                                                            <constraint firstItem="tPd-Ly-UJR" firstAttribute="top" secondItem="NvL-K7-hY1" secondAttribute="top" id="cdK-rn-nWA"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -796,9 +884,10 @@
                                             <constraint firstItem="2to-NQ-iPn" firstAttribute="leading" secondItem="ThE-W9-q1v" secondAttribute="trailing" id="vO2-h2-OyO"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="buttonExpand" destination="M1H-4D-jjM" id="zFg-hG-iJV"/>
-                                            <outlet property="buttonExpandAlt" destination="vVS-0y-W6x" id="IEL-Ul-rQg"/>
+                                            <outlet property="buttonExpand" destination="vVS-0y-W6x" id="YDp-MX-3qn"/>
+                                            <outlet property="buttonExpandAlt" destination="M1H-4D-jjM" id="EJO-lc-inf"/>
                                             <outlet property="buttonRedo" destination="N7L-um-oRR" id="via-Xd-8CF"/>
+                                            <outlet property="buttonRedoAlt" destination="tPd-Ly-UJR" id="2Cf-NY-d0q"/>
                                             <outlet property="buttonUndo" destination="WKl-RE-HdA" id="wTU-Xh-0bB"/>
                                             <outlet property="leftContainer" destination="gFA-cv-6rY" id="gBl-ak-uJB"/>
                                             <outlet property="leftContainerWidthConstraint" destination="oBx-CC-iOa" id="chz-Wy-sZ6"/>
@@ -849,16 +938,6 @@
                                     <outlet property="toolRowUnderlay" destination="MBh-4I-Pr7" id="fy8-Ix-dlO"/>
                                 </connections>
                             </view>
-                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bje-Xq-RgT" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="2sQ-eM-IdL"/>
-                                    <constraint firstAttribute="height" constant="54" id="ecr-pm-RvJ"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="clickShowHideAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SEf-jR-tPC"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -881,7 +960,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2044.9275362318842" y="382.33695652173918"/>
+            <point key="canvasLocation" x="2044.0140845070423" y="380.625"/>
         </scene>
         <!--Import Image-->
         <scene sceneID="CMF-NA-AwL">

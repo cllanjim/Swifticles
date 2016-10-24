@@ -22,6 +22,36 @@ class ToolRowBottomEdit: ToolRow
         }
     }
     
+    @IBInspectable @IBOutlet weak var buttonAddBlob:TBButton! {
+        didSet {
+            buttonAddBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var buttonDeleteBlob:TBButton! {
+        didSet {
+            buttonDeleteBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var buttonCloneBlob:TBButton! {
+        didSet {
+            buttonCloneBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var buttonResetZoom:TBButton! {
+        didSet {
+            buttonResetZoom.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var buttonUndoAlt:TBButton! {
+        didSet {
+            buttonUndoAlt.setImages(path: "tb_btn_undo", pathSelected: "tb_btn_undo_down")
+        }
+    }
+    
     @IBInspectable @IBOutlet weak var checkboxZoomMode: TBCheckBox! {
         didSet {
             checkboxZoomMode.delegate = self
@@ -29,11 +59,11 @@ class ToolRowBottomEdit: ToolRow
         }
     }
     
-    
     override func setUp() {
+        if ApplicationController.shared.isSceneLandscape {
+            buttonUndoAlt.isHidden = true
+        }
         super.setUp()
-        
-        
     }
     
     override func refreshUI() {

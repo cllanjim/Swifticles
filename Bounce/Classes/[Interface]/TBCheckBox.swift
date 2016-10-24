@@ -26,6 +26,25 @@ class TBCheckBox: RRButton {
         }
     }
     
+    override var image: UIImage? {
+        if checked || isPressed {
+            if let img = imageDown {
+                return img
+            }
+            if let img = imageUp {
+                return img
+            }
+        } else {
+            if let img = imageUp {
+                return img
+            }
+            if let img = imageDown {
+                return img
+            }
+        }
+        return nil
+    }
+    
     var checkPoints = [CGPoint]()
     
     override func setUp() {
@@ -52,10 +71,10 @@ class TBCheckBox: RRButton {
         
         
         
-        let checkWidth = frame.size.height / 2.0
-        let checkHeight = frame.size.height / 2.0
+        //let checkWidth = frame.size.height / 2.0
+        //let checkHeight = frame.size.height / 2.0
         
-        let checkRect = CGRect(x: (frame.size.width - (checkWidth + (frame.size.height - checkHeight) / 2.0)), y: frame.size.height / 2.0 - checkHeight / 2.0, width: checkWidth, height: checkHeight)
+        //let checkRect = checkRect
         
         let context: CGContext = UIGraphicsGetCurrentContext()!
         context.saveGState()
@@ -108,6 +127,40 @@ class TBCheckBox: RRButton {
 
             context.restoreGState()
         }
+    }
+    
+    override func drawImage() {
+        
+        let dr = drawRect
+        let cr = checkRect
+        
+        let rect = CGRect(x: dr.origin.x, y: dr.origin.y, width: cr.origin.x - dr.origin.x, height: dr.size.height)
+        
+        if let img = image {
+            var imageAlpha: CGFloat = 1.0
+            if isEnabled == false { imageAlpha = 0.5 }
+            if fitImage {
+                let fit = CGSize(width: rect.size.width, height: rect.size.height).getAspectFit(img.size)
+                let size = fit.size
+                let imgRect = CGRect(x: rect.size.width / 2.0 - size.width / 2.0, y: rect.origin.y + rect.size.height / 2.0 - size.height / 2.0, width: size.width, height: size.height)
+                img.draw(in: imgRect, blendMode: .normal, alpha: imageAlpha)
+            } else {
+                let imgRect = CGRect(x: rect.size.width / 2.0 - img.size.width / 2.0, y: rect.origin.y + rect.size.height / 2.0 - img.size.height / 2.0, width: img.size.width, height: img.size.height)
+                img.draw(in: imgRect, blendMode: .normal, alpha: imageAlpha)
+            }
+        }
+    }
+    
+    var checkRect: CGRect {
+        
+        let rect = drawRect
+        
+        let checkWidth = rect.size.height / 2.0
+        let checkHeight = rect.size.height / 2.0
+        
+        let checkRect = CGRect(x: (frame.size.width - (checkWidth + (frame.size.height - checkHeight) / 2.0)), y: frame.size.height / 2.0 - checkHeight / 2.0, width: checkWidth, height: checkHeight)
+        
+        return checkRect
     }
     
     override func didClick() {

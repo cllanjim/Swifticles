@@ -118,6 +118,15 @@ class RRButton: UIButton {
         return result;
     }
     
+    var drawRect: CGRect {
+        var rect = CGRect(x: 0.0, y: 0.0, width: self.width, height: self.height)
+        if let max = maxHeight, rect.height > max {
+            rect.size.height = max
+            rect.origin.y = CGFloat(Int(self.height / 2.0 - max / 2.0))
+        }
+        return rect
+    }
+    
     override func draw(_ rect: CGRect) {
         
         //super.drawRect(rect)
@@ -137,12 +146,7 @@ class RRButton: UIButton {
         let context: CGContext = UIGraphicsGetCurrentContext()!
         context.saveGState()
         
-        var rect = CGRect(x: 0.0, y: 0.0, width: self.width, height: self.height)
-        
-        if let max = maxHeight, rect.height > max {
-            rect.size.height = max
-            rect.origin.y = CGFloat(Int(self.height / 2.0 - max / 2.0))
-        }
+        var rect = drawRect
         
         if drawStroke {
             if drawFill {
@@ -182,8 +186,16 @@ class RRButton: UIButton {
             context.fillPath()
         }
         
+        drawImage()
+        
+        context.restoreGState()
+    }
+    
+    func drawImage() {
+        
+        let rect = drawRect
+        
         if let img = image {
-            
             var imageAlpha: CGFloat = 1.0
             if isEnabled == false { imageAlpha = 0.5 }
             
@@ -197,7 +209,7 @@ class RRButton: UIButton {
                 img.draw(in: imgRect, blendMode: .normal, alpha: imageAlpha)
             }
         }
-        context.restoreGState()
+        
     }
     
     func didToggleControlState() {

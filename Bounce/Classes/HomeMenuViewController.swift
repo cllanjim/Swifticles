@@ -47,8 +47,6 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         return result
     }
     
-    
-    
     //func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool)
     //func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool)
     //func navigationControllerSupportedInterfaceOrientations(navigationController: UINavigationController) -> UIInterfaceOrientationMask

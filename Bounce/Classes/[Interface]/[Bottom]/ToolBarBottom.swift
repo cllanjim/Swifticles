@@ -22,7 +22,6 @@ class ToolBarBottom : ToolRow
         }
     }
     
-    
     @IBInspectable @IBOutlet weak var buttonExpand:TBButton! {
         didSet {
             buttonExpand.setImages(path: "tb_btn_select_next_blob", pathSelected: "tb_btn_select_next_blob_down")
@@ -38,7 +37,6 @@ class ToolBarBottom : ToolRow
     @IBInspectable @IBOutlet weak var buttonUndo:TBButton! {
         didSet {
             buttonUndo.setImages(path: "tb_btn_undo", pathSelected: "tb_btn_undo_down")
-            buttonUndo.isEnabled = false
         }
     }
     
@@ -48,14 +46,20 @@ class ToolBarBottom : ToolRow
         }
     }
     
+    
+    @IBInspectable @IBOutlet weak var buttonRedoAlt:TBButton! {
+        didSet {
+            buttonRedoAlt.setImages(path: "tb_btn_redo", pathSelected: "tb_btn_redo_down")
+        }
+    }
+    
     override func setUp() {
         if ApplicationController.shared.isSceneLandscape {
-            buttonExpandAlt.isHidden = false
-            buttonExpand.isHidden = true
-        } else {
             buttonExpandAlt.isHidden = true
-            buttonExpand.isHidden = false
+            buttonRedoAlt.isHidden = true
         }
+        
+        
         super.setUp()
     }
     
