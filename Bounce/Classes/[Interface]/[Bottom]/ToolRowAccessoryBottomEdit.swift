@@ -50,6 +50,7 @@ class ToolRowAccessoryBottomEdit: ToolRow
     override func refreshUI() {
         super.refreshUI()
         
+        updateHistory()
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -58,6 +59,44 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
+    }
+    
+    func updateHistory() {
+        
+    }
+    
+    override func handleSceneReady() {
+        super.handleSceneReady()
+        
+    }
+    
+    override func handleZoomModeChange() {
+        super.handleZoomModeChange()
+    }
+    
+    override func handleSceneModeChanged() {
+        super.handleSceneModeChanged()
+    }
+    
+    override func handleEditModeChanged() {
+        super.handleEditModeChanged()
+        
+    }
+    
+    override func handleViewModeChanged() {
+        super.handleViewModeChanged()
+        
+    }
+    
+    override func handleBlobSelectionChanged() {
+        super.handleBlobSelectionChanged()
+        
+    }
+    
+    override func handleHistoryChanged() {
+        super.handleHistoryChanged()
+     
+        updateHistory()
     }
     
 }

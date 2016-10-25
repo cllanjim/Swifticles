@@ -45,6 +45,8 @@ class ApplicationController
         //}
     }
     
+    private var _actionBlockerCount: Int = 0
+    
     private var _root: RootViewController?
     var root: RootViewController {
         set {
@@ -189,7 +191,7 @@ class ApplicationController
     }
     
     var width:CGFloat {
-        if let result = bounce?.screenRect.size.width { return result }
+        if let result = bounce?.appFrame.size.width { return result }
         if Device.isLandscape {
             return Device.landscapeWidth
         } else {
@@ -198,7 +200,7 @@ class ApplicationController
     }
     
     var height:CGFloat {
-        if let result = bounce?.screenRect.size.height { return result }
+        if let result = bounce?.appFrame.size.height { return result }
         if Device.isLandscape {
             return Device.landscapeHeight
         } else {
@@ -254,5 +256,35 @@ class ApplicationController
         isSceneLandscape = landscape
     }
     
+    func canUndo() -> Bool {
+        if let eng = engine {
+            return eng.canUndo()
+        }
+        return false
+    }
+    
+    func canRedo() -> Bool {
+        if let eng = engine {
+            return eng.canRedo()
+        }
+        return false
+    }
+    
+    
+    func allowInterfaceAction() -> Bool {
+        
+        
+        
+        return _actionBlockerCount == 0
+    }
+    
+    func addActionBlocker() {
+        _actionBlockerCount += 1
+    }
+    
+    func removeActionBlocker() {
+        _actionBlockerCount -= 1
+        if _actionBlockerCount < 0 { _actionBlockerCount = 0 }
+    }
     
 }

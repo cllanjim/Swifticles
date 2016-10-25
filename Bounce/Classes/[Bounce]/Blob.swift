@@ -366,6 +366,9 @@ class Blob
                 node.writeToTriangleListAnimated(&vertexBuffer, index: vertexIndex)
                 vertexIndex += 10
             }
+            
+            Graphics.blendEnable()
+            Graphics.blendSetAlpha()
         }
         
         if vertexIndex > 0 && indexBufferCount > 0 {
@@ -1280,8 +1283,8 @@ class Blob
         if let _scale = info["scale"] as? Float { scale = CGFloat(_scale) }
         if let _rotation = info["rotation"] as? Float { rotation = CGFloat(_rotation) }
         if let splineInfo = info["spline"] as? [String:AnyObject] { spline.load(info: splineInfo) }
-        setNeedsComputeShape()
-        setNeedsComputeAffine()
+        
+        computeShape()
     }
 }
 

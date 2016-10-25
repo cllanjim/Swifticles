@@ -115,6 +115,8 @@ class BottomMenu: ToolView
     func hideAnimated() {
         if showing == true {
             showing = false
+            ApplicationController.shared.addActionBlocker()
+            
             menuBottomConstraint.constant = -height
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
@@ -125,6 +127,7 @@ class BottomMenu: ToolView
                 }, completion:
                 { [weak weakSelf = self] (finished:Bool) in
                     weakSelf?.isHidden = true
+                    ApplicationController.shared.removeActionBlocker()
                 })
             UIView.animate(withDuration: 0.24, delay: 0.24, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseOut, animations:
                 { [weak weakSelf = self] in
@@ -136,6 +139,8 @@ class BottomMenu: ToolView
     func showAnimated() {
         if showing == false {
             showing = true
+            ApplicationController.shared.addActionBlocker()
+            
             menuBottomConstraint.constant = 0.0
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
@@ -144,13 +149,18 @@ class BottomMenu: ToolView
                 { [weak weakSelf = self] in
                     weakSelf?.superview?.layoutIfNeeded()
                     weakSelf?.shadowTop.alpha = 1.0
-                }, completion: nil)
+                }, completion:
+                { (finished:Bool) in
+                    ApplicationController.shared.removeActionBlocker()
+            })
         }
     }
     
     func expand() {
         if expanded == false {
             expanded = true
+            
+            ApplicationController.shared.addActionBlocker()
             
             containerMain?.showing = true
             containerAccessory?.showing = true
@@ -161,16 +171,10 @@ class BottomMenu: ToolView
             UIView.animate(withDuration: 0.4, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
-                }, completion: { [weak weakSelf = self] (finished:Bool) in
-                    
-                    
-            }
-            
-            
-            
-            
-            
-            )
+                }, completion:
+                { (finished:Bool) in
+                    ApplicationController.shared.removeActionBlocker()
+                })
             
             var shadowDelay:CGFloat = 0.15
             if ApplicationController.shared.isSceneLandscape == false {
@@ -204,6 +208,7 @@ class BottomMenu: ToolView
         if expanded == true {
             expanded = false
             
+            ApplicationController.shared.addActionBlocker()
             
             menuHeightConstraint.constant = toolBar.height
             setNeedsUpdateConstraints()
@@ -214,6 +219,7 @@ class BottomMenu: ToolView
                 }, completion: { [weak weakSelf = self] (finished:Bool) in
                     weakSelf?.containerMain?.showing = false
                     weakSelf?.containerAccessory?.showing = false
+                    ApplicationController.shared.removeActionBlocker()
                 })
             
             if ApplicationController.shared.isSceneLandscape == false {
@@ -245,81 +251,5 @@ class BottomMenu: ToolView
             }
         }
     }
-    
-    
-    override func draw(_ rect: CGRect) {
-        
-        super.draw(rect)
-        
-        return
-        
-        let toolBarTop = toolBar.y
-        let toolBarHeight = toolBar.height
-        let toolBarBottom = toolBarTop + toolBarHeight
-        
-        let rectTop = rect.origin.y
-        let rectHeight = rect.size.height
-        let rectBottom = rectTop + rectHeight
-        
-        var rectMain = CGRect(x: rect.origin.x, y: 0.0, width: rect.width, height: 0.0)
-        var rectRow = CGRect(x: rect.origin.x, y: 0.0, width: rect.width, height: 0.0)
-        
-        /*
-        if rectTop >= toolBarBottom {
-            rectMain.origin.y = rectTop
-            rectMain.size.height = rectHeight
-        } else if rectBottom <= toolBarBottom {
-            rectRow.origin.y = rectTop
-            rectRow.size.height = rectHeight
-        } else {
-            
-            rectRow.origin.y = rectTop
-            rectRow.size.height = toolBarTop - rectTop
-            
-            rectMain.origin.y = rectRow.origin.y + rectRow.size.height
-            rectMain.size.height = rectHeight - rectRow.size.height
-        }
-        */
-        
-        rectRow.origin.y = rectTop
-        rectRow.size.height = toolBarTop - rectTop
-        
-        rectMain.origin.y = rectRow.origin.y + rectRow.size.height
-        rectMain.size.height = rectHeight - rectRow.size.height
-
-        
-        
-        
-        //let  = UIColor(red: 0.01, green: 0.01, blue: 0.04, alpha: 0.96)
-        //let styleColorToolbarRow = UIColor(red: 0.04, green: 0.04, blue: 0.06, alpha: 0.76)
-        
-        
-        //let height = self.height
-        
-        
-        let context: CGContext = UIGraphicsGetCurrentContext()!
-        context.saveGState()
-        
-        if rectRow.size.height > 0.0 {
-            
-            context.setFillColor(styleColorToolbarRow.cgColor)
-            context.fill(rectRow)
-            
-        }
-        
-        if rectMain.size.height > 0.0 {
-            
-            context.setFillColor(styleColorToolbarMain.cgColor)
-            context.fill(rectMain)
-            
-        }
-        
-        context.restoreGState()
-        
-        setNeedsDisplay()
-
-        
-    }
-    
     
 }

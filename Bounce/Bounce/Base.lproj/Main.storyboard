@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -661,6 +661,9 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="b9p-t9-EOi" secondAttribute="height" multiplier="1:1" id="7xw-V1-bo8"/>
                                                                 </constraints>
+                                                                <connections>
+                                                                    <action selector="clickUndoWithSender:" destination="vSP-yM-i5p" eventType="touchUpInside" id="vmb-gF-xSE"/>
+                                                                </connections>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8f-FH-Nsf" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.42175313988862528" green="0.36909152706053761" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
@@ -831,12 +834,14 @@
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvL-K7-hY1">
                                                         <subviews>
-                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPd-Ly-UJR" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <frame key="frameInset" minX="46" width="42" height="42"/>
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPd-Ly-UJR" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="tPd-Ly-UJR" secondAttribute="height" multiplier="1:1" id="IBo-LF-hHs"/>
                                                                 </constraints>
+                                                                <connections>
+                                                                    <action selector="clickRedoWithSender:" destination="LEj-da-9Od" eventType="touchUpInside" id="QBZ-bX-YR2"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>

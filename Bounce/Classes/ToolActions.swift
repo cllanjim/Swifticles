@@ -26,15 +26,27 @@ class ToolActions {
     }
     
     class func addBlob() {
+        DispatchQueue.main.async {
         _ = ApplicationController.shared.engine?.addBlob()
+        }
     }
     
+    class func deleteBlob() {
+        DispatchQueue.main.async {
+        _ = ApplicationController.shared.engine?.addBlob()
+        }
+    }
+    
+    
+    
     class func setZoomMode(zoomMode zm:Bool) {
+        DispatchQueue.main.async {
         ApplicationController.shared.engine?.zoomMode = zm
+        }
     }
     
     class func bottomMenuToggleExpand() {
-        
+        DispatchQueue.main.async {
         if let menu = ApplicationController.shared.bottomMenu {
             if menu.expanded {
                 menu.collapse()
@@ -42,9 +54,11 @@ class ToolActions {
                 menu.expand()
             }
         }
+        }
     }
     
     class func bottomMenuToggleShowing() {
+        DispatchQueue.main.async {
         if let menu = ApplicationController.shared.bottomMenu {
             if menu.showing {
                 menu.hideAnimated()
@@ -52,14 +66,19 @@ class ToolActions {
                 menu.showAnimated()
             }
         }
+        }
     }
     
     class func undo() {
-        
+        DispatchQueue.main.async {
+            ApplicationController.shared.engine?.undo()
+        }
     }
     
     class func redo() {
-        
+        DispatchQueue.main.async {
+            ApplicationController.shared.engine?.redo()
+        }
     }
     
     

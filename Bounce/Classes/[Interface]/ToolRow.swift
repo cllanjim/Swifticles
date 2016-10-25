@@ -177,8 +177,10 @@ class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
     override func handleSceneModeChanged() { super.handleSceneModeChanged() }
     override func handleEditModeChanged() { super.handleEditModeChanged() }
     override func handleViewModeChanged() { super.handleViewModeChanged() }
-    override func handleBlobAdded() { super.handleBlobAdded() }
     override func handleBlobSelectionChanged() { super.handleBlobSelectionChanged() }
+    override func handleHistoryChanged() { super.handleHistoryChanged() }
+    
+    
     
 }
 

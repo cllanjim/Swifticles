@@ -8,4 +8,10 @@
 
 import Foundation
 
-enum WebResult: UInt32 { case pending = 0, success = 1, canceled = 2, error = 3, invalid = 4, timeout = 5 }
+enum WebResult: UInt32 {
+    case pending = 0,
+    success = 1,
+    canceled = 2,
+    error = 3,
+    invalid = 4,
+    timeout = 5 }

@@ -63,15 +63,21 @@ class ToolBarBottom : ToolRow
         super.setUp()
     }
     
-    override func handleSceneReady() {
-        switch ApplicationController.shared.sceneMode {
-            case .edit :
-                segMode.selectedIndex = 0
-                break
-            case .view:
-                segMode.selectedIndex = 1
-                break
-            }
+    func updateHistory() {
+        
+        if ApplicationController.shared.canUndo() {
+            buttonUndo.isEnabled = true
+        } else {
+            buttonUndo.isEnabled = false
+        }
+        
+        if ApplicationController.shared.canRedo() {
+            buttonRedo.isEnabled = true
+            buttonRedoAlt.isEnabled = true
+        } else {
+            buttonRedo.isEnabled = false
+            buttonRedoAlt.isEnabled = false
+        }
     }
     
     override func refreshUI() {
@@ -82,6 +88,8 @@ class ToolBarBottom : ToolRow
         } else {
             segMode.selectedIndex = 0
         }
+        
+        updateHistory()
     }
     
     
@@ -109,6 +117,40 @@ class ToolBarBottom : ToolRow
     
     override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
+    }
+    
+    override func handleSceneReady() {
+        super.handleSceneReady()
+        
+    }
+    
+    override func handleZoomModeChange() {
+        super.handleZoomModeChange()
+    }
+    
+    override func handleSceneModeChanged() {
+        super.handleSceneModeChanged()
+    }
+    
+    override func handleEditModeChanged() {
+        super.handleEditModeChanged()
+        
+    }
+    
+    override func handleViewModeChanged() {
+        super.handleViewModeChanged()
+        
+    }
+    
+    override func handleBlobSelectionChanged() {
+        super.handleBlobSelectionChanged()
+        
+    }
+    
+    override func handleHistoryChanged() {
+        super.handleHistoryChanged()
+        
+        updateHistory()
     }
     
 }

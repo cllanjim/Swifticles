@@ -74,8 +74,30 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     var gestureStartScreenTouch:CGPoint = CGPoint.zero
     var gestureStartImageTouch:CGPoint = CGPoint.zero
     
-    var screenRect:CGRect {
+    var appFrame:CGRect {
         return CGRect(x: 0.0, y: 0.0, width: view.bounds.size.width, height: view.bounds.size.height)
+    }
+    
+    var screenCenter: CGPoint {
+        let fr = appFrame
+        let center = CGPoint(x: fr.size.width / 2.0, y: fr.size.height / 2.0)
+        return untransformPoint(center)
+        
+        //BounceViewController.untransformPoint(<#T##BounceViewController#>)
+        
+        //return BounceEngine.untransformPoint(point: center, scale: screenScale, rotation: 0.0)
+        
+    }
+    
+    var screenFrame:CGRect {
+        
+        let sc = screenCenter
+        let fr = appFrame
+        
+        let width = fr.size.width / screenScale
+        let height = fr.size.height / screenScale
+        
+        return CGRect(x: sc.x - width / 2.0, y: sc.y - height / 2.0, width: width, height: height)
     }
     
     func setUpNew(image:UIImage, sceneRect:CGRect, portraitOrientation:Bool) {
@@ -90,7 +112,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         scene.size = sceneRect.size
         scene.isLandscape = !portraitOrientation
         
-        setUp(scene: scene, screenRect: screenRect)
+        setUp(scene: scene, appFrame: appFrame)
         
         //No longer functions as an uploader mule.
         //var thumb = image.resize(CGSize(width: image.size.width * 0.16, height: image.size.height * 0.16))
@@ -101,7 +123,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
     }
     
-    internal func setUp(scene:BounceScene, screenRect:CGRect) {
+    internal func setUp(scene:BounceScene, appFrame:CGRect) {
         
         
         
@@ -112,17 +134,22 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         engine.setUp(scene: scene)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
-                                               name: NSNotification.Name(BounceNotification.ZoomModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.zoomModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleSceneModeChanged),
-                                               name: NSNotification.Name(BounceNotification.SceneModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.sceneModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged),
-                                               name: NSNotification.Name(BounceNotification.EditModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.editModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewModeChanged),
-                                               name: NSNotification.Name(BounceNotification.ViewModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.viewModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobSelectionChanged),
-                                               name: NSNotification.Name(BounceNotification.BlobSelectionChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.blobSelectionChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
-                                               name: NSNotification.Name(BounceNotification.BlobAdded.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.blobAdded.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHistoryChanged),
+                                               name: NSNotification.Name(BounceNotification.historyChanged.rawValue), object: nil)
+        
+        
+        //
         
         
         
@@ -199,7 +226,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         super.viewDidLoad()
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.05) {
-            BounceEngine.postNotification(BounceNotification.SceneReady)
+            BounceEngine.postNotification(BounceNotification.sceneReady)
         }
     }
     
@@ -276,11 +303,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)
-        Graphics.viewport(CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
-        Graphics.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: screenRect.size.width * view.contentScaleFactor, height: screenRect.size.height * view.contentScaleFactor))
+        Graphics.viewport(CGRect(x: 0.0, y: 0.0, width: appFrame.size.width * view.contentScaleFactor, height: appFrame.size.height * view.contentScaleFactor))
+        Graphics.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: appFrame.size.width * view.contentScaleFactor, height: appFrame.size.height * view.contentScaleFactor))
         ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
         ShaderProgramMesh.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
-        ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenRect.size.width), height: Float(-screenRect.size.height))
+        ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(appFrame.size.width), height: Float(-appFrame.size.height))
         
         let viewMat = screenMat.clone()
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
@@ -289,6 +316,15 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         Graphics.textureEnable()
         engine.draw()
+        
+        
+        ShaderProgramMesh.shared.colorSet(r: 0.2, g: 1.0, b: 0.4, a: 0.8)
+        ShaderProgramMesh.shared.pointDraw(point: screenCenter)
+        
+        //ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.4, a: 0.8)
+        //let f = screenFrame
+        //ShaderProgramMesh.shared.rectDraw(x: GLfloat(f.origin.x + 5.0), y: GLfloat(f.origin.y + 5.0), width: GLfloat(f.width - 10.0), height: GLfloat(f.height - 10.0))
+        
         
         ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
     }
@@ -326,6 +362,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     func handleBlobSelectionChanged() {
         print("handleBlobSelectionChanged()")
         
+    }
+    
+    func handleHistoryChanged() {
+        engine.handleHistoryChanged()
+        cancelAllGesturesAndTouches()
     }
     
     func cancelAllGesturesAndTouches() {
@@ -782,7 +823,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
                 var fileData:Data?
                 try fileData = JSONSerialization.data(withJSONObject: info, options: .prettyPrinted)
                 if fileData != nil {
-                    FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
+                    _ = FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
                 }
             } catch {
                 print("Unable to save Data [\(filePath)]")
@@ -815,7 +856,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
                     }
                 }
                 
-                setUp(scene: scene, screenRect: screenRect)
+                setUp(scene: scene, appFrame: appFrame)
                 
                 if let engineInfo = info["engine"] as? [String:AnyObject] {
                     engine.load(info: engineInfo)

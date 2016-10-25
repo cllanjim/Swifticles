@@ -26,12 +26,13 @@ class ToolView: UIView
     }
     
     func setUp() {
-        addObserver(selector: #selector(handleSceneReady), notification: .SceneReady)
-        addObserver(selector: #selector(handleZoomModeChange), notification: .ZoomModeChanged)
-        addObserver(selector: #selector(handleSceneModeChanged), notification: .SceneModeChanged)
-        addObserver(selector: #selector(handleEditModeChanged), notification: .EditModeChanged)
-        addObserver(selector: #selector(handleViewModeChanged), notification: .ViewModeChanged)
-        addObserver(selector: #selector(handleBlobSelectionChanged), notification: .BlobSelectionChanged)
+        addObserver(selector: #selector(handleSceneReady), notification: .sceneReady)
+        addObserver(selector: #selector(handleZoomModeChange), notification: .zoomModeChanged)
+        addObserver(selector: #selector(handleSceneModeChanged), notification: .sceneModeChanged)
+        addObserver(selector: #selector(handleEditModeChanged), notification: .editModeChanged)
+        addObserver(selector: #selector(handleViewModeChanged), notification: .viewModeChanged)
+        addObserver(selector: #selector(handleBlobSelectionChanged), notification: .blobSelectionChanged)
+        addObserver(selector: #selector(handleHistoryChanged), notification: .historyChanged)
         
         //Propogate setup to subviews.
         for subview1 in subviews {
@@ -108,7 +109,8 @@ class ToolView: UIView
     func handleSceneModeChanged() { }
     func handleEditModeChanged() { }
     func handleViewModeChanged() { }
-    func handleBlobAdded() { }
     func handleBlobSelectionChanged() { }
+    func handleHistoryChanged() { }
+    
 }
 

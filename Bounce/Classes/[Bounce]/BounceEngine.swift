@@ -9,14 +9,14 @@ import UIKit
 import Foundation
 
 enum BounceNotification:String {
-    case SceneReady = "BounceNotification.SceneReady"
-    case ZoomModeChanged = "BounceNotification.ZoomModeChanged"
-    case SceneModeChanged = "BounceNotification.SceneModeChanged"
-    case EditModeChanged = "BounceNotification.EditModeChanged"
-    case ViewModeChanged = "BounceNotification.ViewModeChanged"
-    case BlobAdded = "BounceNotification.BlobAdded"
-    case BlobSelectionChanged = "BounceNotification.BlobSelectionChanged"
-    case HistoryStackChanged = "BounceNotification.HistoryStackChanged"
+    case sceneReady = "BounceNotification.SceneReady"
+    case zoomModeChanged = "BounceNotification.ZoomModeChanged"
+    case sceneModeChanged = "BounceNotification.SceneModeChanged"
+    case editModeChanged = "BounceNotification.EditModeChanged"
+    case viewModeChanged = "BounceNotification.ViewModeChanged"
+    case blobAdded = "BounceNotification.BlobAdded"
+    case blobSelectionChanged = "BounceNotification.BlobSelectionChanged"
+    case historyChanged = "BounceNotification.HistoryStackChanged"
 }
 
 enum SceneMode: UInt32 { case edit = 1, view = 2 }
@@ -39,9 +39,15 @@ class BounceEngine {
     
     var zoomMode:Bool = false {
         didSet {
-            BounceEngine.postNotification(BounceNotification.ZoomModeChanged)
+            BounceEngine.postNotification(BounceNotification.zoomModeChanged)
         }
     }
+    
+    var historyStack = [HistoryState]()
+    var historyIndex: Int?
+    var historyLastActionUndo: Bool = false
+    
+    
     
     var blobs = [Blob]()
     
@@ -58,12 +64,17 @@ class BounceEngine {
         }
         didSet {
             if previousSelectedBlob !== selectedBlob {
-                BounceEngine.postNotification(BounceNotification.BlobSelectionChanged, object: selectedBlob)
+                BounceEngine.postNotification(BounceNotification.blobSelectionChanged, object: selectedBlob)
             }
             if let blob = selectedBlob {
                 blob.selected = true
             }
         }
+    }
+    
+    func reset() {
+        historyClear()
+        deleteAllBlobs()
     }
     
     func deleteAllBlobs() {
@@ -118,7 +129,7 @@ class BounceEngine {
         
         didSet {
             handleModeChange()
-            BounceEngine.postNotification(BounceNotification.SceneModeChanged)
+            BounceEngine.postNotification(BounceNotification.sceneModeChanged)
         }
     }
     
@@ -126,7 +137,7 @@ class BounceEngine {
     var editMode:EditMode = .affine {
         didSet {
             handleModeChange()
-            BounceEngine.postNotification(BounceNotification.EditModeChanged)
+            BounceEngine.postNotification(BounceNotification.editModeChanged)
         }
     }
     
@@ -168,7 +179,7 @@ class BounceEngine {
         shapeSelectionControlPointIndex = nil
     }
     
-    func setUp(scene:BounceScene) {//, screenRect:CGRect) {
+    func setUp(scene:BounceScene) {//, appFrame:CGRect) {
         self.scene = scene
         let screenSize = scene.isLandscape ? CGSize(width: Device.landscapeWidth, height: Device.landscapeHeight) : CGSize(width: Device.portraitWidth, height: Device.portraitHeight)
         
@@ -208,15 +219,7 @@ class BounceEngine {
                 let sceneY = CGFloat(Int(screenSize.height / 2.0 - sceneHeight / 2.0 + 0.25))
                 self.sceneRect = CGRect(x: sceneX, y: sceneY, width: sceneWidth, height: sceneHeight)
             }
-            
-            
-            
-            
-            
-            
         }
-        
-        _ = addBlob()
     }
     
     
@@ -476,8 +479,6 @@ class BounceEngine {
         isPinching = false
     }
     
-    
-    
     var isRotating:Bool = false
     var rotation:CGFloat = 0.0
     var rotationStartPos:CGPoint = CGPoint.zero
@@ -559,13 +560,93 @@ class BounceEngine {
         }
     }
     
+    func handleHistoryChanged() {
+    
+    
+    }
+    
     func addBlob() {
+        
+        if blobs.count >= 8 {
+            //LOL
+            return
+        }
+        
         let blob = Blob()
-        blobs.append(blob)
-        selectedBlob = blob
+        
+        
+        
+        
         blob.center.x = sceneRect.origin.x + 50
         blob.center.y = sceneRect.origin.y + sceneRect.size.height / 2.0
-        BounceEngine.postNotification(.BlobAdded)
+        
+        while anyBlobOnPoint(blob.center) {
+            blob.center.x += 30.0
+        }
+        
+        addBlob(blob)
+    }
+    
+    func addBlob(_ blob: Blob) {
+
+        blobs.append(blob)
+        selectedBlob = blob
+        
+        
+        if let checkBlob = selectedBlob {
+            let historyState = HistoryStateAddBlob()
+            historyState.blobIndex = indexOf(blob: checkBlob)
+            historyState.data = checkBlob.save()
+            historyAdd(withState: historyState)
+        }
+        
+        BounceEngine.postNotification(.blobAdded)
+    }
+    
+    func indexOf(blob: Blob?) -> Int? {
+        if blob != nil {
+        for i in 0..<blobs.count {
+            if blobs[i] === blob {
+                return i
+            }
+        }
+        }
+        return nil
+    }
+    
+    func anyBlobOnPoint(_ pos:CGPoint) -> Bool {
+        
+        if blobs.count <= 0 {
+            return false
+        } else {
+            if closestBlobCenterDistanceSquared(pos) <= 10.0 * 10.0 {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func closestBlobCenterDistanceSquared(_ pos:CGPoint) -> CGFloat {
+        
+        var hit:Bool = false
+        var bestDist: CGFloat = 0.0
+        
+        for i in 0..<blobs.count {
+            let blob = blobs[i]
+            
+            
+                let dist = Math.distSquared(p1: blob.center, p2: pos)
+                
+                if hit == false {
+                    hit = true
+                    bestDist = dist
+                } else {
+                    if dist < bestDist {
+                        bestDist = dist
+                    }
+                }
+        }
+        return bestDist
     }
     
     func selectBlobAtPoint(_ pos:CGPoint) -> Blob? {
@@ -585,11 +666,13 @@ class BounceEngine {
             var bestDist:CGFloat = (45.0 * 45.0)
             for i in 0..<blobs.count {
                 let blob = blobs[i]
+                if blob.selectable && blob.enabled {
                 if let c = blob.border.closestPointSquared(point: pos) {
                     if c.distanceSquared < bestDist {
                         bestDist = c.distanceSquared
                         result = blob
                     }
+                }
                 }
             }
         }
@@ -657,6 +740,187 @@ class BounceEngine {
         result = untransformPoint(point: result, scale: scale, rotation: rotation)
         return result
     }
+    
+    func historyPrint() {
+        
+        print("___HISTORY STACK [\(historyStack.count) items]")
+        
+        for i in 0..<historyStack.count {
+            
+            let state = historyStack[i]
+            
+            var typeString = "Unknown"
+            
+            if state.type == .blobAdd {
+                typeString = "Add Blob"
+            }
+            if state.type == .blobDelete {
+                typeString = "Delete Blob"
+            }
+            if state.type == .blobChangeAffine {
+                typeString = "Blob Change Affine"
+            }
+            if state.type == .blobChangePoint {
+                typeString = "Blob Change Point"
+            }
+            print("Hist [\(i) -> \(typeString) Ind(\(state.blobIndex))")
+        }
+        
+        print("___END HISTORY STACK")
+    }
+    
+    func historyClear() {
+        
+        historyStack.removeAll()
+        historyIndex = nil
+    }
+    
+    func historyAdd(withState state: HistoryState) -> Void {
+        
+        var newHistoryStack = [HistoryState]()
+        
+        print("PRE____")
+        historyPrint()
+        
+        
+        //Case 0:
+        //History stack has 0 items, we are at item nil.
+        //[] index = nil
+        //...
+        //[NEW] index = 0
+        
+        if historyIndex == nil || historyStack.count <= 0 {
+            //newHistoryStack.append(state)
+            //historyIndex = 0
+            
+        }
+        
+        //Case 1:
+        //History stack has 4 items, we are at item 1.
+        //[H0, H1, H2, H3] index = 1
+        //...
+        //[H0, H1, NEW] index = 2
+            
+        //Case 2:
+        //History stack has 1 items, we are at item 0.
+        //[H0] index = 0
+        //...
+        //[H0, NEW] index = 1
+            
+        else {
+            var index = historyIndex!
+            if index >= historyStack.count {
+                index = historyStack.count - 1
+            }
+            
+            for i in 0..<(index + 1) {
+                newHistoryStack.append(historyStack[i])
+            }
+            
+        }
+        
+        
+        newHistoryStack.append(state)
+        historyIndex = newHistoryStack.count - 1
+        
+        historyStack = newHistoryStack
+        
+        print("POST____")
+        historyPrint()
+        
+        
+        historyLastActionUndo = false
+        
+        BounceEngine.postNotification(BounceNotification.historyChanged)
+    }
+    
+    func historyApplyUndo(withState historyState: HistoryState) {
+        
+        if historyState.type == .blobAdd {
+            if let state = historyState as? HistoryStateAddBlob {
+                if let index = state.blobIndex, index >= 0 && index < blobs.count {
+                    deleteBlob(blobs[index])
+                }
+            }
+        }
+        
+        
+    }
+    
+    func historyApplyRedo(withState state: HistoryState) {
+        
+    }
+    
+    func canUndo() -> Bool {
+        if historyStack.count > 0 {
+            if let index = historyIndex, index >= 0 && index < historyStack.count {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func canRedo() -> Bool {
+        
+        //Hehe, if the last action was undo, this logic changes.
+        
+        if historyStack.count > 0 {
+            if let index = historyIndex, index >= -1 && index <= (historyStack.count - 1) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
+    func undo() {
+        if canUndo() {
+            let index = historyIndex!
+            let state = historyStack[index]
+            
+            historyApplyUndo(withState: state)
+            historyIndex = historyIndex! - 1
+            
+            BounceEngine.postNotification(BounceNotification.historyChanged)
+            
+            historyLastActionUndo = true
+        }
+    }
+    
+    func redo() {
+        
+        if canRedo() {
+            var index = historyIndex!
+            
+            if historyLastActionUndo {
+                index += 1
+            }
+            
+            
+            let state = historyStack[index]
+            
+            historyApplyUndo(withState: state)
+            historyIndex = historyIndex! - 1
+            
+            BounceEngine.postNotification(BounceNotification.historyChanged)
+            
+            historyLastActionUndo = false
+        }
+        
+    }
+    
+    
+    
+    //var historyStack = [HistoryState]()
+    //var historyIndex: Int?
+    
+    
+    
+    
+    
+    //HistoryType
+    
+    
     
     func save() -> [String:AnyObject] {
         var info = [String:AnyObject]()

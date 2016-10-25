@@ -54,6 +54,17 @@ class RRButton: UIButton {
         return _imageDown
     }
     
+    override var isEnabled: Bool {
+        
+        set {
+            super.isEnabled = newValue
+            setNeedsDisplay()
+        }
+        get {
+            return super.isEnabled
+        }
+    }
+    
     var fitImage: Bool = false { didSet { setNeedsDisplay() } }
     
     var imagePathUp: String? { didSet { setNeedsDisplay() } }

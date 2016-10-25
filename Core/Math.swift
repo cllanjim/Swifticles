@@ -27,13 +27,17 @@ class Math {
     }
     
     class func dist(p1:CGPoint, p2:CGPoint) -> CGFloat {
-        let diffX = p1.x - p2.x
-        let diffY = p1.y - p2.y
-        var dist = diffX * diffX + diffY * diffY
-        if dist > 0.01 {
+        var dist = Math.distSquared(p1: p1, p2: p2)
+        if dist > Math.epsilon {
             dist = CGFloat(sqrtf(Float(dist)))
         }
         return dist
+    }
+    
+    class func distSquared(p1:CGPoint, p2:CGPoint) -> CGFloat {
+        let diffX = p1.x - p2.x
+        let diffY = p1.y - p2.y
+        return diffX * diffX + diffY * diffY
     }
     
     class func dotProduct(p1:CGPoint, p2:CGPoint) -> CGFloat {

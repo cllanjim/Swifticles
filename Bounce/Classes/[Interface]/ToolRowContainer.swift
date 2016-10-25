@@ -104,25 +104,18 @@ class ToolRowContainer : ToolRow
             } else if _currentToolRow != nil && previousToolRow != nil {
                 
                 if _currentToolRow!.index > previousToolRow!.index {
-                    
                     sendOffScreenRight(_currentToolRow!)
                     sendOnScreen(previousToolRow!)
-                    
                     _currentToolRow?.layoutIfNeeded()
                     previousToolRow?.layoutIfNeeded()
                     layoutIfNeeded()
-                    
                     sendOffScreenLeft(previousToolRow!)
-                    
-                    
                 } else {
                     sendOffScreenLeft(_currentToolRow!)
                     sendOnScreen(previousToolRow!)
-                    
                     _currentToolRow?.layoutIfNeeded()
                     previousToolRow?.layoutIfNeeded()
                     layoutIfNeeded()
-                    
                     sendOffScreenRight(previousToolRow!)
                 }
                 

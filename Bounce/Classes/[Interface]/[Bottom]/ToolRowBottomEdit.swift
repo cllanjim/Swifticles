@@ -42,7 +42,7 @@ class ToolRowBottomEdit: ToolRow
     
     @IBInspectable @IBOutlet weak var buttonResetZoom:TBButton! {
         didSet {
-            buttonResetZoom.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+            buttonResetZoom.setImages(path: "tb_btn_reset_zoom", pathSelected: "tb_btn_reset_zoom_down")
         }
     }
     
@@ -76,6 +76,12 @@ class ToolRowBottomEdit: ToolRow
         } else {
             segEditMode.selectedIndex = 0
         }
+        
+        updateHistory()
+    }
+    
+    @IBAction func clickUndo(sender: AnyObject) {
+        ToolActions.undo()
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -93,6 +99,55 @@ class ToolRowBottomEdit: ToolRow
     
     override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
+    }
+
+    func updateHistory() {
+        
+        if ApplicationController.shared.canUndo() {
+            buttonUndoAlt.isEnabled = true
+        } else {
+            buttonUndoAlt.isEnabled = false
+        }
+        
+        if ApplicationController.shared.canRedo() {
+            
+        } else {
+            
+        }
+    }
+    
+    override func handleSceneReady() {
+        super.handleSceneReady()
+        
+    }
+    
+    override func handleZoomModeChange() {
+        super.handleZoomModeChange()
+    }
+    
+    override func handleSceneModeChanged() {
+        super.handleSceneModeChanged()
+    }
+    
+    override func handleEditModeChanged() {
+        super.handleEditModeChanged()
+        
+    }
+    
+    override func handleViewModeChanged() {
+        super.handleViewModeChanged()
+        
+    }
+    
+    override func handleBlobSelectionChanged() {
+        super.handleBlobSelectionChanged()
+        
+    }
+    
+    override func handleHistoryChanged() {
+        super.handleHistoryChanged()
+        
+        updateHistory()
     }
     
 }

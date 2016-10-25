@@ -134,6 +134,9 @@
 		C28195A71DB1AC8A00B23E52 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195891DB1AC8A00B23E52 /* Math.swift */; };
 		C28195A81DB1AC8A00B23E52 /* RootViewControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281958A1DB1AC8A00B23E52 /* RootViewControllerBase.swift */; };
 		C28195F31DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28195F21DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift */; };
+		C2D6F6F51DBEADC8001AD0E0 /* HistoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D6F6F41DBEADC8001AD0E0 /* HistoryState.swift */; };
+		C2D6F6F71DBEADDB001AD0E0 /* HistoryStateAddBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D6F6F61DBEADDB001AD0E0 /* HistoryStateAddBlob.swift */; };
+		C2D6F6F91DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D6F6F81DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -287,6 +290,9 @@
 		C28195891DB1AC8A00B23E52 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		C281958A1DB1AC8A00B23E52 /* RootViewControllerBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewControllerBase.swift; sourceTree = "<group>"; };
 		C28195F21DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImagePickerController+Landscape.swift"; sourceTree = "<group>"; };
+		C2D6F6F41DBEADC8001AD0E0 /* HistoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryState.swift; sourceTree = "<group>"; };
+		C2D6F6F61DBEADDB001AD0E0 /* HistoryStateAddBlob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryStateAddBlob.swift; sourceTree = "<group>"; };
+		C2D6F6F81DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryStateDeleteBlob.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -461,6 +467,9 @@
 				C21E409B1DB8472500EB6A4F /* RootViewController.swift */,
 				C21E409C1DB8472500EB6A4F /* ToolActions.swift */,
 				C21E409D1DB8472500EB6A4F /* Uploader.swift */,
+				C2D6F6F41DBEADC8001AD0E0 /* HistoryState.swift */,
+				C2D6F6F61DBEADDB001AD0E0 /* HistoryStateAddBlob.swift */,
+				C2D6F6F81DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -774,6 +783,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C21E40A41DB8472500EB6A4F /* IndexTriangleList.swift in Sources */,
+				C2D6F6F91DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift in Sources */,
 				C28195911DB1AC8A00B23E52 /* LineSegment.swift in Sources */,
 				C28195901DB1AC8A00B23E52 /* Graphics.swift in Sources */,
 				C21E40B31DB8472500EB6A4F /* TBButton.swift in Sources */,
@@ -822,6 +832,7 @@
 				C21E40A71DB8472500EB6A4F /* ToolContainerBottomAccessory.swift in Sources */,
 				C281958F1DB1AC8A00B23E52 /* GLViewController.swift in Sources */,
 				C21E40AB1DB8472500EB6A4F /* ToolRowAccessoryBottomZoom.swift in Sources */,
+				C2D6F6F71DBEADDB001AD0E0 /* HistoryStateAddBlob.swift in Sources */,
 				C28195A21DB1AC8A00B23E52 /* Device.swift in Sources */,
 				C21E40C01DB8472500EB6A4F /* Reader.swift in Sources */,
 				C28195A61DB1AC8A00B23E52 /* FileUtils.swift in Sources */,
@@ -842,6 +853,7 @@
 				C21E40A11DB8472500EB6A4F /* BounceEngine.swift in Sources */,
 				C28195941DB1AC8A00B23E52 /* PointList.swift in Sources */,
 				C21E40B41DB8472500EB6A4F /* TBCheckBox.swift in Sources */,
+				C2D6F6F51DBEADC8001AD0E0 /* HistoryState.swift in Sources */,
 				C21E40C21DB8472500EB6A4F /* ToolActions.swift in Sources */,
 				C28195921DB1AC8A00B23E52 /* LineSegmentBuffer.swift in Sources */,
 				C21E40B21DB8472500EB6A4F /* Style.swift in Sources */,
