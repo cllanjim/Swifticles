@@ -25,6 +25,6 @@ class HistoryState : NSObject
     
     var type: HistoryType = .unknown
     var blobIndex: Int?
-    var data: [String: Any]?
+    var data: [String: AnyObject]?
     
 }

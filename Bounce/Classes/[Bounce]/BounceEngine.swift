@@ -44,8 +44,10 @@ class BounceEngine {
     }
     
     var historyStack = [HistoryState]()
-    var historyIndex: Int?
+    var historyIndex: Int = 0
     var historyLastActionUndo: Bool = false
+    var historyLastActionRedo: Bool = false
+    
     
     
     
@@ -60,7 +62,7 @@ class BounceEngine {
             }
             
             //selected
-        
+            
         }
         didSet {
             if previousSelectedBlob !== selectedBlob {
@@ -228,7 +230,7 @@ class BounceEngine {
         for blob:Blob in blobs {
             if blob.enabled { blob.update() }
         }
-
+        
     }
     
     func draw() {
@@ -350,7 +352,7 @@ class BounceEngine {
             
             for blob in blobs {
                 if blob.grabSelectionTouch === touch {
-                   
+                    
                     var diffX = touchPoint.x - blob.grabAnimationGuideTouchStart.x
                     var diffY = touchPoint.y - blob.grabAnimationGuideTouchStart.y
                     
@@ -359,7 +361,7 @@ class BounceEngine {
                     blob.animationGuideOffset.y = blob.grabAnimationGuideOffsetStart.y + diffY
                     
                 }
-            }            
+            }
         }
         
         if sceneMode == .edit && editMode == .shape {
@@ -378,12 +380,12 @@ class BounceEngine {
     func touchUp(_ touch:inout UITouch, point:CGPoint) {
         
         
-            for blob in blobs {
-                if blob.grabSelectionTouch === touch {
-                    blob.releaseGrabFling()
-                    blob.grabSelectionTouch = nil
-                }
+        for blob in blobs {
+            if blob.grabSelectionTouch === touch {
+                blob.releaseGrabFling()
+                blob.grabSelectionTouch = nil
             }
+        }
         
         
         
@@ -561,8 +563,8 @@ class BounceEngine {
     }
     
     func handleHistoryChanged() {
-    
-    
+        
+        
     }
     
     func addBlob() {
@@ -588,7 +590,7 @@ class BounceEngine {
     }
     
     func addBlob(_ blob: Blob) {
-
+        
         blobs.append(blob)
         selectedBlob = blob
         
@@ -605,11 +607,11 @@ class BounceEngine {
     
     func indexOf(blob: Blob?) -> Int? {
         if blob != nil {
-        for i in 0..<blobs.count {
-            if blobs[i] === blob {
-                return i
+            for i in 0..<blobs.count {
+                if blobs[i] === blob {
+                    return i
+                }
             }
-        }
         }
         return nil
     }
@@ -635,16 +637,16 @@ class BounceEngine {
             let blob = blobs[i]
             
             
-                let dist = Math.distSquared(p1: blob.center, p2: pos)
-                
-                if hit == false {
-                    hit = true
+            let dist = Math.distSquared(p1: blob.center, p2: pos)
+            
+            if hit == false {
+                hit = true
+                bestDist = dist
+            } else {
+                if dist < bestDist {
                     bestDist = dist
-                } else {
-                    if dist < bestDist {
-                        bestDist = dist
-                    }
                 }
+            }
         }
         return bestDist
     }
@@ -667,12 +669,12 @@ class BounceEngine {
             for i in 0..<blobs.count {
                 let blob = blobs[i]
                 if blob.selectable && blob.enabled {
-                if let c = blob.border.closestPointSquared(point: pos) {
-                    if c.distanceSquared < bestDist {
-                        bestDist = c.distanceSquared
-                        result = blob
+                    if let c = blob.border.closestPointSquared(point: pos) {
+                        if c.distanceSquared < bestDist {
+                            bestDist = c.distanceSquared
+                            result = blob
+                        }
                     }
-                }
                 }
             }
         }
@@ -743,7 +745,7 @@ class BounceEngine {
     
     func historyPrint() {
         
-        print("___HISTORY STACK [\(historyStack.count) items]")
+        print("___HISTORY STACK [\(historyStack.count) items] Ind[\(historyIndex)]")
         
         for i in 0..<historyStack.count {
             
@@ -770,14 +772,13 @@ class BounceEngine {
     }
     
     func historyClear() {
-        
         historyStack.removeAll()
-        historyIndex = nil
+        historyIndex = 0
     }
     
     func historyAdd(withState state: HistoryState) -> Void {
         
-        var newHistoryStack = [HistoryState]()
+        
         
         print("PRE____")
         historyPrint()
@@ -789,53 +790,42 @@ class BounceEngine {
         //...
         //[NEW] index = 0
         
-        if historyIndex == nil || historyStack.count <= 0 {
-            //newHistoryStack.append(state)
-            //historyIndex = 0
-            
-        }
-        
         //Case 1:
         //History stack has 4 items, we are at item 1.
         //[H0, H1, H2, H3] index = 1
         //...
         //[H0, H1, NEW] index = 2
-            
+        
         //Case 2:
         //History stack has 1 items, we are at item 0.
         //[H0] index = 0
         //...
         //[H0, NEW] index = 1
-            
-        else {
-            var index = historyIndex!
-            if index >= historyStack.count {
-                index = historyStack.count - 1
-            }
-            
-            for i in 0..<(index + 1) {
+        
+        var newHistoryStack = [HistoryState]()
+        var index = historyIndex
+        if historyLastActionUndo == false { index += 1 }
+        if index > 0 {
+            if index > historyStack.count { index = historyStack.count }
+            for i in 0..<(index) {
                 newHistoryStack.append(historyStack[i])
             }
-            
         }
         
-        
         newHistoryStack.append(state)
-        historyIndex = newHistoryStack.count - 1
-        
+        historyIndex = newHistoryStack.count
         historyStack = newHistoryStack
+        historyLastActionUndo = false
+        historyLastActionRedo = false
+        BounceEngine.postNotification(BounceNotification.historyChanged)
+        
         
         print("POST____")
         historyPrint()
         
-        
-        historyLastActionUndo = false
-        
-        BounceEngine.postNotification(BounceNotification.historyChanged)
     }
     
     func historyApplyUndo(withState historyState: HistoryState) {
-        
         if historyState.type == .blobAdd {
             if let state = historyState as? HistoryStateAddBlob {
                 if let index = state.blobIndex, index >= 0 && index < blobs.count {
@@ -843,30 +833,41 @@ class BounceEngine {
                 }
             }
         }
-        
-        
     }
     
-    func historyApplyRedo(withState state: HistoryState) {
-        
+    func historyApplyRedo(withState historyState: HistoryState) {
+        if historyState.type == .blobAdd {
+            if let state = historyState as? HistoryStateAddBlob {
+                if let index = state.blobIndex, let data = state.data {
+                    let blob = Blob()
+                    blob.load(info: data)
+                    if index >= 0 && index < blobs.count {
+                        blobs.insert(blob, at: index)
+                    } else {
+                        blobs.append(blob)
+                    }
+                }
+            }
+        }
     }
     
     func canUndo() -> Bool {
         if historyStack.count > 0 {
-            if let index = historyIndex, index >= 0 && index < historyStack.count {
-                return true
+            if historyLastActionRedo {
+                return (historyIndex >= 0 && historyIndex < historyStack.count)
+            } else {
+                return (historyIndex > 0 && historyIndex <= historyStack.count)
             }
         }
         return false
     }
     
     func canRedo() -> Bool {
-        
-        //Hehe, if the last action was undo, this logic changes.
-        
         if historyStack.count > 0 {
-            if let index = historyIndex, index >= -1 && index <= (historyStack.count - 1) {
-                return true
+            if historyLastActionUndo {
+                return (historyIndex >= 0 && historyIndex < historyStack.count)
+            } else {
+                return (historyIndex >= 0 && historyIndex < (historyStack.count - 1))
             }
         }
         return false
@@ -875,38 +876,26 @@ class BounceEngine {
     
     func undo() {
         if canUndo() {
-            let index = historyIndex!
+            let index = historyLastActionRedo ? historyIndex : (historyIndex - 1)
             let state = historyStack[index]
-            
             historyApplyUndo(withState: state)
-            historyIndex = historyIndex! - 1
-            
-            BounceEngine.postNotification(BounceNotification.historyChanged)
-            
+            historyIndex = index
             historyLastActionUndo = true
+            historyLastActionRedo = false
+            BounceEngine.postNotification(BounceNotification.historyChanged)
         }
     }
     
     func redo() {
-        
         if canRedo() {
-            var index = historyIndex!
-            
-            if historyLastActionUndo {
-                index += 1
-            }
-            
-            
+            let index = historyLastActionUndo ? historyIndex : (historyIndex + 1)
             let state = historyStack[index]
-            
-            historyApplyUndo(withState: state)
-            historyIndex = historyIndex! - 1
-            
-            BounceEngine.postNotification(BounceNotification.historyChanged)
-            
+            historyApplyRedo(withState: state)
+            historyIndex = index
             historyLastActionUndo = false
+            historyLastActionRedo = true
+            BounceEngine.postNotification(BounceNotification.historyChanged)
         }
-        
     }
     
     
