@@ -13,7 +13,7 @@ enum HistoryType: UInt32 {
     blobAdd = 1,
     blobDelete = 2,
     blobChangeAffine = 3,
-    blobChangePoint = 4
+    blobChangeShape = 4
 }
 
 class HistoryState : NSObject
@@ -25,6 +25,5 @@ class HistoryState : NSObject
     
     var type: HistoryType = .unknown
     var blobIndex: Int?
-    var data: [String: AnyObject]?
-    
+    var blobData: [String: AnyObject]?
 }

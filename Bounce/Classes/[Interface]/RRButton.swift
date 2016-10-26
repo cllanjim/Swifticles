@@ -94,6 +94,9 @@ class RRButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        
+        
         setUp()
     }
     
@@ -107,6 +110,8 @@ class RRButton: UIButton {
     }
     
     func setUp() {
+        cornerRadius = ApplicationController.shared.tbButtonHeight / 8.0
+        
         self.backgroundColor = UIColor.clear
         
         self.addTarget(self, action: #selector(didToggleControlState), for: .touchDown)

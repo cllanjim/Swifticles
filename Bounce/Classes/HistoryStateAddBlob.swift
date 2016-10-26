@@ -14,6 +14,4 @@ class HistoryStateAddBlob : HistoryState
         super.init()
         type = .blobAdd
     }
-    
-    
 }

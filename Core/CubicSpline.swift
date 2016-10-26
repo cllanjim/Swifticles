@@ -205,7 +205,7 @@ class CubicSpline {
                 coord[count1].derivative = F - (G + 1.0) * coord[count2].derivative
                 coord[count1].derivative = coord[count1].derivative / H
                 coord[count2].derivative = coord[count2].derivative - (0.25 + coord[count1].delta) * coord[count1].derivative
-                for i in stride(from: (count1-2), to: 0, by: -1) {
+                for i:Int in stride(from: (count1-2), to: -1, by: -1) {
                     coord[i].derivative = coord[i].derivative - 0.25 * coord[i + 1].derivative - coord[i + 1].delta * coord[count1].derivative
                 }
                 coord[count1].coefA = coord[count1].derivative
@@ -219,7 +219,7 @@ class CubicSpline {
                 }
                 coord[count1].delta = (3.0 * (coord[count1].value - coord[count2].value) - coord[count2].delta) * 0.25
                 coord[count1].derivative = coord[count1].delta
-                for i in stride(from: (count2), to: 0, by: -1) {
+                for i:Int in stride(from: (count2), to: -1, by: -1) {
                     coord[i].derivative = coord[i].delta - 0.25 * coord[i+1].derivative
                 }
             }
@@ -231,6 +231,19 @@ class CubicSpline {
                 coord[i].coefC = 2.0 * (coord[i].value - coord[i+1].value) + coord[i].derivative + coord[i+1].derivative
             }
         }
+    }
+    
+    func clone() -> CubicSpline {
+        let result = CubicSpline()
+        result.linear = linear
+        result.closed = closed
+        //for i in 0..<controlPointCount {
+        
+        for i:Int in stride(from: (controlPointCount - 1), to: -1, by: -1) {
+            result.set(i, x: x[i].value, y: y[i].value)
+        }
+            
+        return result
     }
     
     //Save to dictionary.

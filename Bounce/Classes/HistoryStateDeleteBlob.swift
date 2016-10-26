@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+class HistoryStateDeleteBlob : HistoryState
+{
+    override init() {
+        super.init()
+        type = .blobDelete
+    }
+}
+

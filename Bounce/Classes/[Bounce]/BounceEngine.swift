@@ -86,19 +86,72 @@ class BounceEngine {
     }
     
     //For the affine transformations only..
-    weak var affineSelectedBlob:Blob?
+    
+    weak var _affineSelectedBlob:Blob?
+    var affineSelectedBlob:Blob? {
+        
+        get {
+            return _affineSelectedBlob
+        }
+        
+        set {
+            let blob = _affineSelectedBlob
+            _affineSelectedBlob = newValue
+            
+            if blob !== newValue && blob !== nil && affineSelectionDidChange == true {
+                affineSelectionDidChange = false
+                
+                let historyState = HistoryStateChangeAffine()
+                historyState.blobIndex = indexOf(blob: blob!)
+                historyState.startPos = affineSelectionStartCenter
+                historyState.startScale = affineSelectionStartScale
+                historyState.startRotation = affineSelectionStartRotation
+                historyState.endPos = blob!.center
+                historyState.endScale = blob!.scale
+                historyState.endRotation = blob!.rotation
+                historyAdd(withState: historyState)
+            }
+        }
+    }
     weak var affineSelectionTouch:UITouch?
+    var historyStateAffine:HistoryStateChangeAffine?
+    
     var affineGestureStartCenter:CGPoint = CGPoint.zero
     var affineGestureCenter:CGPoint = CGPoint.zero
     var affineSelectionStartCenter:CGPoint = CGPoint.zero
     var affineSelectionStartScale:CGFloat = 1.0
     var affineSelectionStartRotation:CGFloat = 0.0
+    var affineSelectionDidChange: Bool = false
     
     
-    weak var shapeSelectedBlob:Blob?
+    
+    weak var _shapeSelectionBlob:Blob?
+    var shapeSelectionBlob:Blob? {
+        get {
+            return _shapeSelectionBlob
+        }
+        
+        set {
+            let blob = _shapeSelectionBlob
+            _shapeSelectionBlob = newValue
+            
+            if blob !== newValue && blob !== nil && shapeSelectionDidChange == true {
+                shapeSelectionDidChange = false
+                
+                let historyState = HistoryStateChangeShape()
+                historyState.blobIndex = indexOf(blob: blob!)
+                historyState.startSplineData = shapeSelectionStartSpline.save()
+                historyState.endSplineData = blob!.spline.save()
+                historyAdd(withState: historyState)
+            }
+        }
+    }
     weak var shapeSelectionTouch:UITouch?
     var shapeSelectionOffset:CGPoint = CGPoint.zero
     var shapeSelectionControlPointIndex:Int?
+    var shapeSelectionStartSpline = CubicSpline()
+    var shapeSelectionDidChange: Bool = false
+    
     
     
     var scene = BounceScene()
@@ -154,8 +207,8 @@ class BounceEngine {
                 affineSelectedBlob = nil
                 affineSelectionTouch = nil
             }
-            if shapeSelectedBlob === deleteBlob {
-                shapeSelectedBlob = nil
+            if shapeSelectionBlob === deleteBlob {
+                shapeSelectionBlob = nil
                 shapeSelectionTouch = nil
             }
             var deleteIndex:Int?
@@ -176,7 +229,7 @@ class BounceEngine {
         
         affineSelectedBlob = nil
         affineSelectionTouch = nil
-        shapeSelectedBlob = nil
+        shapeSelectionBlob = nil
         shapeSelectionTouch = nil
         shapeSelectionControlPointIndex = nil
     }
@@ -295,12 +348,14 @@ class BounceEngine {
             if affineSelectedBlob == nil {
                 affineSelectedBlob = touchBlob
                 if let checkAffineSelectedBlob = affineSelectedBlob {
+                    affineSelectionDidChange = false
                     selectedBlob = checkAffineSelectedBlob
                     affineSelectionTouch = touch
                     affineSelectionStartCenter = checkAffineSelectedBlob.center
                     affineSelectionStartScale = checkAffineSelectedBlob.scale
                     affineSelectionStartRotation = checkAffineSelectedBlob.rotation
                 } else {
+                    affineSelectionDidChange = false
                     affineSelectedBlob = nil
                     affineSelectionTouch = nil
                 }
@@ -333,10 +388,12 @@ class BounceEngine {
                 }
             }
             
-            if let blob = editBlob , shapeSelectedBlob == nil {
+            if let blob = editBlob , shapeSelectionBlob == nil {
                 selectedBlob = blob
                 if closest!.distance < 80.0 {
-                    shapeSelectedBlob = blob
+                    shapeSelectionDidChange = false
+                    shapeSelectionBlob = blob
+                    shapeSelectionStartSpline = blob.spline.clone()
                     shapeSelectionTouch = touch
                     shapeSelectionControlPointIndex = closest!.index
                     shapeSelectionOffset = offset
@@ -353,8 +410,8 @@ class BounceEngine {
             for blob in blobs {
                 if blob.grabSelectionTouch === touch {
                     
-                    var diffX = touchPoint.x - blob.grabAnimationGuideTouchStart.x
-                    var diffY = touchPoint.y - blob.grabAnimationGuideTouchStart.y
+                    let diffX = touchPoint.x - blob.grabAnimationGuideTouchStart.x
+                    let diffY = touchPoint.y - blob.grabAnimationGuideTouchStart.y
                     
                     blob.grabSelection = touchPoint
                     blob.animationGuideOffset.x = blob.grabAnimationGuideOffsetStart.x + diffX
@@ -365,8 +422,11 @@ class BounceEngine {
         }
         
         if sceneMode == .edit && editMode == .shape {
-            if let blob = shapeSelectedBlob , touch === shapeSelectionTouch {
+            if let blob = shapeSelectionBlob , touch === shapeSelectionTouch {
                 if let index = shapeSelectionControlPointIndex {
+                    
+                    shapeSelectionDidChange = true
+                    
                     //let pointInBlob = blob.untransformPoint(point: point)
                     let pointInBlob = blob.untransformPoint(point: CGPoint(x: point.x + shapeSelectionOffset.x, y: point.y + shapeSelectionOffset.y))
                     
@@ -395,7 +455,7 @@ class BounceEngine {
         }
         if touch === shapeSelectionTouch {
             shapeSelectionTouch = nil
-            shapeSelectedBlob = nil
+            shapeSelectionBlob = nil
         }
     }
     
@@ -405,7 +465,9 @@ class BounceEngine {
         affineSelectionTouch = nil
         
         shapeSelectionTouch = nil
-        shapeSelectedBlob = nil
+        shapeSelectionBlob = nil
+        
+        affineSelectionDidChange = false
     }
     
     
@@ -421,6 +483,9 @@ class BounceEngine {
         panStartPos = pos
         panPos = pos
         affineGestureCenter = pos
+        if affineSelectedBlob != nil {
+            affineSelectionDidChange = true
+        }
         if sceneMode == .edit && editMode == .affine {
             if let blob = affineSelectedBlob {
                 affineSelectionStartCenter = blob.center
@@ -434,6 +499,9 @@ class BounceEngine {
         guard isPanning else { return }
         panPos = pos
         affineGestureCenter = pos
+        if affineSelectedBlob != nil {
+            affineSelectionDidChange = true
+        }
         if sceneMode == .edit && editMode == .affine { gestureUpdateAffine() }
     }
     
@@ -458,6 +526,9 @@ class BounceEngine {
         affineGestureCenter = pos
         pinchScale = scale
         
+        if affineSelectedBlob != nil {
+            affineSelectionDidChange = true
+        }
         if sceneMode == .edit && editMode == .affine {
             if let blob = affineSelectedBlob {
                 affineGestureStartCenter = blob.untransformPoint(point: pos)
@@ -471,6 +542,9 @@ class BounceEngine {
         pinchPos = pos
         pinchScale = scale
         affineGestureCenter = pos
+        if affineSelectedBlob != nil {
+            affineSelectionDidChange = true
+        }
         if sceneMode == .edit && editMode == .affine { gestureUpdateAffine() }
     }
     
@@ -495,6 +569,9 @@ class BounceEngine {
         rotationPos = pos
         rotation = radians
         affineGestureCenter = pos
+        if affineSelectedBlob != nil {
+            affineSelectionDidChange = true
+        }
         if sceneMode == .edit && editMode == .affine {
             if let blob = affineSelectedBlob {
                 affineGestureStartCenter = blob.untransformPoint(point: pos)
@@ -508,6 +585,9 @@ class BounceEngine {
         rotationPos = pos
         rotation = radians
         affineGestureCenter = pos
+        if affineSelectedBlob != nil {
+            affineSelectionDidChange = true
+        }
         if sceneMode == .edit && editMode == .affine { gestureUpdateAffine() }
     }
     
@@ -524,6 +604,7 @@ class BounceEngine {
         isRotating = false
         affineSelectedBlob = nil
         affineSelectionTouch = nil
+        affineSelectionDidChange = false
     }
     
     
@@ -576,9 +657,6 @@ class BounceEngine {
         
         let blob = Blob()
         
-        
-        
-        
         blob.center.x = sceneRect.origin.x + 50
         blob.center.y = sceneRect.origin.y + sceneRect.size.height / 2.0
         
@@ -598,12 +676,38 @@ class BounceEngine {
         if let checkBlob = selectedBlob {
             let historyState = HistoryStateAddBlob()
             historyState.blobIndex = indexOf(blob: checkBlob)
-            historyState.data = checkBlob.save()
+            historyState.blobData = checkBlob.save()
             historyAdd(withState: historyState)
         }
         
         BounceEngine.postNotification(.blobAdded)
     }
+    
+    func cloneSelectedBlob() {
+        
+        if selectedBlob != nil {
+            let blob = Blob()
+            blob.load(info: selectedBlob!.save())
+            
+            while anyBlobOnPoint(blob.center) {
+                blob.center.x += 30.0
+            }
+            
+            addBlob(blob)
+        }
+    }
+    
+    func deleteSelectedBlob() {
+        if let blob = selectedBlob {
+            let historyState = HistoryStateDeleteBlob()
+            historyState.blobIndex = indexOf(blob: blob)
+            historyState.blobData = blob.save()
+            historyAdd(withState: historyState)
+            
+            deleteBlob(blob)
+        }
+    }
+    
     
     func indexOf(blob: Blob?) -> Int? {
         if blob != nil {
@@ -762,8 +866,8 @@ class BounceEngine {
             if state.type == .blobChangeAffine {
                 typeString = "Blob Change Affine"
             }
-            if state.type == .blobChangePoint {
-                typeString = "Blob Change Point"
+            if state.type == .blobChangeShape {
+                typeString = "Blob Change Shape"
             }
             print("Hist [\(i) -> \(typeString) Ind(\(state.blobIndex))")
         }
@@ -825,31 +929,7 @@ class BounceEngine {
         
     }
     
-    func historyApplyUndo(withState historyState: HistoryState) {
-        if historyState.type == .blobAdd {
-            if let state = historyState as? HistoryStateAddBlob {
-                if let index = state.blobIndex, index >= 0 && index < blobs.count {
-                    deleteBlob(blobs[index])
-                }
-            }
-        }
-    }
     
-    func historyApplyRedo(withState historyState: HistoryState) {
-        if historyState.type == .blobAdd {
-            if let state = historyState as? HistoryStateAddBlob {
-                if let index = state.blobIndex, let data = state.data {
-                    let blob = Blob()
-                    blob.load(info: data)
-                    if index >= 0 && index < blobs.count {
-                        blobs.insert(blob, at: index)
-                    } else {
-                        blobs.append(blob)
-                    }
-                }
-            }
-        }
-    }
     
     func canUndo() -> Bool {
         if historyStack.count > 0 {
@@ -898,16 +978,90 @@ class BounceEngine {
         }
     }
     
+
+    func historyApplyUndo(withState historyState: HistoryState) {
+        if historyState.type == .blobAdd {
+            if let state = historyState as? HistoryStateAddBlob {
+                if let index = state.blobIndex, index >= 0 && index < blobs.count {
+                    deleteBlob(blobs[index])
+                }
+            }
+        } else if historyState.type == .blobChangeAffine {
+            if let state = historyState as? HistoryStateChangeAffine {
+                if let index = state.blobIndex, index >= 0 && index < blobs.count {
+                    let blob = blobs[index]
+                    blob.center = state.startPos
+                    blob.scale = state.startScale
+                    blob.rotation = state.startRotation
+                }
+            }
+        } else if historyState.type == .blobChangeShape {
+            if let state = historyState as? HistoryStateChangeShape {
+                if let index = state.blobIndex, index >= 0 && index < blobs.count {
+                    if let data = state.startSplineData {
+                    let blob = blobs[index]
+                    
+                    blob.spline.load(info: data)
+                    blob.computeShape()
+                        
+                    }
+                }
+            }
+        } else if historyState.type == .blobDelete {
+            if let state = historyState as? HistoryStateDeleteBlob {
+                if let index = state.blobIndex, let data = state.blobData {
+                    let blob = Blob()
+                    blob.load(info: data)
+                    if index >= 0 && index < blobs.count {
+                        blobs.insert(blob, at: index)
+                    } else {
+                        blobs.append(blob)
+                    }
+                }
+            }
+        }
+    }
     
-    
-    //var historyStack = [HistoryState]()
-    //var historyIndex: Int?
-    
-    
-    
-    
-    
-    //HistoryType
+    func historyApplyRedo(withState historyState: HistoryState) {
+        if historyState.type == .blobAdd {
+            if let state = historyState as? HistoryStateAddBlob {
+                if let index = state.blobIndex, let data = state.blobData {
+                    let blob = Blob()
+                    blob.load(info: data)
+                    if index >= 0 && index < blobs.count {
+                        blobs.insert(blob, at: index)
+                    } else {
+                        blobs.append(blob)
+                    }
+                }
+            }
+        } else if historyState.type == .blobChangeAffine {
+            if let state = historyState as? HistoryStateChangeAffine {
+                if let index = state.blobIndex, index >= 0 && index < blobs.count {
+                    let blob = blobs[index]
+                    blob.center = state.endPos
+                    blob.scale = state.endScale
+                    blob.rotation = state.endRotation
+                }
+            }
+        } else if historyState.type == .blobChangeShape {
+            if let state = historyState as? HistoryStateChangeShape {
+                if let index = state.blobIndex, index >= 0 && index < blobs.count {
+                    if let data = state.endSplineData {
+                        let blob = blobs[index]
+                        blob.spline.load(info: data)
+                        blob.computeShape()
+                    }
+                }
+            }
+        } else if historyState.type == .blobDelete {
+            if let state = historyState as? HistoryStateDeleteBlob {
+                if let index = state.blobIndex, index >= 0 && index < blobs.count {
+                    deleteBlob(blobs[index])
+                }
+            }
+        }
+    }
     
     
     

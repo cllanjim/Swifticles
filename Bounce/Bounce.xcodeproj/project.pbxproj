@@ -102,6 +102,15 @@
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
 		C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */; };
 		C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */; };
+		C24AA0581DC0000F00B751B9 /* HistoryStateChangeShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA0571DC0000F00B751B9 /* HistoryStateChangeShape.swift */; };
+		C24AA05A1DC0002C00B751B9 /* HistoryStateChangeAffine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA0591DC0002C00B751B9 /* HistoryStateChangeAffine.swift */; };
+		C24AA05C1DC03C6600B751B9 /* TopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA05B1DC03C6600B751B9 /* TopMenu.swift */; };
+		C24AA05E1DC03C7A00B751B9 /* ToolContainerTopMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA05D1DC03C7A00B751B9 /* ToolContainerTopMain.swift */; };
+		C24AA0601DC03C8E00B751B9 /* ToolContainerTopAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA05F1DC03C8E00B751B9 /* ToolContainerTopAccessory.swift */; };
+		C24AA0621DC03D0F00B751B9 /* ToolRowTopEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA0611DC03D0F00B751B9 /* ToolRowTopEdit.swift */; };
+		C24AA0641DC03D1D00B751B9 /* ToolRowTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA0631DC03D1D00B751B9 /* ToolRowTopView.swift */; };
+		C24AA0661DC03D6E00B751B9 /* ToolRowAccessoryTopEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA0651DC03D6E00B751B9 /* ToolRowAccessoryTopEdit.swift */; };
+		C24AA0681DC03D7D00B751B9 /* ToolRowAccessoryTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24AA0671DC03D7D00B751B9 /* ToolRowAccessoryTopView.swift */; };
 		C276E4DF1DB6F50F00568423 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E4DE1DB6F50F00568423 /* Color.swift */; };
 		C281958B1DB1AC8A00B23E52 /* DrawNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956B1DB1AC8A00B23E52 /* DrawNode.swift */; };
 		C281958C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */; };
@@ -258,6 +267,15 @@
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
 		C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extras.swift"; sourceTree = "<group>"; };
 		C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
+		C24AA0571DC0000F00B751B9 /* HistoryStateChangeShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryStateChangeShape.swift; sourceTree = "<group>"; };
+		C24AA0591DC0002C00B751B9 /* HistoryStateChangeAffine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryStateChangeAffine.swift; sourceTree = "<group>"; };
+		C24AA05B1DC03C6600B751B9 /* TopMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopMenu.swift; sourceTree = "<group>"; };
+		C24AA05D1DC03C7A00B751B9 /* ToolContainerTopMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerTopMain.swift; sourceTree = "<group>"; };
+		C24AA05F1DC03C8E00B751B9 /* ToolContainerTopAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolContainerTopAccessory.swift; sourceTree = "<group>"; };
+		C24AA0611DC03D0F00B751B9 /* ToolRowTopEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowTopEdit.swift; sourceTree = "<group>"; };
+		C24AA0631DC03D1D00B751B9 /* ToolRowTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowTopView.swift; sourceTree = "<group>"; };
+		C24AA0651DC03D6E00B751B9 /* ToolRowAccessoryTopEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryTopEdit.swift; sourceTree = "<group>"; };
+		C24AA0671DC03D7D00B751B9 /* ToolRowAccessoryTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolRowAccessoryTopView.swift; sourceTree = "<group>"; };
 		C276E4DE1DB6F50F00568423 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		C281956B1DB1AC8A00B23E52 /* DrawNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNode.swift; sourceTree = "<group>"; };
 		C281956C1DB1AC8A00B23E52 /* DrawNodeBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawNodeBuffer.swift; sourceTree = "<group>"; };
@@ -470,6 +488,8 @@
 				C2D6F6F41DBEADC8001AD0E0 /* HistoryState.swift */,
 				C2D6F6F61DBEADDB001AD0E0 /* HistoryStateAddBlob.swift */,
 				C2D6F6F81DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift */,
+				C24AA0571DC0000F00B751B9 /* HistoryStateChangeShape.swift */,
+				C24AA0591DC0002C00B751B9 /* HistoryStateChangeAffine.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -529,6 +549,13 @@
 			isa = PBXGroup;
 			children = (
 				C21E40891DB8472500EB6A4F /* ToolBarTop.swift */,
+				C24AA05B1DC03C6600B751B9 /* TopMenu.swift */,
+				C24AA05D1DC03C7A00B751B9 /* ToolContainerTopMain.swift */,
+				C24AA05F1DC03C8E00B751B9 /* ToolContainerTopAccessory.swift */,
+				C24AA0611DC03D0F00B751B9 /* ToolRowTopEdit.swift */,
+				C24AA0631DC03D1D00B751B9 /* ToolRowTopView.swift */,
+				C24AA0651DC03D6E00B751B9 /* ToolRowAccessoryTopEdit.swift */,
+				C24AA0671DC03D7D00B751B9 /* ToolRowAccessoryTopView.swift */,
 			);
 			path = "[Top]";
 			sourceTree = "<group>";
@@ -792,6 +819,8 @@
 				C21E40B11DB8472500EB6A4F /* RRButton.swift in Sources */,
 				C21E40AF1DB8472500EB6A4F /* ToolBarTop.swift in Sources */,
 				C276E4DF1DB6F50F00568423 /* Color.swift in Sources */,
+				C24AA0581DC0000F00B751B9 /* HistoryStateChangeShape.swift in Sources */,
+				C24AA05A1DC0002C00B751B9 /* HistoryStateChangeAffine.swift in Sources */,
 				C21E40AE1DB8472500EB6A4F /* ToolRowBottomZoom.swift in Sources */,
 				C21E40C11DB8472500EB6A4F /* RootViewController.swift in Sources */,
 				C28195A51DB1AC8A00B23E52 /* UIView+Extras.swift in Sources */,
@@ -800,13 +829,16 @@
 				C28195931DB1AC8A00B23E52 /* Matrix.swift in Sources */,
 				C21E40BB1DB8472500EB6A4F /* ApplicationController.swift in Sources */,
 				C21E40BF1DB8472500EB6A4F /* ImageImportViewController.swift in Sources */,
+				C24AA0681DC03D7D00B751B9 /* ToolRowAccessoryTopView.swift in Sources */,
 				C28195971DB1AC8A00B23E52 /* ShaderProgramSimple.swift in Sources */,
+				C24AA0641DC03D1D00B751B9 /* ToolRowTopView.swift in Sources */,
 				C28195A41DB1AC8A00B23E52 /* UIImage+Resize.swift in Sources */,
 				C28195A31DB1AC8A00B23E52 /* String+URL.swift in Sources */,
 				C281959E1DB1AC8A00B23E52 /* WebCommon.swift in Sources */,
 				C21E40C31DB8472500EB6A4F /* Uploader.swift in Sources */,
 				C21E40AD1DB8472500EB6A4F /* ToolRowBottomView.swift in Sources */,
 				C21E40A81DB8472500EB6A4F /* ToolContainerBottomMain.swift in Sources */,
+				C24AA0661DC03D6E00B751B9 /* ToolRowAccessoryTopEdit.swift in Sources */,
 				C28195951DB1AC8A00B23E52 /* ShaderProgram.swift in Sources */,
 				C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */,
 				C281959F1DB1AC8A00B23E52 /* WebFetcher.swift in Sources */,
@@ -820,11 +852,14 @@
 				C21E40A21DB8472500EB6A4F /* BounceScene.swift in Sources */,
 				C21E40B91DB8472500EB6A4F /* ToolView.swift in Sources */,
 				C21E40BC1DB8472500EB6A4F /* Config.swift in Sources */,
+				C24AA05C1DC03C6600B751B9 /* TopMenu.swift in Sources */,
 				C28195A71DB1AC8A00B23E52 /* Math.swift in Sources */,
+				C24AA0601DC03C8E00B751B9 /* ToolContainerTopAccessory.swift in Sources */,
 				C21E40B01DB8472500EB6A4F /* HMButton.swift in Sources */,
 				C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */,
 				C28195A81DB1AC8A00B23E52 /* RootViewControllerBase.swift in Sources */,
 				C28195A11DB1AC8A00B23E52 /* CubicSpline.swift in Sources */,
+				C24AA0621DC03D0F00B751B9 /* ToolRowTopEdit.swift in Sources */,
 				C21E40B51DB8472500EB6A4F /* TBSegment.swift in Sources */,
 				C281959A1DB1AC8A00B23E52 /* Texture.swift in Sources */,
 				C281959B1DB1AC8A00B23E52 /* ImageDownloader.swift in Sources */,
@@ -848,6 +883,7 @@
 				C28195981DB1AC8A00B23E52 /* ShaderProgramSprite.swift in Sources */,
 				C21E40AA1DB8472500EB6A4F /* ToolRowAccessoryBottomView.swift in Sources */,
 				C21E40A61DB8472500EB6A4F /* ToolBarBottom.swift in Sources */,
+				C24AA05E1DC03C7A00B751B9 /* ToolContainerTopMain.swift in Sources */,
 				C281958D1DB1AC8A00B23E52 /* DrawTriangle.swift in Sources */,
 				C28195F31DB1B7AD00B23E52 /* UIImagePickerController+Landscape.swift in Sources */,
 				C21E40A11DB8472500EB6A4F /* BounceEngine.swift in Sources */,

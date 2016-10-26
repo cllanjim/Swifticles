@@ -77,11 +77,24 @@ class ToolRowBottomEdit: ToolRow
             segEditMode.selectedIndex = 0
         }
         
-        updateHistory()
+        UIUpdateHistory()
+        UIUpdateSelection()
     }
     
     @IBAction func clickUndo(sender: AnyObject) {
         ToolActions.undo()
+    }
+    
+    @IBAction func clickAddBlob(sender: AnyObject) {
+        ToolActions.addBlob()
+    }
+    
+    @IBAction func clickDeleteBlob(sender: AnyObject) {
+        ToolActions.deleteBlob()
+    }
+    
+    @IBAction func clickCloneBlob(sender: AnyObject) {
+        ToolActions.cloneBlob()
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -101,7 +114,7 @@ class ToolRowBottomEdit: ToolRow
         
     }
 
-    func updateHistory() {
+    func UIUpdateHistory() {
         
         if ApplicationController.shared.canUndo() {
             buttonUndoAlt.isEnabled = true
@@ -113,6 +126,16 @@ class ToolRowBottomEdit: ToolRow
             
         } else {
             
+        }
+    }
+    
+    func UIUpdateSelection() {
+        if ApplicationController.shared.selectedBlob != nil {
+            buttonDeleteBlob.isEnabled = true
+            buttonCloneBlob.isEnabled = true
+        } else {
+            buttonDeleteBlob.isEnabled = false
+            buttonCloneBlob.isEnabled = false
         }
     }
     
@@ -142,12 +165,13 @@ class ToolRowBottomEdit: ToolRow
     override func handleBlobSelectionChanged() {
         super.handleBlobSelectionChanged()
         
+        UIUpdateSelection()
     }
     
     override func handleHistoryChanged() {
         super.handleHistoryChanged()
         
-        updateHistory()
+        UIUpdateHistory()
     }
     
 }

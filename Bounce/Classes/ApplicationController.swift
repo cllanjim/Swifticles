@@ -93,7 +93,7 @@ class ApplicationController
             }
         } else {
             if ApplicationController.shared.isSceneLandscape {
-                return 38.0
+                return 40.0
             } else {
                 return 48.0
             }
@@ -111,13 +111,13 @@ class ApplicationController
     var tbButtonHeight: CGFloat {
         if Device.isTablet {
             if ApplicationController.shared.isSceneLandscape {
-                return 72.0
+                return 76.0
             } else {
-                return 72.0
+                return 76.0
             }
         } else {
             if ApplicationController.shared.isSceneLandscape {
-                return 32.0
+                return 36.0
             } else {
                 return 42.0
             }
@@ -224,6 +224,10 @@ class ApplicationController
         set {
             _engine = newValue
         }
+    }
+    
+    var selectedBlob:Blob? {
+        return engine?.selectedBlob
     }
     
     var bottomMenu:BottomMenu? {

@@ -33,7 +33,13 @@ class ToolActions {
     
     class func deleteBlob() {
         DispatchQueue.main.async {
-        _ = ApplicationController.shared.engine?.addBlob()
+            _ = ApplicationController.shared.engine?.deleteSelectedBlob()
+        }
+    }
+    
+    class func cloneBlob() {
+        DispatchQueue.main.async {
+            _ = ApplicationController.shared.engine?.cloneSelectedBlob()
         }
     }
     

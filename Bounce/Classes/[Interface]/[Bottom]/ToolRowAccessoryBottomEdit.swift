@@ -50,7 +50,8 @@ class ToolRowAccessoryBottomEdit: ToolRow
     override func refreshUI() {
         super.refreshUI()
         
-        updateHistory()
+        UIUpdateHistory()
+        UIUpdateSelection()
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -61,8 +62,30 @@ class ToolRowAccessoryBottomEdit: ToolRow
         
     }
     
-    func updateHistory() {
+    @IBAction func clickAddBlob(sender: AnyObject) {
+        ToolActions.addBlob()
+    }
+    
+    @IBAction func clickDeleteBlob(sender: AnyObject) {
+        ToolActions.deleteBlob()
+    }
+    
+    @IBAction func clickCloneBlob(sender: AnyObject) {
+        ToolActions.cloneBlob()
+    }
+    
+    func UIUpdateHistory() {
         
+    }
+    
+    func UIUpdateSelection() {
+        if ApplicationController.shared.selectedBlob != nil {
+            buttonDeleteBlob.isEnabled = true
+            buttonCloneBlob.isEnabled = true
+        } else {
+            buttonDeleteBlob.isEnabled = false
+            buttonCloneBlob.isEnabled = false
+        }
     }
     
     override func handleSceneReady() {
@@ -91,12 +114,13 @@ class ToolRowAccessoryBottomEdit: ToolRow
     override func handleBlobSelectionChanged() {
         super.handleBlobSelectionChanged()
         
+        UIUpdateSelection()
     }
     
     override func handleHistoryChanged() {
         super.handleHistoryChanged()
      
-        updateHistory()
+        UIUpdateHistory()
     }
     
 }
