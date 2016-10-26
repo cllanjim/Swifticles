@@ -19,13 +19,13 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     @IBInspectable @IBOutlet weak var buttonDeleteBlob:TBButton! {
         didSet {
-            buttonDeleteBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+            buttonDeleteBlob.setImages(path: "tb_btn_delete_blob", pathSelected: "tb_btn_delete_blob_down")
         }
     }
     
     @IBInspectable @IBOutlet weak var buttonCloneBlob:TBButton! {
         didSet {
-            buttonCloneBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+            buttonCloneBlob.setImages(path: "tb_btn_clone_blob", pathSelected: "tb_btn_clone_blob_down")
         }
     }
     
