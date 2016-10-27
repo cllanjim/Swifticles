@@ -195,10 +195,10 @@ class BottomMenu: ToolView
                 }, completion:nil)
             
             if let container = containerAccessory, container.isHidden == false {
-                container.showToolsAnimated(withDelay: 0.0, withStagger: 0.06, withDirection: 1)
+                container.showToolsAnimated(withDelay: 0.0, withStagger: 0.0, withDirection: 1)
             }
             if let container = containerMain, container.isHidden == false {
-                container.showToolsAnimated(withDelay: 0.20, withStagger: 0.06, withDirection: -1)
+                container.showToolsAnimated(withDelay: 0.20, withStagger: 0.0, withDirection: -1)
             }
             
         }
@@ -243,11 +243,11 @@ class BottomMenu: ToolView
                 })
             
             if let container = containerAccessory, container.isHidden == false {
-                container.hideToolsAnimated(withDelay: 0.240, withStagger: 0.06, withDirection: -1)
+                container.hideToolsAnimated(withDelay: 0.240, withStagger: 0.0, withDirection: -1)
             }
             
             if let container = containerMain, container.isHidden == false {
-                container.hideToolsAnimated(withDelay: 0.0, withStagger: 0.06, withDirection: 1)
+                container.hideToolsAnimated(withDelay: 0.0, withStagger: 0.0, withDirection: 1)
             }
         }
     }

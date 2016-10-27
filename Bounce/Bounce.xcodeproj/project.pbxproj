@@ -146,6 +146,8 @@
 		C2D6F6F51DBEADC8001AD0E0 /* HistoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D6F6F41DBEADC8001AD0E0 /* HistoryState.swift */; };
 		C2D6F6F71DBEADDB001AD0E0 /* HistoryStateAddBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D6F6F61DBEADDB001AD0E0 /* HistoryStateAddBlob.swift */; };
 		C2D6F6F91DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D6F6F81DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift */; };
+		C2DFBFA41DC18EBF00C74BA8 /* RRSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DFBFA31DC18EBF00C74BA8 /* RRSlider.swift */; };
+		C2DFBFA61DC1914000C74BA8 /* TBSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DFBFA51DC1914000C74BA8 /* TBSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +313,8 @@
 		C2D6F6F41DBEADC8001AD0E0 /* HistoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryState.swift; sourceTree = "<group>"; };
 		C2D6F6F61DBEADDB001AD0E0 /* HistoryStateAddBlob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryStateAddBlob.swift; sourceTree = "<group>"; };
 		C2D6F6F81DBEADED001AD0E0 /* HistoryStateDeleteBlob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryStateDeleteBlob.swift; sourceTree = "<group>"; };
+		C2DFBFA31DC18EBF00C74BA8 /* RRSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRSlider.swift; sourceTree = "<group>"; };
+		C2DFBFA51DC1914000C74BA8 /* TBSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -524,6 +528,8 @@
 				C21E40921DB8472500EB6A4F /* ToolRowContainer.swift */,
 				C21E40931DB8472500EB6A4F /* ToolView.swift */,
 				C21E40C41DB8550400EB6A4F /* ButtonGroup.swift */,
+				C2DFBFA31DC18EBF00C74BA8 /* RRSlider.swift */,
+				C2DFBFA51DC1914000C74BA8 /* TBSlider.swift */,
 			);
 			path = "[Interface]";
 			sourceTree = "<group>";
@@ -817,6 +823,7 @@
 				C21E40AC1DB8472500EB6A4F /* ToolRowBottomEdit.swift in Sources */,
 				C21E409E1DB8472500EB6A4F /* Blob.swift in Sources */,
 				C21E40B11DB8472500EB6A4F /* RRButton.swift in Sources */,
+				C2DFBFA61DC1914000C74BA8 /* TBSlider.swift in Sources */,
 				C21E40AF1DB8472500EB6A4F /* ToolBarTop.swift in Sources */,
 				C276E4DF1DB6F50F00568423 /* Color.swift in Sources */,
 				C24AA0581DC0000F00B751B9 /* HistoryStateChangeShape.swift in Sources */,
@@ -871,6 +878,7 @@
 				C28195A21DB1AC8A00B23E52 /* Device.swift in Sources */,
 				C21E40C01DB8472500EB6A4F /* Reader.swift in Sources */,
 				C28195A61DB1AC8A00B23E52 /* FileUtils.swift in Sources */,
+				C2DFBFA41DC18EBF00C74BA8 /* RRSlider.swift in Sources */,
 				C21E40B71DB8472500EB6A4F /* ToolRow.swift in Sources */,
 				C28195991DB1AC8A00B23E52 /* Sprite.swift in Sources */,
 				C28195A01DB1AC8A00B23E52 /* AppDelegateBase.swift in Sources */,

@@ -65,6 +65,10 @@ class Blob
     var tri = IndexTriangleList()
     var vertexBuffer = [GLfloat]()
     
+    var vertexBufferStereoLeft = [GLfloat]()
+    var vertexBufferStereoRight = [GLfloat]()
+    
+    
     var testAngle1:CGFloat = 0.0
     var testAngle2:CGFloat = 180.0
     var testAngle3:CGFloat = 360.0
@@ -311,6 +315,8 @@ class Blob
             return
         }
         
+        var drawStereo = false
+        
         computeIfNeeded()
         
         let indexBufferCount = tri.count * 3
@@ -319,6 +325,8 @@ class Blob
             vertexBuffer.reserveCapacity(vertexBufferCount)
             while(vertexBuffer.count < vertexBufferCount) {
                 vertexBuffer.append(0.0)
+                vertexBufferStereoLeft.append(0.0)
+                vertexBufferStereoRight.append(0.0)
             }
         }
         
@@ -353,22 +361,63 @@ class Blob
             Graphics.textureBind(texture: sprite.texture)
             Graphics.blendDisable()
             
-            
+            drawStereo = true
             
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 
-                //node.animX = node.x + testSin1 * 31.0 * node.edgePercent
-                //node.animY = node.y + testSin2 * 16.0 * node.edgePercent
-                //node.animZ = node.edgePercent * 200.0
+                let animX = node.x + testSin1 * 20.0 * node.edgePercent
+                let animY = node.y + testSin2 * 40.0 * node.edgePercent
+                let animZ = node.edgePercent * 200.0
+                
+                
+                node.animX = animX
+                node.animY = animY
+                node.animZ = animZ
                 
                 node.r = 1.0;node.g = 1.0;node.b = 1.0;node.a = 1.0
                 node.writeToTriangleListAnimated(&vertexBuffer, index: vertexIndex)
+                
+                
+                
+                if drawStereo {
+                
+                    node.animX = animX - 20.0 * node.edgePercent
+                    node.animY = animY
+                    node.animZ = animZ
+                    
+                    node.r = 1.0;node.g = 0.0;node.b = 0.0;node.a = node.edgePercent
+                    node.writeToTriangleListAnimated(&vertexBufferStereoLeft, index: vertexIndex)
+                    
+                    
+                    
+                    node.animX = animX + 20.0 * node.edgePercent
+                    node.animY = animY
+                    node.animZ = animZ
+                    
+                    node.r = 0.0;node.g = 1.0;node.b = 1.0;node.a = node.edgePercent
+                    node.writeToTriangleListAnimated(&vertexBufferStereoRight, index: vertexIndex)
+                    
+                }
+                
+                
+                
+                //vertexBufferStereoR.append(0.0)
+                //vertexBufferStereoG.append(0.0)
+                //vertexBufferStereoB.append(0.0)
+                
+                
+                //vertexBufferStereoR.append(0.0)
+                //vertexBufferStereoG.append(0.0)
+                //vertexBufferStereoB.append(0.0)
+                
+                
+                
                 vertexIndex += 10
             }
             
-            Graphics.blendEnable()
-            Graphics.blendSetAlpha()
+            
+            
         }
         
         if vertexIndex > 0 && indexBufferCount > 0 {
@@ -390,7 +439,26 @@ class Blob
             
             Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
             
+            if drawStereo {
+                
+                Graphics.blendEnable()
+                Graphics.blendSetAdditive()
+                
+                //glBlendFunc(GLenum(GL_SRC_ALPHA_SATURATE), GLenum(GL_SRC_COLOR))
+                
+                Graphics.depthClear()
+                Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBufferStereoLeft, size: vertexIndex)
+                Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
+                
+                Graphics.depthClear()
+                Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBufferStereoRight, size: vertexIndex)
+                Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
+            }
         }
+        
+        Graphics.blendEnable()
+        Graphics.blendSetAlpha()
+        
     }
     
     
@@ -464,6 +532,9 @@ class Blob
                 Graphics.blendDisable()
             }
         }
+        
+        Graphics.blendEnable()
+        Graphics.blendSetAlpha()
         
         ShaderProgramMesh.shared.pointDraw(point: center)
         ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x: center.x + animationGuideOffset.x, y: center.y + animationGuideOffset.y), thickness: 1)
