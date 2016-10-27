@@ -94,6 +94,78 @@ open class Sprite {
         set {vertexBuffer[34] = GLfloat(newValue);needsRefresh=true}
     }
     
+    
+    var r1: CGFloat {
+        get { return CGFloat(vertexBuffer[ 6])}
+        set {vertexBuffer[ 6] = GLfloat(newValue);needsRefresh=true}
+    }
+    var r2: CGFloat {
+        get { return CGFloat(vertexBuffer[16])}
+        set {vertexBuffer[16] = GLfloat(newValue);needsRefresh=true}
+    }
+    var r3: CGFloat {
+        get { return CGFloat(vertexBuffer[26])}
+        set {vertexBuffer[26] = GLfloat(newValue);needsRefresh=true}
+    }
+    var r4: CGFloat {
+        get { return CGFloat(vertexBuffer[36])}
+        set {vertexBuffer[36] = GLfloat(newValue);needsRefresh=true}
+    }
+    
+    var g1: CGFloat {
+        get { return CGFloat(vertexBuffer[ 7])}
+        set {vertexBuffer[ 7] = GLfloat(newValue);needsRefresh=true}
+    }
+    var g2: CGFloat {
+        get { return CGFloat(vertexBuffer[17])}
+        set {vertexBuffer[17] = GLfloat(newValue);needsRefresh=true}
+    }
+    var g3: CGFloat {
+        get { return CGFloat(vertexBuffer[27])}
+        set {vertexBuffer[27] = GLfloat(newValue);needsRefresh=true}
+    }
+    var g4: CGFloat {
+        get { return CGFloat(vertexBuffer[37])}
+        set {vertexBuffer[37] = GLfloat(newValue);needsRefresh=true}
+    }
+    
+    
+    var b1: CGFloat {
+        get { return CGFloat(vertexBuffer[ 8])}
+        set {vertexBuffer[ 8] = GLfloat(newValue);needsRefresh=true}
+    }
+    var b2: CGFloat {
+        get { return CGFloat(vertexBuffer[18])}
+        set {vertexBuffer[18] = GLfloat(newValue);needsRefresh=true}
+    }
+    var b3: CGFloat {
+        get { return CGFloat(vertexBuffer[28])}
+        set {vertexBuffer[28] = GLfloat(newValue);needsRefresh=true}
+    }
+    var b4: CGFloat {
+        get { return CGFloat(vertexBuffer[38])}
+        set {vertexBuffer[38] = GLfloat(newValue);needsRefresh=true}
+    }
+    
+    
+    var a1: CGFloat {
+        get { return CGFloat(vertexBuffer[ 9])}
+        set {vertexBuffer[ 9] = GLfloat(newValue);needsRefresh=true}
+    }
+    var a2: CGFloat {
+        get { return CGFloat(vertexBuffer[19])}
+        set {vertexBuffer[19] = GLfloat(newValue);needsRefresh=true}
+    }
+    var a3: CGFloat {
+        get { return CGFloat(vertexBuffer[29])}
+        set {vertexBuffer[29] = GLfloat(newValue);needsRefresh=true}
+    }
+    var a4: CGFloat {
+        get { return CGFloat(vertexBuffer[39])}
+        set {vertexBuffer[39] = GLfloat(newValue);needsRefresh=true}
+    }
+    
+    
     var startX: CGFloat {
         get { return x1}
         set {

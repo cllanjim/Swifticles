@@ -292,8 +292,8 @@ class BounceEngine {
         
         ShaderProgramMesh.shared.colorSet(r: 0.44, g: 0.44, b: 0.44)
         ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
-        
         ShaderProgramMesh.shared.colorSet(a: 0.35)
+        
         background.draw()
         ShaderProgramMesh.shared.colorSet()
         
