@@ -10,6 +10,22 @@ import Foundation
 
 class ToolRowBottomView: ToolRow
 {
+    
+    @IBInspectable @IBOutlet weak var checkboxGyro: TBCheckBox! {
+        didSet {
+            checkboxGyro.delegate = self
+            checkboxGyro.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var checkbox3D: TBCheckBox! {
+        didSet {
+            checkbox3D.delegate = self
+            checkbox3D.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
+        }
+    }
+
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -27,6 +43,9 @@ class ToolRowBottomView: ToolRow
     override func refreshUI() {
         super.refreshUI()
         
+        
+        checkbox3D.checked = ApplicationController.shared.engine!.stereoscopic
+        checkboxGyro.checked = ApplicationController.shared.engine!.gyro
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -34,7 +53,12 @@ class ToolRowBottomView: ToolRow
     }
     
     override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
-        
+        if checkBox === checkbox3D {
+            ToolActions.setStereoscopicEnabled(checkbox3D.checked)
+        }
+        if checkBox === checkboxGyro {
+            ToolActions.setGyroEnabled(checkboxGyro.checked)
+        }
     }
     
 }

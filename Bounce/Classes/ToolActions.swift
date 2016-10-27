@@ -14,20 +14,21 @@ class ToolActions {
         print("ToolActions.menu()")
         
         if let home = ApplicationController.shared.getStoryboardVC("home_menu") as? HomeMenuViewController {
-            let nc = ApplicationController.shared.navigationController
-            let transition = CATransition()
-            transition.duration = 0.54
-            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            transition.type = kCATransitionReveal
-            nc?.view.layer.add(transition, forKey: nil)
-            ApplicationController.shared.navigationController?.setViewControllers([home], animated: true)
-            ApplicationController.shared.navigationController?.setNavigationBarHidden(false, animated: true)
+            if let nc = ApplicationController.shared.navigationController {
+                let transition = CATransition()
+                transition.duration = 0.54
+                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                transition.type = kCATransitionReveal
+                nc.view.layer.add(transition, forKey: nil)
+                ApplicationController.shared.navigationController?.setViewControllers([home], animated: true)
+                ApplicationController.shared.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
         }
     }
     
     class func addBlob() {
         DispatchQueue.main.async {
-        _ = ApplicationController.shared.engine?.addBlob()
+            _ = ApplicationController.shared.engine?.addBlob()
         }
     }
     
@@ -43,35 +44,45 @@ class ToolActions {
         }
     }
     
-    
-    
     class func setZoomMode(zoomMode zm:Bool) {
         DispatchQueue.main.async {
-        ApplicationController.shared.engine?.zoomMode = zm
+            ApplicationController.shared.engine?.zoomMode = zm
         }
     }
     
     class func bottomMenuToggleExpand() {
         DispatchQueue.main.async {
-        if let menu = ApplicationController.shared.bottomMenu {
-            if menu.expanded {
-                menu.collapse()
-            } else {
-                menu.expand()
+            if let menu = ApplicationController.shared.bottomMenu {
+                if menu.expanded {
+                    menu.collapse()
+                } else {
+                    menu.expand()
+                }
             }
-        }
         }
     }
     
     class func bottomMenuToggleShowing() {
         DispatchQueue.main.async {
-        if let menu = ApplicationController.shared.bottomMenu {
-            if menu.showing {
-                menu.hideAnimated()
-            } else {
-                menu.showAnimated()
+            if let menu = ApplicationController.shared.bottomMenu {
+                if menu.showing {
+                    menu.hideAnimated()
+                } else {
+                    menu.showAnimated()
+                }
             }
         }
+    }
+    
+    class func setStereoscopicEnabled(_ stereoscopicEnabled:Bool) {
+        DispatchQueue.main.async {
+            ApplicationController.shared.engine?.stereoscopic = stereoscopicEnabled
+        }
+    }
+    
+    class func setGyroEnabled(_ gyroEnabled:Bool) {
+        DispatchQueue.main.async {
+            ApplicationController.shared.engine?.gyro = gyroEnabled
         }
     }
     

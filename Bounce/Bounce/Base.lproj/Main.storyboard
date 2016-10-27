@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -419,11 +419,16 @@
                                                             </view>
                                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1M-RB-Eqp" customClass="ToolRowAccessoryBottomView" customModule="Bounce" customModuleProvider="target">
                                                                 <subviews>
-                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceg-Gv-DhX" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                        <frame key="frameInset" minX="476" width="84" height="42"/>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceg-Gv-DhX" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
                                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ceg-Gv-DhX" secondAttribute="height" multiplier="2:1" id="kqx-j5-6ho"/>
+                                                                        </constraints>
+                                                                    </button>
+                                                                    <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxv-oa-bHl" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
+                                                                        <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="Fxv-oa-bHl" secondAttribute="height" multiplier="2:1" id="LnT-BH-7z9"/>
                                                                         </constraints>
                                                                     </button>
                                                                 </subviews>
@@ -431,9 +436,14 @@
                                                                 <constraints>
                                                                     <constraint firstItem="ceg-Gv-DhX" firstAttribute="top" secondItem="W1M-RB-Eqp" secondAttribute="top" id="1u1-f9-8NF"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ceg-Gv-DhX" secondAttribute="trailing" constant="4" id="2r1-GB-q9h"/>
+                                                                    <constraint firstItem="Fxv-oa-bHl" firstAttribute="leading" secondItem="W1M-RB-Eqp" secondAttribute="leading" constant="4" id="RU8-6y-hMN"/>
+                                                                    <constraint firstItem="Fxv-oa-bHl" firstAttribute="height" secondItem="W1M-RB-Eqp" secondAttribute="height" id="dqO-Rc-FZg"/>
+                                                                    <constraint firstItem="Fxv-oa-bHl" firstAttribute="top" secondItem="W1M-RB-Eqp" secondAttribute="top" id="wbT-UJ-fMf"/>
                                                                     <constraint firstItem="ceg-Gv-DhX" firstAttribute="height" secondItem="W1M-RB-Eqp" secondAttribute="height" id="zcG-qQ-zUE"/>
                                                                 </constraints>
                                                                 <connections>
+                                                                    <outlet property="checkbox3D" destination="Fxv-oa-bHl" id="hCF-ex-fGJ"/>
+                                                                    <outlet property="checkboxGyro" destination="ceg-Gv-DhX" id="r8e-gL-HjO"/>
                                                                     <outlet property="heightConstraint" destination="BYJ-Qr-NBa" id="UZn-FX-cBL"/>
                                                                     <outlet property="leftConstraint" destination="ck5-WE-bkW" id="SYr-5g-oPM"/>
                                                                     <outlet property="topConstraint" destination="ba6-Ro-1fZ" id="Bp9-UJ-Wr2"/>
@@ -716,12 +726,24 @@
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgk-Nb-iae">
+                                                        <subviews>
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kkz-wU-Tzf" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
+                                                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="Kkz-wU-Tzf" secondAttribute="height" multiplier="2:1" id="Wc8-p9-P0j"/>
+                                                                </constraints>
+                                                            </button>
+                                                        </subviews>
                                                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Kkz-wU-Tzf" firstAttribute="height" secondItem="Xgk-Nb-iae" secondAttribute="height" id="6Gl-1j-FT4"/>
+                                                            <constraint firstItem="Kkz-wU-Tzf" firstAttribute="leading" secondItem="Xgk-Nb-iae" secondAttribute="leading" constant="4" id="hdP-lz-wIT"/>
+                                                            <constraint firstItem="Kkz-wU-Tzf" firstAttribute="top" secondItem="Xgk-Nb-iae" secondAttribute="top" id="xNo-TM-vuI"/>
+                                                        </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Us-ee-ZBW">
                                                         <subviews>
-                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KHE-Da-MRI" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <frame key="frameInset" minX="21" width="84" height="42"/>
+                                                            <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KHE-Da-MRI" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="KHE-Da-MRI" secondAttribute="height" multiplier="2:1" id="MQ3-lk-T1b"/>
@@ -798,6 +820,8 @@
                                                     <constraint firstAttribute="trailing" secondItem="5Us-ee-ZBW" secondAttribute="trailing" id="wlw-M5-lfR"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="checkbox3D" destination="Kkz-wU-Tzf" id="RvI-tY-bkZ"/>
+                                                    <outlet property="checkboxGyro" destination="KHE-Da-MRI" id="chC-a2-oiE"/>
                                                     <outlet property="leftConstraint" destination="MZh-TY-War" id="GLY-8C-19r"/>
                                                     <outlet property="leftContainer" destination="Xgk-Nb-iae" id="a80-fg-TA8"/>
                                                     <outlet property="leftContainerWidthConstraint" destination="Jh9-R9-cEE" id="053-hQ-oRO"/>

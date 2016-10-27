@@ -48,7 +48,31 @@ class BounceEngine {
     var historyLastActionUndo: Bool = false
     var historyLastActionRedo: Bool = false
     
+    private var _stereoscopic: Bool = true
+    var stereoscopic: Bool {
+        get {
+            return _stereoscopic && sceneMode == .view
+        }
+        set {
+            _stereoscopic = newValue
+        }
+    }
     
+    
+    private var _gyro: Bool = true
+    var gyro: Bool {
+        get {
+            return _gyro// && sceneMode == .view
+        }
+        set {
+            _gyro = newValue
+        }
+    }
+    
+    //gyroEnabled
+    
+    var stereoscopicChannel: Bool = false
+    var stereoscopicSpread: CGFloat = 30.0
     
     
     var blobs = [Blob]()
@@ -294,7 +318,25 @@ class BounceEngine {
         ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
         ShaderProgramMesh.shared.colorSet(a: 0.35)
         
+        
+        
+        //var stereoscopic: Bool = true
+        //var stereoscopicChannel: Bool = false
+        //var stereoscopicSpread: CGFloat = 30.0
+        
+        if stereoscopic {
+            if stereoscopicChannel {
+                background.setColor(0.0, 1.0, 1.0, 1.0)
+            } else {
+                background.setColor(1.0, 0.0, 0.0, 1.0)
+            }
+        } else {
+            background.setColor(1.0, 1.0, 1.0, 1.0)
+        }
+        
+        
         background.draw()
+        
         ShaderProgramMesh.shared.colorSet()
         
         if sceneMode == .view {

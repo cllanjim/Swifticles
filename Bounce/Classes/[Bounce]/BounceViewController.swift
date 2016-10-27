@@ -315,8 +315,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         ShaderProgramMesh.shared.matrixProjectionSet(viewMat)
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         Graphics.textureEnable()
-        engine.draw()
         
+        
+        engine.draw()
         
         ShaderProgramMesh.shared.colorSet(r: 0.2, g: 1.0, b: 0.4, a: 0.8)
         ShaderProgramMesh.shared.pointDraw(point: screenCenter)
@@ -324,7 +325,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         //ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.4, a: 0.8)
         //let f = screenFrame
         //ShaderProgramMesh.shared.rectDraw(x: GLfloat(f.origin.x + 5.0), y: GLfloat(f.origin.y + 5.0), width: GLfloat(f.width - 10.0), height: GLfloat(f.height - 10.0))
-        
         
         ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
     }

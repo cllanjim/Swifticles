@@ -185,6 +185,12 @@ class Blob
     
     func update() {
         
+        if testSin1 > 0.0 {
+            ApplicationController.shared.engine!.stereoscopicChannel = false
+        } else {
+            ApplicationController.shared.engine!.stereoscopicChannel = true
+        }
+        
         var isEditMode = false
         var isViewMode = false
         
@@ -315,7 +321,18 @@ class Blob
             return
         }
         
-        var drawStereo = false
+        var stereo = ApplicationController.shared.engine!.stereoscopic
+        var stereoChannel = ApplicationController.shared.engine!.stereoscopicChannel
+        var stereoSpread: CGFloat = 0.0
+        if stereo {
+            if stereoChannel {
+                stereoSpread = ApplicationController.shared.engine!.stereoscopicSpread
+            } else {
+                stereoSpread = -ApplicationController.shared.engine!.stereoscopicSpread
+            }
+        }
+            
+        
         
         computeIfNeeded()
         
@@ -332,6 +349,11 @@ class Blob
         
         ShaderProgramMesh.shared.colorSet()
         
+        var r:CGFloat = 0.05
+        var g:CGFloat = 0.65
+        var b:CGFloat = 0.05
+        var a:CGFloat = 0.24
+        
         var vertexIndex:Int = 0
         if ApplicationController.shared.engine?.sceneMode == .edit {
             
@@ -340,10 +362,7 @@ class Blob
             Graphics.blendEnable()
             Graphics.blendSetAlpha()
             
-            var r:CGFloat = 0.05
-            var g:CGFloat = 0.65
-            var b:CGFloat = 0.05
-            var a:CGFloat = 0.24
+            
             if selected {
                 r = 0.1;g = 1.0;b = 0.2;a = 0.525
             }
@@ -361,57 +380,36 @@ class Blob
             Graphics.textureBind(texture: sprite.texture)
             Graphics.blendDisable()
             
-            drawStereo = true
+            
+            r = 1.0
+            g = 1.0
+            b = 1.0
+            a = 1.0
+            
+            if stereo {
+                if stereoChannel {
+                    r = 0.0
+                } else {
+                    g = 0.0
+                    b = 0.0
+                }
+            }
+            
             
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 
-                let animX = node.x + testSin1 * 20.0 * node.edgePercent
-                let animY = node.y + testSin2 * 40.0 * node.edgePercent
+                let animX = node.x// + testSin1 * 20.0 * node.edgePercent
+                let animY = node.y// + testSin2 * 40.0 * node.edgePercent
                 let animZ = node.edgePercent * 200.0
                 
                 
-                node.animX = animX
+                node.animX = animX + stereoSpread * node.edgePercent
                 node.animY = animY
                 node.animZ = animZ
                 
-                node.r = 1.0;node.g = 1.0;node.b = 1.0;node.a = 1.0
+                node.r = r;node.g = g;node.b = b;node.a = a
                 node.writeToTriangleListAnimated(&vertexBuffer, index: vertexIndex)
-                
-                
-                
-                if drawStereo {
-                
-                    node.animX = animX - 20.0 * node.edgePercent
-                    node.animY = animY
-                    node.animZ = animZ
-                    
-                    node.r = 1.0;node.g = 0.0;node.b = 0.0;node.a = node.edgePercent
-                    node.writeToTriangleListAnimated(&vertexBufferStereoLeft, index: vertexIndex)
-                    
-                    
-                    
-                    node.animX = animX + 20.0 * node.edgePercent
-                    node.animY = animY
-                    node.animZ = animZ
-                    
-                    node.r = 0.0;node.g = 1.0;node.b = 1.0;node.a = node.edgePercent
-                    node.writeToTriangleListAnimated(&vertexBufferStereoRight, index: vertexIndex)
-                    
-                }
-                
-                
-                
-                //vertexBufferStereoR.append(0.0)
-                //vertexBufferStereoG.append(0.0)
-                //vertexBufferStereoB.append(0.0)
-                
-                
-                //vertexBufferStereoR.append(0.0)
-                //vertexBufferStereoG.append(0.0)
-                //vertexBufferStereoB.append(0.0)
-                
-                
                 
                 vertexIndex += 10
             }
@@ -438,22 +436,6 @@ class Blob
             //Graphics.bufferIndexSetData(bufferIndex: indexBufferSlot, data: &tri.indeces, size: tri.indeces.count)
             
             Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
-            
-            if drawStereo {
-                
-                Graphics.blendEnable()
-                Graphics.blendSetAdditive()
-                
-                //glBlendFunc(GLenum(GL_SRC_ALPHA_SATURATE), GLenum(GL_SRC_COLOR))
-                
-                Graphics.depthClear()
-                Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBufferStereoLeft, size: vertexIndex)
-                Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
-                
-                Graphics.depthClear()
-                Graphics.bufferVertexSetData(bufferIndex: vertexBufferSlot, data: &vertexBufferStereoRight, size: vertexIndex)
-                Graphics.drawElementsTriangle(count:indexBufferCount, offset: 0)
-            }
         }
         
         Graphics.blendEnable()

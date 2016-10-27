@@ -322,6 +322,13 @@ open class Sprite {
         }
     }
     
+    func setColor(_ red: CGFloat, _ green: CGFloat, _ blue: CGFloat, _ alpha: CGFloat) {
+        r1 = red;r2 = red;r3 = red;r4 = red
+        g1 = green;g2 = green;g3 = green;g4 = green
+        b1 = blue;b2 = blue;b3 = blue;b4 = blue
+        a1 = alpha;a2 = alpha;a3 = alpha;a4 = alpha
+    }
+    
     open func draw() {
         
         if needsRefresh {
