@@ -11,6 +11,8 @@ import OpenGLES
 
 class GLViewController: GLKViewController {
     
+    //override var view: GLView!
+    
     var context: EAGLContext? = nil
     
     func update() { }
@@ -30,7 +32,7 @@ class GLViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        preferredFramesPerSecond = 60
+        preferredFramesPerSecond = 30
         context = EAGLContext(api: .openGLES3)
         
         if !(self.context != nil) {
@@ -80,11 +82,6 @@ class GLViewController: GLKViewController {
     }
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
-        
-        if skipDrawCount > 0 {
-            skipDrawCount = skipDrawCount - 1
-            return
-        }
         
         if isRendering == false {
             

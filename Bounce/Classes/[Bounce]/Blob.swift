@@ -184,13 +184,7 @@ class Blob
     }
     
     func update() {
-        
-        if testSin1 > 0.0 {
-            ApplicationController.shared.engine!.stereoscopicChannel = false
-        } else {
-            ApplicationController.shared.engine!.stereoscopicChannel = true
-        }
-        
+
         var isEditMode = false
         var isViewMode = false
         
@@ -399,8 +393,8 @@ class Blob
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 
-                let animX = node.x// + testSin1 * 20.0 * node.edgePercent
-                let animY = node.y// + testSin2 * 40.0 * node.edgePercent
+                let animX = node.x + testSin1 * 20.0 * node.edgePercent
+                let animY = node.y + testSin2 * 40.0 * node.edgePercent
                 let animZ = node.edgePercent * 200.0
                 
                 

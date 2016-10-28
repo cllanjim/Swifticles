@@ -257,23 +257,23 @@ class Graphics {
         return BufferIndex(result);
     }
     
-    class func textureGenerate(width:Int, height:Int, data:UnsafeMutableRawPointer?) -> BufferIndex? {
-        if width > 0 && height > 0 && data != nil {
+    class func textureGenerate(width:Int, height:Int, data: inout UnsafeMutableRawPointer) -> BufferIndex? {
+        if width > 0 && height > 0 {
             let bindIndex = textureGenerate()
-            textureSetData(bufferIndex: bindIndex, width: width, height: height, data: data)
+            textureSetData(bufferIndex: bindIndex, width: width, height: height, data: &data)
             return bindIndex
         }
         return nil
     }
     
-    class func textureSetData(bufferIndex:BufferIndex?, width:Int, height:Int, data:UnsafeMutableRawPointer?) {
-        if let checkIndex = bufferIndex , let checkData = data, width > 0 && height > 0 {
+    class func textureSetData(bufferIndex:BufferIndex?, width:Int, height:Int, data: inout UnsafeMutableRawPointer) {
+        if let checkIndex = bufferIndex, width > 0 && height > 0 {
             textureBind(bufferIndex:checkIndex)
             glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_NEAREST)
             glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_NEAREST)
             glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE)
             glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE)
-            glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(width), GLsizei(height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), checkData)
+            glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(width), GLsizei(height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), data)
         }
     }
     

@@ -11,10 +11,7 @@ import OpenGLES
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLSessionDelegate {
     
     @IBOutlet weak var buttonShowHideAll:RRButton!
-    
     @IBOutlet weak var bottomMenu:BottomMenu!
-    
-    
     
     let engine = BounceEngine()
     
@@ -300,6 +297,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     override func draw() {
+        
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
         let screenMat = Matrix.createOrtho(left: 0.0, right: Float(width), bottom: Float(height), top: 0.0, nearZ: -2048, farZ: 2048)

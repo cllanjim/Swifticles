@@ -10,8 +10,4 @@ import GLKit
 
 extension GLKViewController {
     
-    
-    
-    //override func
-
 }

@@ -183,6 +183,36 @@ class BounceEngine {
     let background = Sprite()
     let backgroundTexture = Texture()
     
+    func setStereoscopicBlendBackground(stereoscopicImage: UIImage?) {
+        if let image = stereoscopicImage {
+            var textureWidth:GLsizei = 0
+            var textureHeight:GLsizei = 0
+            var scaledWidth:GLsizei = 0
+            var scaledHeight:GLsizei = 0
+            if stereoscopicBlendTexture.bindIndex == nil || stereoscopicBlendBackgroundData == nil {
+                stereoscopicBlendBackgroundData = Texture.Load(image: image, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
+                stereoscopicBlendTexture.Load(data: &(stereoscopicBlendBackgroundData!), textureWidth: Int(textureWidth), textureHeight: Int(textureHeight), scaledWidth: Int(scaledWidth), scaledHeight: Int(scaledHeight))
+                stereoscopicBlendBackground.load(texture: stereoscopicBlendTexture)
+                stereoscopicBlendBackground.startX = 0.0
+                stereoscopicBlendBackground.startY = 0.0
+                stereoscopicBlendBackground.endX = ApplicationController.shared.bounce!.screenFrame.size.width
+                stereoscopicBlendBackground.endY = ApplicationController.shared.bounce!.screenFrame.size.height
+            } else {
+                Texture.LoadOver(image: image, data: &(stereoscopicBlendBackgroundData!), textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
+                stereoscopicBlendTexture.loadOver(imageData: &(stereoscopicBlendBackgroundData!))
+            }
+        }
+    }
+    
+    //stereoscopicBlendTex
+    
+    //var stereoscopicImage: UIImage
+    var stereoscopicBlendBackgroundData:UnsafeMutableRawPointer?
+    var stereoscopicBlendTexture = Texture()
+    var stereoscopicBlendBackground = Sprite()
+    
+    
+    
     var touchPoint:CGPoint = CGPoint.zero
     
     var sceneRect:CGRect = CGRect.zero {
@@ -301,13 +331,10 @@ class BounceEngine {
         }
     }
     
-    
     func update() {
-        
         for blob:Blob in blobs {
             if blob.enabled { blob.update() }
         }
-        
     }
     
     func draw() {
@@ -337,6 +364,9 @@ class BounceEngine {
         
         background.draw()
         
+        
+        
+        
         ShaderProgramMesh.shared.colorSet()
         
         if sceneMode == .view {
@@ -359,6 +389,13 @@ class BounceEngine {
         }
         
         ShaderProgramMesh.shared.colorSet()
+        
+        if stereoscopic && stereoscopicChannel == true && stereoscopicBlendBackground.texture != nil {
+            Graphics.blendEnable()
+            Graphics.blendSetAdditive()
+            stereoscopicBlendBackground.draw()
+            Graphics.blendSetAlpha()
+        }
     }
     
     func touchDown(_ touch:inout UITouch, point:CGPoint) {

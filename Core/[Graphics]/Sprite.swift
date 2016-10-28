@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import GLKit
 
-open class Sprite {
+class Sprite {
     
     var texture:Texture? = nil
     
@@ -286,11 +286,11 @@ open class Sprite {
         indexBufferSlot = nil
     }
     
-    open func load(path: String?) {
+    func load(path: String?) {
         load(texture: Texture(path: path))
     }
     
-    open func load(texture t: Texture?) {
+    func load(texture t: Texture?) {
         clear()
         if let newTexture = t , newTexture.bindIndex != nil {// && newTexture.width > 0 && newTexture.height > 0 {
             load(texture: newTexture, rect: CGRect(x: CGFloat(-newTexture.width) / 2.0, y: CGFloat(-newTexture.height) / 2.0, width: CGFloat(newTexture.width), height: CGFloat(newTexture.height)))
@@ -299,7 +299,7 @@ open class Sprite {
         
     }
     
-    open func load(texture t: Texture?, rect:CGRect) {
+    func load(texture t: Texture?, rect:CGRect) {
         
         clear()
         if let newTexture = t , newTexture.bindIndex != nil && newTexture.width > 0 && newTexture.height > 0 {
@@ -329,7 +329,7 @@ open class Sprite {
         a1 = alpha;a2 = alpha;a3 = alpha;a4 = alpha
     }
     
-    open func draw() {
+    func draw() {
         
         if needsRefresh {
             refreshVB()
@@ -355,7 +355,7 @@ open class Sprite {
         Graphics.drawElementsTriangle(count:6, offset: 0)
     }
     
-    open func drawCentered(pos:CGPoint) {
+    func drawCentered(pos:CGPoint) {
         
         var holdMatrix = ShaderProgramMesh.shared.matrixModelViewGet()
         
@@ -368,11 +368,8 @@ open class Sprite {
         ShaderProgramMesh.shared.matrixModelViewSet(holdMatrix)
     }
     
-    open func drawCentered(pos:CGPoint, scale:CGFloat, rot: CGFloat) {
-        
-
+    func drawCentered(pos:CGPoint, scale:CGFloat, rot: CGFloat) {
         draw()
-        
     }
     
     
