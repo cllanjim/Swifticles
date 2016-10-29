@@ -52,6 +52,8 @@ class ToolRowAccessoryBottomEdit: ToolRow
         
         UIUpdateHistory()
         UIUpdateSelection()
+        UIUpdateZoom()
+        UIUpdateSceneMode()
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -59,6 +61,10 @@ class ToolRowAccessoryBottomEdit: ToolRow
     }
     
     override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
+        
+        if checkBox === checkboxZoomMode {
+            ToolActions.setZoomMode(zoomMode: checkboxZoomMode.checked)
+        }
         
     }
     
@@ -72,6 +78,14 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     @IBAction func clickCloneBlob(sender: AnyObject) {
         ToolActions.cloneBlob()
+    }
+    
+    func UIUpdateZoom() {
+        checkboxZoomMode.checked = ApplicationController.shared.zoomMode
+    }
+    
+    func UIUpdateSceneMode() {
+        
     }
     
     func UIUpdateHistory() {
@@ -95,10 +109,12 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     override func handleZoomModeChange() {
         super.handleZoomModeChange()
+        UIUpdateZoom()
     }
     
     override func handleSceneModeChanged() {
         super.handleSceneModeChanged()
+        UIUpdateSceneMode()
     }
     
     override func handleEditModeChanged() {
@@ -113,13 +129,11 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     override func handleBlobSelectionChanged() {
         super.handleBlobSelectionChanged()
-        
         UIUpdateSelection()
     }
     
     override func handleHistoryChanged() {
         super.handleHistoryChanged()
-     
         UIUpdateHistory()
     }
     

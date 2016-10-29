@@ -62,6 +62,32 @@ class ToolActions {
         }
     }
     
+    class func topMenuToggleExpand() {
+        DispatchQueue.main.async {
+            if let menu = ApplicationController.shared.topMenu {
+                if menu.expanded {
+                    menu.collapse()
+                } else {
+                    menu.expand()
+                }
+            }
+        }
+    }
+    
+    class func menusToggleShowing() {
+        DispatchQueue.main.async {
+            if let bottomMenu = ApplicationController.shared.bottomMenu, let topMenu = ApplicationController.shared.topMenu {
+                if bottomMenu.showing || topMenu.showing {
+                    if bottomMenu.showing { bottomMenu.hideAnimated() }
+                    if topMenu.showing { topMenu.hideAnimated() }
+                } else {
+                    if bottomMenu.showing == false { bottomMenu.showAnimated() }
+                    if topMenu.showing == false { topMenu.showAnimated() }
+                }
+            }
+        }
+    }
+    
     class func bottomMenuToggleShowing() {
         DispatchQueue.main.async {
             if let menu = ApplicationController.shared.bottomMenu {

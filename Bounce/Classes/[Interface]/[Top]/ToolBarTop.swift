@@ -8,45 +8,38 @@
 
 import UIKit
 
-class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
+class ToolBarTop: ToolRow {
     
-    @IBOutlet weak var buttonMenu: TBButton!
-    @IBOutlet weak var buttonAddBlob: TBButton!
-    
-    @IBOutlet weak var checkBoxZoom: TBCheckBox! {
+    @IBInspectable @IBOutlet weak var buttonMenu:TBButton! {
         didSet {
-            checkBoxZoom.delegate = self
+            buttonMenu.setImages(path: "tb_btn_menu", pathSelected: "tb_btn_menu_down")
         }
     }
     
-    @IBOutlet weak var segMode: TBSegment!{
+    @IBInspectable @IBOutlet weak var buttonMenuAlt:TBButton! {
         didSet {
-            segMode.segmentCount = 2
-            segMode.delegate = self
+            buttonMenuAlt.setImages(path: "tb_btn_menu", pathSelected: "tb_btn_menu_down")
+        }
+    }    
+    
+    @IBInspectable @IBOutlet weak var buttonExpand:TBButton! {
+        didSet {
+            buttonExpand.setImages(path: "tb_btn_select_next_blob", pathSelected: "tb_btn_select_next_blob_down")
         }
     }
     
-    @IBOutlet weak var segEditMode: TBSegment!{
+    @IBInspectable @IBOutlet weak var buttonExpandAlt:TBButton! {
         didSet {
-            segEditMode.segmentCount = 2
-            segEditMode.delegate = self
+            buttonExpand.setImages(path: "tb_btn_select_next_blob", pathSelected: "tb_btn_select_next_blob_down")
         }
     }
     
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        setUp()
-    }
-    
-    internal func setUp() {
-        
+    override func setUp() {
+        super.setUp()
+        if ApplicationController.shared.isSceneLandscape {
+            buttonExpandAlt.isHidden = true
+            buttonMenuAlt.isHidden = true
+        }
     }
     
     @IBAction func clickMenu(_ sender: AnyObject) {
@@ -54,32 +47,16 @@ class ToolBarTop: UIView, TBSegmentDelegate, TBCheckBoxDelegate {
         ToolActions.menu()
     }
     
-    @IBAction func clickAddBlob(_ sender: AnyObject) {
-        
-        ToolActions.addBlob()
+    @IBAction func clickExpand(sender: AnyObject) {
+        ToolActions.topMenuToggleExpand()
     }
     
-    func segmentSelected(segment:TBSegment, index: Int) {
-        print("segmentSelected[\(segment)]\nsegIndex[\(index)]")
+    override func segmentSelected(segment:TBSegment, index: Int) {
         
-        if segment === segEditMode {
-            
-            if segEditMode.selectedIndex == 0 {
-                ApplicationController.shared.engine?.editMode = .affine
-            } else {
-                ApplicationController.shared.engine?.editMode = .shape
-            }
-            
-        }
         
     }
     
-    func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
-        
-        if checkBox === checkBoxZoom {
-            
-            ToolActions.setZoomMode(zoomMode: checked)
-        }
+    override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
     }
     

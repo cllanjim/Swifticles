@@ -48,7 +48,7 @@ class BounceEngine {
     var historyLastActionUndo: Bool = false
     var historyLastActionRedo: Bool = false
     
-    private var _stereoscopic: Bool = true
+    private var _stereoscopic: Bool = false
     var stereoscopic: Bool {
         get {
             return _stereoscopic && sceneMode == .view
@@ -57,6 +57,8 @@ class BounceEngine {
             _stereoscopic = newValue
         }
     }
+    
+    var stereoscopicHD: Bool = false
     
     
     private var _gyro: Bool = true

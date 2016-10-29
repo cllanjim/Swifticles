@@ -63,7 +63,32 @@ class ToolBarBottom : ToolRow
         super.setUp()
     }
     
-    func updateHistory() {
+    override func refreshUI() {
+        super.refreshUI()
+        
+        if ApplicationController.shared.sceneMode == .view {
+            segMode.selectedIndex = 1
+        } else {
+            segMode.selectedIndex = 0
+        }
+        
+        UIUpdateHistory()
+    }
+    
+    
+    @IBAction func clickExpand(sender: AnyObject) {
+        ToolActions.bottomMenuToggleExpand()
+    }
+    
+    @IBAction func clickUndo(sender: AnyObject) {
+        ToolActions.undo()
+    }
+    
+    @IBAction func clickRedo(sender: AnyObject) {
+        ToolActions.redo()
+    }
+    
+    func UIUpdateHistory() {
         
         if ApplicationController.shared.canUndo() {
             buttonUndo.isEnabled = true
@@ -80,29 +105,12 @@ class ToolBarBottom : ToolRow
         }
     }
     
-    override func refreshUI() {
-        super.refreshUI()
+    func UIUpdateZoom() {
         
-        if ApplicationController.shared.sceneMode == .view {
-            segMode.selectedIndex = 1
-        } else {
-            segMode.selectedIndex = 0
-        }
+    }
+    
+    func UIUpdateSceneMode() {
         
-        updateHistory()
-    }
-    
-    
-    @IBAction func clickExpand(sender: AnyObject) {
-        ToolActions.bottomMenuToggleExpand()
-    }
-    
-    @IBAction func clickUndo(sender: AnyObject) {
-        ToolActions.undo()
-    }
-    
-    @IBAction func clickRedo(sender: AnyObject) {
-        ToolActions.redo()
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -149,8 +157,7 @@ class ToolBarBottom : ToolRow
     
     override func handleHistoryChanged() {
         super.handleHistoryChanged()
-        
-        updateHistory()
+        UIUpdateHistory()
     }
     
 }

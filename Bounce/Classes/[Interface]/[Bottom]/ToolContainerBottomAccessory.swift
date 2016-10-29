@@ -42,16 +42,7 @@ class ToolContainerBottomAccessory : ToolRowContainer
     }
     
     override func setUp() {
-        
         super.setUp()
-        
-        //addObserver(selector: #selector(handleSceneReady), notification: .SceneReady)
-        //addObserver(selector: #selector(handleZoomModeChange), notification: .ZoomModeChanged)
-        //addObserver(selector: #selector(handleSceneModeChanged), notification: .SceneModeChanged)
-        //addObserver(selector: #selector(handleEditModeChanged), notification: .EditModeChanged)
-        //addObserver(selector: #selector(handleViewModeChanged), notification: .ViewModeChanged)
-        //addObserver(selector: #selector(handleBlobSelectionChanged), notification: .BlobSelectionChanged)
-        
     }
     
     deinit { }

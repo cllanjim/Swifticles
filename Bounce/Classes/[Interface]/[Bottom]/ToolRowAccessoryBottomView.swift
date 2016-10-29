@@ -35,6 +35,27 @@ class ToolRowAccessoryBottomView: ToolRow
         
         checkbox3D.checked = ApplicationController.shared.engine!.stereoscopic
         checkboxGyro.checked = ApplicationController.shared.engine!.gyro
+        
+        UIUpdateHistory()
+        UIUpdateSelection()
+        UIUpdateZoom()
+        UIUpdateSceneMode()
+    }
+    
+    func UIUpdateSelection() {
+        
+    }
+    
+    func UIUpdateHistory() {
+        
+    }
+    
+    func UIUpdateZoom() {
+        
+    }
+    
+    func UIUpdateSceneMode() {
+        
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {
@@ -48,6 +69,42 @@ class ToolRowAccessoryBottomView: ToolRow
         if checkBox === checkboxGyro {
             ToolActions.setGyroEnabled(checkboxGyro.checked)
         }
+    }
+    
+    
+    override func handleSceneReady() {
+        super.handleSceneReady()
+        
+    }
+    
+    override func handleZoomModeChange() {
+        super.handleZoomModeChange()
+        UIUpdateZoom()
+    }
+    
+    override func handleSceneModeChanged() {
+        super.handleSceneModeChanged()
+        UIUpdateSceneMode()
+    }
+    
+    override func handleEditModeChanged() {
+        super.handleEditModeChanged()
+        
+    }
+    
+    override func handleViewModeChanged() {
+        super.handleViewModeChanged()
+        
+    }
+    
+    override func handleBlobSelectionChanged() {
+        super.handleBlobSelectionChanged()
+        UIUpdateSelection()
+    }
+    
+    override func handleHistoryChanged() {
+        super.handleHistoryChanged()
+        UIUpdateHistory()
     }
     
 }

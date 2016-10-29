@@ -564,8 +564,8 @@
 		C21E40881DB8472500EB6A4F /* [Top] */ = {
 			isa = PBXGroup;
 			children = (
-				C21E40891DB8472500EB6A4F /* ToolBarTop.swift */,
 				C24AA05B1DC03C6600B751B9 /* TopMenu.swift */,
+				C21E40891DB8472500EB6A4F /* ToolBarTop.swift */,
 				C24AA05D1DC03C7A00B751B9 /* ToolContainerTopMain.swift */,
 				C24AA05F1DC03C8E00B751B9 /* ToolContainerTopAccessory.swift */,
 				C24AA0611DC03D0F00B751B9 /* ToolRowTopEdit.swift */,

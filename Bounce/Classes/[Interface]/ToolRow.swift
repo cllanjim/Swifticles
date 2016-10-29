@@ -20,24 +20,11 @@ class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
     
     //L/R Containers which are only visible in landscape mode.
     //(In portrait mode, their buttons exist in extra row)
-    @IBOutlet weak var leftContainer: UIView? {
-        didSet {
-            leftContainer?.backgroundColor = UIColor.clear
-        }
-    }
-    
-    @IBOutlet weak var rightContainer: UIView? {
-        didSet {
-            rightContainer?.backgroundColor = UIColor.clear
-        }
-    }
+    @IBOutlet weak var leftContainer: UIView?
+    @IBOutlet weak var rightContainer: UIView?
     
     //Usually centered between the left and right containers.
-    @IBOutlet weak var mainContainer: UIView? {
-        didSet {
-            mainContainer?.backgroundColor = UIColor.clear
-        }
-    }
+    @IBOutlet weak var mainContainer: UIView?
     
     
     @IBOutlet weak var leftContainerWidthConstraint: NSLayoutConstraint?

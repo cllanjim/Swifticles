@@ -79,6 +79,8 @@ class ToolRowBottomEdit: ToolRow
         
         UIUpdateHistory()
         UIUpdateSelection()
+        UIUpdateZoom()
+        UIUpdateSceneMode()
     }
     
     @IBAction func clickUndo(sender: AnyObject) {
@@ -111,7 +113,9 @@ class ToolRowBottomEdit: ToolRow
     }
     
     override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
-        
+        if checkBox === checkboxZoomMode {
+            ToolActions.setZoomMode(zoomMode: checkboxZoomMode.checked)
+        }
     }
 
     func UIUpdateHistory() {
@@ -139,6 +143,14 @@ class ToolRowBottomEdit: ToolRow
         }
     }
     
+    func UIUpdateZoom() {
+        checkboxZoomMode.checked = ApplicationController.shared.zoomMode
+    }
+    
+    func UIUpdateSceneMode() {
+        
+    }
+    
     override func handleSceneReady() {
         super.handleSceneReady()
         
@@ -146,10 +158,12 @@ class ToolRowBottomEdit: ToolRow
     
     override func handleZoomModeChange() {
         super.handleZoomModeChange()
+        UIUpdateZoom()
     }
     
     override func handleSceneModeChanged() {
         super.handleSceneModeChanged()
+        UIUpdateSceneMode()
     }
     
     override func handleEditModeChanged() {

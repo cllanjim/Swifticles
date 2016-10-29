@@ -12,6 +12,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     @IBOutlet weak var buttonShowHideAll:RRButton!
     @IBOutlet weak var bottomMenu:BottomMenu!
+    @IBOutlet weak var topMenu:TopMenu!
     
     let engine = BounceEngine()
     
@@ -32,14 +33,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     var panRecognizer:UIPanGestureRecognizer!
     var pinchRecognizer:UIPinchGestureRecognizer!
-    var rotRecognizer:UIRotationGestureRecognizer!;
-    
-    
-    
+    var rotRecognizer:UIRotationGestureRecognizer!
+    var doubleTapRecognizer:UITapGestureRecognizer!
     
     var controlPoint = Sprite()
     var controlPointSelected = Sprite()
-    
     
     var panRecognizerTouchCount:Int = 0
     var pinchRecognizerTouchCount:Int = 0
@@ -188,10 +186,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         
         
-        if bottomMenu != nil {
-            bottomMenu!.setUp()
-        }
-        
+        bottomMenu?.setUp()
+        topMenu?.setUp()
         
     }
     
@@ -255,6 +251,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         rotRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(rotRecognizer)
         
+        doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap(_:)))
+        doubleTapRecognizer.delegate = self
+        doubleTapRecognizer.cancelsTouchesInView = false
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        view.addGestureRecognizer(doubleTapRecognizer)
+        
         controlPoint.load(path: "control_point")
         controlPointSelected.load(path: "control_point_selected")
     }
@@ -270,30 +272,21 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         }
         engine.update()
         
-        
         if screenAnim {
             screenAnimTick += 1
             if screenAnimTick >= screenAnimTime {
                 screenTranslation = CGPoint(x: screenAnimEndTranslation.x, y: screenAnimEndTranslation.y)
                 screenScale = screenAnimEndScale
                 screenAnim = false
+                ApplicationController.shared.removeActionBlocker()
             } else {
                 var percent = CGFloat(screenAnimTick) / CGFloat(screenAnimTime)
                 percent = sin(percent * Math.PI_2)
-                
                 screenTranslation.x = screenAnimStartTranslation.x + (screenAnimEndTranslation.x - screenAnimStartTranslation.x) * percent
                 screenTranslation.y = screenAnimStartTranslation.y + (screenAnimEndTranslation.y - screenAnimStartTranslation.y) * percent
                 screenScale = screenAnimStartScale + (screenAnimEndScale - screenAnimStartScale) * percent
             }
         }
-        
-        // = screenScale
-        //screenAnimStartTranslation = CGPoint(x: screenTranslation.x, y: screenTranslation.y)
-        
-        //screenAnimEndScale = scale
-        //screenAnimEndTranslation = CGPoint(x: translate.x, y: translate.y)
-        
-        
     }
     
     override func draw() {
@@ -430,6 +423,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
                 })
             */
             
+            
+            ApplicationController.shared.addActionBlocker()
             
             screenAnim = true
             screenAnimTick = 0
@@ -661,6 +656,13 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         }
     }
     
+    func didDoubleTapMainThread(_ gr:UITapGestureRecognizer) -> Void {
+        
+        if ApplicationController.shared.allowInterfaceAction() {
+            ToolActions.menusToggleShowing()
+        }
+    }
+    
     func cancelAllGestureRecognizers() {
         zoomGestureCancelTimer = 3
         panRecognizer.isEnabled = false
@@ -679,6 +681,13 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     func didRotate(_ gr:UIRotationGestureRecognizer) -> Void {
         self.performSelector(onMainThread: #selector(didRotateMainThread(_:)), with: gr, waitUntilDone: true, modes: [RunLoopMode.commonModes.rawValue])
     }
+    
+    func didDoubleTap(_ gr:UITapGestureRecognizer) -> Void {
+        self.performSelector(onMainThread: #selector(didDoubleTapMainThread(_:)), with: gr, waitUntilDone: true, modes: [RunLoopMode.commonModes.rawValue])
+    }
+    
+    
+    
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -729,7 +738,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         }
     }
     
-    
     //embed_bottom_menu
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -765,40 +773,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     
     func saveScene(filePath:String?) {
-        
         saveScene(filePath: filePath, scene: engine.scene)
-        
-        /*
-        print("************\nBounceEngine.save(\(filePath))")
-        
-        if let path = filePath , path.characters.count > 0 {
-            var info = [String:AnyObject]()
-            
-            info["scene"] = engine.scene.save() as AnyObject?
-            info["engine"] = engine.save() as AnyObject?
-            
-            do {
-                var fileData:Data?
-                try fileData = JSONSerialization.data(withJSONObject: info, options: .prettyPrinted)
-                if fileData != nil {
-                    FileUtils.saveData(data: &fileData, filePath: FileUtils.getDocsPath(filePath: path))
-                }
-            } catch {
-                print("Unable to save Data [\(filePath)]")
-            }
-        }
-        */
     }
-    
     
     @IBAction func clickShowHideAll(_ sender: RRButton) {
-        //ToolActions.bottomMenuToggleExpand()
-        
-        ToolActions.bottomMenuToggleShowing()
-        
-        
+        ToolActions.menusToggleShowing()
     }
-    
     
     func saveRecentScene() {
         let scene = engine.scene.clone
@@ -809,8 +789,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func saveScene(filePath: String?, scene: BounceScene) {
-        print("************\nBounceEngine.save(\(filePath))")
-        
         if let path = filePath , path.characters.count > 0 {
             var info = [String:AnyObject]()
             
@@ -830,10 +808,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func loadScene(filePath:String?) {
-        print("************\nBounceEngine.load()")
-        
         if let fileData = FileUtils.loadData(filePath) {
-            
             var parsedInfo:[String:AnyObject]?
             do {
                 var jsonData:Any?
@@ -853,9 +828,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
                         scene.image = UIImage(contentsOfFile: imagePath)
                     }
                 }
-                
                 setUp(scene: scene, appFrame: appFrame)
-                
                 if let engineInfo = info["engine"] as? [String:AnyObject] {
                     engine.load(info: engineInfo)
                 }

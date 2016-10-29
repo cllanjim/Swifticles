@@ -234,6 +234,10 @@ class ApplicationController
         return bounce?.bottomMenu
     }
     
+    var topMenu:TopMenu? {
+        return bounce?.topMenu
+    }
+    
     func preloadScene(withFile filePath: String) {
         //Basically, just preload the file and figure out if it's landscape or portrait.
         if let fileData = FileUtils.loadData(filePath) {
