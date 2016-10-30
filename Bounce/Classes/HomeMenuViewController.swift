@@ -22,10 +22,32 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var importImage: UIImage?
     
+    
+    var tiltOffsetMax: CGFloat = 40.0
+    var tiltOffset = CGPoint.zero
+    var tiltResetAnimation = false
+    var tiltResetTime: Int = 30
+    var tiltResetTimer: Int = 0
+    var tiltResetStartOffset = CGPoint.zero
+    var tiltResetEndOffset = CGPoint.zero
+    
+    
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         ApplicationController.shared.navigationController?.setNavigationBarHidden(true, animated: true)
         
+        AppDelegate.root.addUpdateObject(self)
+        
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppDelegate.root.removeUpdateObject(self)
     }
     
     override func viewDidLoad() {
@@ -40,6 +62,49 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
         AppDelegate.root.present(imagePicker, animated: true, completion: {})
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        tiltResetAnimation = true
+        tiltResetTimer = 0
+        tiltResetStartOffset = tiltOffset
+        tiltResetEndOffset = CGPoint.zero
+    }
+    
+    func update() {
+        
+        if tiltResetAnimation {
+            
+            tiltResetTimer += 1
+            if tiltResetTimer >= tiltResetTime {
+                
+                tiltResetAnimation = false
+                tiltOffset = tiltResetEndOffset
+                
+            } else {
+                let percent = CGFloat(tiltResetTimer) / CGFloat(tiltResetTime)
+                tiltOffset.x = tiltResetStartOffset.x + (tiltResetEndOffset.x - tiltResetStartOffset.x) * percent
+                tiltOffset.y = tiltResetStartOffset.y + (tiltResetEndOffset.y - tiltResetStartOffset.y) * percent
+            }
+            
+            
+            
+        } else {
+            let dir = ApplicationController.shared.gyroDir
+            if fabs(dir.x) > 0.1 || fabs(dir.y) > 0.1 {
+                tiltOffset.x = (tiltOffset.x + dir.x * 1.21) * 0.985
+                tiltOffset.y = (tiltOffset.y + dir.y * 1.21) * 0.985
+            }
+        }
+        
+        if tiltOffset.x > tiltOffsetMax { tiltOffset.x = tiltOffsetMax }
+        if tiltOffset.x < -tiltOffsetMax { tiltOffset.x = -tiltOffsetMax }
+        if tiltOffset.y > tiltOffsetMax { tiltOffset.y = tiltOffsetMax }
+        if tiltOffset.y < -tiltOffsetMax { tiltOffset.y = -tiltOffsetMax }
+        
+        var t = CGAffineTransform.identity
+        t = t.translatedBy(x: tiltOffset.x, y: tiltOffset.y)
+        imageViewBackground.transform = t
     }
     
     func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
@@ -81,9 +146,7 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
         
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "import_image" {

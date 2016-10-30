@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
-    <device id="retina4_0" orientation="landscape">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="brJ-ai-UTe">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -20,17 +17,13 @@
                         <viewControllerLayoutGuide type="bottom" id="l55-up-fKj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QJR-Vx-Ban">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqn-WP-CYZ">
-                                <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
-                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_modal_ipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqn-WP-CYZ"/>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5SI-QI-Vw9">
-                                <rect key="frame" x="193" y="69" width="182" height="182"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTg-Pp-k0U" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="8" width="166" height="33"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Build One">
@@ -41,7 +34,6 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkZ-1b-r2s" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="49" width="81.5" height="33"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Load"/>
@@ -50,7 +42,6 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ia-Z6-wwE" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="92.5" y="90" width="81.5" height="33"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Import Test">
@@ -61,13 +52,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIH-FF-IOa" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="90" width="81.5" height="33"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Cloud Test"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bQ-dm-Sot" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="92.5" y="49" width="81.5" height="33"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Continue">
@@ -78,7 +67,6 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTO-3M-ndH" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="131" width="166" height="59"/>
                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <state key="normal" title="Upgrade">
@@ -137,7 +125,6 @@
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avy-g3-bzv" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="52" width="49" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="WW0-AK-E5S"/>
@@ -150,7 +137,6 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taE-g4-sOD" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="87" width="49" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="131-5Z-vea"/>
@@ -163,7 +149,6 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2c-mG-end" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="122" width="49" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="69A-yc-eA7"/>
@@ -176,7 +161,6 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRJ-Tc-W5X" customClass="HMButton" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="157" width="49" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="CGd-Da-BhC"/>
@@ -250,6 +234,7 @@
                         <outlet property="buttonUpgrade" destination="KTO-3M-ndH" id="KAs-Nf-D5c"/>
                         <outlet property="cloudTest" destination="JIH-FF-IOa" id="3UB-JQ-Qg4"/>
                         <outlet property="glTest" destination="1Ia-Z6-wwE" id="foK-b2-orv"/>
+                        <outlet property="imageViewBackground" destination="Aqn-WP-CYZ" id="9wB-VO-sg0"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="test_bounce" id="8KK-ae-JtT"/>
                         <segue destination="jAg-pi-FN2" kind="show" identifier="import_image" id="fAv-NO-UeZ"/>
                     </connections>
@@ -267,11 +252,10 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="BounceView" customModule="Bounce" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bje-Xq-RgT" customClass="RRButton" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="28" y="133" width="54" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="54" id="2sQ-eM-IdL"/>
                                     <constraint firstAttribute="height" constant="54" id="ecr-pm-RvJ"/>
@@ -282,37 +266,29 @@
                                 </connections>
                             </button>
                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikJ-du-UKY" customClass="BottomMenu" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="155" width="568" height="165"/>
                                 <subviews>
                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBh-4I-Pr7">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="123"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVU-aK-WgD" customClass="ToolRow" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                         <subviews>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoL-NO-q1m" customClass="ToolContainerBottomAccessory" customModule="Bounce" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAa-uQ-qbo" customClass="ToolRowAccessoryBottomEdit" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QBj-IO-0vX" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="480" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="QBj-IO-0vX" secondAttribute="height" multiplier="2:1" id="9Bl-9j-CXq"/>
                                                                 </constraints>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2g-QN-h9W" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="434" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.42175313990000002" green="0.36909152709999998" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="v2g-QN-h9W" secondAttribute="height" multiplier="1:1" id="MO6-73-cm9"/>
                                                                 </constraints>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-cS-xhV" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="88" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="a0I-cS-xhV" secondAttribute="height" multiplier="1:1" id="XxN-3d-hMA"/>
@@ -322,7 +298,6 @@
                                                                 </connections>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVT-C1-Zuy" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="46" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="GVT-C1-Zuy" secondAttribute="height" multiplier="1:1" id="JVl-6j-u7l"/>
@@ -332,7 +307,6 @@
                                                                 </connections>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fa-ir-xwX" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="6Fa-ir-xwX" secondAttribute="height" multiplier="1:1" id="guC-gk-87S"/>
@@ -373,17 +347,14 @@
                                                         </connections>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1M-RB-Eqp" customClass="ToolRowAccessoryBottomView" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceg-Gv-DhX" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="480" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="ceg-Gv-DhX" secondAttribute="height" multiplier="2:1" id="kqx-j5-6ho"/>
                                                                 </constraints>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxv-oa-bHl" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Fxv-oa-bHl" secondAttribute="height" multiplier="2:1" id="LnT-BH-7z9"/>
@@ -409,10 +380,8 @@
                                                         </connections>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XuX-P0-NaW" customClass="ToolRowAccessoryBottomZoom" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bF-3b-P9Z" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="4bF-3b-P9Z" secondAttribute="height" multiplier="2:1" id="fPg-Ky-x68"/>
@@ -465,36 +434,29 @@
                                         </constraints>
                                     </view>
                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpv-rW-iyl" customClass="ToolContainerBottomMain" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="42" width="568" height="42"/>
                                         <subviews>
                                             <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="EMe-KF-Lde">
-                                                <rect key="frame" x="0.0" y="-6" width="568" height="6"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="6" id="dA2-rX-dgj"/>
                                                 </constraints>
                                             </imageView>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0s-W5-s5Y" customClass="ToolRowBottomZoom" customModule="Bounce" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDU-hr-6r3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="227" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ea-DF-WsT" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="135" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="2ea-DF-WsT" secondAttribute="height" multiplier="1:1" id="4Tn-kp-IuS"/>
                                                                 </constraints>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGB-VI-F9f" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="181" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="nGB-VI-F9f" secondAttribute="height" multiplier="1:1" id="Aev-4d-uTm"/>
                                                                 </constraints>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoC-6A-dPY" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="qoC-6A-dPY" secondAttribute="height" multiplier="2:1" id="NEo-Gz-eYX"/>
@@ -515,11 +477,8 @@
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OnV-0X-UVW">
-                                                        <rect key="frame" x="227" y="0.0" width="341" height="42"/>
                                                         <subviews>
-                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qH9-sa-PiP">
-                                                                <rect key="frame" x="6" y="0.0" width="329" height="43"/>
-                                                            </slider>
+                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qH9-sa-PiP"/>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.62612030080000003" green="1" blue="0.4468788447" alpha="0.80238970590000003" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -550,13 +509,10 @@
                                                 </connections>
                                             </view>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-yM-i5p" customClass="ToolRowBottomEdit" customModule="Bounce" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kY-wh-HC5">
-                                                        <rect key="frame" x="113.5" y="0.0" width="341" height="42"/>
                                                         <subviews>
                                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJr-MW-wCv" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="50" y="0.0" width="241" height="42"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
@@ -568,10 +524,8 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ql-Yn-Cs1">
-                                                                <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                                 <subviews>
                                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUC-8A-ZWW" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
                                                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                         <connections>
                                                                             <action selector="clickUndoWithSender:" destination="vSP-yM-i5p" eventType="touchUpInside" id="Ka4-mW-13R"/>
@@ -588,7 +542,6 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4I-IA-SIn">
-                                                                <rect key="frame" x="295" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="J4I-IA-SIn" secondAttribute="height" multiplier="1:1" id="fzc-II-B3z"/>
@@ -610,17 +563,14 @@
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IcJ-BC-Jcn">
-                                                        <rect key="frame" x="454.5" y="0.0" width="113.5" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KzB-SP-cP7" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="25.5" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="KzB-SP-cP7" secondAttribute="height" multiplier="2:1" id="ovY-88-q5f"/>
                                                                 </constraints>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TyP-CZ-2bU" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="-20.5" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.42175313990000002" green="0.36909152709999998" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="TyP-CZ-2bU" secondAttribute="height" multiplier="1:1" id="7Te-DZ-AlU"/>
@@ -638,10 +588,8 @@
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pQ-QD-P53">
-                                                        <rect key="frame" x="0.0" y="0.0" width="113.5" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCp-bJ-MEb" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="46" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="1" green="0.9490276813569003" blue="0.18659335441726066" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="dCp-bJ-MEb" secondAttribute="height" multiplier="1:1" id="2G1-qZ-J1Q"/>
@@ -651,7 +599,6 @@
                                                                 </connections>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9p-t9-EOi" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.11264999317804136" green="0.0" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="b9p-t9-EOi" secondAttribute="height" multiplier="1:1" id="7xw-V1-bo8"/>
@@ -661,7 +608,6 @@
                                                                 </connections>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8f-FH-Nsf" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="88" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.42175313988862528" green="0.36909152706053761" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="d8f-FH-Nsf" secondAttribute="height" multiplier="1:1" id="Wwv-fo-Erx"/>
@@ -718,13 +664,10 @@
                                                 </connections>
                                             </view>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcn-Ou-uJo" customClass="ToolRowBottomView" customModule="Bounce" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgk-Nb-iae">
-                                                        <rect key="frame" x="0.0" y="0.0" width="113.5" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kkz-wU-Tzf" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Kkz-wU-Tzf" secondAttribute="height" multiplier="2:1" id="Wc8-p9-P0j"/>
@@ -739,10 +682,8 @@
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Us-ee-ZBW">
-                                                        <rect key="frame" x="454.5" y="0.0" width="113.5" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KHE-Da-MRI" customClass="TBCheckBox" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="25.5" y="0.0" width="84" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="KHE-Da-MRI" secondAttribute="height" multiplier="2:1" id="MQ3-lk-T1b"/>
@@ -757,10 +698,8 @@
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMQ-uY-8he">
-                                                        <rect key="frame" x="113.5" y="0.0" width="341" height="42"/>
                                                         <subviews>
                                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zm4-3r-A9y" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="50" y="0.0" width="241" height="42"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
@@ -772,7 +711,6 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Omq-fy-zmw" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Omq-fy-zmw" secondAttribute="height" multiplier="1:1" id="mI0-2j-0ox"/>
@@ -782,7 +720,6 @@
                                                                 </connections>
                                                             </button>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEQ-vb-qzo" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="295" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="UEQ-vb-qzo" secondAttribute="height" multiplier="1:1" id="T3a-TS-LQk"/>
@@ -859,19 +796,15 @@
                                         </connections>
                                     </view>
                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEj-da-9Od" customClass="ToolBarBottom" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="123" width="568" height="42"/>
                                         <subviews>
                                             <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="GnO-I8-Uu7">
-                                                <rect key="frame" x="0.0" y="-6" width="568" height="6"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="6" id="4SO-8r-SqU"/>
                                                 </constraints>
                                             </imageView>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2to-NQ-iPn">
-                                                <rect key="frame" x="454.5" y="0.0" width="113.5" height="42"/>
                                                 <subviews>
                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVS-0y-W6x" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="67.5" y="0.0" width="42" height="42"/>
                                                         <color key="backgroundColor" red="1" green="0.58354654784326865" blue="0.22551456858908181" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="vVS-0y-W6x" secondAttribute="height" multiplier="1:1" id="pRV-UA-B9P"/>
@@ -889,10 +822,8 @@
                                                 </constraints>
                                             </view>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFA-cv-6rY">
-                                                <rect key="frame" x="0.0" y="0.0" width="113.5" height="42"/>
                                                 <subviews>
                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKl-RE-HdA" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                         <color key="backgroundColor" red="0.52019279887905967" green="0.19224096548876146" blue="1" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="WKl-RE-HdA" secondAttribute="height" multiplier="1:1" id="2dh-bL-B53"/>
@@ -902,7 +833,6 @@
                                                         </connections>
                                                     </button>
                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7L-um-oRR" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="46" y="0.0" width="42" height="42"/>
                                                         <color key="backgroundColor" red="1" green="0.2605971146055609" blue="0.27585627094671628" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="N7L-um-oRR" secondAttribute="height" multiplier="1:1" id="guZ-W6-4z6"/>
@@ -923,10 +853,8 @@
                                                 </constraints>
                                             </view>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ThE-W9-q1v">
-                                                <rect key="frame" x="113.5" y="0.0" width="341" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzJ-BY-eRf" customClass="TBSegment" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="86" y="0.0" width="170.5" height="42"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="segmentCount">
@@ -938,10 +866,8 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jX8-OT-bdf">
-                                                        <rect key="frame" x="256.5" y="0.0" width="84.5" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1H-4D-jjM" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="39" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="M1H-4D-jjM" secondAttribute="height" multiplier="1:1" id="VUs-gP-zTy"/>
@@ -959,10 +885,8 @@
                                                         </constraints>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvL-K7-hY1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="86" height="42"/>
                                                         <subviews>
                                                             <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPd-Ly-UJR" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                                <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="tPd-Ly-UJR" secondAttribute="height" multiplier="1:1" id="IBo-LF-hHs"/>
@@ -1031,7 +955,6 @@
                                         </connections>
                                     </view>
                                     <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_top" translatesAutoresizingMaskIntoConstraints="NO" id="YY8-E9-ldf">
-                                        <rect key="frame" x="0.0" y="-6" width="568" height="6"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" id="FsN-MZ-NYP"/>
                                         </constraints>
@@ -1076,34 +999,26 @@
                                 </connections>
                             </view>
                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-Ow-AvA" customClass="TopMenu" customModule="Bounce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="568" height="165"/>
                                 <subviews>
                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ge9-pN-hPf">
-                                        <rect key="frame" x="0.0" y="42" width="568" height="123"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bJB-Hc-o4d" customClass="ToolRow" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="123" width="568" height="42"/>
                                         <subviews>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycX-zv-evx" customClass="ToolContainerTopAccessory" customModule="Bounce" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PT8-ic-GMp" customClass="ToolRowAccessoryTopView" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bKt-Hd-evs">
-                                                                <rect key="frame" x="8" y="9" width="72" height="17"/>
                                                                 <color key="backgroundColor" red="0.019367087509999999" green="1" blue="0.13408348310000001" alpha="0.47710129309999999" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="72" id="w4j-Ow-up1"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYI-R2-aoZ">
-                                                                <rect key="frame" x="92" y="4" width="398" height="34"/>
                                                                 <color key="backgroundColor" red="1" green="0.58431372550000005" blue="0.22352941179999999" alpha="0.51179956900000001" colorSpace="calibratedRGB"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J16-3j-aoT">
-                                                                <rect key="frame" x="502" y="0.0" width="66" height="42"/>
                                                                 <color key="backgroundColor" red="0.76213515389999997" green="0.14268628729999999" blue="1" alpha="0.47710129309999999" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="66" id="Hh4-lA-NdC"/>
@@ -1129,7 +1044,6 @@
                                                         </connections>
                                                     </view>
                                                     <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Qh-Bc-lvH" customClass="ToolRowAccessoryTopEdit" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="736" height="42"/>
                                                         <color key="backgroundColor" red="0.47087771687878155" green="1" blue="0.34135621311768083" alpha="0.5" colorSpace="calibratedRGB"/>
                                                         <connections>
                                                             <outlet property="leftConstraint" destination="z4F-Ni-Lgm" id="DSP-ge-8wg"/>
@@ -1167,21 +1081,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PlQ-X7-j1u" customClass="ToolContainerTopMain" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="81" width="568" height="42"/>
                                         <subviews>
                                             <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsI-aU-HIV" customClass="ToolRowTopView" customModule="Bounce" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqx-dH-HrH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="113.5" height="42"/>
                                                         <color key="backgroundColor" red="0.019367087511157122" green="1" blue="0.13408348311788609" alpha="0.47710129310344829" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3X7-Ca-aDI">
-                                                        <rect key="frame" x="113.5" y="0.0" width="341" height="42"/>
                                                         <color key="backgroundColor" red="1" green="0.58431372550000005" blue="0.22352941179999999" alpha="0.51179956896551726" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KoA-Kn-LoJ">
-                                                        <rect key="frame" x="454.5" y="0.0" width="113.5" height="42"/>
                                                         <color key="backgroundColor" red="0.7621351539403447" green="0.14268628725724186" blue="1" alpha="0.47710129310344829" colorSpace="calibratedRGB"/>
                                                     </view>
                                                 </subviews>
@@ -1210,18 +1119,14 @@
                                                 </connections>
                                             </view>
                                             <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jHW-yI-S7e" customClass="ToolRowTopEdit" customModule="Bounce" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                                 <subviews>
                                                     <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecp-dl-QC0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="113.5" height="42"/>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="0.028078071964937834" alpha="0.56330818965172413" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bX2-iy-6qp">
-                                                        <rect key="frame" x="113.5" y="0.0" width="341" height="42"/>
                                                         <color key="backgroundColor" red="0.24450936128273393" green="1" blue="0.23910583693849297" alpha="0.51179956900000001" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0B-Ca-ezu">
-                                                        <rect key="frame" x="454.5" y="0.0" width="113.5" height="42"/>
                                                         <color key="backgroundColor" red="1" green="0.6706059718212305" blue="0.0" alpha="0.63485991378965523" colorSpace="calibratedRGB"/>
                                                     </view>
                                                 </subviews>
@@ -1250,7 +1155,6 @@
                                                 </connections>
                                             </view>
                                             <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Ie6-YR-ll3">
-                                                <rect key="frame" x="0.0" y="42" width="568" height="6"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="6" id="NZO-pP-3Q2"/>
                                                 </constraints>
@@ -1276,13 +1180,10 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daA-HE-5vK" customClass="ToolBarTop" customModule="Bounce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="42"/>
                                         <subviews>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mn3-lQ-NlL">
-                                                <rect key="frame" x="0.0" y="0.0" width="113.5" height="42"/>
                                                 <subviews>
                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCE-aj-juz" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                         <color key="backgroundColor" red="1" green="0.58354654780000004" blue="0.22551456859999999" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="XCE-aj-juz" secondAttribute="height" multiplier="1:1" id="8z7-no-Jka"/>
@@ -1300,10 +1201,8 @@
                                                 </constraints>
                                             </view>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJd-EG-cfg">
-                                                <rect key="frame" x="454.5" y="0.0" width="113.5" height="42"/>
                                                 <subviews>
                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vr-8A-hds" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="67.5" y="0.0" width="42" height="42"/>
                                                         <color key="backgroundColor" red="1" green="0.58354654780000004" blue="0.22551456859999999" alpha="0.39741379310000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="1vr-8A-hds" secondAttribute="height" multiplier="1:1" id="xtU-j9-VLV"/>
@@ -1321,10 +1220,8 @@
                                                 </constraints>
                                             </view>
                                             <view autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Xc-YJ-sR1">
-                                                <rect key="frame" x="113.5" y="0.0" width="341" height="42"/>
                                                 <subviews>
                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuV-Q1-pbe" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="4" y="0.0" width="42" height="42"/>
                                                         <color key="backgroundColor" red="0.25571250524664207" green="0.037190314586367922" blue="0.99048817157745361" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="GuV-Q1-pbe" secondAttribute="height" multiplier="1:1" id="BMz-j5-uNK"/>
@@ -1334,7 +1231,6 @@
                                                         </connections>
                                                     </button>
                                                     <button autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ea8-dg-O2V" customClass="TBButton" customModule="Bounce" customModuleProvider="target">
-                                                        <rect key="frame" x="295" y="0.0" width="42" height="42"/>
                                                         <color key="backgroundColor" red="0.2557125052" green="0.037190314590000002" blue="0.99048817160000002" alpha="0.39741379310000002" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Ea8-dg-O2V" secondAttribute="height" multiplier="1:1" id="r5a-6y-C8i"/>
@@ -1355,7 +1251,6 @@
                                                 </constraints>
                                             </view>
                                             <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="HFa-t6-AT9">
-                                                <rect key="frame" x="0.0" y="42" width="568" height="6"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="6" id="Pld-Xh-xJR"/>
                                                 </constraints>
@@ -1393,7 +1288,6 @@
                                         </connections>
                                     </view>
                                     <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shadow_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="079-N1-wm1">
-                                        <rect key="frame" x="0.0" y="165" width="568" height="6"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="6" id="vZS-eg-WFe"/>
                                         </constraints>
@@ -1470,11 +1364,10 @@
                         <viewControllerLayoutGuide type="bottom" id="db2-5h-Unk"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="wQN-W4-IBZ">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-45-Njh">
-                                <rect key="frame" x="0.0" y="276" width="568" height="44"/>
                                 <items>
                                     <barButtonItem title="Item" id="oa1-IK-SwL"/>
                                     <barButtonItem title="Item" id="d2O-0k-wBl"/>

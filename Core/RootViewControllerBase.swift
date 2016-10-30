@@ -21,6 +21,11 @@ class RootViewControllerBase: UIViewController {
     }
     
     
+    private var updateList = [AnyObject]()
+    private var updateListAdd = [AnyObject]()
+    private var updateListRemove = [AnyObject]()
+    
+    
     var currentViewController: UIViewController? {
         return _currentViewController
     }
@@ -60,7 +65,40 @@ class RootViewControllerBase: UIViewController {
     }
     
     func update() {
+        if updateListAdd.count > 0 {
+            for object in updateListAdd {
+                var exists: Bool = false
+                for i in 0..<updateList.count {
+                    if updateList[i] === object {
+                        exists = true
+                    }
+                }
+                if exists == false {
+                    updateList.append(object)
+                }
+            }
+            updateListAdd.removeAll()
+        }
         
+        for object in updateList {
+            object.update()
+        }
+        
+        if updateListRemove.count > 0 {
+            for object in updateListRemove {
+                var index: Int?
+                
+                for i in 0..<updateList.count {
+                    if updateList[i] === object {
+                        index = i
+                    }
+                }
+                if let removeIndex = index {
+                    updateList.remove(at: removeIndex)
+                }
+            }
+            updateListRemove.removeAll()
+        }
     }
     
     func setStoryboard(_ storyboard: UIStoryboard?, animated: Bool) {
@@ -173,6 +211,25 @@ class RootViewControllerBase: UIViewController {
             _updateTimer = nil
         }
     }
+    
+    
+    func addUpdateObject(_ updateObject: AnyObject?) {
+        if let object = updateObject {
+            if object.responds(to: #selector(update)) {
+                updateListAdd.append(object)
+            }
+        }
+    }
+    
+    func removeUpdateObject(_ updateObject: AnyObject?) {
+        if let object = updateObject {
+            updateListRemove.append(object)
+        }
+    }
+    
+    
+    
+    
     
 }
 
