@@ -87,9 +87,9 @@ class ApplicationController
     var toolBarHeight: CGFloat {
         if Device.isTablet {
             if ApplicationController.shared.isSceneLandscape {
-                return 80.0
+                return 60.0
             } else {
-                return 80.0
+                return 60.0
             }
         } else {
             if ApplicationController.shared.isSceneLandscape {
@@ -111,9 +111,9 @@ class ApplicationController
     var tbButtonHeight: CGFloat {
         if Device.isTablet {
             if ApplicationController.shared.isSceneLandscape {
-                return 74.0
+                return 56.0
             } else {
-                return 74.0
+                return 56.0
             }
         } else {
             if ApplicationController.shared.isSceneLandscape {

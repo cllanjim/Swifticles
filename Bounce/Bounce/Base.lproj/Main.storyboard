@@ -114,13 +114,13 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="Iqy-YS-s5Z"/>
+                                        <exclude reference="PFx-f0-B3G"/>
+                                        <exclude reference="dEo-uM-UZo"/>
                                         <exclude reference="Htn-Ic-gcM"/>
                                         <exclude reference="kLo-la-Jsw"/>
                                         <exclude reference="vLP-h5-Q3S"/>
                                         <exclude reference="vY3-Uy-48d"/>
-                                        <exclude reference="PFx-f0-B3G"/>
-                                        <exclude reference="dEo-uM-UZo"/>
+                                        <exclude reference="Iqy-YS-s5Z"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -199,13 +199,13 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="2ef-Rc-aZy"/>
+                                <exclude reference="CHz-qI-dpn"/>
+                                <exclude reference="Wzo-ix-CLj"/>
                                 <exclude reference="2ag-Cy-ZLQ"/>
                                 <exclude reference="4Ip-ko-zco"/>
                                 <exclude reference="ACS-hf-5cX"/>
                                 <exclude reference="Hck-ZP-9S9"/>
-                                <exclude reference="2ef-Rc-aZy"/>
-                                <exclude reference="CHz-qI-dpn"/>
-                                <exclude reference="Wzo-ix-CLj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
@@ -768,6 +768,7 @@
                                                     <outlet property="mainContainer" destination="rMQ-uY-8he" id="tax-I9-xbk"/>
                                                     <outlet property="rightContainer" destination="5Us-ee-ZBW" id="ETG-N7-igt"/>
                                                     <outlet property="rightContainerWidthConstraint" destination="WDA-rP-2rp" id="9zD-WJ-thK"/>
+                                                    <outlet property="segViewMode" destination="Zm4-3r-A9y" id="H5v-5e-I83"/>
                                                 </connections>
                                             </view>
                                         </subviews>

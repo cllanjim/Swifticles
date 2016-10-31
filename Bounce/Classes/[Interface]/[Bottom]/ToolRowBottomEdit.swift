@@ -15,9 +15,9 @@ class ToolRowBottomEdit: ToolRow
         didSet {
             segEditMode.segmentCount = 3
             segEditMode.delegate = self
-            segEditMode.setImage(index: 0, path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
-            segEditMode.setImage(index: 1, path: "tb_seg_view", pathSelected: "tb_seg_view_selected")
-            segEditMode.setImage(index: 2, path: "tb_seg_view", pathSelected: "tb_seg_view_selected")
+            segEditMode.setImage(index: 0, path: "tb_seg_edit_affine", pathSelected: "tb_seg_edit_selected")
+            segEditMode.setImage(index: 1, path: "tb_seg_view_grab", pathSelected: "tb_seg_view_selected")
+            segEditMode.setImage(index: 2, path: "tb_seg_edit_shape", pathSelected: "tb_seg_view_selected")
             segEditMode.selectedIndex = 0
         }
     }

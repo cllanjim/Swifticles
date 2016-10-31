@@ -11,6 +11,16 @@ import UIKit
 class ToolRowBottomView: ToolRow
 {
     
+    @IBInspectable @IBOutlet weak var segViewMode:TBSegment! {
+        didSet {
+            segViewMode.segmentCount = 2
+            segViewMode.delegate = self
+            segViewMode.setImage(index: 0, path: "tb_seg_view_grab", pathSelected: "tb_seg_view_grab")
+            segViewMode.setImage(index: 1, path: "tb_seg_view_grab", pathSelected: "tb_seg_view_grab")
+            segViewMode.selectedIndex = 0
+        }
+    }
+    
     @IBInspectable @IBOutlet weak var checkboxGyro: TBCheckBox! {
         didSet {
             checkboxGyro.delegate = self
@@ -24,6 +34,9 @@ class ToolRowBottomView: ToolRow
             checkbox3D.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
         }
     }
+    
+    
+    //
 
     
     required init?(coder aDecoder: NSCoder) {
