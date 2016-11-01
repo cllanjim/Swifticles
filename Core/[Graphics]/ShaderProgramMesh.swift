@@ -125,8 +125,8 @@ class ShaderProgramMesh : ShaderProgram
         pointDraw(point: point, size: 8.0)
     }
     
-    func pointDraw(point:CGPoint, size: GLfloat) {
-        rectDraw(x: GLfloat(point.x - CGFloat(size / 2.0)), y: GLfloat(point.y - CGFloat(size / 2.0)), width: size, height: size)
+    func pointDraw(point:CGPoint, size: CGFloat) {
+        rectDraw(x: GLfloat(point.x - CGFloat(size / 2.0)), y: GLfloat(point.y - CGFloat(size / 2.0)), width: GLfloat(size), height: GLfloat(size))
     }
     
     func triangleDraw(_ triangle:DrawTriangle) {
@@ -212,10 +212,10 @@ class ShaderProgramMesh : ShaderProgram
         cRectVertexBuffer[28] = b
         cRectVertexBuffer[38] = b
         
-        cRectVertexBuffer[9] = b
-        cRectVertexBuffer[19] = b
-        cRectVertexBuffer[29] = b
-        cRectVertexBuffer[39] = b
+        cRectVertexBuffer[9] = a
+        cRectVertexBuffer[19] = a
+        cRectVertexBuffer[29] = a
+        cRectVertexBuffer[39] = a
     }
     
     func textureBlankBind() -> Void {

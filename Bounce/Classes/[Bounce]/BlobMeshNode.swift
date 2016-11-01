@@ -15,6 +15,14 @@ class BlobMeshNode : DrawNode
     var edgeDistance: CGFloat = 0.0
     var edgePercent: CGFloat = 0.0
     
+    var dampen: CGFloat = 0.0
+    
+    //Final factor in determining %
+    //of actual movement...
+    var factor: CGFloat = 0.0
+    
+    
+    
     var animX: CGFloat = 0.0
     var animY: CGFloat = 0.0
     var animZ: CGFloat = 0.0
@@ -29,6 +37,10 @@ class BlobMeshNode : DrawNode
         
         edgeDistance = meshNode.edgeDistance
         edgePercent = meshNode.edgePercent
+        
+        dampen = meshNode.dampen
+        
+        factor = meshNode.factor
     }
     
     

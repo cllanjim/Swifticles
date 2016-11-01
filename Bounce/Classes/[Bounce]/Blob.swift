@@ -19,6 +19,7 @@ struct BlobGridNode {
     
     var center = CGPoint.zero
     
+    
     //Is it an edge?
     var edgeU:Bool = false
     var edgeR:Bool = false
@@ -93,6 +94,18 @@ class Blob
     
     var grabAnimationGuideOffsetStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
     var grabAnimationGuideTouchStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
+    
+    var weightOffset = CGPoint(x: 36.0, y: 5.0)
+    var weightScale: CGFloat = 1.0
+    
+    var weightCenter: CGPoint {
+        set {
+            weightOffset = untransformPoint(point: newValue)
+        }
+        get {
+            return transformPoint(point: weightOffset)
+        }
+    }
     
     
     
@@ -287,25 +300,12 @@ class Blob
                 
                 
                 let gyroDir = ApplicationController.shared.gyroDir
-                
                 animationGuideSpeed.x += gyroDir.x
                 animationGuideSpeed.y += gyroDir.y
-                
-                
             }
-            
-            
         } else {
             cancelAnimationGuideMotion()
         }
-        
-        
-        
-        
-        
-        //animationGuideSpeed
-        
-        
     }
     
     func drawMesh() {
@@ -356,17 +356,48 @@ class Blob
             Graphics.blendEnable()
             Graphics.blendSetAlpha()
             
-            
-            if selected {
-                r = 0.1;g = 1.0;b = 0.2;a = 0.525
+            if ApplicationController.shared.editMode == .distribution {
+                
+                let outerR:CGFloat = r
+                let outerG:CGFloat = g
+                let outerB:CGFloat = b
+                var outerA:CGFloat = a
+                
+                let innerR:CGFloat = 1.0
+                let innerG:CGFloat = 0.0
+                let innerB:CGFloat = 0.0
+                var innerA:CGFloat = 0.54
+                
+                if selected {
+                    outerA = 0.54
+                    innerA = 0.72
+                }
+                for nodeIndex in 0..<meshNodes.count {
+                    let node = meshNodes.data[nodeIndex]
+                    r = outerR + (innerR - outerR) * node.factor
+                    g = outerG + (innerG - outerG) * node.factor
+                    b = outerB + (innerB - outerB) * node.factor
+                    a = outerA + (innerA - outerA) * node.factor
+                    node.r = r;node.g = g;node.b = b;node.a = a
+                    node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
+                    vertexIndex += 10
+                }
+                
+            } else {
+                if selected {
+                    r = 0.1;g = 1.0;b = 0.2;a = 0.525
+                }
+                
+                for nodeIndex in 0..<meshNodes.count {
+                    let node = meshNodes.data[nodeIndex]
+                    node.r = r;node.g = g;node.b = b;node.a = a
+                    node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
+                    vertexIndex += 10
+                }
             }
             
-            for nodeIndex in 0..<meshNodes.count {
-                let node = meshNodes.data[nodeIndex]
-                node.r = r;node.g = g;node.b = b;node.a = a
-                node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
-                vertexIndex += 10
-            }
+            
+            
             
         } else if ApplicationController.shared.engine?.sceneMode == .view {
             
@@ -393,9 +424,9 @@ class Blob
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 
-                let animX = node.x + testSin1 * 20.0 * node.edgePercent
-                let animY = node.y + testSin2 * 40.0 * node.edgePercent
-                let animZ = node.edgePercent * 200.0
+                let animX = node.x + testSin1 * 20.0 * node.dampen
+                let animY = node.y + testSin2 * 40.0 * node.dampen
+                let animZ = node.dampen * 200.0
                 
                 
                 node.animX = animX + stereoSpread * node.edgePercent
@@ -509,8 +540,11 @@ class Blob
             }
         }
         
+        
         Graphics.blendEnable()
         Graphics.blendSetAlpha()
+        
+        ShaderProgramMesh.shared.colorSet()
         
         ShaderProgramMesh.shared.pointDraw(point: center)
         ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x: center.x + animationGuideOffset.x, y: center.y + animationGuideOffset.y), thickness: 1)
@@ -523,6 +557,23 @@ class Blob
             ShaderProgramMesh.shared.pointDraw(point: p)
         }
         
+        
+        
+        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.0, a: 1.0)
+        
+        
+        //var weightOffset = CGPoint.zero
+        //var weightScale: CGFloat = 1.0
+        
+        let wc = weightCenter
+        
+        
+        ShaderProgramMesh.shared.lineDraw(p1: center, p2: wc, thickness: 4)
+        
+        
+        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.5, b: 0.15, a: 1.0)
+        
+        ShaderProgramMesh.shared.pointDraw(point: wc, size: CGFloat(64.0) * weightScale)
         
     }
     
@@ -1183,6 +1234,33 @@ class Blob
         for nodeIndex in 0..<meshNodesBase.count {
             let node = meshNodesBase.data[nodeIndex]
             node.edgePercent = node.edgeDistance / largestDist
+        }
+        
+        //Compute damping based on percent.
+        for nodeIndex in 0..<meshNodesBase.count {
+            let node = meshNodesBase.data[nodeIndex]
+            let percent = node.edgePercent
+            
+            var dampen = node.edgePercent
+                
+            
+            if true {
+                
+                if percent >= 1.0 {
+                    dampen = 1.0
+                } else if percent <= 0.0 {
+                    dampen = 0.0
+                } else {
+                    dampen = sin(percent * Math.PI_2)
+                        
+                        //(1.0 - cos(percent * Math.PI_2))
+                }
+            }
+            
+            node.dampen = dampen
+            
+            node.factor = dampen
+            
         }
     }
     

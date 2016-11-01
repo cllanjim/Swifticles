@@ -297,8 +297,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         Graphics.viewport(CGRect(x: 0.0, y: 0.0, width: appFrame.size.width * view.contentScaleFactor, height: appFrame.size.height * view.contentScaleFactor))
         Graphics.clip(clipRect: CGRect(x: 0.0, y: 0.0, width: appFrame.size.width * view.contentScaleFactor, height: appFrame.size.height * view.contentScaleFactor))
         ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
-        ShaderProgramMesh.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
-        ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(appFrame.size.width), height: Float(-appFrame.size.height))
+        
+        Graphics.clear(r: 0.15, g: 0.15, b: 0.18)
+        //ShaderProgramMesh.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
+        //ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(appFrame.size.width), height: Float(-appFrame.size.height))
+        
         
         let viewMat = screenMat.clone()
         viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
@@ -307,16 +310,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
         Graphics.textureEnable()
         
-        
         engine.draw()
-        
-        ShaderProgramMesh.shared.colorSet(r: 0.2, g: 1.0, b: 0.4, a: 0.8)
-        ShaderProgramMesh.shared.pointDraw(point: screenCenter)
-        
-        //ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.4, a: 0.8)
-        //let f = screenFrame
-        //ShaderProgramMesh.shared.rectDraw(x: GLfloat(f.origin.x + 5.0), y: GLfloat(f.origin.y + 5.0), width: GLfloat(f.width - 10.0), height: GLfloat(f.height - 10.0))
-        
+
         ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
     }
     
