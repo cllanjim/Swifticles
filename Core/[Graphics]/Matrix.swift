@@ -8,6 +8,7 @@
 
 import Foundation
 import OpenGLES
+import UIKit
 
 class Matrix {
     
@@ -18,14 +19,19 @@ class Matrix {
     }
     
     convenience init(_ m00:GLfloat, _ m01:GLfloat, _ m02:GLfloat, _ m03:GLfloat,
-                       _ m10:GLfloat, _ m11:GLfloat, _ m12:GLfloat, _ m13:GLfloat,
-                         _ m20:GLfloat, _ m21:GLfloat, _ m22:GLfloat, _ m23:GLfloat,
-                           _ m30:GLfloat, _ m31:GLfloat, _ m32:GLfloat, _ m33:GLfloat) {
+                     _ m10:GLfloat, _ m11:GLfloat, _ m12:GLfloat, _ m13:GLfloat,
+                     _ m20:GLfloat, _ m21:GLfloat, _ m22:GLfloat, _ m23:GLfloat,
+                     _ m30:GLfloat, _ m31:GLfloat, _ m32:GLfloat, _ m33:GLfloat) {
         self.init()
-        m[0]=m00;m[1]=m01;m[2]=m02;m[3]=m03;
-        m[4]=m10;m[5]=m11;m[6]=m12;m[7]=m13;
-        m[8]=m20;m[9]=m21;m[10]=m22;m[11]=m23;
-        m[12]=m30;m[13]=m31;m[14]=m32;m[15]=m33;
+        m[0]=m00;m[1]=m01;m[2]=m02;m[3]=m03
+        m[4]=m10;m[5]=m11;m[6]=m12;m[7]=m13
+        m[8]=m20;m[9]=m21;m[10]=m22;m[11]=m23
+        m[12]=m30;m[13]=m31;m[14]=m32;m[15]=m33
+    }
+    
+    convenience init(_ matrix:Matrix) {
+        self.init()
+        set(matrix)
     }
     
     func clone() -> Matrix {
@@ -56,9 +62,13 @@ class Matrix {
         m[8] *= scaleZ;m[9] *= scaleZ;m[10] *= scaleZ;m[11] *= scaleZ;
     }
     
-    func translate(_ tx:GLfloat, _ ty:GLfloat, _ tz:GLfloat) {
+    func translate(_ tx: GLfloat, _ ty: GLfloat, _ tz: GLfloat) {
         let mat = Matrix(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9], m[10], m[11], m[0] * tx + m[4] * ty + m[8] * tz + m[12], m[1] * tx + m[5] * ty + m[9] * tz + m[13], m[2] * tx + m[6] * ty + m[10] * tz + m[14], m[15])
         set(mat)
+    }
+    
+    func translate(_ tx: CGFloat, _ ty: CGFloat, _ tz: CGFloat) {
+        translate(GLfloat(tx), GLfloat(ty), GLfloat(tz))
     }
     
     class func createOrtho(left:GLfloat, right:GLfloat, bottom:GLfloat, top:GLfloat, nearZ:GLfloat, farZ:GLfloat) -> Matrix {

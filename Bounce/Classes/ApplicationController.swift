@@ -208,6 +208,40 @@ class ApplicationController
         }
     }
     
+    var zoomMin:CGFloat {
+        if Device.isTablet {
+            return 0.60
+        } else {
+            return 0.75
+        }
+    }
+    
+    var zoomMax:CGFloat {
+        if Device.isTablet {
+            return 3.5
+        } else {
+            return 4.25
+        }
+    }
+    
+    
+    var importZoomMin:CGFloat {
+        if Device.isTablet {
+            return 0.5 / importScale
+        } else {
+            return 0.60 / importScale
+        }
+    }
+    
+    var importZoomMax:CGFloat {
+        if Device.isTablet {
+            return 4.0 / importScale
+        } else {
+            return 5.0 / importScale
+        }
+    }
+    
+    
     class var tick: Int {
         return Int(Date().timeIntervalSince1970 * 100.0)
     }

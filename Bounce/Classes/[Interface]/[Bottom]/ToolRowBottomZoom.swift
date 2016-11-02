@@ -6,7 +6,7 @@
 //  Copyright © 2016 Darkswarm LLC. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ToolRowBottomZoom: ToolRow
 {
@@ -15,6 +15,13 @@ class ToolRowBottomZoom: ToolRow
         didSet {
             checkboxZoomMode.delegate = self
             checkboxZoomMode.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var sliderZoomScale: UISlider! {
+        didSet {
+            sliderZoomScale.maximumValue = 4.0
+            sliderZoomScale.minimumValue = 0.75
         }
     }
     
@@ -28,6 +35,8 @@ class ToolRowBottomZoom: ToolRow
     
     override func setUp() {
         super.setUp()
+        addObserver(selector: #selector(handleZoomModeChangedForced), notification: .zoomModeChangedForced)
+        addObserver(selector: #selector(handleZoomScaleChanged), notification: .zoomScaleChanged)
     }
     
     override func refreshUI() {
@@ -35,8 +44,9 @@ class ToolRowBottomZoom: ToolRow
         
         UIUpdateHistory()
         UIUpdateSelection()
-        UIUpdateZoom()
+        UIUpdateZoomCheck()
         UIUpdateSceneMode()
+        UIUpdateZoomSlider()
     }
     
     func UIUpdateSelection() {
@@ -47,8 +57,14 @@ class ToolRowBottomZoom: ToolRow
         
     }
     
-    func UIUpdateZoom() {
+    func UIUpdateZoomCheck() {
         checkboxZoomMode.checked = ApplicationController.shared.zoomMode
+    }
+    
+    func UIUpdateZoomSlider() {
+        if let bounce = ApplicationController.shared.bounce {
+            sliderZoomScale.value = Float(bounce.screenScale)
+        }
     }
     
     func UIUpdateSceneMode() {
@@ -65,6 +81,15 @@ class ToolRowBottomZoom: ToolRow
         }
     }
     
+    @IBAction func slideZoomScale(sender: UISlider) {
+        if sender === sliderZoomScale {
+            if let bounce = ApplicationController.shared.bounce {
+                bounce.setZoom(CGFloat(sliderZoomScale.value))
+            }
+        }
+    }
+    
+    
     override func handleSceneReady() {
         super.handleSceneReady()
         
@@ -72,7 +97,19 @@ class ToolRowBottomZoom: ToolRow
     
     override func handleZoomModeChange() {
         super.handleZoomModeChange()
-        UIUpdateZoom()
+        UIUpdateZoomCheck()
+    }
+    
+    func handleZoomModeChangedForced() {
+        UIUpdateZoomCheck()
+    }
+    
+    func handleZoomScaleChanged() {
+        
+        UIUpdateZoomSlider()
+        
+        
+        
     }
     
     override func handleSceneModeChanged() {

@@ -20,7 +20,7 @@ class ToolRowAccessoryBottomZoom: ToolRow
     
     override func setUp() {
         super.setUp()
-        
+        addObserver(selector: #selector(handleZoomModeChangedForced), notification: .zoomModeChangedForced)
     }
     
     override func refreshUI() {
@@ -66,6 +66,10 @@ class ToolRowAccessoryBottomZoom: ToolRow
     
     override func handleZoomModeChange() {
         super.handleZoomModeChange()
+        UIUpdateZoom()
+    }
+    
+    func handleZoomModeChangedForced() {
         UIUpdateZoom()
     }
     

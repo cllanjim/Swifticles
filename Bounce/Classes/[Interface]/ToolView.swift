@@ -34,6 +34,8 @@ class ToolView: UIView
         addObserver(selector: #selector(handleBlobSelectionChanged), notification: .blobSelectionChanged)
         addObserver(selector: #selector(handleHistoryChanged), notification: .historyChanged)
         
+        //zoomModeChangedForced
+        
         //Propogate setup to subviews.
         for subview1 in subviews {
             if subview1.responds(to: #selector(setUp)) {

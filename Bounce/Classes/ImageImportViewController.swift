@@ -97,6 +97,13 @@ class ImageImportViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func updateTransform() {
+        
+        if scale < ApplicationController.shared.importZoomMin {
+            scale = ApplicationController.shared.importZoomMin
+        } else if scale > ApplicationController.shared.importZoomMax {
+            scale = ApplicationController.shared.importZoomMax
+        }
+        
         var t = CATransform3DIdentity
         t = CATransform3DScale(t, scale, scale, scale)
         t = CATransform3DRotate(t, rotation, 0.0, 0.0, 1.0)

@@ -9,14 +9,16 @@ import UIKit
 import Foundation
 
 enum BounceNotification:String {
-    case sceneReady = "BounceNotification.SceneReady"
-    case zoomModeChanged = "BounceNotification.ZoomModeChanged"
-    case sceneModeChanged = "BounceNotification.SceneModeChanged"
-    case editModeChanged = "BounceNotification.EditModeChanged"
-    case viewModeChanged = "BounceNotification.ViewModeChanged"
-    case blobAdded = "BounceNotification.BlobAdded"
-    case blobSelectionChanged = "BounceNotification.BlobSelectionChanged"
-    case historyChanged = "BounceNotification.HistoryStackChanged"
+    case sceneReady = "BounceNotification.sceneReady"
+    case zoomModeChanged = "BounceNotification.zoomModeChanged"
+    case zoomModeChangedForced = "BounceNotification.zoomModeChangedForced"
+    case zoomScaleChanged = "BounceNotification.zoomScaleChanged"
+    case sceneModeChanged = "BounceNotification.sceneModeChanged"
+    case editModeChanged = "BounceNotification.editModeChanged"
+    case viewModeChanged = "BounceNotification.viewModeChanged"
+    case blobAdded = "BounceNotification.vlobAdded"
+    case blobSelectionChanged = "BounceNotification.blobSelectionChanged"
+    case historyChanged = "BounceNotification.historyStackChanged"
 }
 
 enum SceneMode: UInt32 { case edit = 1, view = 2 }
@@ -37,9 +39,29 @@ class BounceEngine {
         return ApplicationController.shared.engine
     }
     
-    var zoomMode:Bool = false {
-        didSet {
-            BounceEngine.postNotification(BounceNotification.zoomModeChanged)
+    
+    private var _zoomMode:Bool = false
+    var zoomMode:Bool {
+        get {
+            return _zoomMode
+        }
+        set {
+            if newValue != _zoomMode {
+                _zoomMode = newValue
+                BounceEngine.postNotification(BounceNotification.zoomModeChanged)
+            }
+        }
+    }
+    
+    var zoomModeForced:Bool {
+        get {
+            return _zoomMode
+        }
+        set {
+            if newValue != _zoomMode {
+                _zoomMode = newValue
+                BounceEngine.postNotification(BounceNotification.zoomModeChangedForced)
+            }
         }
     }
     
@@ -70,10 +92,28 @@ class BounceEngine {
         }
     }
     
-    //gyroEnabled
-    
     var stereoscopicChannel: Bool = false
-    var stereoscopicSpread: CGFloat = 30.0
+    
+    //Good # = 16.0
+    private var _stereoscopicSpreadOffset: CGFloat = 16.0
+    var stereoscopicSpreadOffset: CGFloat {
+        if stereoscopicChannel {
+            return -_stereoscopicSpreadOffset
+        } else {
+            return _stereoscopicSpreadOffset
+        }
+    }
+    
+    //Good # = 1.6
+    private var _stereoscopicSpreadBase:CGFloat = 1.6
+    var stereoscopicSpreadBase: CGFloat {
+        if stereoscopicChannel {
+            return _stereoscopicSpreadBase
+        } else {
+            return -_stereoscopicSpreadBase
+        }
+    }
+    
     
     
     var blobs = [Blob]()
@@ -194,16 +234,16 @@ class BounceEngine {
                 weightSelectionDidChange = false
                 
                 /*
-                let historyState = HistoryStateChangeAffine()
-                historyState.blobIndex = indexOf(blob: blob!)
-                historyState.startPos = affineSelectionStartCenter
-                historyState.startScale = affineSelectionStartScale
-                historyState.startRotation = affineSelectionStartRotation
-                historyState.endPos = blob!.center
-                historyState.endScale = blob!.scale
-                historyState.endRotation = blob!.rotation
-                historyAdd(withState: historyState)
-                */
+                 let historyState = HistoryStateChangeAffine()
+                 historyState.blobIndex = indexOf(blob: blob!)
+                 historyState.startPos = affineSelectionStartCenter
+                 historyState.startScale = affineSelectionStartScale
+                 historyState.startRotation = affineSelectionStartRotation
+                 historyState.endPos = blob!.center
+                 historyState.endScale = blob!.scale
+                 historyState.endRotation = blob!.rotation
+                 historyAdd(withState: historyState)
+                 */
             }
         }
     }
@@ -277,6 +317,7 @@ class BounceEngine {
         }
         
         didSet {
+            zoomModeForced = false
             handleModeChange()
             BounceEngine.postNotification(BounceNotification.sceneModeChanged)
         }
@@ -387,22 +428,41 @@ class BounceEngine {
         
         
         
+        //holdMat
+        
         //var stereoscopic: Bool = true
         //var stereoscopicChannel: Bool = false
         //var stereoscopicSpread: CGFloat = 30.0
         
         if stereoscopic {
+            
+            var holdMat = ShaderProgramMesh.shared.matrixProjectionGet()
+            var mat = Matrix(holdMat)
+            
+            mat.translate(stereoscopicSpreadBase, 0.0, 0.0)
+            ShaderProgramMesh.shared.matrixProjectionSet(mat)
+            
             if stereoscopicChannel {
+                
+                
+                
                 background.setColor(0.0, 1.0, 1.0, 1.0)
             } else {
                 background.setColor(1.0, 0.0, 0.0, 1.0)
             }
+            background.draw()
+            
+            ShaderProgramMesh.shared.matrixProjectionSet(holdMat)
+            
+            //mat
+            
         } else {
             background.setColor(1.0, 1.0, 1.0, 1.0)
+            background.draw()
         }
         
         
-        background.draw()
+        
         
         
         
@@ -566,22 +626,22 @@ class BounceEngine {
             }
             
             /*
-            if affineSelectionBlob == nil {
-                affineSelectionBlob = touchBlob
-                if let checkAffineSelectedBlob = affineSelectionBlob {
-                    affineSelectionDidChange = false
-                    selectedBlob = checkAffineSelectedBlob
-                    affineSelectionTouch = touch
-                    affineSelectionStartCenter = checkAffineSelectedBlob.center
-                    affineSelectionStartScale = checkAffineSelectedBlob.scale
-                    affineSelectionStartRotation = checkAffineSelectedBlob.rotation
-                } else {
-                    affineSelectionDidChange = false
-                    affineSelectionBlob = nil
-                    affineSelectionTouch = nil
-                }
-            }
-            */
+             if affineSelectionBlob == nil {
+             affineSelectionBlob = touchBlob
+             if let checkAffineSelectedBlob = affineSelectionBlob {
+             affineSelectionDidChange = false
+             selectedBlob = checkAffineSelectedBlob
+             affineSelectionTouch = touch
+             affineSelectionStartCenter = checkAffineSelectedBlob.center
+             affineSelectionStartScale = checkAffineSelectedBlob.scale
+             affineSelectionStartRotation = checkAffineSelectedBlob.rotation
+             } else {
+             affineSelectionDidChange = false
+             affineSelectionBlob = nil
+             affineSelectionTouch = nil
+             }
+             }
+             */
             
             
             
@@ -1198,7 +1258,7 @@ class BounceEngine {
         }
     }
     
-
+    
     func historyApplyUndo(withState historyState: HistoryState) {
         if historyState.type == .blobAdd {
             if let state = historyState as? HistoryStateAddBlob {
@@ -1219,10 +1279,10 @@ class BounceEngine {
             if let state = historyState as? HistoryStateChangeShape {
                 if let index = state.blobIndex, index >= 0 && index < blobs.count {
                     if let data = state.startSplineData {
-                    let blob = blobs[index]
-                    
-                    blob.spline.load(info: data)
-                    blob.computeShape()
+                        let blob = blobs[index]
+                        
+                        blob.spline.load(info: data)
+                        blob.computeShape()
                         
                     }
                 }

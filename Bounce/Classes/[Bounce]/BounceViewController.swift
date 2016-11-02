@@ -48,7 +48,18 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     var gestureTouchCenter:CGPoint = CGPoint.zero
     
     var screenTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
-    var screenScale:CGFloat = 1.0
+    
+    private var previousScreenScale:CGFloat = 1.0
+    var screenScale:CGFloat = 1.0 {
+        willSet {
+            previousScreenScale = screenScale
+        }
+        didSet {
+            if previousScreenScale != screenScale {
+                BounceEngine.postNotification(BounceNotification.zoomScaleChanged)
+            }
+        }
+    }
     
     var screenEditTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
     var screenEditScale:CGFloat = 1.0
@@ -77,11 +88,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         let fr = appFrame
         let center = CGPoint(x: fr.size.width / 2.0, y: fr.size.height / 2.0)
         return untransformPoint(center)
-        
-        //BounceViewController.untransformPoint(<#T##BounceViewController#>)
-        
-        //return BounceEngine.untransformPoint(point: center, scale: screenScale, rotation: 0.0)
-        
     }
     
     var screenFrame:CGRect {
@@ -129,19 +135,19 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         engine.setUp(scene: scene)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
-                                               name: NSNotification.Name(BounceNotification.zoomModeChanged.rawValue), object: nil)
+                    name: NSNotification.Name(BounceNotification.zoomModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleSceneModeChanged),
-                                               name: NSNotification.Name(BounceNotification.sceneModeChanged.rawValue), object: nil)
+                    name: NSNotification.Name(BounceNotification.sceneModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged),
-                                               name: NSNotification.Name(BounceNotification.editModeChanged.rawValue), object: nil)
+                    name: NSNotification.Name(BounceNotification.editModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewModeChanged),
-                                               name: NSNotification.Name(BounceNotification.viewModeChanged.rawValue), object: nil)
+                    name: NSNotification.Name(BounceNotification.viewModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobSelectionChanged),
-                                               name: NSNotification.Name(BounceNotification.blobSelectionChanged.rawValue), object: nil)
+                    name: NSNotification.Name(BounceNotification.blobSelectionChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
-                                               name: NSNotification.Name(BounceNotification.blobAdded.rawValue), object: nil)
+                    name: NSNotification.Name(BounceNotification.blobAdded.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleHistoryChanged),
-                                               name: NSNotification.Name(BounceNotification.historyChanged.rawValue), object: nil)
+                    name: NSNotification.Name(BounceNotification.historyChanged.rawValue), object: nil)
         
         
         //
@@ -217,7 +223,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.05) {
             BounceEngine.postNotification(BounceNotification.sceneReady)
         }
@@ -440,12 +445,40 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         animateScreenTransform(scale: 1.0, translate: CGPoint(x: 0.0, y: 0.0))
     }
     
+    func setZoom(_ zoomScale: CGFloat) {
+        //
+        //Keep the screen centered as we zoom in...
+        //
+        let c = CGPoint(x: view.bounds.width / 2.0, y: view.bounds.height / 2.0)
+        let prevCenter = untransformPoint(c)
+        screenScale = zoomScale
+        let newCenter = transformPoint(prevCenter)
+        screenTranslation.x -= (newCenter.x - c.x)
+        screenTranslation.y -= (newCenter.y - c.y)
+    }
     
     func updateTransform() {
+        
+        
+        if screenScale < ApplicationController.shared.zoomMin {
+            screenScale = ApplicationController.shared.zoomMin
+        } else if screenScale > ApplicationController.shared.zoomMax {
+            screenScale = ApplicationController.shared.zoomMax
+        }
+        
+        //
+        //Keep the screen centered as we zoom/pan...
+        //
         screenTranslation = CGPoint.zero
         let gestureStart = transformPoint(gestureStartImageTouch)
         screenTranslation.x = (gestureTouchCenter.x - gestureStart.x)
         screenTranslation.y = (gestureTouchCenter.y - gestureStart.y)
+        
+        //
+        //... Keep bounds good.
+        //
+        
+        
         
         screenEditScale = screenScale
         screenEditTranslation.x = screenTranslation.x
@@ -652,7 +685,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func didDoubleTapMainThread(_ gr:UITapGestureRecognizer) -> Void {
-        
         if ApplicationController.shared.allowInterfaceAction() {
             ToolActions.menusToggleShowing()
         }
@@ -681,17 +713,16 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         self.performSelector(onMainThread: #selector(didDoubleTapMainThread(_:)), with: gr, waitUntilDone: true, modes: [RunLoopMode.commonModes.rawValue])
     }
     
-    
-    
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    
-    //func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    //    return true
-    //}
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let pos = gestureRecognizer.location(in: view)
+        if topMenu.frame.contains(pos) { return false }
+        if bottomMenu.frame.contains(pos) { return false }
+        return true
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         

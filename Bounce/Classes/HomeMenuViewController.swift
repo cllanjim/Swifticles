@@ -23,15 +23,13 @@ class HomeMenuViewController: UIViewController, UIImagePickerControllerDelegate,
     var importImage: UIImage?
     
     
-    var tiltOffsetMax: CGFloat = 40.0
+    var tiltOffsetMax: CGFloat = 29.75
     var tiltOffset = CGPoint.zero
     var tiltResetAnimation = false
     var tiltResetTime: Int = 30
     var tiltResetTimer: Int = 0
     var tiltResetStartOffset = CGPoint.zero
     var tiltResetEndOffset = CGPoint.zero
-    
-    
     
     
     

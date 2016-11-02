@@ -317,14 +317,22 @@ class Blob
         
         var stereo = ApplicationController.shared.engine!.stereoscopic
         var stereoChannel = ApplicationController.shared.engine!.stereoscopicChannel
-        var stereoSpread: CGFloat = 0.0
-        if stereo {
-            if stereoChannel {
-                stereoSpread = ApplicationController.shared.engine!.stereoscopicSpread
-            } else {
-                stereoSpread = -ApplicationController.shared.engine!.stereoscopicSpread
-            }
+        var stereoOffset: CGFloat = ApplicationController.shared.engine!.stereoscopicSpreadOffset
+        var stereoBase: CGFloat = ApplicationController.shared.engine!.stereoscopicSpreadBase
+        
+        if stereo == false {
+            //stereoOffset = 0.0
+            //stereoBase = 0.0
+            
         }
+        
+        //if stereo {
+        //    if stereoChannel {
+        //        stereoSpread = -ApplicationController.shared.engine!.stereoscopicSpread
+        //    } else {
+        //        stereoSpread = ApplicationController.shared.engine!.stereoscopicSpread
+        //    }
+        //}
             
         
         
@@ -424,12 +432,11 @@ class Blob
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 
-                let animX = node.x + testSin1 * 20.0 * node.dampen
-                let animY = node.y + testSin2 * 40.0 * node.dampen
-                let animZ = node.dampen * 200.0
+                let animX = node.x + testSin1 * 20.0 * node.factor
+                let animY = node.y + testSin2 * 40.0 * node.factor
+                let animZ = node.factor * 200.0
                 
-                
-                node.animX = animX + stereoSpread * node.edgePercent
+                node.animX = animX + (stereoBase + stereoOffset * node.factor)
                 node.animY = animY
                 node.animZ = animZ
                 
@@ -478,6 +485,8 @@ class Blob
         
         var isEditModeAffine = false
         var isEditModeShape = false
+        var isEditModeDistribution = false
+        
         
         var shapeSelectionControlPointIndex:Int?
         
@@ -491,6 +500,7 @@ class Blob
                         shapeSelectionControlPointIndex = engine.shapeSelectionControlPointIndex
                     }
                 }
+                if engine.editMode == .distribution { isEditModeDistribution = true }
             }
             
         }
@@ -517,13 +527,9 @@ class Blob
             }
         }
         
-        linesOuter.draw()
-        linesInner.draw()
-        
-        
         if isEditMode {
-            
-            
+            linesOuter.draw()
+            linesInner.draw()
             if isEditModeShape {
                 Graphics.blendEnable()
                 Graphics.blendSetPremultiplied()
@@ -557,23 +563,13 @@ class Blob
             ShaderProgramMesh.shared.pointDraw(point: p)
         }
         
-        
-        
+        if isEditModeDistribution {
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.0, a: 1.0)
-        
-        
-        //var weightOffset = CGPoint.zero
-        //var weightScale: CGFloat = 1.0
-        
         let wc = weightCenter
-        
-        
         ShaderProgramMesh.shared.lineDraw(p1: center, p2: wc, thickness: 4)
-        
-        
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.5, b: 0.15, a: 1.0)
-        
         ShaderProgramMesh.shared.pointDraw(point: wc, size: CGFloat(64.0) * weightScale)
+        }
         
     }
     
