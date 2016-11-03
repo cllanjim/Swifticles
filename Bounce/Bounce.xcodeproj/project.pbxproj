@@ -102,6 +102,8 @@
 		C21E40C31DB8472500EB6A4F /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E409D1DB8472500EB6A4F /* Uploader.swift */; };
 		C21E40C51DB8550400EB6A4F /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21E40C41DB8550400EB6A4F /* ButtonGroup.swift */; };
 		C2333C691D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */; };
+		C23409581DCA8C6E00CDE65D /* BounceSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23409571DCA8C6E00CDE65D /* BounceSideMenu.swift */; };
+		C234095A1DCA961200CDE65D /* BounceSideMenuContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23409591DCA961200CDE65D /* BounceSideMenuContainer.swift */; };
 		C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */; };
 		C23BEA3E1DB592F1006A449A /* CGSize+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */; };
 		C23E557E1DC277B100970F16 /* GLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23E557D1DC277B100970F16 /* GLView.swift */; };
@@ -273,6 +275,8 @@
 		C21E409D1DB8472500EB6A4F /* Uploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		C21E40C41DB8550400EB6A4F /* ButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroup.swift; sourceTree = "<group>"; };
 		C2333C681D5ABB1F00779FB6 /* HomeMenuViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeMenuViewControllerTests.swift; sourceTree = "<group>"; };
+		C23409571DCA8C6E00CDE65D /* BounceSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceSideMenu.swift; sourceTree = "<group>"; };
+		C23409591DCA961200CDE65D /* BounceSideMenuContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceSideMenuContainer.swift; sourceTree = "<group>"; };
 		C23BEA3B1DB591EF006A449A /* CGRect+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extras.swift"; sourceTree = "<group>"; };
 		C23BEA3D1DB592F1006A449A /* CGSize+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extras.swift"; sourceTree = "<group>"; };
 		C23E557D1DC277B100970F16 /* GLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLView.swift; sourceTree = "<group>"; };
@@ -518,6 +522,8 @@
 				C21E407B1DB8472500EB6A4F /* IndexTriangleList.swift */,
 				0D7F62F71DC1DD89001CA4C4 /* GLKViewController+Stereoscopic.swift */,
 				C23E55CA1DC27B7F00970F16 /* BounceView.swift */,
+				C23409571DCA8C6E00CDE65D /* BounceSideMenu.swift */,
+				C23409591DCA961200CDE65D /* BounceSideMenuContainer.swift */,
 			);
 			path = "[Bounce]";
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 				C24AA05C1DC03C6600B751B9 /* TopMenu.swift in Sources */,
 				C28195A71DB1AC8A00B23E52 /* Math.swift in Sources */,
 				C23E55CB1DC27B7F00970F16 /* BounceView.swift in Sources */,
+				C234095A1DCA961200CDE65D /* BounceSideMenuContainer.swift in Sources */,
 				C24AA0601DC03C8E00B751B9 /* ToolContainerTopAccessory.swift in Sources */,
 				C21E40B01DB8472500EB6A4F /* HMButton.swift in Sources */,
 				C23BEA3C1DB591EF006A449A /* CGRect+Extras.swift in Sources */,
@@ -900,6 +907,7 @@
 				C28195A01DB1AC8A00B23E52 /* AppDelegateBase.swift in Sources */,
 				C281959C1DB1AC8A00B23E52 /* ImageDownloaderTask.swift in Sources */,
 				C21E40C51DB8550400EB6A4F /* ButtonGroup.swift in Sources */,
+				C23409581DCA8C6E00CDE65D /* BounceSideMenu.swift in Sources */,
 				C21E40A51DB8472500EB6A4F /* BottomMenu.swift in Sources */,
 				C21E40A01DB8472500EB6A4F /* BlobMeshNode.swift in Sources */,
 				C281959D1DB1AC8A00B23E52 /* JSONFetcher.swift in Sources */,

@@ -10,11 +10,186 @@ import OpenGLES
 
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLSessionDelegate {
     
+    
+    var testX1: CGFloat = 0.0
+    
+    
     @IBOutlet weak var buttonShowHideAll:RRButton!
     @IBOutlet weak var bottomMenu:BottomMenu!
     @IBOutlet weak var topMenu:TopMenu!
     
+    @IBOutlet weak var mainContainer:UIView! {
+        didSet {
+            
+            //mainContainer.layer.anchorPoint = CGPoint(x: 0.0, y: 0.5)
+            //mainContainer.setNeedsLayout()
+            //mainContainer.setNeedsDisplay()
+            
+        }
+    }
+    @IBOutlet weak var mainContainerLeftConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var sideMenuContainer:BounceSideMenuContainer!
+    
+    
     let engine = BounceEngine()
+    
+    
+    
+    @IBOutlet weak var sideMenu: BounceSideMenu!
+    
+    var isShowingSideMenu: Bool = false
+    var isAnimatingSideMenu: Bool = false
+    
+    func showSideMenu() {
+        if isShowingSideMenu == false {
+            isAnimatingSideMenu = true
+            isShowingSideMenu = true
+            freeze()
+        }
+    }
+    
+    func hideSideMenu() {
+        if isShowingSideMenu == true {
+            
+            isAnimatingSideMenu = true
+            
+            let sideWidth = sideMenu.widthConstraint.constant
+            
+            sideMenu.leftConstraint.constant = -sideWidth
+            
+            sideMenuContainer.setNeedsUpdateConstraints()
+            
+            ApplicationController.shared.addActionBlocker()
+            
+            
+            
+            
+            UIView.animate(withDuration: 0.52, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseOut, animations:
+                { [weak weakSelf = self] in
+                    
+                    let transform = CATransform3DIdentity
+                    weakSelf?.mainContainer.layer.transform = transform
+                    weakSelf?.view.layoutIfNeeded()
+                }, completion:
+                { [weak weakSelf = self] (finished:Bool) in
+                    weakSelf?.unfreeze()
+                    weakSelf?.isShowingSideMenu = false
+                    weakSelf?.isAnimatingSideMenu = false
+                    weakSelf?.sideMenuContainer.isHidden = true
+                    ApplicationController.shared.removeActionBlocker()
+            })
+        }
+    }
+    
+    
+    var isFreezeEnqueued = false
+    var isUnfreezeEnqueued = false
+    var isFrozen = false
+    var freezeOverlayImageView:UIImageView?
+    
+    //Freeze happens on the next draw, screen is converted into an image...
+    func freeze() {
+        if isFrozen == false {
+            isFreezeEnqueued = true
+        }
+    }
+    
+    func freezeRealize(withImage freezeImage: UIImage) {
+        
+        cancelAllGesturesAndTouches()
+        
+        isFreezeEnqueued = false
+        isFrozen = true
+        
+        if freezeOverlayImageView == nil {
+            
+            freezeOverlayImageView = UIImageView(frame: CGRect.zero)
+            freezeOverlayImageView!.isOpaque = true
+            
+            mainContainer.insertSubview(freezeOverlayImageView!, at: 0)
+            
+            //view.addSubview(freezeOverlayImageView!)
+            
+            freezeOverlayImageView!.translatesAutoresizingMaskIntoConstraints = false
+            let constraintLeft = NSLayoutConstraint(item: freezeOverlayImageView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0.0)
+            let constraintRight = NSLayoutConstraint(item: freezeOverlayImageView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+            let constraintTop = NSLayoutConstraint(item: freezeOverlayImageView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0.0)
+            let constraintBottom = NSLayoutConstraint(item: freezeOverlayImageView!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+            
+            view.addConstraints([constraintLeft, constraintRight, constraintTop, constraintBottom])
+            view.setNeedsUpdateConstraints()
+            
+            
+        }
+        freezeOverlayImageView!.image = freezeImage
+        
+        mainContainer.setNeedsLayout()
+        mainContainer.layoutIfNeeded()
+        
+        
+        //Is this for the side menu?
+        if true {
+            
+            sideMenuContainer.isHidden = false
+            
+            let sideWidth = sideMenu.widthConstraint.constant
+            
+            sideMenu.leftConstraint.constant = -sideWidth
+            
+            sideMenuContainer.setNeedsUpdateConstraints()
+            sideMenuContainer.layoutIfNeeded()
+            
+            
+            ApplicationController.shared.addActionBlocker()
+            
+            
+            sideMenu.leftConstraint.constant = 0.0
+            sideMenuContainer.setNeedsUpdateConstraints()
+            
+            //mainContainerLeftConstraint.constant = sideWidth
+            
+            
+            
+            UIView.animate(withDuration: 0.52, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseOut, animations:
+                { [weak weakSelf = self] in
+                    weakSelf?.sideMenuContainer.layoutIfNeeded()
+                    
+                    var transform = CATransform3DIdentity
+                    //transform.m34 = 1 / 520.0
+                    //transform = CATransform3DRotate(transform, 0.061, 0.0, 1.0, 0.0)
+                    transform = CATransform3DScale(transform, 0.835, 0.835, 0.835)
+                    transform = CATransform3DTranslate(transform, sideWidth, 0.0, 0.0)
+                    weakSelf?.mainContainer.layer.transform = transform
+                    
+                }, completion:
+                { [weak weakSelf = self] (finished:Bool) in
+                    weakSelf?.isAnimatingSideMenu = false
+                    ApplicationController.shared.removeActionBlocker()
+            })
+            
+            
+        }
+    }
+    
+    func unfreeze() {
+        isPaused = false
+        if isFrozen == true {
+            isFrozen = false
+            isUnfreezeEnqueued = true
+        }
+    }
+    
+    func unfreezeRealize() {
+        isUnfreezeEnqueued = false
+        if freezeOverlayImageView != nil {
+            freezeOverlayImageView!.removeFromSuperview()
+            freezeOverlayImageView!.image = nil
+            freezeOverlayImageView = nil
+        }
+    }
+    
+    
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,7 +281,7 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         scene.imageName = Config.shared.uniqueString
         scene.imagePath = String(scene.imageName) + ".png"
-        //TODO: Instead, copy this image over on 
+        //TODO: Instead, copy this image over on
         FileUtils.saveImagePNG(image: image, filePath: FileUtils.getDocsPath(filePath: scene.imagePath))
         
         scene.image = image
@@ -135,42 +310,21 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         engine.setUp(scene: scene)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
-                    name: NSNotification.Name(BounceNotification.zoomModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.zoomModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleSceneModeChanged),
-                    name: NSNotification.Name(BounceNotification.sceneModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.sceneModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged),
-                    name: NSNotification.Name(BounceNotification.editModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.editModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleViewModeChanged),
-                    name: NSNotification.Name(BounceNotification.viewModeChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.viewModeChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobSelectionChanged),
-                    name: NSNotification.Name(BounceNotification.blobSelectionChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.blobSelectionChanged.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
-                    name: NSNotification.Name(BounceNotification.blobAdded.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.blobAdded.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleHistoryChanged),
-                    name: NSNotification.Name(BounceNotification.historyChanged.rawValue), object: nil)
+                                               name: NSNotification.Name(BounceNotification.historyChanged.rawValue), object: nil)
         
         
-        //
-        
-        
-        
-        
-        
-        /*
-        //let oq = NSOperationQueue.mainQueue()
-        let oq = OperationQueue()
-        let saveOP = BlockOperation {
-            
-            print("saveOP...")
-
-            
-        }
-        
-        saveOP.completionBlock = {
-            print("saveOP COMPLETE...")
-        }
-        oq.addOperations([saveOP], waitUntilFinished: false)
-        */
         
         let recentImagePath = "recent.png"
         if scene.imageName != recentImagePath {
@@ -191,9 +345,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         scene.image = nil
         
         
+        bottomMenu.setUp()
+        topMenu.setUp()
+        sideMenu.setUp()
+        sideMenuContainer.setUp()
         
-        bottomMenu?.setUp()
-        topMenu?.setUp()
+        sideMenuContainer.isHidden = true
         
     }
     
@@ -212,14 +369,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     /*
-    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
-        if engine.scene.isLandscape {
-            return UIInterfaceOrientation.landscapeLeft
-        } else {
-            return UIInterfaceOrientation.portrait
-        }
-    }
-    */
+     override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+     if engine.scene.isLandscape {
+     return UIInterfaceOrientation.landscapeLeft
+     } else {
+     return UIInterfaceOrientation.portrait
+     }
+     }
+     */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -267,6 +424,20 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     override func update() {
+        
+        if isFrozen || isFreezeEnqueued || isAnimatingSideMenu || isShowingSideMenu {
+            cancelAllGesturesAndTouches()
+            return
+        }
+        
+        
+        testX1 += 4.0
+        if testX1 >= appFrame.maxX {
+            testX1 -= appFrame.maxX
+        }
+        
+        
+        
         if zoomGestureCancelTimer > 0 {
             zoomGestureCancelTimer = zoomGestureCancelTimer - 1
             if zoomGestureCancelTimer <= 0 {
@@ -304,20 +475,28 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
         
         Graphics.clear(r: 0.15, g: 0.15, b: 0.18)
-        //ShaderProgramMesh.shared.colorSet(r: 0.25, g: 0.15, b: 0.33)
-        //ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(appFrame.size.width), height: Float(-appFrame.size.height))
         
         
-        let viewMat = screenMat.clone()
-        viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
-        viewMat.scale(Float(screenScale))
-        ShaderProgramMesh.shared.matrixProjectionSet(viewMat)
-        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
-        Graphics.textureEnable()
+        if isFrozen == false {
+            
+            let viewMat = screenMat.clone()
+            viewMat.translate(GLfloat(screenTranslation.x), GLfloat(screenTranslation.y), 0.0)
+            viewMat.scale(Float(screenScale))
+            ShaderProgramMesh.shared.matrixProjectionSet(viewMat)
+            ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
+            Graphics.textureEnable()
+            
+            engine.draw()
+            
+            ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
+            
+            var center = CGPoint(x: appFrame.midX, y: appFrame.midY)
+            ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x:testX1, y: center.y + 50), thickness: 4.0)
+        }
         
-        engine.draw()
-
-        ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
+        if isFrozen {
+            isPaused = true
+        }
     }
     
     func handleZoomModeChange() {
@@ -384,46 +563,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         return true
     }
     
-    /*
-    var screenTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
-    var screenScale:CGFloat = 1.0
-    
-    var screenEditTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
-    var screenEditScale:CGFloat = 1.0
-    
-    var screenAnimStartTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
-    var screenAnimStartScale:CGFloat = 1.0
-    
-    var screenAnimEndTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
-    var screenAnimEndScale:CGFloat = 1.0
-    
-    var :Bool = false
-    var screenAnimTick:Int = 0
-    var screenAnimTime:Int = 140
-    */
     
     func animateScreenTransform(scale: CGFloat, translate: CGPoint) {
         
         if scale == screenScale && translate.equalTo(screenTranslation) {
             //Don't do anything
         } else {
-            
-            
-            /*
-            UIView.animate(withDuration: 0.4, animations: {
-                [weak weakSelf = self] in
-                
-                weakSelf.screenScale = scale
-                weakSelf.screenTranslation.x = translate.x
-                weakSelf.screenTranslation.y = translate.y
-
-                }, completion: {
-                     didFinish  in
-                    self.screenAnim = false
-                })
-            */
-            
-            
             ApplicationController.shared.addActionBlocker()
             
             screenAnim = true
@@ -443,6 +588,16 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     func animateScreenTransformToIdentity() {
         animateScreenTransform(scale: 1.0, translate: CGPoint(x: 0.0, y: 0.0))
+    }
+    
+    var allowTouch: Bool {
+        if ApplicationController.shared.allowInterfaceAction() == false {
+            return false
+        }
+        if isFrozen || isFreezeEnqueued || isAnimatingSideMenu || isShowingSideMenu {
+            return false
+        }
+        return true
     }
     
     func setZoom(_ zoomScale: CGFloat) {
@@ -496,7 +651,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func didPanMainThread(_ gr:UIPanGestureRecognizer) -> Void {
+        
         gestureTouchCenter = gr.location(in: self.view)
+        
+        if allowTouch == false {
+            cancelAllGesturesAndTouches()
+            return
+        }
+        
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
@@ -558,7 +720,15 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func didPinchMainThread(_ gr:UIPinchGestureRecognizer) -> Void {
+        
         gestureTouchCenter = gr.location(in: self.view)
+        
+        if allowTouch == false {
+            cancelAllGesturesAndTouches()
+            return
+        }
+        
+        
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
@@ -622,7 +792,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func didRotateMainThread(_ gr:UIRotationGestureRecognizer) -> Void {
+        
         gestureTouchCenter = gr.location(in: self.view)
+        
+        if allowTouch == false {
+            cancelAllGesturesAndTouches()
+            return
+        }
+        
         if engine.zoomMode {
             if _allowZoomGestures == false {
                 cancelAllGestureRecognizers()
@@ -685,6 +862,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func didDoubleTapMainThread(_ gr:UITapGestureRecognizer) -> Void {
+        
+        if allowTouch == false {
+            cancelAllGesturesAndTouches()
+            return
+        }
+        
         if ApplicationController.shared.allowInterfaceAction() {
             ToolActions.menusToggleShowing()
         }
@@ -721,10 +904,16 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         let pos = gestureRecognizer.location(in: view)
         if topMenu.frame.contains(pos) { return false }
         if bottomMenu.frame.contains(pos) { return false }
+        if allowTouch == false { return false }
         return true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if allowTouch == false {
+            cancelAllGesturesAndTouches()
+            return
+        }
         
         if engine.zoomMode == false {
             for var touch:UITouch in touches {
@@ -739,6 +928,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if allowTouch == false {
+            cancelAllGesturesAndTouches()
+            return
+        }
+        
         if engine.zoomMode == false {
             for var touch:UITouch in touches {
                 if touch.phase == .moved {
@@ -752,6 +947,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if allowTouch == false {
+            cancelAllGesturesAndTouches()
+            return
+        }
+        
         if engine.zoomMode == false {
             for var touch:UITouch in touches {
                 if touch.phase == .ended || touch.phase == .cancelled {
@@ -768,12 +969,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         /*
-        if segue.identifier == "embed_bottom_menu" {
-            if let bm = segue.destination as? BottomMenu {
-                bottomMenu = bm
-            }
-        }
-        */
+         if segue.identifier == "embed_bottom_menu" {
+         if let bm = segue.destination as? BottomMenu {
+         bottomMenu = bm
+         }
+         }
+         */
         
     }
     
@@ -861,5 +1062,5 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
             }
         }
     }
-
+    
 }

@@ -11,14 +11,14 @@ import UIKit
 class ToolRowAccessoryBottomView: ToolRow
 {
     
-    @IBInspectable @IBOutlet weak var checkboxGyro: TBCheckBox! {
+    @IBOutlet weak var checkboxGyro: TBCheckBox! {
         didSet {
             checkboxGyro.delegate = self
             checkboxGyro.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
         }
     }
     
-    @IBInspectable @IBOutlet weak var checkbox3D: TBCheckBox! {
+    @IBOutlet weak var checkbox3D: TBCheckBox! {
         didSet {
             checkbox3D.delegate = self
             checkbox3D.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")

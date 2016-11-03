@@ -35,30 +35,42 @@ class BounceView: GLView {
         self.isOpaque = true
         self.contentScaleFactor = 1.0
         
-        //enableSetNeedsDisplay = true
+        enableSetNeedsDisplay = true
+        
     }
     
     
     override func display() {
         
-        if let engine = ApplicationController.shared.engine {
+        if let engine = ApplicationController.shared.engine, let bounce = ApplicationController.shared.bounce {
+            
+            if bounce.isUnfreezeEnqueued {
+                bounce.unfreezeRealize()
+            }
+            
             if engine.stereoscopic {
-                
                 self.contentScaleFactor = 1.0
-                
                 engine.stereoscopicChannel = false
                 engine.setStereoscopicBlendBackground(stereoscopicImage: self.snapshot)
                 engine.stereoscopicChannel = true
-                super.display()
+                if bounce.isFreezeEnqueued {
+                    let freezeImage = self.snapshot
+                    bounce.freezeRealize(withImage: freezeImage)
+                } else {
+                    super.display()
+                }
                 engine.stereoscopicChannel = false
-                
                 self.contentScaleFactor = defaultScaleFactor
                 
             } else {
                 self.contentScaleFactor = defaultScaleFactor
-                super.display()
+                if bounce.isFreezeEnqueued {
+                    let freezeImage = self.snapshot
+                    bounce.freezeRealize(withImage: freezeImage)
+                } else {
+                    super.display()
+                }
             }
-            
         }
     }
 }

@@ -13,6 +13,16 @@ class ToolActions {
     class func menu() {
         print("ToolActions.menu()")
         
+        if let bounce = ApplicationController.shared.bounce, bounce.isAnimatingSideMenu == false {
+            if bounce.isShowingSideMenu {
+                bounce.hideSideMenu()
+            } else {
+                bounce.showSideMenu()
+            }
+        }
+    }
+    
+    class func home() {
         if let home = ApplicationController.shared.getStoryboardVC("home_menu") as? HomeMenuViewController {
             if let nc = ApplicationController.shared.navigationController {
                 let transition = CATransition()
@@ -25,6 +35,19 @@ class ToolActions {
             }
         }
     }
+    
+    class func new() {
+        
+    }
+    
+    class func save() {
+        
+    }
+    
+    class func upload() {
+        
+    }
+    
     
     class func addBlob() {
         DispatchQueue.main.async {

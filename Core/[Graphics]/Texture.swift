@@ -22,7 +22,6 @@ class Texture {
     var scaledWidth:GLsizei = 0
     var scaledHeight:GLsizei = 0
     
-    
     public init() {
         bindIndex = nil
         width = 0
@@ -55,25 +54,18 @@ class Texture {
     
     func Load(data: inout UnsafeMutableRawPointer, textureWidth: Int, textureHeight: Int, scaledWidth: Int, scaledHeight: Int) {
         clear()
-        
-            self.textureWidth = GLsizei(textureWidth)
-            self.textureHeight = GLsizei(textureHeight)
-            self.scaledWidth = GLsizei(scaledWidth)
-            self.scaledHeight = GLsizei(scaledHeight)
-            width = Int(textureWidth)
-            height = Int(textureHeight)
-            bindIndex = Graphics.textureGenerate(width: Int(scaledWidth), height: Int(scaledHeight), data: &data)
-        
+        self.textureWidth = GLsizei(textureWidth)
+        self.textureHeight = GLsizei(textureHeight)
+        self.scaledWidth = GLsizei(scaledWidth)
+        self.scaledHeight = GLsizei(scaledHeight)
+        width = Int(textureWidth)
+        height = Int(textureHeight)
+        bindIndex = Graphics.textureGenerate(width: Int(scaledWidth), height: Int(scaledHeight), data: &data)
     }
     
     func load(image:UIImage?) {
         clear()
         if let loadImage = image {
-            //textureWidth:GLsizei = 0
-            //textureHeight:GLsizei = 0
-            //var scaledWidth:GLsizei = 0
-            //var scaledHeight:GLsizei = 0
-            
             var imageData = Texture.Load(image:loadImage, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
             if imageData != nil {
                 defer { free(imageData) }
@@ -99,23 +91,6 @@ class Texture {
             var imageData: UnsafeMutableRawPointer = malloc(Int(w * h * 4))
             Texture.LoadOver(image: image, data: &imageData, textureWidth: &textureWidth, textureHeight: &textureHeight, scaledWidth: &scaledWidth, scaledHeight: &scaledHeight)
             return imageData
-            
-            
-            /*
-             textureWidth = GLsizei(loadImage.size.width)
-             textureHeight = GLsizei(loadImage.size.height)
-             scaledWidth = GLsizei(loadImage.size.width * loadImage.scale)
-             scaledHeight = GLsizei(loadImage.size.height * loadImage.scale)
-             let cgImage = loadImage.cgImage;
-             let imageData: UnsafeMutableRawPointer = malloc(Int(scaledWidth * scaledHeight * 4))
-             let colorSpace = CGColorSpaceCreateDeviceRGB()
-             let context = CGContext(data: imageData, width: Int(scaledWidth), height: Int(scaledHeight), bitsPerComponent: 8, bytesPerRow: Int(scaledWidth * 4), space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
-             let rect = CGRect(x: 0.0, y: 0.0, width: CGFloat(Int(scaledWidth)), height: CGFloat(Int(scaledHeight)))
-             context?.setBlendMode(CGBlendMode.copy)
-             context?.clear(rect)
-             context?.draw(cgImage!, in: rect)
-             return imageData
-             */
         }
         return nil
     }
@@ -137,13 +112,9 @@ class Texture {
                 context.setBlendMode(CGBlendMode.copy)
                 context.clear(rect)
                 context.draw(cgImage!, in: rect)
-                
             }
         }
     }
-    
-    
-    
 }
 
 

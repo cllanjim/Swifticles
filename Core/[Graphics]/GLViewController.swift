@@ -42,6 +42,8 @@ class GLViewController: GLKViewController {
         let view = self.view as! GLKView
         view.context = self.context!
         view.drawableDepthFormat = .format24
+        view.drawableColorFormat = .RGB565
+        //GLKViewDrawableColorFormatRGB565
         view.isMultipleTouchEnabled = true
         view.isUserInteractionEnabled = true
         view.isExclusiveTouch = false

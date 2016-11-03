@@ -39,7 +39,6 @@ class BounceEngine {
         return ApplicationController.shared.engine
     }
     
-    
     private var _zoomMode:Bool = false
     var zoomMode:Bool {
         get {
@@ -150,8 +149,24 @@ class BounceEngine {
         for blob:Blob in temp { deleteBlob(blob) }
     }
     
-    //For the affine transformations only..
     
+    func freeze() {
+        
+        stereoscopicBlendBackgroundData = nil
+        stereoscopicBlendBackground.clear()
+        stereoscopicBlendTexture.clear()
+        
+        cancelAllTouches()
+        cancelAllGestures()
+    }
+    
+    func unfreeze() {
+        
+    }
+    
+    
+    
+    //For the affine transformations only..
     weak var _affineSelectionBlob:Blob?
     var affineSelectionBlob:Blob? {
         
