@@ -119,8 +119,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
             
             view.addConstraints([constraintLeft, constraintRight, constraintTop, constraintBottom])
             view.setNeedsUpdateConstraints()
-            
-            
         }
         freezeOverlayImageView!.image = freezeImage
         
@@ -130,26 +128,17 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         //Is this for the side menu?
         if true {
-            
             sideMenuContainer.isHidden = false
             
             let sideWidth = sideMenu.widthConstraint.constant
             
             sideMenu.leftConstraint.constant = -sideWidth
-            
             sideMenuContainer.setNeedsUpdateConstraints()
             sideMenuContainer.layoutIfNeeded()
             
-            
             ApplicationController.shared.addActionBlocker()
-            
-            
             sideMenu.leftConstraint.constant = 0.0
             sideMenuContainer.setNeedsUpdateConstraints()
-            
-            //mainContainerLeftConstraint.constant = sideWidth
-            
-            
             
             UIView.animate(withDuration: 0.52, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseOut, animations:
                 { [weak weakSelf = self] in
@@ -351,7 +340,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         sideMenuContainer.setUp()
         
         sideMenuContainer.isHidden = true
-        
     }
     
     

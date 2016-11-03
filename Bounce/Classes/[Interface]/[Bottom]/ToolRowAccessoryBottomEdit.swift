@@ -13,7 +13,7 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     @IBInspectable @IBOutlet weak var buttonAddBlob:TBButton! {
         didSet {
-            buttonAddBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+            buttonAddBlob.setImages(path: "tb_btn_add_blob", pathSelected: "tb_btn_add_blob_down")
         }
     }
     
@@ -31,7 +31,7 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     @IBInspectable @IBOutlet weak var buttonResetZoom:TBButton! {
         didSet {
-            buttonResetZoom.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+            buttonResetZoom.setImages(path: "tb_btn_add_blob", pathSelected: "tb_btn_add_blob_down")
         }
     }
     

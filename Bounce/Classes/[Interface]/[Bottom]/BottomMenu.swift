@@ -17,9 +17,17 @@ class BottomMenu: ToolView
     @IBOutlet weak internal var containerAccessory: ToolContainerBottomAccessory?
     
     @IBOutlet weak internal var shadowTop: UIImageView!
-    
     @IBOutlet weak internal var shadowMiddleToolbar: UIImageView!
     @IBOutlet weak internal var shadowMiddleMainRow: UIImageView!
+    
+    @IBOutlet weak var shadowTopHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shadowMiddleToolbarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shadowMiddleMainRowHeightConstraint: NSLayoutConstraint!
+    
+    //@IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
+    
+    
     
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!

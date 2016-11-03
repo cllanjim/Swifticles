@@ -15,28 +15,36 @@ class ToolRowBottomEdit: ToolRow
         didSet {
             segEditMode.segmentCount = 3
             segEditMode.delegate = self
-            segEditMode.setImage(index: 0, path: "tb_seg_edit_affine", pathSelected: "tb_seg_edit_selected")
-            segEditMode.setImage(index: 1, path: "tb_seg_view_grab", pathSelected: "tb_seg_view_selected")
-            segEditMode.setImage(index: 2, path: "tb_seg_edit_shape", pathSelected: "tb_seg_view_selected")
+            segEditMode.setImage(index: 0, path: "tb_seg_edit_affine", pathSelected: "tb_seg_edit_affine_selected")
+            segEditMode.setImage(index: 1, path: "tb_seg_edit_shape", pathSelected: "tb_seg_edit_shape_selected")
+            segEditMode.setImage(index: 2, path: "tb_seg_edit_weight", pathSelected: "tb_seg_edit_weight_selected")
             segEditMode.selectedIndex = 0
         }
     }
     
     @IBInspectable @IBOutlet weak var buttonAddBlob:TBButton! {
         didSet {
-            buttonAddBlob.setImages(path: "tb_btn_new_blob", pathSelected: "tb_btn_new_blob_down")
+            buttonAddBlob.setImages(path: "tb_btn_add_blob", pathSelected: "tb_btn_add_blob_down")
         }
     }
     
     @IBInspectable @IBOutlet weak var buttonDeleteBlob:TBButton! {
         didSet {
-            buttonDeleteBlob.setImages(path: "tb_btn_delete_blob", pathSelected: "tb_btn_delete_blob_down")
+            //buttonDeleteBlob.setImages(path: "tb_btn_delete_blob", pathSelected: "tb_btn_delete_blob_down")
+            
+            buttonDeleteBlob.setImages(path: "tb_btn_add_point", pathSelected: "tb_btn_add_point_down")
+            
         }
     }
     
     @IBInspectable @IBOutlet weak var buttonCloneBlob:TBButton! {
         didSet {
-            buttonCloneBlob.setImages(path: "tb_btn_clone_blob", pathSelected: "tb_btn_clone_blob_down")
+            //buttonCloneBlob.setImages(path: "tb_btn_clone_blob", pathSelected: "tb_btn_clone_blob_down")
+            
+            buttonCloneBlob.setImages(path: "tb_btn_delete_point", pathSelected: "tb_btn_delete_point_down")
+            
+            
+            
         }
     }
     

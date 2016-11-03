@@ -15,8 +15,8 @@ class ToolRowBottomView: ToolRow
         didSet {
             segViewMode.segmentCount = 2
             segViewMode.delegate = self
-            segViewMode.setImage(index: 0, path: "tb_seg_view_grab", pathSelected: "tb_seg_view_grab")
-            segViewMode.setImage(index: 1, path: "tb_seg_view_grab", pathSelected: "tb_seg_view_grab")
+            segViewMode.setImage(index: 0, path: "tb_seg_view_free", pathSelected: "tb_seg_view_free_selected")
+            segViewMode.setImage(index: 1, path: "tb_seg_view_loops", pathSelected: "tb_seg_view_loops_selected")
             segViewMode.selectedIndex = 0
         }
     }
@@ -24,14 +24,14 @@ class ToolRowBottomView: ToolRow
     @IBInspectable @IBOutlet weak var checkboxGyro: TBCheckBox! {
         didSet {
             checkboxGyro.delegate = self
-            checkboxGyro.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
+            checkboxGyro.setImages(path: "tb_cb_zoom", pathSelected: nil)
         }
     }
     
     @IBInspectable @IBOutlet weak var checkbox3D: TBCheckBox! {
         didSet {
             checkbox3D.delegate = self
-            checkbox3D.setImages(path: "tb_seg_edit", pathSelected: "tb_seg_edit_selected")
+            checkbox3D.setImages(path: "tb_cb_3d", pathSelected: nil)
         }
     }
     

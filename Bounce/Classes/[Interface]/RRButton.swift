@@ -237,7 +237,6 @@ class RRButton: UIButton {
     }
     
     func styleSetCheck() {
-        
         fill = true
         stroke = false
         strokeDown = true
@@ -250,7 +249,6 @@ class RRButton: UIButton {
     }
     
     func styleSetCheckChecked() {
-        
         fill = true
         stroke = true
         strokeDown = true
@@ -261,7 +259,6 @@ class RRButton: UIButton {
         maxHeight = ApplicationController.shared.tbButtonHeight
         strokeWidth = ApplicationController.shared.tbStrokeWidth
         setNeedsDisplay()
-        
     }
     
     
@@ -315,7 +312,7 @@ class RRButton: UIButton {
     func styleSetToolbarButton() {
         fill = false
         fillDown = true
-        stroke = true
+        stroke = false
         strokeDown = false
         strokeWidth = 4.0
         //fillColor = UIColor.clear

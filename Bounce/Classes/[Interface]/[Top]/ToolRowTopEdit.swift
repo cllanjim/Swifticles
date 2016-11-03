@@ -11,7 +11,17 @@ import UIKit
 class ToolRowTopEdit: ToolRow
 {
     
+    @IBInspectable @IBOutlet weak var buttonFlipH:TBButton! {
+        didSet {
+            buttonFlipH.setImages(path: "tb_btn_add_blob", pathSelected: "tb_btn_add_blob_down")
+        }
+    }
     
+    @IBInspectable @IBOutlet weak var buttonFlipV:TBButton! {
+        didSet {
+            buttonFlipV.setImages(path: "tb_btn_add_blob", pathSelected: "tb_btn_add_blob_down")
+        }
+    }
     
     override func refreshUI() {
         super.refreshUI()
