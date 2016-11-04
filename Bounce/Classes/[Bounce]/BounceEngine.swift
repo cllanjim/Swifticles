@@ -451,26 +451,17 @@ class BounceEngine {
         
         if stereoscopic {
             
-            var holdMat = ShaderProgramMesh.shared.matrixProjectionGet()
-            var mat = Matrix(holdMat)
-            
+            let holdMat = ShaderProgramMesh.shared.matrixProjectionGet()
+            let mat = Matrix(holdMat)
             mat.translate(stereoscopicSpreadBase, 0.0, 0.0)
             ShaderProgramMesh.shared.matrixProjectionSet(mat)
-            
             if stereoscopicChannel {
-                
-                
-                
                 background.setColor(0.0, 1.0, 1.0, 1.0)
             } else {
                 background.setColor(1.0, 0.0, 0.0, 1.0)
             }
             background.draw()
-            
             ShaderProgramMesh.shared.matrixProjectionSet(holdMat)
-            
-            //mat
-            
         } else {
             background.setColor(1.0, 1.0, 1.0, 1.0)
             background.draw()
@@ -540,7 +531,7 @@ class BounceEngine {
         }
         
         if sceneMode == .edit && editMode == .affine {
-            if affineSelectionBlob == nil {
+            if affineSelectionBlob === nil {
                 affineSelectionBlob = touchBlob
                 if let checkAffineSelectedBlob = affineSelectionBlob {
                     affineSelectionDidChange = false
@@ -550,6 +541,12 @@ class BounceEngine {
                     affineSelectionStartScale = checkAffineSelectedBlob.scale
                     affineSelectionStartRotation = checkAffineSelectedBlob.rotation
                 } else {
+                    
+                    // Touch outside all blobs = deselect
+                    if affineSelectionTouch === nil && touchBlob === nil {
+                        selectedBlob = nil
+                    }
+                    
                     affineSelectionDidChange = false
                     affineSelectionBlob = nil
                     affineSelectionTouch = nil
@@ -583,15 +580,25 @@ class BounceEngine {
                 }
             }
             
-            if let blob = editBlob , shapeSelectionBlob == nil {
+            if let blob = editBlob , shapeSelectionBlob === nil {
                 selectedBlob = blob
-                if closest!.distance < 80.0 {
+                
+                var minDist: CGFloat = 48.0
+                if Device.isTablet {
+                    minDist = 62.0
+                }
+                
+                if closest!.distance < minDist { //|| ((editBlob === touchBlob) && (editBlob !== nil)) {
                     shapeSelectionDidChange = false
                     shapeSelectionBlob = blob
                     shapeSelectionStartSpline = blob.spline.clone()
                     shapeSelectionTouch = touch
                     shapeSelectionControlPointIndex = closest!.index
                     shapeSelectionOffset = offset
+                } else {
+                    if shapeSelectionTouch === nil && touchBlob === nil {
+                        selectedBlob = nil
+                    }
                 }
             }
         }
@@ -628,11 +635,11 @@ class BounceEngine {
                 }
             }
             
-            if pickBlob == nil {
+            if pickBlob === nil {
                 pickBlob = touchBlob
             }
             
-            if pickBlob != nil && weightSelectionBlob == nil && weightSelectionTouch == nil {
+            if pickBlob != nil && weightSelectionBlob === nil && weightSelectionTouch === nil {
                 weightSelectionBlob = pickBlob!
                 weightSelectionTouch = touch
                 weightSelectionStartCenter = pickBlob!.weightCenter
@@ -1062,7 +1069,7 @@ class BounceEngine {
         }
         
         //If we weren't exactly inside of the blob, let's try to pick one that's near.
-        if(result == nil) {
+        if(result === nil) {
             var bestDist:CGFloat = (45.0 * 45.0)
             for i in 0..<blobs.count {
                 let blob = blobs[i]
