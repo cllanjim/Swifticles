@@ -62,6 +62,7 @@ class BottomMenu: ToolView
         
         clipsToBounds = false
         isMultipleTouchEnabled = false
+        backgroundColor = UIColor.clear
         
         toolBarHeightConstraint.constant = ApplicationController.shared.toolBarHeight
         
@@ -176,7 +177,7 @@ class BottomMenu: ToolView
             menuHeightConstraint.constant = expandedHeight
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 0.36, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
                 }, completion:
@@ -208,7 +209,6 @@ class BottomMenu: ToolView
             if let container = containerMain, container.isHidden == false {
                 container.showToolsAnimated(withDelay: 0.20, withStagger: 0.0, withDirection: -1)
             }
-            
         }
     }
     

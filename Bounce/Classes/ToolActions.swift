@@ -11,7 +11,9 @@ import UIKit
 class ToolActions {
     
     class func menu() {
-        print("ToolActions.menu()")
+        
+        home()
+        return
         
         if let bounce = ApplicationController.shared.bounce, bounce.isAnimatingSideMenu == false {
             if bounce.isShowingSideMenu {
@@ -132,6 +134,16 @@ class ToolActions {
     class func setGyroEnabled(_ gyroEnabled:Bool) {
         DispatchQueue.main.async {
             ApplicationController.shared.engine?.gyro = gyroEnabled
+        }
+    }
+    
+    class func resetZoom() {
+        DispatchQueue.main.async {
+            if let bounce = ApplicationController.shared.bounce {
+                bounce.animateScreenTransform(scale: 1.0, translate: CGPoint.zero)
+                bounce.screenEditTranslation = CGPoint.zero
+                bounce.screenEditScale = 1.0
+            }
         }
     }
     

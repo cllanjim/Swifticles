@@ -11,6 +11,9 @@ import UIKit
 class ToolRowBottomView: ToolRow
 {
     
+    @IBOutlet weak var segViewModeLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var segViewModeRightConstraint: NSLayoutConstraint!
+    
     @IBInspectable @IBOutlet weak var segViewMode:TBSegment! {
         didSet {
             segViewMode.segmentCount = 2
@@ -35,6 +38,11 @@ class ToolRowBottomView: ToolRow
         }
     }
     
+    @IBInspectable @IBOutlet weak var buttonUndoAlt:TBButton! {
+        didSet {
+            buttonUndoAlt.setImages(path: "tb_btn_undo", pathSelected: "tb_btn_undo_down")
+        }
+    }
     
     //
 
@@ -48,9 +56,21 @@ class ToolRowBottomView: ToolRow
     }
     
     override func setUp() {
-        
         super.setUp()
         
+        if ApplicationController.shared.isSceneLandscape {
+            buttonUndoAlt.isHidden = true
+        }
+        
+        if Device.isTablet {
+            let padding = CGFloat(Int(mainContainer!.width * 0.23))
+            segViewModeLeftConstraint.constant = padding
+            segViewModeRightConstraint.constant = -padding
+        } else if ApplicationController.shared.isSceneLandscape {
+            let padding = CGFloat(Int(mainContainer!.width * 0.14))
+            segViewModeLeftConstraint.constant = padding
+            segViewModeRightConstraint.constant = -padding
+        }
     }
     
     override func refreshUI() {
@@ -72,6 +92,11 @@ class ToolRowBottomView: ToolRow
     
     func UIUpdateHistory() {
         
+        if ApplicationController.shared.canUndo() {
+            buttonUndoAlt.isEnabled = true
+        } else {
+            buttonUndoAlt.isEnabled = false
+        }
     }
     
     func UIUpdateZoom() {
@@ -80,6 +105,10 @@ class ToolRowBottomView: ToolRow
     
     func UIUpdateSceneMode() {
         
+    }
+    
+    @IBAction func clickUndo(sender: AnyObject) {
+        ToolActions.undo()
     }
     
     override func segmentSelected(segment:TBSegment, index: Int) {

@@ -18,6 +18,12 @@ class ToolRowAccessoryBottomZoom: ToolRow
         }
     }
     
+    @IBInspectable @IBOutlet weak var buttonResetZoom:TBButton! {
+        didSet {
+            buttonResetZoom.setImages(path: "tb_btn_undo", pathSelected: "tb_btn_undo_down")
+        }
+    }
+    
     override func setUp() {
         super.setUp()
         addObserver(selector: #selector(handleZoomModeChangedForced), notification: .zoomModeChangedForced)
@@ -58,6 +64,11 @@ class ToolRowAccessoryBottomZoom: ToolRow
         }
     }
     
+    @IBAction func clickResetZoom(sender: AnyObject) {
+        if ApplicationController.shared.allowInterfaceAction() {
+            ToolActions.resetZoom()
+        }
+    }
     
     override func handleSceneReady() {
         super.handleSceneReady()

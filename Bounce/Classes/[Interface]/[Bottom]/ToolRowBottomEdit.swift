@@ -22,6 +22,10 @@ class ToolRowBottomEdit: ToolRow
         }
     }
     
+    @IBOutlet weak var segEditModeLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var segEditModeRightConstraint: NSLayoutConstraint!
+    
+    
     @IBInspectable @IBOutlet weak var buttonAddBlob:TBButton! {
         didSet {
             buttonAddBlob.setImages(path: "tb_btn_add_blob", pathSelected: "tb_btn_add_blob_down")
@@ -68,10 +72,22 @@ class ToolRowBottomEdit: ToolRow
     }
     
     override func setUp() {
+        
+        super.setUp()
+        
         if ApplicationController.shared.isSceneLandscape {
             buttonUndoAlt.isHidden = true
         }
-        super.setUp()
+        
+        if Device.isTablet {
+            let padding = CGFloat(Int(mainContainer!.width * 0.23))
+            segEditModeLeftConstraint.constant = padding
+            segEditModeRightConstraint.constant = -padding
+        } else if ApplicationController.shared.isSceneLandscape {
+            let padding = CGFloat(Int(mainContainer!.width * 0.14))
+            segEditModeLeftConstraint.constant = padding
+            segEditModeRightConstraint.constant = -padding
+        }
     }
     
     override func refreshUI() {
@@ -132,12 +148,6 @@ class ToolRowBottomEdit: ToolRow
             buttonUndoAlt.isEnabled = true
         } else {
             buttonUndoAlt.isEnabled = false
-        }
-        
-        if ApplicationController.shared.canRedo() {
-            
-        } else {
-            
         }
     }
     

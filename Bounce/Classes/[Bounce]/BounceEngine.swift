@@ -1250,6 +1250,9 @@ class BounceEngine {
     
     
     func undo() {
+        
+        print("Undo! Allow[\(canUndo())] -> Index = \(historyIndex)")
+        
         if canUndo() {
             let index = historyLastActionRedo ? historyIndex : (historyIndex - 1)
             let state = historyStack[index]
@@ -1259,6 +1262,9 @@ class BounceEngine {
             historyLastActionRedo = false
             BounceEngine.postNotification(BounceNotification.historyChanged)
         }
+        
+        print("Post Undo! Index = \(historyIndex)")
+        
     }
     
     func redo() {

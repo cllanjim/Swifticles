@@ -557,6 +557,11 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         if scale == screenScale && translate.equalTo(screenTranslation) {
             //Don't do anything
         } else {
+            
+            if screenAnim {
+                ApplicationController.shared.removeActionBlocker()
+            }
+            
             ApplicationController.shared.addActionBlocker()
             
             screenAnim = true

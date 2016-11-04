@@ -53,6 +53,7 @@ class TopMenu: ToolView
         
         clipsToBounds = false
         isMultipleTouchEnabled = false
+        backgroundColor = UIColor.clear
         
         toolBarHeightConstraint.constant = ApplicationController.shared.toolBarHeight
         
@@ -167,7 +168,7 @@ class TopMenu: ToolView
             menuHeightConstraint.constant = expandedHeight
             setNeedsUpdateConstraints()
             superview?.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 0.36, animations: {
                 [weak weakSelf = self] in
                 weakSelf?.superview?.layoutIfNeeded()
                 }, completion:

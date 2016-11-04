@@ -25,6 +25,19 @@ class ToolRowBottomZoom: ToolRow
         }
     }
     
+    @IBInspectable @IBOutlet weak var buttonResetZoom:TBButton! {
+        didSet {
+            buttonResetZoom.setImages(path: "tb_btn_undo", pathSelected: "tb_btn_undo_down")
+        }
+    }
+    
+    @IBInspectable @IBOutlet weak var labelZoomPercent:UILabel! {
+        didSet {
+            
+            //buttonResetZoom.setImages(path: "tb_btn_undo", pathSelected: "tb_btn_undo_down")
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -37,6 +50,12 @@ class ToolRowBottomZoom: ToolRow
         super.setUp()
         addObserver(selector: #selector(handleZoomModeChangedForced), notification: .zoomModeChangedForced)
         addObserver(selector: #selector(handleZoomScaleChanged), notification: .zoomScaleChanged)
+    }
+    
+    @IBAction func clickResetZoom(sender: AnyObject) {
+        if ApplicationController.shared.allowInterfaceAction() {
+            ToolActions.resetZoom()
+        }
     }
     
     override func refreshUI() {
@@ -64,6 +83,14 @@ class ToolRowBottomZoom: ToolRow
     func UIUpdateZoomSlider() {
         if let bounce = ApplicationController.shared.bounce {
             sliderZoomScale.value = Float(bounce.screenScale)
+            UIUpdateZoomText()
+        }
+    }
+    
+    func UIUpdateZoomText() {
+        if let bounce = ApplicationController.shared.bounce {
+            let percentInt = Int(Float(bounce.screenScale * 100.0 + 0.5))
+            labelZoomPercent.text = "\(percentInt)%"
         }
     }
     
@@ -85,14 +112,13 @@ class ToolRowBottomZoom: ToolRow
         if sender === sliderZoomScale {
             if let bounce = ApplicationController.shared.bounce {
                 bounce.setZoom(CGFloat(sliderZoomScale.value))
+                UIUpdateZoomText()
             }
         }
     }
     
-    
     override func handleSceneReady() {
         super.handleSceneReady()
-        
     }
     
     override func handleZoomModeChange() {
@@ -105,11 +131,7 @@ class ToolRowBottomZoom: ToolRow
     }
     
     func handleZoomScaleChanged() {
-        
         UIUpdateZoomSlider()
-        
-        
-        
     }
     
     override func handleSceneModeChanged() {

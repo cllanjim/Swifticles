@@ -71,7 +71,7 @@ class RRButton: UIButton {
     var imagePathDown: String? { didSet { setNeedsDisplay() } }
     
     var cornerUL = true { didSet { setNeedsDisplay() } }
-    var cornerUR = false { didSet { setNeedsDisplay() } }
+    var cornerUR = true { didSet { setNeedsDisplay() } }
     var cornerDR = true { didSet { setNeedsDisplay() } }
     var cornerDL = true { didSet { setNeedsDisplay() } }
     
@@ -312,12 +312,13 @@ class RRButton: UIButton {
     func styleSetToolbarButton() {
         fill = false
         fillDown = true
-        stroke = false
+        stroke = true
         strokeDown = false
-        strokeWidth = 4.0
+        strokeWidth = 8.0
         //fillColor = UIColor.clear
         fillColorDown = styleColorBlue
-        strokeColor = styleColorBlue
+        //strokeColor = styleColorBlue
+        strokeColor = styleColorOrange
         maxHeight = ApplicationController.shared.tbButtonHeight
         strokeWidth = ApplicationController.shared.tbStrokeWidth
         setNeedsDisplay()
