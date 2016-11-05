@@ -54,12 +54,11 @@ class ToolBarBottom : ToolRow
     }
     
     override func setUp() {
+        addObserver(selector: #selector(handleHistoryChanged), notification: .historyChanged)
         if ApplicationController.shared.isSceneLandscape {
             buttonExpandAlt.isHidden = true
             buttonRedoAlt.isHidden = true
         }
-        
-        
         super.setUp()
     }
     
@@ -72,7 +71,9 @@ class ToolBarBottom : ToolRow
             segMode.selectedIndex = 0
         }
         
-        UIUpdateHistory()
+        
+        UIUpdateZoom()
+        UIUpdateSceneMode()
     }
     
     
@@ -107,6 +108,37 @@ class ToolBarBottom : ToolRow
     
     func UIUpdateZoom() {
         
+        UIUpdateHistory()
+        
+        if ApplicationController.shared.zoomMode {
+            
+            if buttonUndo.alpha < 0.5 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    [weak weakSelf = self] in
+                    weakSelf?.buttonUndo.alpha = 1.0
+                })
+            }
+            if buttonRedo.alpha < 0.5 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    [weak weakSelf = self] in
+                    weakSelf?.buttonRedo.alpha = 1.0
+                })
+            }
+            
+        } else {
+            if buttonUndo.alpha > 0.5 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    [weak weakSelf = self] in
+                    weakSelf?.buttonUndo.alpha = 0.0
+                })
+            }
+            if buttonRedo.alpha > 0.5 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    [weak weakSelf = self] in
+                    weakSelf?.buttonRedo.alpha = 0.0
+                })
+            }
+        }
     }
     
     func UIUpdateSceneMode() {
@@ -155,8 +187,7 @@ class ToolBarBottom : ToolRow
         
     }
     
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
+    func handleHistoryChanged() {
         UIUpdateHistory()
     }
     

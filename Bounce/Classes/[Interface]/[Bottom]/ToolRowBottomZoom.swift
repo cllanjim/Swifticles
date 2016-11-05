@@ -60,8 +60,6 @@ class ToolRowBottomZoom: ToolRow
     
     override func refreshUI() {
         super.refreshUI()
-        
-        UIUpdateHistory()
         UIUpdateSelection()
         UIUpdateZoomCheck()
         UIUpdateSceneMode()
@@ -69,10 +67,6 @@ class ToolRowBottomZoom: ToolRow
     }
     
     func UIUpdateSelection() {
-        
-    }
-    
-    func UIUpdateHistory() {
         
     }
     
@@ -154,9 +148,5 @@ class ToolRowBottomZoom: ToolRow
         UIUpdateSelection()
     }
     
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
-        UIUpdateHistory()
-    }
 }
 

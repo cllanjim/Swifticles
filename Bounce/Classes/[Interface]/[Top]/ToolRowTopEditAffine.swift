@@ -8,9 +8,8 @@
 
 import UIKit
 
-class ToolRowTopEdit: ToolRow
+class ToolRowTopEditAffine: ToolRow
 {
-    
     @IBInspectable @IBOutlet weak var buttonFlipH:TBButton! {
         didSet {
             buttonFlipH.setImages(path: "tb_btn_add_blob", pathSelected: "tb_btn_add_blob_down")
@@ -25,18 +24,6 @@ class ToolRowTopEdit: ToolRow
     
     override func refreshUI() {
         super.refreshUI()
-        
-        /*
-        if ApplicationController.shared.editMode == .distribution {
-            segEditMode.selectedIndex = 2
-        } else if ApplicationController.shared.editMode == .shape {
-            segEditMode.selectedIndex = 1
-        } else {
-            segEditMode.selectedIndex = 0
-        }
-        */
-        
-        UIUpdateHistory()
         UIUpdateSelection()
         UIUpdateZoom()
         UIUpdateSceneMode()
@@ -48,21 +35,6 @@ class ToolRowTopEdit: ToolRow
     
     override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
         
-    }
-    
-    func UIUpdateHistory() {
-        
-        if ApplicationController.shared.canUndo() {
-            //buttonUndoAlt.isEnabled = true
-        } else {
-            //buttonUndoAlt.isEnabled = false
-        }
-        
-        if ApplicationController.shared.canRedo() {
-            
-        } else {
-            
-        }
     }
     
     func UIUpdateSelection() {
@@ -112,12 +84,6 @@ class ToolRowTopEdit: ToolRow
         super.handleBlobSelectionChanged()
         UIUpdateSelection()
     }
-    
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
-        UIUpdateHistory()
-    }
-    
     
 }
 

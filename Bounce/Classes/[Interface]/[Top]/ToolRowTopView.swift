@@ -27,21 +27,12 @@ class ToolRowTopView: ToolRow
     override func refreshUI() {
         super.refreshUI()
         
-        
-        //checkbox3D.checked = ApplicationController.shared.engine!.stereoscopic
-        //checkboxGyro.checked = ApplicationController.shared.engine!.gyro
-        
-        UIUpdateHistory()
         UIUpdateZoom()
         UIUpdateSceneMode()
         UIUpdateSelection()
     }
     
     func UIUpdateSelection() {
-        
-    }
-    
-    func UIUpdateHistory() {
         
     }
     
@@ -52,8 +43,6 @@ class ToolRowTopView: ToolRow
     func UIUpdateSceneMode() {
         
     }
-    
-    
     
     override func segmentSelected(segment:TBSegment, index: Int) {
         
@@ -92,11 +81,6 @@ class ToolRowTopView: ToolRow
     override func handleBlobSelectionChanged() {
         super.handleBlobSelectionChanged()
         UIUpdateSelection()
-    }
-    
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
-        UIUpdateHistory()
     }
     
 }

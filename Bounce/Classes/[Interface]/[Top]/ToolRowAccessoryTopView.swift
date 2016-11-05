@@ -103,8 +103,7 @@ class ToolRowAccessoryTopView: ToolRow
         UIUpdateSelection()
     }
     
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
+    func handleHistoryChanged() {
         UIUpdateHistory()
     }
 }

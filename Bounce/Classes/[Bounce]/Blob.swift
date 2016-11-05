@@ -95,7 +95,18 @@ class Blob
     var grabAnimationGuideOffsetStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
     var grabAnimationGuideTouchStart:CGPoint = CGPoint(x: 0.0, y: 0.0)
     
-    var weightOffset = CGPoint(x: 36.0, y: 5.0)
+    private var _previousWeightOffset = CGPoint.zero
+    var weightOffset = CGPoint.zero {
+        willSet {
+            _previousWeightOffset = weightOffset
+        }
+        didSet {
+            if weightOffset.x != _previousWeightOffset.x || weightOffset.y != _previousWeightOffset.y {
+                setNeedsComputeWeight()
+            }
+        }
+    }
+    
     var weightScale: CGFloat = 1.0
     
     var weightCenter: CGPoint {
@@ -133,11 +144,12 @@ class Blob
     
     
     func setNeedsComputeShape() { needsComputeShape = true }
-    internal var needsComputeShape:Bool = true
+    internal var needsComputeShape: Bool = true
+    func setNeedsComputeWeight() { needsComputeWeight = true }
+    internal var needsComputeWeight: Bool = true
     func setNeedsComputeAffine() { needsComputeAffine = true }
-    internal var needsComputeAffine:Bool = true
-    
-    internal var boundingBox:CGRect = CGRect.zero
+    internal var needsComputeAffine: Bool = true
+    internal var boundingBox: CGRect = CGRect.zero
     
     var enabled: Bool {
         return true
@@ -382,10 +394,15 @@ class Blob
                 }
                 for nodeIndex in 0..<meshNodes.count {
                     let node = meshNodes.data[nodeIndex]
-                    r = outerR + (innerR - outerR) * node.factor
-                    g = outerG + (innerG - outerG) * node.factor
-                    b = outerB + (innerB - outerB) * node.factor
-                    a = outerA + (innerA - outerA) * node.factor
+                    
+                    //let percent = node.factor
+                    let percent = node.weightPercentSin
+                    
+                    
+                    r = outerR + (innerR - outerR) * percent
+                    g = outerG + (innerG - outerG) * percent
+                    b = outerB + (innerB - outerB) * percent
+                    a = outerA + (innerA - outerA) * percent
                     node.r = r;node.g = g;node.b = b;node.a = a
                     node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
                     vertexIndex += 10
@@ -403,16 +420,10 @@ class Blob
                     vertexIndex += 10
                 }
             }
-            
-            
-            
-            
         } else if ApplicationController.shared.engine?.sceneMode == .view {
-            
             Graphics.textureEnable()
             Graphics.textureBind(texture: sprite.texture)
             Graphics.blendDisable()
-            
             
             r = 1.0
             g = 1.0
@@ -566,11 +577,11 @@ class Blob
         if isEditModeDistribution {
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.0, a: 1.0)
         let wc = weightCenter
-        ShaderProgramMesh.shared.lineDraw(p1: center, p2: wc, thickness: 4)
-        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.5, b: 0.15, a: 1.0)
-        ShaderProgramMesh.shared.pointDraw(point: wc, size: CGFloat(64.0) * weightScale)
+            //ShaderProgramMesh.shared.lineDraw(p1: center, p2: wc, thickness: 4)
+            //ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.5, b: 0.15, a: 1.0)
+            //ShaderProgramMesh.shared.pointDraw(point: wc, size: CGFloat(64.0) * weightScale)
+            BounceViewController.shared?.controlPointSelected.drawCentered(pos: wc)
         }
-        
     }
     
     func releaseGrabFling() {
@@ -640,6 +651,67 @@ class Blob
         
     }
     
+    func computeWeight() {
+        needsComputeWeight = false
+        guard valid == true else { return }
+        
+        
+        //let c = weightCenter
+        
+        var minDist: CGFloat?
+        var maxDist: CGFloat?
+        
+        for nodeIndex in 0..<meshNodesBase.count {
+            let node = meshNodesBase.data[nodeIndex]
+            let diffX = node.x - weightOffset.x
+            let diffY = node.y - weightOffset.y
+            var dist = diffX * diffX + diffY * diffY
+            if dist > Math.epsilon {
+                dist = CGFloat(sqrtf(Float(dist)))
+            }
+            
+            if minDist != nil {
+                if dist < minDist! { minDist = dist }
+            } else { minDist = dist }
+            
+            if maxDist != nil {
+                if dist > maxDist! { maxDist = dist }
+            } else { maxDist = dist }
+            
+            node.weightDistance = dist
+            node.weightPercent = 0.5
+            node.weightPercentSin = 0.5
+        }
+        
+        if let minD = minDist, let maxD = maxDist {
+        
+            let spanD = maxD - minD
+            
+            if spanD > Math.epsilon {
+                
+                for nodeIndex in 0..<meshNodesBase.count {
+                    let node = meshNodesBase.data[nodeIndex]
+                    
+                    var percent = (node.weightDistance - minD) / spanD
+                    percent = (1.0 - percent)
+                    if percent > 1.0 { percent = 1.0 }
+                    if percent < 0.0 { percent = 0.0 }
+                    
+                    node.weightPercent = percent
+                    node.weightPercentSin = sin(percent * Math.PI_2)
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        computeAffine()
+    }
+    
+    // { computeWeight() }
+    
     func computeShape() {
         
         needsComputeShape = false
@@ -675,7 +747,8 @@ class Blob
         computeMesh()
         computeMeshEdgeFactors()
         guard valid == true else { return }
-        computeAffine()
+        
+        computeWeight()
     }
     
     internal func computeBorder() {
@@ -776,12 +849,6 @@ class Blob
         for i in 0..<grid.count {
             for n in 0..<grid[i].count {
                 grid[i][n].inside = borderBase.pointInside(point: grid[i][n].pointBase)
-                
-                if grid[i][n].inside {
-                    grid[i][n].color = UIColor(red: 0.0, green: 1.0, blue: 0.25, alpha: 1.0)
-                } else {
-                    grid[i][n].color = UIColor(red: 1.0, green: 0.25, blue: 0.5, alpha: 1.0)
-                }
             }
         }
     }
@@ -1237,26 +1304,20 @@ class Blob
             let node = meshNodesBase.data[nodeIndex]
             let percent = node.edgePercent
             
-            var dampen = node.edgePercent
-                
+            var edgePercentSin = node.edgePercent
             
             if true {
-                
                 if percent >= 1.0 {
-                    dampen = 1.0
-                } else if percent <= 0.0 {
-                    dampen = 0.0
+                    edgePercentSin = 1.0
+                } else if edgePercentSin <= 0.0 {
+                    edgePercentSin = 0.0
                 } else {
-                    dampen = sin(percent * Math.PI_2)
-                        
-                        //(1.0 - cos(percent * Math.PI_2))
+                    edgePercentSin = sin(percent * Math.PI_2)
                 }
             }
-            
-            node.dampen = dampen
-            
-            node.factor = dampen
-            
+            node.edgePercentSin = edgePercentSin
+            node.dampen = edgePercentSin
+            node.factor = edgePercentSin
         }
     }
     
@@ -1348,7 +1409,8 @@ class Blob
     
     internal func computeIfNeeded() {
         if needsComputeShape { computeShape() }
-        if needsComputeAffine { computeAffine() }
+        else if needsComputeWeight { computeWeight() }
+        else if needsComputeAffine { computeAffine() }
     }
     
     func untransformPoint(point:CGPoint) -> CGPoint {
@@ -1392,6 +1454,8 @@ class Blob
         var info = [String:AnyObject]()
         info["center_x"] = Float(center.x) as AnyObject?
         info["center_y"] = Float(center.y) as AnyObject?
+        info["weight_offset_x"] = Float(weightOffset.x) as AnyObject?
+        info["weight_offset_y"] = Float(weightOffset.y) as AnyObject?
         info["scale"] = Float(scale) as AnyObject?
         info["rotation"] = Float(rotation) as AnyObject?
         info["spline"] = spline.save() as AnyObject?
@@ -1401,11 +1465,13 @@ class Blob
     func load(info:[String:AnyObject]) {
         if let _centerX = info["center_x"] as? Float { center.x = CGFloat(_centerX) }
         if let _centerY = info["center_y"] as? Float { center.y = CGFloat(_centerY) }
+        if let _weightOffsetX = info["weight_offset_x"] as? Float { weightOffset.x = CGFloat(_weightOffsetX) }
+        if let _weightOffsetY = info["weight_offset_y"] as? Float { weightOffset.y = CGFloat(_weightOffsetY) }
         if let _scale = info["scale"] as? Float { scale = CGFloat(_scale) }
         if let _rotation = info["rotation"] as? Float { rotation = CGFloat(_rotation) }
         if let splineInfo = info["spline"] as? [String:AnyObject] { spline.load(info: splineInfo) }
-        
-        computeShape()
+        setNeedsComputeShape()
+        //computeShape()
     }
 }
 

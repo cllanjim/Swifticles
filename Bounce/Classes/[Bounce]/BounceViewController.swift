@@ -211,6 +211,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     var gestureTouchCenter:CGPoint = CGPoint.zero
     
+    var touchCancelTimer:Int = 0
+    
+    
     var screenTranslation:CGPoint = CGPoint(x:0.0, y:0.0)
     
     private var previousScreenScale:CGFloat = 1.0
@@ -413,6 +416,23 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     
     override func update() {
         
+        if touchCancelTimer > 0 {
+            touchCancelTimer -= 1
+            if touchCancelTimer <= 0 {
+                touchCancelTimer = 0
+            }
+        }
+        
+        if zoomGestureCancelTimer > 0 {
+            zoomGestureCancelTimer = zoomGestureCancelTimer - 1
+            if zoomGestureCancelTimer <= 0 {
+                panRecognizer.isEnabled = true
+                pinchRecognizer.isEnabled = true
+                rotRecognizer.isEnabled = true
+            }
+        }
+        
+        
         if isFrozen || isFreezeEnqueued || isAnimatingSideMenu || isShowingSideMenu {
             cancelAllGesturesAndTouches()
             return
@@ -426,14 +446,6 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         
         
-        if zoomGestureCancelTimer > 0 {
-            zoomGestureCancelTimer = zoomGestureCancelTimer - 1
-            if zoomGestureCancelTimer <= 0 {
-                panRecognizer.isEnabled = true
-                pinchRecognizer.isEnabled = true
-                rotRecognizer.isEnabled = true
-            }
-        }
         engine.update()
         
         if screenAnim {
@@ -528,8 +540,9 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     }
     
     func cancelAllGesturesAndTouches() {
-        engine.cancelAllTouches()
+        touchCancelTimer = 3
         cancelAllGestureRecognizers()
+        engine.cancelAllTouches()
         engine.cancelAllGestures()
     }
     
@@ -588,6 +601,12 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
             return false
         }
         if isFrozen || isFreezeEnqueued || isAnimatingSideMenu || isShowingSideMenu {
+            return false
+        }
+        if touchCancelTimer > 0 {
+            return false
+        }
+        if zoomGestureCancelTimer > 0 {
             return false
         }
         return true

@@ -435,20 +435,6 @@ class BounceEngine {
     
     func draw() {
         
-        let screenSize = scene.isLandscape ? CGSize(width: Device.landscapeWidth, height: Device.landscapeHeight) : CGSize(width: Device.portraitWidth, height: Device.portraitHeight)
-        
-        //ShaderProgramMesh.shared.colorSet(r: 0.44, g: 0.44, b: 0.44)
-        //ShaderProgramMesh.shared.rectDraw(x: 0.0, y: 0.0, width: Float(screenSize.width), height: Float(screenSize.height))
-        //ShaderProgramMesh.shared.colorSet(a: 0.35)
-        
-        
-        
-        //holdMat
-        
-        //var stereoscopic: Bool = true
-        //var stereoscopicChannel: Bool = false
-        //var stereoscopicSpread: CGFloat = 30.0
-        
         if stereoscopic {
             
             let holdMat = ShaderProgramMesh.shared.matrixProjectionGet()
@@ -583,12 +569,7 @@ class BounceEngine {
             if let blob = editBlob , shapeSelectionBlob === nil {
                 selectedBlob = blob
                 
-                var minDist: CGFloat = 48.0
-                if Device.isTablet {
-                    minDist = 62.0
-                }
-                
-                if closest!.distance < minDist { //|| ((editBlob === touchBlob) && (editBlob !== nil)) {
+                if closest!.distance < ApplicationController.shared.pointSelectDist {
                     shapeSelectionDidChange = false
                     shapeSelectionBlob = blob
                     shapeSelectionStartSpline = blob.spline.clone()
@@ -612,17 +593,12 @@ class BounceEngine {
             var bestDist: CGFloat?
             
             for i in stride(from: blobs.count - 1, to: -1, by: -1) {
-                //for blob:Blob in blobs {
                 let blob = blobs[i]
                 if blob.selectable {
-                    
                     let weightCenter = blob.weightCenter
-                    
                     let diffX = weightCenter.x - point.x
                     let diffY = weightCenter.y - point.y
-                    
                     let dist = diffX * diffX + diffY * diffY
-                    
                     if bestDist == nil {
                         bestDist = dist
                         pickBlob = blob
@@ -635,16 +611,34 @@ class BounceEngine {
                 }
             }
             
-            if pickBlob === nil {
-                pickBlob = touchBlob
+            if bestDist != nil {
+                if bestDist! > Math.epsilon {
+                    bestDist = CGFloat(sqrtf(Float(bestDist!)))
+                }
+                if bestDist! > ApplicationController.shared.pointSelectDist {
+                    pickBlob = nil
+                }
             }
             
+            //
+            
+            //if pickBlob === nil {
+            //    pickBlob = touchBlob
+            //}
+            
+            
+            
             if pickBlob != nil && weightSelectionBlob === nil && weightSelectionTouch === nil {
-                weightSelectionBlob = pickBlob!
+                selectedBlob = pickBlob
+                weightSelectionBlob = pickBlob
                 weightSelectionTouch = touch
                 weightSelectionStartCenter = pickBlob!.weightCenter
                 weightSelectionStartTouch = point
                 weightSelectionStartScale = pickBlob!.weightScale
+            } else {
+                if weightSelectionTouch === nil {
+                    selectedBlob = touchBlob
+                }
             }
             
             /*
@@ -1228,12 +1222,10 @@ class BounceEngine {
         //print("POST____")
         //historyPrint()
         
-        
     }
     
-    
-    
     func canUndo() -> Bool {
+        if zoomMode { return false }
         if historyStack.count > 0 {
             if historyLastActionRedo {
                 return (historyIndex >= 0 && historyIndex < historyStack.count)
@@ -1245,6 +1237,7 @@ class BounceEngine {
     }
     
     func canRedo() -> Bool {
+        if zoomMode { return false }
         if historyStack.count > 0 {
             if historyLastActionUndo {
                 return (historyIndex >= 0 && historyIndex < historyStack.count)

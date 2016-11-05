@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopMenu: ToolView
+class TopMenu: ToolRow
 {
     @IBOutlet weak internal var toolRowUnderlay: UIView!
     
@@ -99,11 +99,23 @@ class TopMenu: ToolView
         return h
     }
     
+    override func handleEditModeChanged() {
+        super.handleEditModeChanged()
+        updateToolRow()
+    }
+    
+    override func handleViewModeChanged() {
+        super.handleViewModeChanged()
+        updateToolRow()
+    }
+    
     override func handleSceneModeChanged() {
+        super.handleSceneModeChanged()
         updateToolRow()
     }
     
     override func handleZoomModeChange() {
+        super.handleZoomModeChange()
         updateToolRow()
     }
     

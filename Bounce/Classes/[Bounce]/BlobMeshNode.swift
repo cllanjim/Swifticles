@@ -14,6 +14,15 @@ class BlobMeshNode : DrawNode
     
     var edgeDistance: CGFloat = 0.0
     var edgePercent: CGFloat = 0.0
+    var edgePercentSin: CGFloat = 0.0
+    
+    
+    var weightDistance: CGFloat = 0.0
+    var weightPercent: CGFloat = 0.0
+    var weightPercentSin: CGFloat = 0.0
+    
+    
+    
     
     var dampen: CGFloat = 0.0
     
@@ -37,6 +46,11 @@ class BlobMeshNode : DrawNode
         
         edgeDistance = meshNode.edgeDistance
         edgePercent = meshNode.edgePercent
+        edgePercentSin = meshNode.edgePercentSin
+        
+        weightDistance = meshNode.weightDistance
+        weightPercent = meshNode.weightPercent
+        weightPercentSin = meshNode.weightPercentSin
         
         dampen = meshNode.dampen
         

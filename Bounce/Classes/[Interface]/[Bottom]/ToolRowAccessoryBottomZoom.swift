@@ -31,7 +31,6 @@ class ToolRowAccessoryBottomZoom: ToolRow
     
     override func refreshUI() {
         super.refreshUI()
-        
         UIUpdateHistory()
         UIUpdateSelection()
         UIUpdateZoom()
@@ -103,12 +102,6 @@ class ToolRowAccessoryBottomZoom: ToolRow
         super.handleBlobSelectionChanged()
         UIUpdateSelection()
     }
-    
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
-        UIUpdateHistory()
-    }
-    
 }
 
 

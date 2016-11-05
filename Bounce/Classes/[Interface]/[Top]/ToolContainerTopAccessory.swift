@@ -11,30 +11,37 @@ import UIKit
 class ToolContainerTopAccessory : ToolRowContainer
 {
     
-    @IBOutlet weak internal var toolRowEdit: ToolRowAccessoryTopEdit! {
-        didSet { toolRows.append(toolRowEdit);
-            //toolRowEdit.backgroundColor = UIColor.clear
-        }
+    @IBOutlet weak internal var toolRowEditAffine: ToolRowAccessoryTopEditAffine! {
+        didSet { toolRows.append(toolRowEditAffine) }
+    }
+    
+    @IBOutlet weak internal var toolRowEditShape: ToolRowAccessoryTopEditShape! {
+        didSet { toolRows.append(toolRowEditShape) }
+    }
+    
+    @IBOutlet weak internal var toolRowEditWeight: ToolRowAccessoryTopEditWeight! {
+        didSet { toolRows.append(toolRowEditWeight) }
     }
     
     @IBOutlet weak internal var toolRowView: ToolRowAccessoryTopView! {
-        didSet { toolRows.append(toolRowView);
-            //toolRowView.backgroundColor = UIColor.clear
-        }
+        didSet { toolRows.append(toolRowView) }
     }
     
     func updateToolRow() {
         guard isHidden == false else { return }
         
-        //if ApplicationController.shared.zoomMode {
-        //    toolRow = toolRowZoom
-        //} else {
             if ApplicationController.shared.sceneMode == .edit {
-                toolRow = toolRowEdit
+                
+                if ApplicationController.shared.editMode == .distribution {
+                    toolRow = toolRowEditWeight
+                } else if ApplicationController.shared.editMode == .shape {
+                    toolRow = toolRowEditShape
+                } else {
+                    toolRow = toolRowEditAffine
+                }
             } else if ApplicationController.shared.sceneMode == .view {
                 toolRow = toolRowView
             }
-        //}
     }
     
     override func setUp() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BottomMenu: ToolView
+class BottomMenu: ToolRow
 {
     @IBOutlet weak internal var toolRowUnderlay: UIView!
     

@@ -49,8 +49,6 @@ class ToolRowAccessoryBottomEdit: ToolRow
     
     override func refreshUI() {
         super.refreshUI()
-        
-        UIUpdateHistory()
         UIUpdateSelection()
         UIUpdateZoom()
         UIUpdateSceneMode()
@@ -85,10 +83,6 @@ class ToolRowAccessoryBottomEdit: ToolRow
     }
     
     func UIUpdateSceneMode() {
-        
-    }
-    
-    func UIUpdateHistory() {
         
     }
     
@@ -131,10 +125,4 @@ class ToolRowAccessoryBottomEdit: ToolRow
         super.handleBlobSelectionChanged()
         UIUpdateSelection()
     }
-    
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
-        UIUpdateHistory()
-    }
-    
 }

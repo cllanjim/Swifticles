@@ -72,8 +72,9 @@ class ToolRowBottomEdit: ToolRow
     }
     
     override func setUp() {
-        
         super.setUp()
+        
+        addObserver(selector: #selector(handleHistoryChanged), notification: .historyChanged)
         
         if ApplicationController.shared.isSceneLandscape {
             buttonUndoAlt.isHidden = true
@@ -200,9 +201,7 @@ class ToolRowBottomEdit: ToolRow
         UIUpdateSelection()
     }
     
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
-        
+    func handleHistoryChanged() {
         UIUpdateHistory()
     }
     

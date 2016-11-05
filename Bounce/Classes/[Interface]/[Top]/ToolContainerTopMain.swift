@@ -10,8 +10,16 @@ import UIKit
 
 class ToolContainerTopMain : ToolRowContainer
 {
-    @IBOutlet weak internal var toolRowEdit: ToolRowTopEdit! {
-        didSet { toolRows.append(toolRowEdit); toolRowEdit.backgroundColor = UIColor.clear }
+    @IBOutlet weak internal var toolRowEditAffine: ToolRowTopEditAffine! {
+        didSet { toolRows.append(toolRowEditAffine) }
+    }
+    
+    @IBOutlet weak internal var toolRowEditShape: ToolRowTopEditShape! {
+        didSet { toolRows.append(toolRowEditShape) }
+    }
+    
+    @IBOutlet weak internal var toolRowEditWeight: ToolRowTopEditWeight! {
+        didSet { toolRows.append(toolRowEditWeight) }
     }
     
     @IBOutlet weak internal var toolRowView: ToolRowTopView! {
@@ -19,15 +27,17 @@ class ToolContainerTopMain : ToolRowContainer
     }
     
     func updateToolRow() {
-        //if ApplicationController.shared.zoomMode {
-        //    toolRow = toolRowZoom
-        //} else {
-            if ApplicationController.shared.sceneMode == .edit {
-                toolRow = toolRowEdit
-            } else if ApplicationController.shared.sceneMode == .view {
-                toolRow = toolRowView
+        if ApplicationController.shared.sceneMode == .edit {
+            if ApplicationController.shared.editMode == .distribution {
+                toolRow = toolRowEditWeight
+            } else if ApplicationController.shared.editMode == .shape {
+                toolRow = toolRowEditShape
+            } else {
+                toolRow = toolRowEditAffine
             }
-        //}
+        } else if ApplicationController.shared.sceneMode == .view {
+            toolRow = toolRowView
+        }
     }
     
     override func setUp() {

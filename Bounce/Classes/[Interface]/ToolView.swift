@@ -26,13 +26,7 @@ class ToolView: UIView
     }
     
     func setUp() {
-        addObserver(selector: #selector(handleSceneReady), notification: .sceneReady)
-        addObserver(selector: #selector(handleZoomModeChange), notification: .zoomModeChanged)
-        addObserver(selector: #selector(handleSceneModeChanged), notification: .sceneModeChanged)
-        addObserver(selector: #selector(handleEditModeChanged), notification: .editModeChanged)
-        addObserver(selector: #selector(handleViewModeChanged), notification: .viewModeChanged)
-        addObserver(selector: #selector(handleBlobSelectionChanged), notification: .blobSelectionChanged)
-        addObserver(selector: #selector(handleHistoryChanged), notification: .historyChanged)
+        
         
         //zoomModeChangedForced
         
@@ -63,7 +57,8 @@ class ToolView: UIView
         
         
         //Hide all of the setup / test background colors..
-        //*
+        //
+        /*
         for subview1 in subviews {
             if ToolView.isToolElement(view: subview1) == false {
                 subview1.backgroundColor = UIColor.clear
@@ -108,13 +103,7 @@ class ToolView: UIView
         
     }
     
-    func handleSceneReady() { }
-    func handleZoomModeChange() { }
-    func handleSceneModeChanged() { }
-    func handleEditModeChanged() { }
-    func handleViewModeChanged() { }
-    func handleBlobSelectionChanged() { }
-    func handleHistoryChanged() { }
+    
     
 }
 

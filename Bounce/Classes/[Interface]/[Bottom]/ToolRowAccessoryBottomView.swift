@@ -36,17 +36,12 @@ class ToolRowAccessoryBottomView: ToolRow
         checkbox3D.checked = ApplicationController.shared.engine!.stereoscopic
         checkboxGyro.checked = ApplicationController.shared.engine!.gyro
         
-        UIUpdateHistory()
         UIUpdateSelection()
         UIUpdateZoom()
         UIUpdateSceneMode()
     }
     
     func UIUpdateSelection() {
-        
-    }
-    
-    func UIUpdateHistory() {
         
     }
     
@@ -101,11 +96,5 @@ class ToolRowAccessoryBottomView: ToolRow
         super.handleBlobSelectionChanged()
         UIUpdateSelection()
     }
-    
-    override func handleHistoryChanged() {
-        super.handleHistoryChanged()
-        UIUpdateHistory()
-    }
-    
 }
 

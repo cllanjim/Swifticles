@@ -41,6 +41,15 @@ class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
     override func setUp() {
         super.setUp()
         
+        
+        addObserver(selector: #selector(handleSceneReady), notification: .sceneReady)
+        addObserver(selector: #selector(handleZoomModeChange), notification: .zoomModeChanged)
+        addObserver(selector: #selector(handleSceneModeChanged), notification: .sceneModeChanged)
+        addObserver(selector: #selector(handleEditModeChanged), notification: .editModeChanged)
+        addObserver(selector: #selector(handleViewModeChanged), notification: .viewModeChanged)
+        addObserver(selector: #selector(handleBlobSelectionChanged), notification: .blobSelectionChanged)
+        
+        
         if ApplicationController.shared.isSceneLandscape == false {
             if let lc = leftContainer {
                 if let con = leftContainerWidthConstraint, constraints.contains(con) {
@@ -159,15 +168,21 @@ class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
         
     }
     
-    override func handleSceneReady() { super.handleSceneReady() }
-    override func handleZoomModeChange() { super.handleZoomModeChange() }
-    override func handleSceneModeChanged() { super.handleSceneModeChanged() }
-    override func handleEditModeChanged() { super.handleEditModeChanged() }
-    override func handleViewModeChanged() { super.handleViewModeChanged() }
-    override func handleBlobSelectionChanged() { super.handleBlobSelectionChanged() }
-    override func handleHistoryChanged() { super.handleHistoryChanged() }
+    func handleSceneReady() { }
+    func handleZoomModeChange() { }
+    func handleSceneModeChanged() { }
+    func handleEditModeChanged() { }
+    func handleViewModeChanged() { }
+    func handleBlobSelectionChanged() { }
+    //func handleHistoryChanged() { }
     
-    
+    //override func handleSceneReady() { super.handleSceneReady() }
+    //override func handleZoomModeChange() { super.handleZoomModeChange() }
+    //override func handleSceneModeChanged() { super.handleSceneModeChanged() }
+    //override func handleEditModeChanged() { super.handleEditModeChanged() }
+    //override func handleViewModeChanged() { super.handleViewModeChanged() }
+    //override func handleBlobSelectionChanged() { super.handleBlobSelectionChanged() }
+    //override func handleHistoryChanged() { super.handleHistoryChanged() }
     
 }
 

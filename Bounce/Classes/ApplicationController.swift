@@ -124,6 +124,13 @@ class ApplicationController
         }
     }
     
+    var pointSelectDist: CGFloat {
+        if Device.isTablet {
+            return 62.0
+        } else {
+            return 48.0
+        }
+    }
     
     var importScale:CGFloat {
         var result = Device.scale * 2.0
@@ -146,18 +153,12 @@ class ApplicationController
     
     private var _isSceneLandscape:Bool = false
     var isSceneLandscape:Bool {
-        
         get {
             return _isSceneLandscape
         }
         set {
             _isSceneLandscape = newValue
         }
-        
-        //if let scene = engine?.scene {
-        //    return scene.isLandscape
-        //}
-        //return Device.isLandscape
     }
     
     var sceneMode:SceneMode {
