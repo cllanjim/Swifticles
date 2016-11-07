@@ -8,14 +8,71 @@
 
 import UIKit
 
-class ToolRowTopEditShape: ToolRow {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class ToolRowTopEditShape: ToolRow
+{
+    override func setUp() {
+        
+        super.setUp()
+        
     }
-    */
-
+    
+    override func refreshUI() {
+        super.refreshUI()
+        
+        UIUpdateZoom()
+        UIUpdateSceneMode()
+        UIUpdateSelection()
+    }
+    
+    func UIUpdateSelection() {
+        
+    }
+    
+    func UIUpdateZoom() {
+        
+    }
+    
+    func UIUpdateSceneMode() {
+        
+    }
+    
+    override func segmentSelected(segment:TBSegment, index: Int) {
+        
+    }
+    
+    override func checkBoxToggled(checkBox:TBCheckBox, checked: Bool) {
+        
+        
+    }
+    
+    override func handleSceneReady() {
+        super.handleSceneReady()
+        
+    }
+    
+    override func handleZoomModeChanged() {
+        super.handleZoomModeChanged()
+        UIUpdateZoom()
+    }
+    
+    override func handleSceneModeChanged() {
+        super.handleSceneModeChanged()
+        UIUpdateSceneMode()
+    }
+    
+    override func handleEditModeChanged() {
+        super.handleEditModeChanged()
+        
+    }
+    
+    override func handleViewModeChanged() {
+        super.handleViewModeChanged()
+        
+    }
+    
+    override func handleBlobSelectionChanged() {
+        super.handleBlobSelectionChanged()
+        UIUpdateSelection()
+    }
+    
 }

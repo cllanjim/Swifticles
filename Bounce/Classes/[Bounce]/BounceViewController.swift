@@ -10,10 +10,6 @@ import OpenGLES
 
 class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLSessionDelegate {
     
-    
-    var testX1: CGFloat = 0.0
-    
-    
     @IBOutlet weak var buttonShowHideAll:RRButton!
     @IBOutlet weak var bottomMenu:BottomMenu!
     @IBOutlet weak var topMenu:TopMenu!
@@ -201,7 +197,16 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
     var doubleTapRecognizer:UITapGestureRecognizer!
     
     var controlPoint = Sprite()
+    var controlPointUnderlay = Sprite()
+    
+    
     var controlPointSelected = Sprite()
+    var controlPointSelectedUnderlay = Sprite()
+    
+    var centerMarker = Sprite()
+    var centerMarkerSelected = Sprite()
+    
+    
     
     var panRecognizerTouchCount:Int = 0
     var pinchRecognizerTouchCount:Int = 0
@@ -301,26 +306,37 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         
         engine.setUp(scene: scene)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleZoomModeChange),
-                                               name: NSNotification.Name(BounceNotification.zoomModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleSceneModeChanged),
-                                               name: NSNotification.Name(BounceNotification.sceneModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleEditModeChanged),
-                                               name: NSNotification.Name(BounceNotification.editModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleViewModeChanged),
-                                               name: NSNotification.Name(BounceNotification.viewModeChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleBlobSelectionChanged),
-                                               name: NSNotification.Name(BounceNotification.blobSelectionChanged.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleBlobAdded),
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleZoomModeChanged),
+                                               name: NSNotification.Name(BounceNotification.zoomModeChanged.rawValue),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleSceneModeChanged),
+                                               name: NSNotification.Name(BounceNotification.sceneModeChanged.rawValue),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleEditModeChanged),
+                                               name: NSNotification.Name(BounceNotification.editModeChanged.rawValue),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleViewModeChanged),
+                                               name: NSNotification.Name(BounceNotification.viewModeChanged.rawValue),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleBlobSelectionChanged),
+                                               name: NSNotification.Name(BounceNotification.blobSelectionChanged.rawValue),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleBlobAdded),
                                                name: NSNotification.Name(BounceNotification.blobAdded.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleHistoryChanged),
-                                               name: NSNotification.Name(BounceNotification.historyChanged.rawValue), object: nil)
-        
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleHistoryChanged),
+                                               name: NSNotification.Name(BounceNotification.historyChanged.rawValue),
+                                               object: nil)
         
         let recentImagePath = "recent.png"
         if scene.imageName != recentImagePath {
-            FileUtils.saveImagePNG(image: scene.image, filePath: FileUtils.getDocsPath(filePath: recentImagePath))
+            _ = FileUtils.saveImagePNG(image: scene.image, filePath: FileUtils.getDocsPath(filePath: recentImagePath))
         }
         
         let orientation = UIApplication.shared.statusBarOrientation
@@ -411,7 +427,14 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         view.addGestureRecognizer(doubleTapRecognizer)
         
         controlPoint.load(path: "control_point")
+        controlPointUnderlay.load(path: "control_point_underlay")
+        
         controlPointSelected.load(path: "control_point_selected")
+        controlPointSelectedUnderlay.load(path: "control_point_underlay_selected")
+        
+        centerMarker.load(path: "center_marker")
+        centerMarkerSelected.load(path: "center_marker_selected")
+        
     }
     
     override func update() {
@@ -432,19 +455,10 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
             }
         }
         
-        
         if isFrozen || isFreezeEnqueued || isAnimatingSideMenu || isShowingSideMenu {
             cancelAllGesturesAndTouches()
             return
         }
-        
-        
-        testX1 += 4.0
-        if testX1 >= appFrame.maxX {
-            testX1 -= appFrame.maxX
-        }
-        
-        
         
         engine.update()
         
@@ -485,13 +499,8 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
             ShaderProgramMesh.shared.matrixProjectionSet(viewMat)
             ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 1.0, a: 1.0)
             Graphics.textureEnable()
-            
             engine.draw()
-            
             ShaderProgramMesh.shared.matrixProjectionSet(screenMat)
-            
-            var center = CGPoint(x: appFrame.midX, y: appFrame.midY)
-            ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x:testX1, y: center.y + 50), thickness: 4.0)
         }
         
         if isFrozen {
@@ -499,38 +508,32 @@ class BounceViewController : GLViewController, UIGestureRecognizerDelegate, URLS
         }
     }
     
-    func handleZoomModeChange() {
-        print("handleZoomModeChange()")
-        engine.handleZoomModeChange()
+    func handleZoomModeChanged() {
+        engine.handleZoomModeChanged()
         cancelAllGesturesAndTouches()
     }
     
     func handleSceneModeChanged() {
-        print("handleSceneModeChanged()")
         engine.handleSceneModeChanged()
         cancelAllGesturesAndTouches()
     }
     
     func handleEditModeChanged() {
-        
-        print("handleEditModeChanged()")
         engine.handleEditModeChanged()
         cancelAllGesturesAndTouches()
     }
     
     func handleViewModeChanged() {
-        print("handleViewModeChanged()")
         engine.handleViewModeChanged()
         cancelAllGesturesAndTouches()
     }
     
     func handleBlobAdded() {
-        print("handleBlobAdded()")
         cancelAllGesturesAndTouches()
     }
     
     func handleBlobSelectionChanged() {
-        print("handleBlobSelectionChanged()")
+        
         
     }
     

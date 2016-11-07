@@ -72,7 +72,18 @@ class BounceEngine {
     private var _stereoscopic: Bool = false
     var stereoscopic: Bool {
         get {
-            return _stereoscopic && sceneMode == .view
+            
+            if _stereoscopic && sceneMode == .view {
+            if let bounce = ApplicationController.shared.bounce {
+                if fabs(bounce.screenTranslation.x) < 0.1 && fabs(bounce.screenTranslation.y) < 0.1 && fabs(bounce.screenScale - 1.0) < 0.05 {
+                    
+                    return true
+                }
+            }
+            }
+            
+            return false
+            
         }
         set {
             _stereoscopic = newValue
@@ -164,7 +175,8 @@ class BounceEngine {
         
     }
     
-    
+    var editShowEdgeWeight: Bool = false
+    var editShowCenterWeight: Bool = true
     
     //For the affine transformations only..
     weak var _affineSelectionBlob:Blob?
@@ -517,7 +529,7 @@ class BounceEngine {
         }
         
         if sceneMode == .edit && editMode == .affine {
-            if affineSelectionBlob === nil {
+            if affineSelectionTouch === nil {
                 affineSelectionBlob = touchBlob
                 if let checkAffineSelectedBlob = affineSelectionBlob {
                     affineSelectionDidChange = false
@@ -566,7 +578,7 @@ class BounceEngine {
                 }
             }
             
-            if let blob = editBlob , shapeSelectionBlob === nil {
+            if let blob = editBlob , shapeSelectionTouch === nil {
                 selectedBlob = blob
                 
                 if closest!.distance < ApplicationController.shared.pointSelectDist {
@@ -921,9 +933,9 @@ class BounceEngine {
         NotificationCenter.default.post(notification)
     }
     
-    func handleZoomModeChange() {
+    func handleZoomModeChanged() {
         for blob in blobs {
-            if blob.enabled { blob.handleZoomModeChange() }
+            if blob.enabled { blob.handleZoomModeChanged() }
         }
     }
     

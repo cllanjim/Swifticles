@@ -75,6 +75,7 @@ class ToolRowBottomEdit: ToolRow
         super.setUp()
         
         addObserver(selector: #selector(handleHistoryChanged), notification: .historyChanged)
+        addObserver(selector: #selector(handleZoomModeChanged), notification: .zoomModeChangedForced)
         
         if ApplicationController.shared.isSceneLandscape {
             buttonUndoAlt.isHidden = true
@@ -175,8 +176,8 @@ class ToolRowBottomEdit: ToolRow
         
     }
     
-    override func handleZoomModeChange() {
-        super.handleZoomModeChange()
+    override func handleZoomModeChanged() {
+        super.handleZoomModeChanged()
         UIUpdateZoom()
     }
     

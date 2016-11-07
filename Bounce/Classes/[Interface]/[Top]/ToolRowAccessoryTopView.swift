@@ -10,21 +10,8 @@ import Foundation
 
 class ToolRowAccessoryTopView: ToolRow
 {
-    
-    
-    
     override func refreshUI() {
         super.refreshUI()
-        
-        /*
-         if ApplicationController.shared.editMode == .distribution {
-         segEditMode.selectedIndex = 2
-         } else if ApplicationController.shared.editMode == .shape {
-         segEditMode.selectedIndex = 1
-         } else {
-         segEditMode.selectedIndex = 0
-         }
-         */
         
         UIUpdateHistory()
         UIUpdateSelection()
@@ -78,8 +65,8 @@ class ToolRowAccessoryTopView: ToolRow
         
     }
     
-    override func handleZoomModeChange() {
-        super.handleZoomModeChange()
+    override func handleZoomModeChanged() {
+        super.handleZoomModeChanged()
         UIUpdateZoom()
     }
     

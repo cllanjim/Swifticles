@@ -110,7 +110,7 @@ class ToolBarBottom : ToolRow
         
         UIUpdateHistory()
         
-        if ApplicationController.shared.zoomMode {
+        if ApplicationController.shared.zoomMode == false {
             
             if buttonUndo.alpha < 0.5 {
                 UIView.animate(withDuration: 0.3, animations: {
@@ -124,7 +124,12 @@ class ToolBarBottom : ToolRow
                     weakSelf?.buttonRedo.alpha = 1.0
                 })
             }
-            
+            if buttonRedoAlt.alpha < 0.5 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    [weak weakSelf = self] in
+                    weakSelf?.buttonRedoAlt.alpha = 1.0
+                })
+            }
         } else {
             if buttonUndo.alpha > 0.5 {
                 UIView.animate(withDuration: 0.3, animations: {
@@ -136,6 +141,12 @@ class ToolBarBottom : ToolRow
                 UIView.animate(withDuration: 0.3, animations: {
                     [weak weakSelf = self] in
                     weakSelf?.buttonRedo.alpha = 0.0
+                })
+            }
+            if buttonRedoAlt.alpha > 0.5 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    [weak weakSelf = self] in
+                    weakSelf?.buttonRedoAlt.alpha = 0.0
                 })
             }
         }
@@ -164,8 +175,9 @@ class ToolBarBottom : ToolRow
         
     }
     
-    override func handleZoomModeChange() {
-        super.handleZoomModeChange()
+    override func handleZoomModeChanged() {
+        super.handleZoomModeChanged()
+        UIUpdateZoom()
     }
     
     override func handleSceneModeChanged() {

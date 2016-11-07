@@ -57,8 +57,7 @@ class ToolView: UIView
         
         
         //Hide all of the setup / test background colors..
-        //
-        /*
+        // /*
         for subview1 in subviews {
             if ToolView.isToolElement(view: subview1) == false {
                 subview1.backgroundColor = UIColor.clear

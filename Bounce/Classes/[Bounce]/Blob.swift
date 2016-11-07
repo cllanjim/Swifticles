@@ -107,15 +107,34 @@ class Blob
         }
     }
     
-    var weightScale: CGFloat = 1.0
+    private var _previouscenterBulgeFactor: CGFloat = 0.5
+    var centerBulgeFactor: CGFloat = 0.5 {
+        willSet {
+            _previouscenterBulgeFactor = centerBulgeFactor
+        }
+        didSet {
+            if _previouscenterBulgeFactor != centerBulgeFactor {
+                setNeedsComputeWeight()
+            }
+        }
+    }
     
+    private var _previousEdgeBulgeFactor: CGFloat = 0.5
+    var edgeBulgeFactor: CGFloat = 0.5 {
+        willSet {
+            _previousEdgeBulgeFactor = edgeBulgeFactor
+        }
+        didSet {
+            if _previousEdgeBulgeFactor != edgeBulgeFactor {
+                setNeedsComputeWeight()
+            }
+        }
+    }
+    
+    var weightScale: CGFloat = 1.0
     var weightCenter: CGPoint {
-        set {
-            weightOffset = untransformPoint(point: newValue)
-        }
-        get {
-            return transformPoint(point: weightOffset)
-        }
+        set { weightOffset = untransformPoint(point: newValue) }
+        get { return transformPoint(point: weightOffset) }
     }
     
     
@@ -209,7 +228,7 @@ class Blob
     }
     
     func update() {
-
+        
         var isEditMode = false
         var isViewMode = false
         
@@ -322,10 +341,21 @@ class Blob
     
     func drawMesh() {
         
-        guard let sprite = ApplicationController.shared.engine?.background else {
+        guard let engine = ApplicationController.shared.engine else {
             valid = false
             return
         }
+        
+        let sprite = engine.background
+        
+        guard let bounce = ApplicationController.shared.bounce else {
+            valid = false
+            return
+        }
+        
+        
+        
+        
         
         var stereo = ApplicationController.shared.engine!.stereoscopic
         var stereoChannel = ApplicationController.shared.engine!.stereoscopicChannel
@@ -345,7 +375,7 @@ class Blob
         //        stereoSpread = ApplicationController.shared.engine!.stereoscopicSpread
         //    }
         //}
-            
+        
         
         
         computeIfNeeded()
@@ -388,6 +418,11 @@ class Blob
                 let innerB:CGFloat = 0.0
                 var innerA:CGFloat = 0.54
                 
+                
+                let showEdge: Bool = engine.editShowEdgeWeight
+                let showCenter: Bool = engine.editShowCenterWeight
+                let showBoth: Bool = (showEdge && showCenter)
+                
                 if selected {
                     outerA = 0.54
                     innerA = 0.72
@@ -396,8 +431,15 @@ class Blob
                     let node = meshNodes.data[nodeIndex]
                     
                     //let percent = node.factor
-                    let percent = node.weightPercentSin
+                    var percent: CGFloat = 0.0
                     
+                    if showBoth {
+                        percent = node.edgeFactor * node.weightFactor
+                    } else if showEdge {
+                        percent = node.edgeFactor
+                    }else if showCenter {
+                        percent = node.weightFactor
+                    }
                     
                     r = outerR + (innerR - outerR) * percent
                     g = outerG + (innerG - outerG) * percent
@@ -407,7 +449,6 @@ class Blob
                     node.writeToTriangleList(&vertexBuffer, index: vertexIndex)
                     vertexIndex += 10
                 }
-                
             } else {
                 if selected {
                     r = 0.1;g = 1.0;b = 0.2;a = 0.525
@@ -539,11 +580,25 @@ class Blob
         }
         
         if isEditMode {
-            linesOuter.draw()
-            linesInner.draw()
+            
+            Graphics.blendEnable()
+            Graphics.blendSetPremultiplied()
+            
+            
             if isEditModeShape {
-                Graphics.blendEnable()
-                Graphics.blendSetPremultiplied()
+                
+                
+                linesOuter.draw()
+                for i in 0..<spline.controlPointCount {
+                    let point = transformPoint(point: spline.getControlPoint(i))
+                    if shapeSelectionControlPointIndex == i {
+                        BounceViewController.shared?.controlPointSelectedUnderlay.drawCentered(pos: point)
+                    } else {
+                        BounceViewController.shared?.controlPointUnderlay.drawCentered(pos: point)
+                    }
+                }
+                
+                linesInner.draw()
                 for i in 0..<spline.controlPointCount {
                     let point = transformPoint(point: spline.getControlPoint(i))
                     
@@ -553,8 +608,14 @@ class Blob
                         BounceViewController.shared?.controlPoint.drawCentered(pos: point)
                     }
                 }
-                Graphics.blendDisable()
+                
+            } else {
+                
+                linesOuter.draw()
+                linesInner.draw()
             }
+            
+            Graphics.blendSetAlpha()
         }
         
         
@@ -566,7 +627,6 @@ class Blob
         ShaderProgramMesh.shared.pointDraw(point: center)
         ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x: center.x + animationGuideOffset.x, y: center.y + animationGuideOffset.y), thickness: 1)
         
-        
         ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.0, b: 0.0, a: 0.5)
         
         for i in 0..<grabSelectionHistoryCount {
@@ -575,12 +635,16 @@ class Blob
         }
         
         if isEditModeDistribution {
-        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.0, a: 1.0)
-        let wc = weightCenter
-            //ShaderProgramMesh.shared.lineDraw(p1: center, p2: wc, thickness: 4)
-            //ShaderProgramMesh.shared.colorSet(r: 1.0, g: 0.5, b: 0.15, a: 1.0)
-            //ShaderProgramMesh.shared.pointDraw(point: wc, size: CGFloat(64.0) * weightScale)
-            BounceViewController.shared?.controlPointSelected.drawCentered(pos: wc)
+            Graphics.blendEnable()
+            Graphics.blendSetPremultiplied()
+            ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.0, a: 1.0)
+            let wc = weightCenter
+            if selected {
+                BounceViewController.shared?.centerMarkerSelected.drawCentered(pos: wc)
+            } else {
+                BounceViewController.shared?.centerMarker.drawCentered(pos: wc)
+            }
+            Graphics.blendSetAlpha()
         }
     }
     
@@ -656,8 +720,6 @@ class Blob
         guard valid == true else { return }
         
         
-        //let c = weightCenter
-        
         var minDist: CGFloat?
         var maxDist: CGFloat?
         
@@ -679,33 +741,41 @@ class Blob
             } else { maxDist = dist }
             
             node.weightDistance = dist
-            node.weightPercent = 0.5
-            node.weightPercentSin = 0.5
+            node.weightPercent = 0.0
+            node.weightPercentMin = 0.0
+            node.weightPercentMax = 0.0
+            
+            node.edgeFactor = node.edgePercentMin + (node.edgePercentMax - node.edgePercentMin) * edgeBulgeFactor
         }
         
         if let minD = minDist, let maxD = maxDist {
-        
             let spanD = maxD - minD
-            
             if spanD > Math.epsilon {
-                
                 for nodeIndex in 0..<meshNodesBase.count {
                     let node = meshNodesBase.data[nodeIndex]
-                    
                     var percent = (node.weightDistance - minD) / spanD
                     percent = (1.0 - percent)
-                    if percent > 1.0 { percent = 1.0 }
-                    if percent < 0.0 { percent = 0.0 }
-                    
+                    if percent >= 1.0 {
+                        percent = 1.0
+                        node.weightPercentMin = 1.0
+                        node.weightPercentMax = 1.0
+                    } else if percent <= 0.0 {
+                        percent = 0.0
+                        node.weightPercentMin = 0.0
+                        node.weightPercentMax = 0.0
+                    } else {
+                        node.weightPercentMin = 1.0 - cos(percent * percent * Math.PI_2)
+                        
+                        let percentInverse:CGFloat = 1.0 - percent
+                        let maxFactor = 1.0 - (percentInverse * percentInverse)
+                        node.weightPercentMax = sin(maxFactor * Math.PI_2)
+                    }
                     node.weightPercent = percent
-                    node.weightPercentSin = sin(percent * Math.PI_2)
+                    node.weightFactor = node.weightPercentMin + (node.weightPercentMax - node.weightPercentMin) * centerBulgeFactor
+                    
                 }
             }
         }
-        
-        
-        
-        
         
         computeAffine()
     }
@@ -1297,6 +1367,12 @@ class Blob
         for nodeIndex in 0..<meshNodesBase.count {
             let node = meshNodesBase.data[nodeIndex]
             node.edgePercent = node.edgeDistance / largestDist
+            
+            if node.edgePercent >= 1.0 {
+                node.edgePercent = 1.0
+            } else if node.edgePercent <= 0.0 {
+                node.edgePercent = 0.0
+            }
         }
         
         //Compute damping based on percent.
@@ -1304,20 +1380,22 @@ class Blob
             let node = meshNodesBase.data[nodeIndex]
             let percent = node.edgePercent
             
-            var edgePercentSin = node.edgePercent
-            
-            if true {
-                if percent >= 1.0 {
-                    edgePercentSin = 1.0
-                } else if edgePercentSin <= 0.0 {
-                    edgePercentSin = 0.0
-                } else {
-                    edgePercentSin = sin(percent * Math.PI_2)
-                }
+            if percent >= 1.0 {
+                node.edgePercentMin = 1.0
+                node.weightPercentMax = 1.0
+            } else if percent <= 0.0 {
+                node.edgePercentMin = 0.0
+                node.edgePercentMax = 0.0
+            } else {
+                node.edgePercentMin = 1.0 - cos(percent * percent * Math.PI_2)
+                
+                let percentInverse:CGFloat = 1.0 - percent
+                let maxFactor = 1.0 - (percentInverse * percentInverse)
+                node.edgePercentMax = sin(maxFactor * Math.PI_2)
             }
-            node.edgePercentSin = edgePercentSin
-            node.dampen = edgePercentSin
-            node.factor = edgePercentSin
+            
+            node.dampen = node.edgePercentMax
+            node.factor = node.edgePercentMax
         }
     }
     
@@ -1434,7 +1512,7 @@ class Blob
         animationGuideReleaseFlingAccel = CGPoint(x: 0.0, y: 0.0)
     }
     
-    func handleZoomModeChange() {
+    func handleZoomModeChanged() {
         cancelAnimationGuideMotion()
     }
     
@@ -1459,6 +1537,9 @@ class Blob
         info["scale"] = Float(scale) as AnyObject?
         info["rotation"] = Float(rotation) as AnyObject?
         info["spline"] = spline.save() as AnyObject?
+        info["center_bulge_factor"] = Float(centerBulgeFactor) as AnyObject?
+        info["edge_bulge_factor"] = Float(edgeBulgeFactor) as AnyObject?
+        
         return info
     }
     
@@ -1470,6 +1551,9 @@ class Blob
         if let _scale = info["scale"] as? Float { scale = CGFloat(_scale) }
         if let _rotation = info["rotation"] as? Float { rotation = CGFloat(_rotation) }
         if let splineInfo = info["spline"] as? [String:AnyObject] { spline.load(info: splineInfo) }
+        if let _centerBulgeFactor = info["center_bulge_factor"] as? Float { centerBulgeFactor = CGFloat(_centerBulgeFactor) }
+        if let _edgeBulgeFactor = info["edge_bulge_factor"] as? Float { edgeBulgeFactor = CGFloat(_edgeBulgeFactor) }
+        
         setNeedsComputeShape()
         //computeShape()
     }

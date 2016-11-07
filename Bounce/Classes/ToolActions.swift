@@ -69,11 +69,26 @@ class ToolActions {
         }
     }
     
-    class func setZoomMode(zoomMode zm:Bool) {
+    class func setZoomMode(zoomMode zm: Bool) {
         DispatchQueue.main.async {
             ApplicationController.shared.engine?.zoomMode = zm
         }
     }
+    
+    class func setEditShowEdgeWeight(_ show: Bool) {
+        DispatchQueue.main.async {
+            ApplicationController.shared.engine?.editShowEdgeWeight = show
+        }
+    }
+    
+    class func setEditShowCenterWeight(_ show: Bool) {
+        DispatchQueue.main.async {
+            ApplicationController.shared.engine?.editShowCenterWeight = show
+        }
+    }
+    
+    
+    
     
     class func bottomMenuToggleExpand() {
         DispatchQueue.main.async {

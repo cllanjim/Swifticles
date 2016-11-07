@@ -128,11 +128,10 @@ class ToolRowBottomView: ToolRow
     
     override func handleSceneReady() {
         super.handleSceneReady()
-        
     }
     
-    override func handleZoomModeChange() {
-        super.handleZoomModeChange()
+    override func handleZoomModeChanged() {
+        super.handleZoomModeChanged()
         UIUpdateZoom()
     }
     

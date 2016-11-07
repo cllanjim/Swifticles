@@ -43,7 +43,7 @@ class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
         
         
         addObserver(selector: #selector(handleSceneReady), notification: .sceneReady)
-        addObserver(selector: #selector(handleZoomModeChange), notification: .zoomModeChanged)
+        addObserver(selector: #selector(handleZoomModeChanged), notification: .zoomModeChanged)
         addObserver(selector: #selector(handleSceneModeChanged), notification: .sceneModeChanged)
         addObserver(selector: #selector(handleEditModeChanged), notification: .editModeChanged)
         addObserver(selector: #selector(handleViewModeChanged), notification: .viewModeChanged)
@@ -169,7 +169,7 @@ class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
     }
     
     func handleSceneReady() { }
-    func handleZoomModeChange() { }
+    func handleZoomModeChanged() { }
     func handleSceneModeChanged() { }
     func handleEditModeChanged() { }
     func handleViewModeChanged() { }
@@ -177,7 +177,7 @@ class ToolRow : ToolView, TBSegmentDelegate, TBCheckBoxDelegate
     //func handleHistoryChanged() { }
     
     //override func handleSceneReady() { super.handleSceneReady() }
-    //override func handleZoomModeChange() { super.handleZoomModeChange() }
+    //override func handleZoomModeChanged() { super.handleZoomModeChanged() }
     //override func handleSceneModeChanged() { super.handleSceneModeChanged() }
     //override func handleEditModeChanged() { super.handleEditModeChanged() }
     //override func handleViewModeChanged() { super.handleViewModeChanged() }

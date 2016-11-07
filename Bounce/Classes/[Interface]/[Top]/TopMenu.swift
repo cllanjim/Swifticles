@@ -114,8 +114,8 @@ class TopMenu: ToolRow
         updateToolRow()
     }
     
-    override func handleZoomModeChange() {
-        super.handleZoomModeChange()
+    override func handleZoomModeChanged() {
+        super.handleZoomModeChanged()
         updateToolRow()
     }
     

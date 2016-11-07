@@ -112,7 +112,7 @@ class BottomMenu: ToolRow
         updateToolRow()
     }
     
-    override func handleZoomModeChange() {
+    override func handleZoomModeChanged() {
         updateToolRow()
     }
     

@@ -75,8 +75,8 @@ class ToolRowAccessoryTopEditAffine: ToolRow
         
     }
     
-    override func handleZoomModeChange() {
-        super.handleZoomModeChange()
+    override func handleZoomModeChanged() {
+        super.handleZoomModeChanged()
         UIUpdateZoom()
     }
     
