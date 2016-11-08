@@ -54,7 +54,6 @@
 		0D665E6C1D581F9B00558EA0 /* BounceViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */; };
 		0D77CBCC1DB6080B000DC571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D77CBCB1DB6080B000DC571 /* Assets.xcassets */; };
 		0D7F62F61DC1D51C001CA4C4 /* GLKView+Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F62F51DC1D51C001CA4C4 /* GLKView+Extras.swift */; };
-		0D7F62F81DC1DD89001CA4C4 /* GLKViewController+Stereoscopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7F62F71DC1DD89001CA4C4 /* GLKViewController+Stereoscopic.swift */; };
 		0D83BE921D96407600256F63 /* MeshFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE8E1D96407600256F63 /* MeshFragmentShader.glsl */; };
 		0D83BE931D96407600256F63 /* MeshVertexShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE8F1D96407600256F63 /* MeshVertexShader.glsl */; };
 		0D83BE941D96407600256F63 /* SimpleFragmentShader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 0D83BE901D96407600256F63 /* SimpleFragmentShader.glsl */; };
@@ -225,7 +224,6 @@
 		0D665E6B1D581F9B00558EA0 /* BounceViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceViewControllerTests.swift; sourceTree = "<group>"; };
 		0D77CBCB1DB6080B000DC571 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D7F62F51DC1D51C001CA4C4 /* GLKView+Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GLKView+Extras.swift"; sourceTree = "<group>"; };
-		0D7F62F71DC1DD89001CA4C4 /* GLKViewController+Stereoscopic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GLKViewController+Stereoscopic.swift"; sourceTree = "<group>"; };
 		0D83BE8E1D96407600256F63 /* MeshFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MeshFragmentShader.glsl; sourceTree = "<group>"; };
 		0D83BE8F1D96407600256F63 /* MeshVertexShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MeshVertexShader.glsl; sourceTree = "<group>"; };
 		0D83BE901D96407600256F63 /* SimpleFragmentShader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragmentShader.glsl; sourceTree = "<group>"; };
@@ -528,7 +526,6 @@
 				C21E40791DB8472500EB6A4F /* BounceScene.swift */,
 				C21E407A1DB8472500EB6A4F /* BounceViewController.swift */,
 				C21E407B1DB8472500EB6A4F /* IndexTriangleList.swift */,
-				0D7F62F71DC1DD89001CA4C4 /* GLKViewController+Stereoscopic.swift */,
 				C23E55CA1DC27B7F00970F16 /* BounceView.swift */,
 				C23409571DCA8C6E00CDE65D /* BounceSideMenu.swift */,
 				C23409591DCA961200CDE65D /* BounceSideMenuContainer.swift */,
@@ -889,7 +886,6 @@
 				C2834C071DCD65C700402867 /* ToolRowAccessoryTopEditWeight.swift in Sources */,
 				C21E40B61DB8472500EB6A4F /* TBSegmentButton.swift in Sources */,
 				C21E40A21DB8472500EB6A4F /* BounceScene.swift in Sources */,
-				0D7F62F81DC1DD89001CA4C4 /* GLKViewController+Stereoscopic.swift in Sources */,
 				C21E40B91DB8472500EB6A4F /* ToolView.swift in Sources */,
 				C21E40BC1DB8472500EB6A4F /* Config.swift in Sources */,
 				C24AA05C1DC03C6600B751B9 /* TopMenu.swift in Sources */,

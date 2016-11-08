@@ -61,7 +61,10 @@ class Blob
     
     var valid:Bool = false
     
+    var simplePolygon: Bool = false
+    
     var selected:Bool = false
+    var selectedControlPointIndex: Int?
     
     var tri = IndexTriangleList()
     var vertexBuffer = [GLfloat]()
@@ -83,6 +86,8 @@ class Blob
     
     var linesBase = LineSegmentBuffer()
     var linesInner = LineSegmentBuffer()
+    var linesInnerInvalid = LineSegmentBuffer()
+    
     var linesOuter = LineSegmentBuffer()
     
     weak var grabSelectionTouch:UITouch?
@@ -119,8 +124,8 @@ class Blob
         }
     }
     
-    private var _previousEdgeBulgeFactor: CGFloat = 0.5
-    var edgeBulgeFactor: CGFloat = 0.5 {
+    private var _previousEdgeBulgeFactor: CGFloat = 0.85
+    var edgeBulgeFactor: CGFloat = 0.85 {
         willSet {
             _previousEdgeBulgeFactor = edgeBulgeFactor
         }
@@ -146,6 +151,11 @@ class Blob
     private var borderBase = PointList()
     var border = PointList()
     
+    var borderPerimeterBase: CGFloat = 0.0
+    var borderPerimeter: CGFloat = 0.0
+    
+    
+    
     var center:CGPoint = CGPoint(x: 256, y: 256) { didSet { setNeedsComputeAffine() } }
     var scale:CGFloat = 1.0 { didSet { setNeedsComputeAffine() } }
     var rotation:CGFloat = 0.0 { didSet { setNeedsComputeAffine() } }
@@ -157,6 +167,8 @@ class Blob
     var animationGuideReleaseFlingDecay: CGFloat = 0.0
     var animationGuideReleaseFlingAccel:CGPoint = CGPoint(x: 0.0, y: 0.0)
     
+    
+    var animationTarget = CGPoint.zero
     
     //var animationGuide:CGPoint = CGPoint(x: 0.0, y: 0.0)
     
@@ -195,6 +207,7 @@ class Blob
         indexBufferSlot = Graphics.bufferGenerate()
         
         linesInner.color = Color(1.0, 1.0, 1.0, 1.0)
+        linesInnerInvalid.color = Color(0.5, 0.0, 0.0, 1.0)
         linesOuter.color = Color(0.45, 0.45, 0.45, 1.0)
         
         //var linesOuter = LineSegmentBuffer()
@@ -235,17 +248,12 @@ class Blob
         var isEditModeAffine = false
         var isEditModeShape = false
         
-        var shapeSelectionControlPointIndex:Int?
-        
         if let engine = ApplicationController.shared.engine {
             if engine.sceneMode == .edit {
                 isEditMode = true
                 if engine.editMode == .affine { isEditModeAffine = true }
                 if engine.editMode == .shape {
                     isEditModeShape = true
-                    if selected {
-                        shapeSelectionControlPointIndex = engine.shapeSelectionControlPointIndex
-                    }
                 }
             }
             if engine.sceneMode == .view {
@@ -306,8 +314,7 @@ class Blob
                     diffY = 0.0
                 }
                 
-                var decayInv = (1.0 - animationGuideReleaseFlingDecay)
-                
+                //var decayInv = (1.0 - animationGuideReleaseFlingDecay)
                 
                 //animationGuideReleaseFlingAccel = CGPoint.zero
                 //animationGuideSpeed = CGPoint.zero
@@ -341,6 +348,10 @@ class Blob
     
     func drawMesh() {
         
+        guard valid else {
+            return
+        }
+        
         guard let engine = ApplicationController.shared.engine else {
             valid = false
             return
@@ -353,31 +364,11 @@ class Blob
             return
         }
         
-        
-        
-        
-        
-        var stereo = ApplicationController.shared.engine!.stereoscopic
-        var stereoChannel = ApplicationController.shared.engine!.stereoscopicChannel
-        var stereoOffset: CGFloat = ApplicationController.shared.engine!.stereoscopicSpreadOffset
-        var stereoBase: CGFloat = ApplicationController.shared.engine!.stereoscopicSpreadBase
-        
-        if stereo == false {
-            //stereoOffset = 0.0
-            //stereoBase = 0.0
-            
-        }
-        
-        //if stereo {
-        //    if stereoChannel {
-        //        stereoSpread = -ApplicationController.shared.engine!.stereoscopicSpread
-        //    } else {
-        //        stereoSpread = ApplicationController.shared.engine!.stereoscopicSpread
-        //    }
-        //}
-        
-        
-        
+        let stereo = ApplicationController.shared.engine!.stereoscopic
+        let stereoChannel = ApplicationController.shared.engine!.stereoscopicChannel
+        let stereoOffset: CGFloat = ApplicationController.shared.engine!.stereoscopicSpreadOffset
+        let stereoBase: CGFloat = ApplicationController.shared.engine!.stereoscopicSpreadBase
+
         computeIfNeeded()
         
         let indexBufferCount = tri.count * 3
@@ -434,7 +425,7 @@ class Blob
                     var percent: CGFloat = 0.0
                     
                     if showBoth {
-                        percent = node.edgeFactor * node.weightFactor
+                        percent = node.factor
                     } else if showEdge {
                         percent = node.edgeFactor
                     }else if showCenter {
@@ -466,6 +457,11 @@ class Blob
             Graphics.textureBind(texture: sprite.texture)
             Graphics.blendDisable()
             
+            
+            let wc = weightCenter
+            
+            animationTarget = CGPoint(x: wc.x + animationGuideOffset.x, y: wc.y + animationGuideOffset.y)
+            
             r = 1.0
             g = 1.0
             b = 1.0
@@ -484,8 +480,22 @@ class Blob
             for nodeIndex in 0..<meshNodes.count {
                 let node = meshNodes.data[nodeIndex]
                 
-                let animX = node.x + testSin1 * 20.0 * node.factor
-                let animY = node.y + testSin2 * 40.0 * node.factor
+                var diffX: CGFloat = animationTarget.x - node.x
+                var diffY: CGFloat = animationTarget.y - node.y
+                
+                var dist = diffX * diffX + diffY * diffY
+                
+                    if dist > Math.epsilon {
+                        dist = CGFloat(sqrtf(Float(dist)))
+                        diffX /= dist
+                        diffY /= dist
+                    } else {
+                        diffX = 0.0
+                        diffY = 0.0
+                }
+                
+                let animX = node.x + animationGuideOffset.x * node.factor
+                let animY = node.y + animationGuideOffset.y * node.factor
                 let animZ = node.factor * 200.0
                 
                 node.animX = animX + (stereoBase + stereoOffset * node.factor)
@@ -532,6 +542,30 @@ class Blob
         
         computeIfNeeded()
         
+        if selected {
+            if Device.isTablet {
+                linesOuter.thickness = 2.5
+                linesInner.thickness = 1.5
+                linesInnerInvalid.thickness = 1.5
+            } else {
+                linesOuter.thickness = 1.75
+                linesInner.thickness = 1.0
+                linesInnerInvalid.thickness = 1.0
+            }
+        } else {
+            if Device.isTablet {
+                linesOuter.thickness = 2.0
+                linesInner.thickness = 1.0
+                linesInnerInvalid.thickness = 1.0
+            } else {
+                linesOuter.thickness = 1.5
+                linesInner.thickness = 0.75
+                linesInnerInvalid.thickness = 0.75
+            }
+        }
+        
+        
+        
         var isEditMode = false
         var isViewMode = false
         
@@ -549,7 +583,7 @@ class Blob
                 if engine.editMode == .shape {
                     isEditModeShape = true
                     if selected {
-                        shapeSelectionControlPointIndex = engine.shapeSelectionControlPointIndex
+                        shapeSelectionControlPointIndex = selectedControlPointIndex
                     }
                 }
                 if engine.editMode == .distribution { isEditModeDistribution = true }
@@ -559,25 +593,7 @@ class Blob
         
         
         
-        if selected {
-            
-            if Device.isTablet {
-                
-                linesOuter.thickness = 2.5
-                linesInner.thickness = 1.5
-            } else {
-                linesOuter.thickness = 1.75
-                linesInner.thickness = 1.0
-            }
-        } else {
-            if Device.isTablet {
-                linesOuter.thickness = 2.0
-                linesInner.thickness = 1.0
-            } else {
-                linesOuter.thickness = 1.5
-                linesInner.thickness = 0.75
-            }
-        }
+        
         
         if isEditMode {
             
@@ -598,7 +614,12 @@ class Blob
                     }
                 }
                 
-                linesInner.draw()
+                if valid {
+                    linesInner.draw()
+                } else {
+                    linesInnerInvalid.draw()
+                }
+                
                 for i in 0..<spline.controlPointCount {
                     let point = transformPoint(point: spline.getControlPoint(i))
                     
@@ -610,14 +631,12 @@ class Blob
                 }
                 
             } else {
-                
                 linesOuter.draw()
                 linesInner.draw()
             }
             
             Graphics.blendSetAlpha()
         }
-        
         
         Graphics.blendEnable()
         Graphics.blendSetAlpha()
@@ -646,6 +665,14 @@ class Blob
             }
             Graphics.blendSetAlpha()
         }
+        
+        
+        ShaderProgramMesh.shared.colorSet(r: 1.0, g: 1.0, b: 0.2, a: 0.6)
+        ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x: center.x + 0.5 * borderPerimeter * 0.25, y: center.y + 0.5 * borderPerimeter * 0.25), thickness: 2.0)
+        
+        ShaderProgramMesh.shared.colorSet(r: 0.0, g: 1.0, b: 0.5, a: 0.6)
+        ShaderProgramMesh.shared.lineDraw(p1: center, p2: CGPoint(x: center.x + 0.5 * borderPerimeter * 0.15, y: center.y + 0.5 * borderPerimeter * 0.15), thickness: 2.0)
+        
     }
     
     func releaseGrabFling() {
@@ -695,18 +722,7 @@ class Blob
                 
                 
                 print("Release LEN = \(dirLength) ACCEL = \(accelSpeed) Dir: \(dir.x) x \(dir.y)")
-                
             }
-            
-            
-            
-            //animationGuideSpeed.x += diffX * dist * 0.07
-            //animationGuideSpeed.y += diffY * dist * 0.07
-            
-            
-            
-            
-            
         }
         
         
@@ -718,7 +734,6 @@ class Blob
     func computeWeight() {
         needsComputeWeight = false
         guard valid == true else { return }
-        
         
         var minDist: CGFloat?
         var maxDist: CGFloat?
@@ -744,6 +759,8 @@ class Blob
             node.weightPercent = 0.0
             node.weightPercentMin = 0.0
             node.weightPercentMax = 0.0
+            
+            node.factor = 0.0
             
             node.edgeFactor = node.edgePercentMin + (node.edgePercentMax - node.edgePercentMin) * edgeBulgeFactor
         }
@@ -776,6 +793,27 @@ class Blob
                 }
             }
         }
+        
+        
+        var maxFactor: CGFloat = 0.0
+        for nodeIndex in 0..<meshNodesBase.count {
+            let node = meshNodesBase.data[nodeIndex]
+            node.factor = (node.weightFactor + node.weightFactor) * (node.edgeFactor)
+            if node.factor > maxFactor {
+                maxFactor = node.factor
+            }
+        }
+        
+        if maxFactor > Math.epsilon {
+            
+            for nodeIndex in 0..<meshNodesBase.count {
+                let node = meshNodesBase.data[nodeIndex]
+                node.factor = node.factor / maxFactor
+                if node.factor < 0.0 { node.factor = 0.0 }
+                if node.factor > 1.0 { node.factor = 1.0 }
+            }
+        }
+        
         
         computeAffine()
     }
@@ -853,29 +891,40 @@ class Blob
             }
         }
         
+        
+        simplePolygon = borderBase.isSimple()
+        
+        
         guard borderBase.count >= 1 else {
             valid = false
             return
         }
+        
+        
+        
+        borderPerimeterBase = 0.0
         
         linesBase.reset()
         var prev = borderBase.data[borderBase.count - 1]
         for i in 0..<borderBase.count {
             let point = borderBase.data[i]
             linesBase.set(index: i, p1: prev, p2: point)
+            borderPerimeterBase += Math.dist(p1: prev, p2: point)
             prev = point
         }
+        
+        
+        
     }
     
     func computeGridPoints() {
         let minSize = min(boundingBox.size.width, boundingBox.size.height)
         
-        #if DEBUG
-            let stepSize = minSize / 12.0
-        #else
-            let stepSize = minSize / 30.0
-        #endif
-        
+        //#if DEBUG
+        //let stepSize = minSize / 12.0
+        //#else
+        let stepSize = minSize / 40.0
+        //#endif
         
         var countX = 0
         var countY = 0
@@ -1394,13 +1443,15 @@ class Blob
                 node.edgePercentMax = sin(maxFactor * Math.PI_2)
             }
             
-            node.dampen = node.edgePercentMax
-            node.factor = node.edgePercentMax
+            //node.dampen = node.edgePercentMax
+            
         }
     }
     
     func computeAffine() {
         needsComputeAffine = false
+        
+        borderPerimeter = borderPerimeterBase * scale
         
         guard valid == true else { return }
         
@@ -1431,16 +1482,23 @@ class Blob
         }
         
         linesInner.reset()
+        linesInnerInvalid.reset()
+        
         linesOuter.reset()
         var prev = border.data[border.count - 1]
         for i in 0..<border.count {
             let point = border.data[i]
             linesInner.set(index: i, p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y))
+            linesInnerInvalid.set(index: i, p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y))
             linesOuter.set(index: i, p1: CGPoint(x: prev.x, y: prev.y), p2: CGPoint(x: point.x, y: point.y))
             
             prev = point
         }
         
+        if simplePolygon == false {
+            valid = false
+            return
+        }
         
     }
     

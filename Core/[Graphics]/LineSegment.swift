@@ -71,6 +71,10 @@ class LineSegment
     
     //This one never misses...
     class func SegmentsIntersect(l1:LineSegment, l2:LineSegment) -> Bool {
+        
+        return LineSegment.SegmentsIntersect(l1p1: l1.p1, l1p2: l1.p2, l2p1: l2.p1, l2p2: l2.p2)
+        
+        /*
         let area1 = TriangleArea(x1: l1.x1, y1: l1.y1, x2: l1.x2, y2: l1.y2, x3: l2.x1, y3: l2.y1)
         if(area1 == 0)
         {
@@ -105,6 +109,46 @@ class LineSegment
         let area4 = TriangleArea(x1: l2.x1, y1: l2.y1, x2: l2.x2, y2: l2.y2, x3: l1.x2, y3: l1.y2)
         if(area4 == 0) {
             return Between(x1: l2.x1, y1: l2.y1, x2: l2.x2, y2: l2.y2, x3: l1.x2, y3: l1.y2)
+        }
+        return (((area1 > 0) != (area2 > 0)) && ((area3 > 0) != (area4 > 0)))
+        */
+    }
+    
+    class func SegmentsIntersect(l1p1:CGPoint, l1p2:CGPoint, l2p1:CGPoint, l2p2:CGPoint) -> Bool {
+        let area1 = TriangleArea(x1: l1p1.x, y1: l1p1.y, x2: l1p2.x, y2: l1p2.y, x3: l2p1.x, y3: l2p1.y)
+        if(area1 == 0)
+        {
+            if(Between(x1: l1p1.x, y1: l1p1.y, x2: l1p2.x, y2: l1p2.y, x3: l2p1.x, y3: l2p1.y)) {
+                return true
+            } else {
+                if(TriangleArea(x1: l1p1.x, y1: l1p1.y, x2: l1p2.x, y2: l1p2.y, x3: l2p2.x, y3: l2p2.y) == 0) {
+                    if(Between(x1: l2p1.x, y1: l2p1.y, x2: l2p2.x, y2: l2p2.y, x3: l1p1.x, y3: l1p1.y)) { return true }
+                    if(Between (x1: l2p1.x, y1: l2p1.y, x2: l2p2.x, y2: l2p2.y, x3: l1p2.x, y3: l1p2.y)) { return true }
+                    return false
+                }
+                else { return false }
+            }
+        }
+        let area2 = TriangleArea(x1: l1p1.x, y1: l1p1.y, x2: l1p2.x, y2: l1p2.y, x3: l2p2.x, y3: l2p2.y)
+        if(area2 == 0) {
+            return Between(x1: l1p1.x, y1: l1p1.y, x2: l1p2.x, y2: l1p2.y, x3: l2p2.x, y3: l2p2.y)
+        }
+        let area3 = TriangleArea(x1: l2p1.x, y1: l2p1.y, x2: l2p2.x, y2: l2p2.y, x3: l1p1.x, y3: l1p1.y)
+        if(area3 == 0) {
+            if(Between(x1: l2p1.x, y1: l2p1.y, x2: l2p2.x, y2: l2p2.y, x3: l1p1.x, y3: l1p1.y)) {
+                return true
+            } else {
+                if(TriangleArea(x1: l2p1.x, y1: l2p1.y, x2: l2p2.x, y2: l2p2.y, x3: l1p2.x, y3: l1p2.y) == 0) {
+                    if(Between(x1: l1p1.x, y1: l1p1.y, x2: l1p2.x, y2: l1p2.y, x3: l2p1.x, y3: l2p1.y)) { return true }
+                    if(Between (x1: l1p1.x, y1: l1p1.y, x2: l1p2.x, y2: l1p2.y, x3: l2p2.x, y3: l2p2.y)) { return true }
+                    return false
+                }
+                return false
+            }
+        }
+        let area4 = TriangleArea(x1: l2p1.x, y1: l2p1.y, x2: l2p2.x, y2: l2p2.y, x3: l1p2.x, y3: l1p2.y)
+        if(area4 == 0) {
+            return Between(x1: l2p1.x, y1: l2p1.y, x2: l2p2.x, y2: l2p2.y, x3: l1p2.x, y3: l1p2.y)
         }
         return (((area1 > 0) != (area2 > 0)) && ((area3 > 0) != (area4 > 0)))
     }

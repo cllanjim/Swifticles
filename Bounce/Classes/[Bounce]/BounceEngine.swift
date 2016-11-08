@@ -239,7 +239,7 @@ class BounceEngine {
     }
     weak var shapeSelectionTouch:UITouch?
     var shapeSelectionOffset:CGPoint = CGPoint.zero
-    var shapeSelectionControlPointIndex:Int?
+    //var shapeSelectionControlPointIndex:Int?
     var shapeSelectionStartSpline = CubicSpline()
     var shapeSelectionDidChange: Bool = false
     
@@ -586,7 +586,8 @@ class BounceEngine {
                     shapeSelectionBlob = blob
                     shapeSelectionStartSpline = blob.spline.clone()
                     shapeSelectionTouch = touch
-                    shapeSelectionControlPointIndex = closest!.index
+                    blob.selectedControlPointIndex = closest!.index
+                    //shapeSelectionControlPointIndex = closest!.index
                     shapeSelectionOffset = offset
                 } else {
                     if shapeSelectionTouch === nil && touchBlob === nil {
@@ -702,7 +703,7 @@ class BounceEngine {
         
         if sceneMode == .edit && editMode == .shape {
             if let blob = shapeSelectionBlob , touch === shapeSelectionTouch {
-                if let index = shapeSelectionControlPointIndex {
+                if let index = blob.selectedControlPointIndex {
                     
                     shapeSelectionDidChange = true
                     
@@ -758,7 +759,7 @@ class BounceEngine {
         
         shapeSelectionTouch = nil
         shapeSelectionBlob = nil
-        shapeSelectionControlPointIndex = nil
+        //shapeSelectionControlPointIndex = nil
         
         weightSelectionBlob = nil
         weightSelectionTouch = nil
